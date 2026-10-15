@@ -30,12 +30,12 @@
                     },
                     colors: {
                         brand: {
-                            50: '#f0f7ff',
-                            100: '#e0effe',
-                            500: '#0284c7',
-                            600: '#0369a1',
-                            700: '#075985',
-                            900: '#0c4a6e',
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            500: '#334155',
+                            600: '#1e293b',
+                            700: '#0f172a',
+                            900: '#020617',
                         }
                     }
                 }
@@ -49,7 +49,7 @@
             height: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #f1f5f9;
+            background: #f8fafc;
         }
         ::-webkit-scrollbar-thumb {
             background: #cbd5e1;
@@ -59,15 +59,15 @@
             background: #94a3b8;
         }
         .modal-backdrop {
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(4px);
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(3px);
         }
         /* Mobile Modal Tuning */
         @media (max-width: 640px) {
             .modal-content-box {
                 margin: 0.5rem;
                 max-height: 94vh !important;
-                border-radius: 0.875rem !important;
+                border-radius: 0.75rem !important;
             }
         }
         /* Print Styles for QR Asset Labels & Technical Reports */
@@ -104,32 +104,52 @@
         }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
 
-    <!-- LOGIN & ROLE SELECTION SCREEN -->
-    <div id="loginScreen" class="fixed inset-0 z-50 bg-slate-900/95 backdrop-blur-md flex items-center justify-center p-3 sm:p-4">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 sm:p-7 space-y-5 border border-slate-200">
+    <!-- LOGIN & EMAIL AUTHENTICATION SCREEN -->
+    <div id="loginScreen" class="fixed inset-0 z-50 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg p-6 sm:p-8 space-y-5 border border-slate-200">
             <div class="text-center space-y-2">
-                <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/30 font-bold text-2xl mx-auto">
-                    <i class="fa-solid fa-city"></i>
+                <div class="w-12 h-12 rounded-xl bg-slate-900 flex items-center justify-center text-white font-bold text-xl mx-auto">
+                    <i class="fa-solid fa-building"></i>
                 </div>
-                <h1 class="text-lg sm:text-xl font-bold text-slate-900 tracking-wide uppercase">VINH TOWER BMS & CMMS</h1>
+                <h1 class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight uppercase">VINH TOWER BMS & CMMS</h1>
                 <p class="text-xs text-slate-500">Hệ Thống Quản Lý Kỹ Thuật, Thiết Bị & Vận Hành Tòa Nhà</p>
             </div>
 
-            <div class="space-y-2.5 text-xs">
-                <div class="flex items-center justify-between">
-                    <label class="font-bold text-slate-700">Chọn Tài Khoản Ca Trực Để Đăng Nhập (*)</label>
-                    <span class="text-[11px] text-sky-600 font-semibold"><i class="fa-solid fa-hand-pointer mr-1"></i>Chạm để vào ca</span>
+            <!-- Email Login Form -->
+            <form onsubmit="handleEmailLoginSubmit(event)" class="space-y-3.5 text-xs">
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1.5">
+                        Nhập Địa Chỉ Email Để Đăng Nhập Ca Trực (*)
+                    </label>
+                    <div class="relative">
+                        <i class="fa-regular fa-envelope absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+                        <input type="email" id="login-email-input" required placeholder="VD: nam.vh@vinhtower.vn" class="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-lg font-mono text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-slate-900">
+                    </div>
+                    <p id="login-email-error" class="hidden text-[11px] text-red-600 font-semibold mt-1.5">
+                        <i class="fa-solid fa-circle-exclamation mr-1"></i>Email không tồn tại trong danh sách phân quyền hệ thống!
+                    </p>
                 </div>
-                <div class="space-y-2.5 max-h-72 overflow-y-auto pr-1" id="role-selection-list">
+
+                <button type="submit" class="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg flex items-center justify-center gap-2 transition-all">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    <span>Đăng Nhập Hệ Thống</span>
+                </button>
+            </form>
+
+            <div class="space-y-2 text-xs pt-3 border-t border-slate-100">
+                <div class="flex items-center justify-between">
+                    <span class="font-medium text-slate-500 text-[11px]">Tài khoản đã cấp quyền (Nhấn để chọn nhanh):</span>
+                </div>
+                <div class="space-y-1.5 max-h-52 overflow-y-auto pr-1" id="role-selection-list">
                     <!-- Populated dynamically -->
                 </div>
             </div>
 
-            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
-                <span>Hỗ trợ phân quyền 1 người phụ trách nhiều hệ thống</span>
-                <span class="text-emerald-600 font-semibold"><i class="fa-solid fa-shield-halved mr-1"></i>RBAC Multi-System</span>
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+                <span>Xác thực định danh vận hành qua Email</span>
+                <span class="text-slate-600 font-medium"><i class="fa-solid fa-shield-halved mr-1"></i>RBAC Security</span>
             </div>
         </div>
     </div>
@@ -140,16 +160,16 @@
         <div id="sidebar-backdrop" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/60 z-40 hidden md:hidden"></div>
 
         <!-- SIDEBAR -->
-        <aside id="sidebar" class="bg-slate-900 text-slate-300 w-64 flex-shrink-0 flex flex-col transition-all duration-300 z-50 fixed md:static inset-y-0 left-0 transform -translate-x-full md:translate-x-0 shadow-2xl md:shadow-none">
+        <aside id="sidebar" class="bg-slate-900 text-slate-300 w-64 flex-shrink-0 flex flex-col transition-all duration-300 z-50 fixed md:static inset-y-0 left-0 transform -translate-x-full md:translate-x-0 border-r border-slate-800">
             <!-- Logo & Brand -->
             <div class="p-4 border-b border-slate-800 flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/30 font-bold text-xl">
-                        <i class="fa-solid fa-city"></i>
+                    <div class="w-9 h-9 rounded-lg bg-white text-slate-900 flex items-center justify-center font-bold text-base">
+                        <i class="fa-solid fa-building"></i>
                     </div>
                     <div>
-                        <h1 class="text-base font-bold text-white tracking-wide uppercase">VINH TOWER</h1>
-                        <p class="text-xs text-sky-400 font-medium">Kỹ Thuật & Vận Hành</p>
+                        <h1 class="text-sm font-bold text-white tracking-wide uppercase">VINH TOWER</h1>
+                        <p class="text-[11px] text-slate-400">Kỹ Thuật & Vận Hành</p>
                     </div>
                 </div>
                 <button onclick="toggleSidebar()" class="md:hidden text-slate-400 hover:text-white p-1.5">
@@ -158,77 +178,77 @@
             </div>
 
             <!-- Navigation Links -->
-            <nav class="flex-1 p-3 space-y-1.5 overflow-y-auto">
-                <div class="text-[11px] uppercase font-bold tracking-wider text-slate-500 px-3 py-2">Menu Quản Trị</div>
+            <nav class="flex-1 p-3 space-y-1 overflow-y-auto">
+                <div class="text-[10px] uppercase font-semibold tracking-wider text-slate-500 px-3 py-2">Danh Mục Quản Trị</div>
                 
-                <button onclick="navigateTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all bg-sky-600 text-white shadow-md shadow-sky-600/30">
-                    <i class="fa-solid fa-chart-pie w-5 text-center text-base"></i>
-                    <span>Tổng quan KPI</span>
+                <button onclick="navigateTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold transition-all bg-white text-slate-900 shadow-sm">
+                    <i class="fa-solid fa-chart-pie w-4 text-center"></i>
+                    <span>Tổng quan vận hành</span>
                 </button>
 
-                <button onclick="navigateTab('assets')" id="nav-assets" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all hover:bg-slate-800 hover:text-white">
-                    <i class="fa-solid fa-microchip w-5 text-center text-base"></i>
+                <button onclick="navigateTab('assets')" id="nav-assets" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <i class="fa-solid fa-server w-4 text-center"></i>
                     <span>Danh Mục Thiết Bị</span>
-                    <span id="badge-total-assets" class="ml-auto text-xs bg-slate-800 px-2 py-0.5 rounded-full text-slate-300">11</span>
+                    <span id="badge-total-assets" class="ml-auto text-[11px] bg-slate-800 px-2 py-0.5 rounded text-slate-300 font-mono">11</span>
                 </button>
 
-                <button onclick="navigateTab('tickets')" id="nav-tickets" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all hover:bg-slate-800 hover:text-white">
-                    <i class="fa-solid fa-triangle-exclamation w-5 text-center text-base"></i>
+                <button onclick="navigateTab('tickets')" id="nav-tickets" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <i class="fa-solid fa-triangle-exclamation w-4 text-center text-red-500"></i>
                     <span>Phiếu Sự Cố / WO</span>
-                    <span id="badge-active-tickets" class="ml-auto text-xs bg-rose-500/20 text-rose-400 px-2 py-0.5 rounded-full font-semibold">3</span>
+                    <span id="badge-active-tickets" class="ml-auto text-[11px] bg-red-600 text-white px-2 py-0.5 rounded font-bold font-mono">3</span>
                 </button>
 
-                <button onclick="navigateTab('ppm')" id="nav-ppm" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all hover:bg-slate-800 hover:text-white">
-                    <i class="fa-solid fa-calendar-check w-5 text-center text-base"></i>
+                <button onclick="navigateTab('ppm')" id="nav-ppm" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <i class="fa-solid fa-calendar-check w-4 text-center"></i>
                     <span>Bảo Trì Định Kỳ (PPM)</span>
                 </button>
 
-                <button onclick="navigateTab('reports')" id="nav-reports" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all hover:bg-slate-800 hover:text-white">
-                    <i class="fa-solid fa-file-contract w-5 text-center text-base"></i>
+                <button onclick="navigateTab('reports')" id="nav-reports" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <i class="fa-solid fa-file-contract w-4 text-center"></i>
                     <span>Báo Cáo Ngày/Tháng/Năm</span>
                 </button>
 
-                <button onclick="navigateTab('systems')" id="nav-systems" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all hover:bg-slate-800 hover:text-white">
-                    <i class="fa-solid fa-layer-group w-5 text-center text-base"></i>
+                <button onclick="navigateTab('systems')" id="nav-systems" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <i class="fa-solid fa-layer-group w-4 text-center"></i>
                     <span>Cấu Hình Hệ Thống</span>
-                    <span id="badge-total-systems" class="ml-auto text-xs bg-sky-500/20 text-sky-400 px-2 py-0.5 rounded-full font-semibold">10</span>
+                    <span id="badge-total-systems" class="ml-auto text-[11px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded font-mono">10</span>
                 </button>
 
-                <button onclick="navigateTab('users')" id="nav-users" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all hover:bg-slate-800 hover:text-white">
-                    <i class="fa-solid fa-users-gear w-5 text-center text-base"></i>
+                <button onclick="navigateTab('users')" id="nav-users" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
+                    <i class="fa-solid fa-users-gear w-4 text-center"></i>
                     <span>Phân Quyền Tài Khoản</span>
                 </button>
 
-                <div class="text-[11px] uppercase font-bold tracking-wider text-slate-500 px-3 pt-4 pb-2 flex items-center justify-between">
+                <div class="text-[10px] uppercase font-semibold tracking-wider text-slate-500 px-3 pt-4 pb-1.5 flex items-center justify-between">
                     <span>Trạng Thái Phân Hệ</span>
-                    <button id="sidebar-add-sys-btn" onclick="openModal('systemModal')" title="Thêm hệ thống mới" class="text-sky-400 hover:text-sky-300"><i class="fa-solid fa-plus"></i></button>
+                    <button id="sidebar-add-sys-btn" onclick="openModal('systemModal')" title="Thêm hệ thống mới" class="text-slate-400 hover:text-white"><i class="fa-solid fa-plus"></i></button>
                 </div>
-                <div id="sidebar-systems-list" class="px-3 py-1 space-y-1 text-xs text-slate-400 max-h-48 overflow-y-auto">
+                <div id="sidebar-systems-list" class="px-2 py-1 space-y-0.5 text-xs text-slate-400 max-h-48 overflow-y-auto">
                     <!-- Populated dynamically -->
                 </div>
             </nav>
 
             <!-- Data Backup & Reset Actions -->
-            <div class="px-3 py-2 border-t border-slate-800 bg-slate-900/90 flex items-center justify-between gap-1">
+            <div class="px-3 py-2 border-t border-slate-800 flex items-center justify-between gap-1.5">
                 <button onclick="exportDataCSV()" title="Xuất danh sách thiết bị ra CSV" class="flex-1 py-1.5 px-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-[11px] font-medium flex items-center justify-center gap-1 transition-colors">
-                    <i class="fa-solid fa-file-csv text-emerald-400"></i> Xuất CSV
+                    <i class="fa-solid fa-file-csv"></i> CSV
                 </button>
                 <button onclick="exportDataJSON()" title="Sao lưu toàn bộ hệ thống JSON" class="flex-1 py-1.5 px-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-[11px] font-medium flex items-center justify-center gap-1 transition-colors">
-                    <i class="fa-solid fa-download text-sky-400"></i> Backup
+                    <i class="fa-solid fa-download"></i> Backup
                 </button>
-                <button onclick="openResetConfirmModal()" title="Khôi phục dữ liệu mẫu ban đầu" class="py-1.5 px-2.5 bg-slate-800 hover:bg-rose-950 text-slate-400 hover:text-rose-400 rounded text-[11px] font-medium transition-colors">
+                <button onclick="openResetConfirmModal()" title="Khôi phục dữ liệu mẫu ban đầu" class="py-1.5 px-2.5 bg-slate-800 hover:bg-red-950 text-slate-400 hover:text-red-400 rounded text-[11px] font-medium transition-colors">
                     <i class="fa-solid fa-rotate-left"></i>
                 </button>
             </div>
 
             <!-- User status / Footer -->
-            <div class="p-3 border-t border-slate-800 bg-slate-950/60 text-xs flex items-center gap-2.5">
-                <div id="current-user-avatar" class="w-8 h-8 rounded-full bg-sky-600 flex items-center justify-center text-white font-bold flex-shrink-0">
+            <div class="p-3 border-t border-slate-800 bg-slate-950 text-xs flex items-center gap-2.5">
+                <div id="current-user-avatar" class="w-8 h-8 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-white font-bold flex-shrink-0">
                     KT
                 </div>
                 <div class="flex-1 min-w-0">
                     <p id="current-user-name" class="font-semibold text-slate-200 truncate">Võ Hoài Nam</p>
-                    <p id="current-user-role-label" class="text-sky-400 truncate text-[11px]">Toàn bộ hệ thống (Admin)</p>
+                    <p id="current-user-role-label" class="text-slate-400 truncate text-[11px]">Toàn bộ hệ thống (Admin)</p>
                 </div>
                 <button onclick="openLoginSwitchModal()" title="Đổi tài khoản trực ca" class="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors flex-shrink-0">
                     <i class="fa-solid fa-right-from-bracket"></i>
@@ -239,59 +259,66 @@
         <!-- MAIN CONTENT AREA -->
         <div class="flex-1 flex flex-col overflow-hidden w-full">
             <!-- Top Header -->
-            <header class="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-3 sm:px-6 z-20 shadow-sm flex-shrink-0">
+            <header class="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-3 sm:px-6 z-20 flex-shrink-0">
                 <div class="flex items-center gap-3 min-w-0">
-                    <button onclick="toggleSidebar()" title="Đóng / Mở thanh menu bên trái" class="w-9 h-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none transition-colors flex-shrink-0">
-                        <i class="fa-solid fa-bars text-base"></i>
+                    <button onclick="toggleSidebar()" title="Đóng / Mở thanh menu" class="w-9 h-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none transition-colors flex-shrink-0">
+                        <i class="fa-solid fa-bars text-sm"></i>
                     </button>
                     <div class="min-w-0">
-                        <h2 id="page-title" class="text-sm sm:text-lg font-bold text-slate-800 truncate">Bảng Tin Kỹ Thuật & Giám Sát Vận Hành</h2>
-                        <p class="text-[11px] text-slate-500 truncate hidden sm:block">Tòa nhà 25 Tầng thương mại & 3 Tầng hầm (Tổng diện tích sàn 42,000m²)</p>
+                        <h2 id="page-title" class="text-sm sm:text-base font-bold text-slate-900 truncate">Bảng Tin Kỹ Thuật & Giám Sát Vận Hành</h2>
+                        <p class="text-[11px] text-slate-500 truncate hidden sm:block">Tòa nhà 25 Tầng thương mại & 3 Tầng hầm (42,000m²)</p>
                     </div>
                 </div>
 
                 <!-- Shift Status & Actions -->
-                <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                <div class="flex items-center gap-2 flex-shrink-0">
                     <!-- Live DateTime Badge -->
-                    <div class="hidden xl:flex items-center gap-2 bg-slate-100 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700">
-                        <i class="fa-regular fa-clock text-sky-600"></i>
+                    <div class="hidden xl:flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700">
+                        <i class="fa-regular fa-clock text-slate-400"></i>
                         <span id="live-datetime" class="font-mono font-medium">--/--/---- --:--:--</span>
                     </div>
 
                     <!-- Active User Permission Pill -->
-                    <div onclick="openLoginSwitchModal()" class="hidden lg:flex items-center gap-2 bg-sky-50 hover:bg-sky-100 border border-sky-200 rounded-lg px-3 py-1.5 text-xs text-sky-800 cursor-pointer transition-colors" title="Nhấn để chuyển đổi tài khoản trực ca">
-                        <i class="fa-solid fa-user-shield text-sky-600"></i>
-                        <span>Phụ trách: <strong id="header-assigned-systems" class="font-bold">Tất cả hệ thống</strong></span>
+                    <div onclick="openLoginSwitchModal()" class="hidden lg:flex items-center gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 cursor-pointer transition-colors" title="Nhấn để chuyển đổi tài khoản trực ca">
+                        <i class="fa-regular fa-user text-slate-500"></i>
+                        <span>Phụ trách: <strong id="header-assigned-systems" class="font-semibold text-slate-900">Tất cả hệ thống</strong></span>
                     </div>
 
-                    <!-- Add Asset Quick Action (Replaced Add System) -->
-                    <button onclick="openModal('assetModal')" class="bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold px-3.5 py-2 rounded-lg flex items-center gap-1.5 shadow-sm transition-colors">
-                        <i class="fa-solid fa-circle-plus"></i>
-                        <span class="hidden sm:inline">+ Thêm Thiết Bị</span>
+                    <!-- Centralized Data Hub Quick Action (No-Code Cloud & Master Excel) -->
+                    <button onclick="openModal('centralDataModal')" class="bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 text-xs font-semibold px-3 py-2 rounded-lg flex items-center gap-1.5 transition-colors shadow-sm" title="Quản lý dữ liệu tập trung, đồng bộ Cloud tự động & xuất/nhập file Excel tổng">
+                        <span id="cloud-sync-dot" class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        <i class="fa-solid fa-database text-slate-600"></i>
+                        <span class="hidden sm:inline">Dữ Liệu Tập Trung</span>
                     </button>
 
-                    <!-- Quick Report Generator Action -->
-                    <button onclick="navigateTab('reports')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-2 rounded-lg flex items-center gap-1.5 shadow-sm transition-colors" title="Tạo và xuất báo cáo vận hành Ngày / Tháng / Năm">
-                        <i class="fa-solid fa-file-lines"></i>
-                        <span class="hidden sm:inline">Tạo Báo Cáo</span>
+                    <!-- Add Asset Quick Action (Neutral) -->
+                    <button onclick="openModal('assetModal')" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium px-3 py-2 rounded-lg flex items-center gap-1.5 transition-colors">
+                        <i class="fa-solid fa-plus"></i>
+                        <span class="hidden sm:inline">Thêm Thiết Bị</span>
                     </button>
 
-                    <!-- Quick QR Lookup / Scanner Simulator -->
-                    <button onclick="openModal('qrScannerModal')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-3 py-2 rounded-lg flex items-center gap-1.5 shadow-sm transition-colors" title="Quét hoặc nhập mã QR thiết bị để tra cứu nhanh">
-                        <i class="fa-solid fa-qrcode"></i>
-                        <span class="hidden sm:inline">Quét / Tra Mã QR</span>
+                    <!-- Quick Report Generator Action (Neutral Outline) -->
+                    <button onclick="navigateTab('reports')" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-medium px-3 py-2 rounded-lg flex items-center gap-1.5 transition-colors" title="Tạo và xuất báo cáo vận hành Ngày / Tháng / Năm">
+                        <i class="fa-solid fa-file-lines text-slate-500"></i>
+                        <span class="hidden sm:inline">Báo Cáo</span>
                     </button>
 
-                    <!-- Quick Action -->
-                    <button onclick="openModal('ticketModal')" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold px-3 py-2 rounded-lg flex items-center gap-1.5 shadow-sm transition-colors">
-                        <i class="fa-solid fa-plus-circle"></i>
+                    <!-- Quick QR Lookup (Neutral Outline) -->
+                    <button onclick="openModal('qrScannerModal')" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-medium px-3 py-2 rounded-lg flex items-center gap-1.5 transition-colors" title="Quét hoặc nhập mã QR thiết bị">
+                        <i class="fa-solid fa-qrcode text-slate-500"></i>
+                        <span class="hidden sm:inline">Quét QR</span>
+                    </button>
+
+                    <!-- Quick Action: HIGH ATTENTION RED -->
+                    <button onclick="openModal('ticketModal')" class="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-3.5 py-2 rounded-lg flex items-center gap-1.5 shadow-sm transition-colors">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
                         <span class="hidden sm:inline">Báo Sự Cố Mới</span>
                     </button>
 
                     <!-- Notifications Dropdown Trigger -->
                     <button onclick="toggleNotificationPanel()" class="w-9 h-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 relative flex-shrink-0">
                         <i class="fa-regular fa-bell"></i>
-                        <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500"></span>
+                        <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-600"></span>
                     </button>
                 </div>
             </header>
@@ -301,92 +328,92 @@
 
                 <!-- TAB 1: DASHBOARD -->
                 <section id="tab-dashboard" class="tab-content space-y-6">
-                    <!-- Row 1: Interactive KPI Cards Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-                        <!-- Card 1: Navigate to Assets -->
-                        <div onclick="navigateTab('assets')" class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-sky-500 hover:bg-sky-50/30 transition-all cursor-pointer group">
+                    <!-- Row 1: Interactive KPI Cards Grid (Neutral for normal, Red for active incidents) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <!-- Card 1: Navigate to Assets (Neutral) -->
+                        <div onclick="navigateTab('assets')" class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-slate-400 transition-all cursor-pointer group">
                             <div class="flex items-center justify-between">
-                                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider group-hover:text-sky-700">Tổng Thiết Bị MEP</span>
-                                <div class="w-10 h-10 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center group-hover:bg-sky-600 group-hover:text-white transition-colors">
-                                    <i class="fa-solid fa-server text-lg"></i>
+                                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Tổng Thiết Bị MEP</span>
+                                <div class="w-9 h-9 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-colors">
+                                    <i class="fa-solid fa-server text-sm"></i>
                                 </div>
                             </div>
                             <div class="mt-3 flex items-baseline gap-2">
                                 <span id="kpi-total-assets" class="text-2xl font-bold text-slate-900">11</span>
-                                <span class="text-xs text-slate-500 font-medium">thiết bị phụ trách</span>
+                                <span class="text-xs text-slate-500">thiết bị phụ trách</span>
                             </div>
-                            <div class="mt-2 flex items-center justify-between text-xs text-emerald-600">
-                                <span><i class="fa-solid fa-circle-check mr-1"></i><span id="kpi-active-rate">81.8%</span> sẵn sàng</span>
-                                <span class="text-sky-600 font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">Chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+                            <div class="mt-2.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                                <span><span id="kpi-active-rate" class="font-semibold text-slate-900">81.8%</span> sẵn sàng</span>
+                                <span class="text-slate-700 font-medium flex items-center gap-1 group-hover:translate-x-1 transition-transform">Chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
                             </div>
                         </div>
 
-                        <!-- Card 2: Navigate to Tickets -->
-                        <div onclick="navigateTab('tickets')" class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-rose-500 hover:bg-rose-50/30 transition-all cursor-pointer group">
+                        <!-- Card 2: Navigate to Tickets (HIGH ATTENTION RED) -->
+                        <div onclick="navigateTab('tickets')" class="bg-white p-5 rounded-xl border-2 border-red-200 shadow-sm hover:border-red-600 bg-red-50/10 transition-all cursor-pointer group">
                             <div class="flex items-center justify-between">
-                                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider group-hover:text-rose-700">Sự Cố Đang Xử Lý</span>
-                                <div class="w-10 h-10 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center group-hover:bg-rose-600 group-hover:text-white transition-colors">
-                                    <i class="fa-solid fa-triangle-exclamation text-lg"></i>
+                                <span class="text-xs font-bold text-red-700 uppercase tracking-wider">Sự Cố Đang Xử Lý</span>
+                                <div class="w-9 h-9 rounded-lg bg-red-100 text-red-600 flex items-center justify-center group-hover:bg-red-600 group-hover:text-white transition-colors">
+                                    <i class="fa-solid fa-triangle-exclamation text-sm"></i>
                                 </div>
                             </div>
                             <div class="mt-3 flex items-baseline gap-2">
-                                <span id="kpi-open-tickets" class="text-2xl font-bold text-rose-600">3</span>
-                                <span class="text-xs text-slate-500 font-medium">phiếu cần xử lý</span>
+                                <span id="kpi-open-tickets" class="text-2xl font-bold text-red-600">3</span>
+                                <span class="text-xs text-red-700 font-medium">phiếu cần xử lý ngay</span>
                             </div>
-                            <div class="mt-2 flex items-center justify-between text-xs text-rose-500 font-medium">
+                            <div class="mt-2.5 pt-2.5 border-t border-red-100 flex items-center justify-between text-xs text-red-600 font-semibold">
                                 <span><i class="fa-solid fa-circle-exclamation mr-1"></i><span id="kpi-urgent-tickets">3 phiếu khẩn cấp / cao</span></span>
-                                <span class="text-rose-600 font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">Xử lý <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+                                <span class="flex items-center gap-1 group-hover:translate-x-1 transition-transform">Xử lý <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
                             </div>
                         </div>
 
-                        <!-- Card 3: Navigate to PPM -->
-                        <div onclick="navigateTab('ppm')" class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-amber-500 hover:bg-amber-50/30 transition-all cursor-pointer group">
+                        <!-- Card 3: Navigate to PPM (Neutral) -->
+                        <div onclick="navigateTab('ppm')" class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-slate-400 transition-all cursor-pointer group">
                             <div class="flex items-center justify-between">
-                                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider group-hover:text-amber-700">Lịch Bảo Trì Ca Này</span>
-                                <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-white transition-colors">
-                                    <i class="fa-solid fa-clipboard-check text-lg"></i>
+                                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Lịch Bảo Trì Ca Này</span>
+                                <div class="w-9 h-9 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-colors">
+                                    <i class="fa-solid fa-clipboard-check text-sm"></i>
                                 </div>
                             </div>
                             <div class="mt-3 flex items-baseline gap-2">
-                                <span id="kpi-ppm-count" class="text-2xl font-bold text-amber-600">4</span>
-                                <span class="text-xs text-slate-500 font-medium">hạng mục kiểm tra</span>
+                                <span id="kpi-ppm-count" class="text-2xl font-bold text-slate-900">4</span>
+                                <span class="text-xs text-slate-500">hạng mục kiểm tra</span>
                             </div>
-                            <div class="mt-2 flex items-center justify-between text-xs text-slate-500">
-                                <span><i class="fa-regular fa-clock mr-1"></i>Theo dõi checklist</span>
-                                <span class="text-amber-600 font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">Mở PPM <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+                            <div class="mt-2.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                                <span>Theo dõi định kỳ & đếm ngày</span>
+                                <span class="text-slate-700 font-medium flex items-center gap-1 group-hover:translate-x-1 transition-transform">Mở PPM <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
                             </div>
                         </div>
 
-                        <!-- Card 4: Open Energy Modal -->
-                        <div onclick="openModal('energyModal')" class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-emerald-500 hover:bg-emerald-50/30 transition-all cursor-pointer group">
+                        <!-- Card 4: Open Energy Modal (Neutral) -->
+                        <div onclick="openModal('energyModal')" class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-slate-400 transition-all cursor-pointer group">
                             <div class="flex items-center justify-between">
-                                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider group-hover:text-emerald-700">Năng Lượng Tiêu Thụ</span>
-                                <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-colors">
-                                    <i class="fa-solid fa-bolt text-lg"></i>
+                                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Điện Năng Tiêu Thụ</span>
+                                <div class="w-9 h-9 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-colors">
+                                    <i class="fa-solid fa-bolt text-sm"></i>
                                 </div>
                             </div>
                             <div class="mt-3 flex items-baseline gap-2">
                                 <span id="kpi-energy-kwh" class="text-2xl font-bold text-slate-900">3,420</span>
-                                <span class="text-xs text-slate-500 font-medium">kWh hôm nay</span>
+                                <span class="text-xs text-slate-500">kWh hôm nay</span>
                             </div>
-                            <div class="mt-2 flex items-center justify-between text-xs text-emerald-600">
-                                <span><i class="fa-solid fa-arrow-trend-down mr-1"></i>-4.2% so với hôm qua</span>
-                                <span class="text-emerald-700 font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">Ghi số kWh <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+                            <div class="mt-2.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                                <span>-4.2% so với hôm qua</span>
+                                <span class="text-slate-700 font-medium flex items-center gap-1 group-hover:translate-x-1 transition-transform">Ghi số kWh <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
                             </div>
                         </div>
                     </div>
 
                     <!-- Row 1.5: Comprehensive Systems Overview Matrix -->
-                    <div class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm space-y-3">
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
                         <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
                             <div>
-                                <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
-                                    <i class="fa-solid fa-layer-group text-sky-600"></i> Tổng Quan Trạng Thái Các Hệ Thống Kỹ Thuật Tòa Nhà
+                                <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                    <i class="fa-solid fa-layer-group text-slate-500"></i> Tổng Quan Trạng Thái Các Hệ Thống Kỹ Thuật
                                 </h3>
-                                <p class="text-[11px] text-slate-500 mt-0.5">Nhấp vào bất kỳ hệ thống nào để lọc nhanh thiết bị thuộc phân hệ đó.</p>
+                                <p class="text-[11px] text-slate-500 mt-0.5">Hệ thống bình thường hiển thị màu xám trung tính. Hệ thống đang có sự cố được đánh dấu <strong class="text-red-600">màu đỏ</strong> cần chú ý.</p>
                             </div>
-                            <button onclick="navigateTab('systems')" class="text-xs text-sky-600 hover:text-sky-700 font-semibold flex items-center gap-1">
-                                Quản lý cấu hình <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                            <button onclick="navigateTab('systems')" class="text-xs text-slate-700 hover:text-slate-900 font-semibold flex items-center gap-1">
+                                Cấu hình hệ thống <i class="fa-solid fa-chevron-right text-[10px]"></i>
                             </button>
                         </div>
                         <div id="dashboard-systems-overview-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
@@ -396,24 +423,24 @@
 
                     <!-- Row 2: Charts Section -->
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                        <div class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm lg:col-span-5 flex flex-col justify-between">
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm lg:col-span-5 flex flex-col justify-between">
                             <div class="flex items-center justify-between mb-3">
-                                <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
-                                    <i class="fa-solid fa-chart-pie text-sky-500"></i> Phân Bổ Trạng Thái Thiết Bị
+                                <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                    <i class="fa-solid fa-chart-pie text-slate-500"></i> Tỷ Lệ Trạng Thái Thiết Bị
                                 </h3>
-                                <span class="text-[11px] text-slate-400 font-medium">Thời gian thực</span>
+                                <span class="text-[11px] text-slate-400">Thời gian thực</span>
                             </div>
                             <div class="relative w-full h-64">
                                 <canvas id="chartAssetStatus"></canvas>
                             </div>
                         </div>
 
-                        <div class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm lg:col-span-7 flex flex-col justify-between">
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm lg:col-span-7 flex flex-col justify-between">
                             <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                                <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
-                                    <i class="fa-solid fa-chart-bar text-indigo-500"></i> Thống Kê Thiết Bị & Sự Cố Theo Hệ Thống Kỹ Thuật
+                                <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                    <i class="fa-solid fa-chart-column text-slate-500"></i> Tương Quan Thiết Bị & Sự Cố Theo Hệ Thống
                                 </h3>
-                                <span class="text-xs text-slate-400">Đồng bộ tự động theo danh mục phân hệ</span>
+                                <span class="text-xs text-red-600 font-medium">Cột đỏ: Sự cố cần chú ý</span>
                             </div>
                             <div class="relative w-full h-64">
                                 <canvas id="chartSystemTickets"></canvas>
@@ -423,37 +450,37 @@
 
                     <!-- Row 3: Operations & Shift Handover Section -->
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                        <div class="lg:col-span-7 bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden flex flex-col">
-                            <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
-                                <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
-                                    <i class="fa-solid fa-fire text-rose-500"></i> Sự Cố & Công Việc Đang Diễn Ra
+                        <div class="lg:col-span-7 bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+                            <div class="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+                                <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-exclamation text-red-600"></i> Sự Cố & Công Việc Đang Xử Lý
                                 </h3>
-                                <button onclick="navigateTab('tickets')" class="text-xs text-sky-600 hover:text-sky-700 font-semibold flex items-center gap-1">
+                                <button onclick="navigateTab('tickets')" class="text-xs text-slate-700 hover:text-slate-900 font-semibold flex items-center gap-1">
                                     Xem tất cả <i class="fa-solid fa-chevron-right text-[10px]"></i>
                                 </button>
                             </div>
                             <div id="dashboard-recent-tickets" class="divide-y divide-slate-100 flex-1"></div>
                         </div>
 
-                        <div class="lg:col-span-5 bg-white rounded-xl border border-slate-200/80 shadow-sm p-5 flex flex-col justify-between">
+                        <div class="lg:col-span-5 bg-white rounded-xl border border-slate-200 shadow-sm p-5 flex flex-col justify-between">
                             <div>
                                 <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-100">
-                                    <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
-                                        <i class="fa-solid fa-book-open text-sky-600"></i> Sổ Giao Ca Trực Kỹ Thuật
+                                    <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                        <i class="fa-solid fa-book text-slate-500"></i> Sổ Giao Ca Trực Kỹ Thuật
                                     </h3>
-                                    <span class="text-[11px] bg-sky-50 text-sky-700 px-2.5 py-0.5 rounded-full font-semibold">Ca Sáng</span>
+                                    <span class="text-[11px] bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded font-medium">Ca Sáng</span>
                                 </div>
 
                                 <div id="handover-logs-container" class="text-xs text-slate-600 space-y-3 max-h-72 overflow-y-auto pr-1">
-                                    <div class="p-3.5 bg-amber-50 rounded-xl border border-amber-200/70">
-                                        <p class="font-bold text-amber-900 mb-1 flex items-center gap-1.5">
-                                            <i class="fa-solid fa-triangle-exclamation text-amber-600"></i> Lưu ý Ca Trực Trọng Tâm:
+                                    <div class="p-3.5 bg-red-50 rounded-lg border border-red-200">
+                                        <p class="font-bold text-red-800 mb-1 flex items-center gap-1.5">
+                                            <i class="fa-solid fa-triangle-exclamation text-red-600"></i> Cảnh Báo Trọng Tâm Ca Trực:
                                         </p>
-                                        <p class="text-amber-800 leading-relaxed">Máy bơm Chiller số 2 tại Tầng Mái phát tiếng rít dây curoa lúc 07:15. Đã cử tổ cơ điện kiểm tra bôi trơn và căng dây.</p>
+                                        <p class="text-red-700 leading-relaxed">Máy bơm Chiller số 2 tại Tầng Mái phát tiếng rít dây curoa lúc 07:15. Đã cử tổ cơ điện kiểm tra bôi trơn và căng dây.</p>
                                     </div>
-                                    <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
+                                    <div class="p-3.5 bg-slate-50 rounded-lg border border-slate-200">
                                         <div class="flex items-center justify-between text-slate-500 text-[11px] mb-1 font-medium">
-                                            <span><i class="fa-solid fa-user-gear mr-1 text-sky-600"></i>KTV. Lê Văn Tuấn</span>
+                                            <span><i class="fa-regular fa-user mr-1"></i>KTV. Lê Văn Tuấn</span>
                                             <span>07:45 AM</span>
                                         </div>
                                         <p class="text-slate-700 leading-relaxed">Kiểm tra thông số áp lực nước thủy cục vào bể ngầm B3: ổn định ở 2.4 bar. Hệ thống lọc cát hoạt động tự động bình thường.</p>
@@ -461,15 +488,15 @@
                                 </div>
 
                                 <form onsubmit="handleAddHandoverNote(event)" class="mt-3 pt-3 border-t border-slate-100 flex gap-2">
-                                    <input type="text" id="quick-handover-input" required placeholder="Nhập ghi chú bàn giao ca mới..." class="flex-1 text-xs px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500">
-                                    <button type="submit" class="px-3.5 py-2 bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold rounded-lg transition-colors flex-shrink-0">
-                                        <i class="fa-solid fa-paper-plane mr-1"></i> Ghi Sổ
+                                    <input type="text" id="quick-handover-input" required placeholder="Nhập ghi chú bàn giao ca mới..." class="flex-1 text-xs px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900">
+                                    <button type="submit" class="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg transition-colors flex-shrink-0">
+                                        Ghi Sổ
                                     </button>
                                 </form>
                             </div>
 
-                            <button onclick="navigateTab('ppm')" class="mt-4 w-full py-2.5 bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold rounded-lg flex items-center justify-center gap-2 transition-colors">
-                                <i class="fa-solid fa-list-check"></i> Đi tới Danh mục Kiểm tra Định kỳ (PPM)
+                            <button onclick="navigateTab('ppm')" class="mt-4 w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold rounded-lg flex items-center justify-center gap-2 transition-colors">
+                                <i class="fa-solid fa-list-check"></i> Đi tới Lịch Bảo Trì & Checklist (PPM)
                             </button>
                         </div>
                     </div>
@@ -477,16 +504,16 @@
 
                 <!-- TAB 2: ASSET MANAGEMENT -->
                 <section id="tab-assets" class="tab-content hidden space-y-4">
-                    <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex flex-col xl:flex-row items-center justify-between gap-4">
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col xl:flex-row items-center justify-between gap-4">
                         <div class="flex flex-1 flex-wrap items-center gap-2.5 w-full">
                             <div class="relative min-w-[200px] flex-1">
                                 <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
-                                <input type="text" id="asset-search" oninput="renderAssetTable()" placeholder="Tìm theo mã, tên, IP, tủ đấu nối, model..." class="w-full pl-9 pr-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500">
+                                <input type="text" id="asset-search" oninput="renderAssetTable()" placeholder="Tìm theo mã, tên, IP, tủ đấu nối, model..." class="w-full pl-9 pr-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900">
                             </div>
 
-                            <select id="asset-filter-system" onchange="renderAssetTable()" class="text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500"></select>
+                            <select id="asset-filter-system" onchange="renderAssetTable()" class="text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900"></select>
 
-                            <select id="asset-filter-floor" onchange="renderAssetTable()" class="text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                            <select id="asset-filter-floor" onchange="renderAssetTable()" class="text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900">
                                 <option value="ALL">Tất cả Vị Trí / Khu Vực</option>
                                 <option value="Tầng Hầm B1-B3">Tầng Hầm B1 - B3</option>
                                 <option value="Tầng 1 - Sảnh">Tầng 1 - Đại Sảnh & Lễ Tân</option>
@@ -497,7 +524,7 @@
                                 <option value="Các Tầng Văn Phòng">Các Tầng Văn Phòng (2-24)</option>
                             </select>
 
-                            <select id="asset-filter-status" onchange="renderAssetTable()" class="text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                            <select id="asset-filter-status" onchange="renderAssetTable()" class="text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900">
                                 <option value="ALL">Tất cả Trạng Thái</option>
                                 <option value="RUNNING">Hoạt động tốt</option>
                                 <option value="WARNING">Cảnh báo / Bảo trì</option>
@@ -507,22 +534,22 @@
                         </div>
 
                         <div class="flex flex-wrap items-center gap-2 w-full xl:w-auto justify-end">
-                            <button onclick="openBatchQrModal()" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-semibold px-3.5 py-2.5 rounded-lg flex items-center justify-center gap-1.5 transition-colors flex-shrink-0">
+                            <button onclick="openBatchQrModal()" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-medium px-3.5 py-2 rounded-lg flex items-center justify-center gap-1.5 transition-colors flex-shrink-0">
                                 <i class="fa-solid fa-qrcode"></i>
                                 <span>In Bảng Tem QR</span>
                             </button>
-                            <button onclick="openModal('importAssetModal')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-semibold px-3.5 py-2.5 rounded-lg flex items-center justify-center gap-1.5 transition-colors flex-shrink-0">
+                            <button onclick="openModal('importAssetModal')" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-medium px-3.5 py-2 rounded-lg flex items-center justify-center gap-1.5 transition-colors flex-shrink-0">
                                 <i class="fa-solid fa-file-import"></i>
-                                <span>Nhập Từ File (Excel/CSV)</span>
+                                <span>Nhập File (Excel/CSV)</span>
                             </button>
-                            <button onclick="openModal('assetModal')" class="bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 shadow-sm transition-colors flex-shrink-0">
-                                <i class="fa-solid fa-circle-plus"></i>
+                            <button onclick="openModal('assetModal')" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2 rounded-lg flex items-center justify-center gap-2 shadow-sm transition-colors flex-shrink-0">
+                                <i class="fa-solid fa-plus"></i>
                                 <span>Thêm Thiết Bị</span>
                             </button>
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
                         <div class="overflow-x-auto">
                             <table class="w-full text-left text-xs">
                                 <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase font-semibold">
@@ -532,7 +559,7 @@
                                         <th class="px-4 py-3.5">Hệ Thống Kỹ Thuật</th>
                                         <th class="px-4 py-3.5">Vị Trí / Khu Vực</th>
                                         <th class="px-4 py-3.5">Địa Chỉ IP / Tủ Đấu Nối</th>
-                                        <th class="px-4 py-3.5">Chu Kỳ PPM</th>
+                                        <th class="px-4 py-3.5">Chu Kỳ & Hạn Bảo Trì</th>
                                         <th class="px-4 py-3.5 text-center">Mã QR</th>
                                         <th class="px-4 py-3.5">Trạng Thái</th>
                                         <th class="px-4 py-3.5 text-right">Thao Tác</th>
@@ -541,9 +568,9 @@
                                 <tbody id="asset-table-body" class="divide-y divide-slate-100"></tbody>
                             </table>
                         </div>
-                        <div class="p-3 bg-slate-50/70 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
-                            <div>Hiển thị <span id="asset-showing-count" class="font-bold text-slate-700">0</span> trên tổng số <span id="asset-total-count" class="font-bold text-slate-700">0</span> thiết bị</div>
-                            <button onclick="exportDataCSV()" class="text-sky-600 hover:underline font-medium flex items-center gap-1">
+                        <div class="p-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+                            <div>Hiển thị <span id="asset-showing-count" class="font-bold text-slate-800">0</span> / <span id="asset-total-count" class="font-bold text-slate-800">0</span> thiết bị</div>
+                            <button onclick="exportDataCSV()" class="text-slate-700 hover:text-slate-900 hover:underline font-medium flex items-center gap-1">
                                 <i class="fa-solid fa-file-export"></i> Xuất bảng Excel/CSV
                             </button>
                         </div>
@@ -552,30 +579,30 @@
 
                 <!-- TAB 3: WORK ORDERS / TICKETS -->
                 <section id="tab-tickets" class="tab-content hidden space-y-4">
-                    <div class="flex flex-col lg:flex-row items-center justify-between gap-4 bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm">
-                        <div class="flex items-center gap-3 flex-wrap w-full lg:w-auto">
-                            <div class="text-xs px-2.5 py-1 bg-slate-100 rounded-lg">
-                                <span class="text-slate-500">Tổng phiếu: </span>
-                                <strong id="ticket-stat-total" class="font-bold text-slate-800">0</strong>
+                    <div class="flex flex-col lg:flex-row items-center justify-between gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="flex items-center gap-2.5 flex-wrap w-full lg:w-auto">
+                            <div class="text-xs px-3 py-1.5 bg-slate-100 rounded-lg border border-slate-200">
+                                <span class="text-slate-600">Tổng phiếu: </span>
+                                <strong id="ticket-stat-total" class="font-bold text-slate-900">0</strong>
                             </div>
-                            <div class="text-xs px-2.5 py-1 bg-amber-50 rounded-lg">
-                                <span class="text-amber-700">Mới tiếp nhận: </span>
-                                <strong id="ticket-stat-open" class="font-bold text-amber-600">0</strong>
+                            <div class="text-xs px-3 py-1.5 bg-red-50 rounded-lg border border-red-200">
+                                <span class="text-red-700">Mới tiếp nhận: </span>
+                                <strong id="ticket-stat-open" class="font-bold text-red-600">0</strong>
                             </div>
-                            <div class="text-xs px-2.5 py-1 bg-sky-50 rounded-lg">
-                                <span class="text-sky-700">Đang xử lý: </span>
-                                <strong id="ticket-stat-inprog" class="font-bold text-sky-600">0</strong>
+                            <div class="text-xs px-3 py-1.5 bg-red-50/60 rounded-lg border border-red-200">
+                                <span class="text-red-700">Đang xử lý: </span>
+                                <strong id="ticket-stat-inprog" class="font-bold text-red-600">0</strong>
                             </div>
-                            <div class="text-xs px-2.5 py-1 bg-emerald-50 rounded-lg">
-                                <span class="text-emerald-700">Hoàn thành: </span>
-                                <strong id="ticket-stat-done" class="font-bold text-emerald-600">0</strong>
+                            <div class="text-xs px-3 py-1.5 bg-slate-100 rounded-lg border border-slate-200">
+                                <span class="text-slate-600">Hoàn thành: </span>
+                                <strong id="ticket-stat-done" class="font-bold text-slate-800">0</strong>
                             </div>
                         </div>
 
                         <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto justify-end">
-                            <select id="ticket-filter-system" onchange="renderTicketTable()" class="text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500"></select>
+                            <select id="ticket-filter-system" onchange="renderTicketTable()" class="text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900"></select>
 
-                            <select id="ticket-filter-priority" onchange="renderTicketTable()" class="text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                            <select id="ticket-filter-priority" onchange="renderTicketTable()" class="text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900">
                                 <option value="ALL">Mọi Mức Ưu Tiên</option>
                                 <option value="CRITICAL">Khẩn Cấp (Critical)</option>
                                 <option value="HIGH">Ưu Tiên Cao (High)</option>
@@ -583,7 +610,7 @@
                                 <option value="LOW">Thấp (Low)</option>
                             </select>
 
-                            <select id="ticket-filter-status" onchange="renderTicketTable()" class="text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                            <select id="ticket-filter-status" onchange="renderTicketTable()" class="text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900">
                                 <option value="ALL">Tất cả Trạng Thái</option>
                                 <option value="NEW">Mới tiếp nhận</option>
                                 <option value="IN_PROGRESS">Đang xử lý</option>
@@ -591,13 +618,13 @@
                                 <option value="VERIFIED">Đã nghiệm thu</option>
                             </select>
 
-                            <button onclick="openModal('ticketModal')" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold px-4 py-2 rounded-lg flex items-center gap-2 shadow-sm transition-colors whitespace-nowrap">
+                            <button onclick="openModal('ticketModal')" class="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-4 py-2 rounded-lg flex items-center gap-2 shadow-sm transition-colors whitespace-nowrap">
                                 <i class="fa-solid fa-plus"></i> Tạo Phiếu Sự Cố
                             </button>
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
                         <div class="overflow-x-auto">
                             <table class="w-full text-left text-xs">
                                 <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase font-semibold">
@@ -605,7 +632,7 @@
                                         <th class="px-4 py-3.5">Mã Phiếu</th>
                                         <th class="px-4 py-3.5">Nội Dung Sự Cố / Yêu Cầu</th>
                                         <th class="px-4 py-3.5">Hệ Thống & Thiết Bị</th>
-                                        <th class="px-4 py-3.5">Ưu Tiên</th>
+                                        <th class="px-4 py-3.5">Mức Độ Chú Ý</th>
                                         <th class="px-4 py-3.5">Kỹ Thuật Phụ Trách</th>
                                         <th class="px-4 py-3.5">Thời Gian Báo</th>
                                         <th class="px-4 py-3.5">Trạng Thái</th>
@@ -620,59 +647,59 @@
 
                 <!-- TAB 4: PREVENTIVE MAINTENANCE (PPM) -->
                 <section id="tab-ppm" class="tab-content hidden space-y-4">
-                    <div class="bg-gradient-to-r from-sky-900 to-indigo-900 text-white p-5 rounded-xl shadow-md flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+                    <div class="bg-white border border-slate-200 p-5 rounded-xl shadow-sm flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
                         <div>
-                            <h3 class="text-base font-bold flex items-center gap-2">
-                                <i class="fa-solid fa-calendar-check text-sky-400"></i> Lịch Bảo Trì Tự Động, Đếm Ngày & Checklist Định Kỳ (PPM)
+                            <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-calendar-check text-slate-600"></i> Lịch Bảo Trì Tự Động, Đếm Ngày & Checklist Định Kỳ (PPM)
                             </h3>
-                            <p class="text-xs text-sky-200 mt-1">Tự động tính ngày bảo trì tiếp theo theo chu kỳ, đếm ngược thời gian thực và tự động gửi Email cảnh báo đến người vận hành khi đến lịch.</p>
+                            <p class="text-xs text-slate-500 mt-1">Tự động tính ngày bảo trì tiếp theo, đếm ngược thời gian thực và gửi Email cảnh báo khi đến hạn (<strong class="text-red-600">màu đỏ</strong>).</p>
                         </div>
                         <div class="flex flex-wrap items-center gap-2">
-                            <select id="ppm-filter-system" onchange="renderChecklists()" class="px-3 py-1.5 bg-slate-900/60 text-white text-xs rounded-lg border border-white/20 focus:outline-none"></select>
-                            <button onclick="openModal('emailLogModal')" class="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold rounded-lg shadow-sm transition-colors flex items-center gap-1.5 relative">
-                                <i class="fa-solid fa-envelope-circle-check"></i> Hộp Thư Gửi Tự Động
-                                <span id="badge-email-sent-count" class="bg-white text-amber-900 font-bold px-1.5 py-0.2 rounded-full text-[10px]">0</span>
+                            <select id="ppm-filter-system" onchange="renderChecklists()" class="px-3 py-1.5 bg-white text-slate-700 text-xs rounded-lg border border-slate-300 focus:outline-none"></select>
+                            <button onclick="openModal('emailLogModal')" class="px-3.5 py-1.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-medium rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-regular fa-envelope"></i> Hộp Thư Tự Động
+                                <span id="badge-email-sent-count" class="bg-red-600 text-white font-bold px-1.5 py-0.2 rounded text-[10px]">0</span>
                             </button>
-                            <button onclick="openModal('ppmModal')" class="px-3.5 py-1.5 bg-sky-500 hover:bg-sky-400 text-white text-xs font-semibold rounded-lg shadow-sm transition-colors flex items-center gap-1.5">
-                                <i class="fa-solid fa-plus"></i> Tạo Checklist Mới
+                            <button onclick="openModal('ppmModal')" class="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-plus"></i> Tạo Checklist
                             </button>
-                            <button onclick="resetDailyChecklists()" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white text-xs font-medium rounded-lg border border-white/20 transition-colors">
-                                <i class="fa-solid fa-rotate-right mr-1"></i> Làm Mới Ca
+                            <button onclick="resetDailyChecklists()" class="px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-600 text-xs font-medium rounded-lg border border-slate-300 transition-colors">
+                                Làm Mới Ca
                             </button>
-                            <button onclick="markAllCompleted()" class="px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-semibold rounded-lg shadow-sm transition-colors">
-                                <i class="fa-solid fa-check-double mr-1"></i> Nghiệm Thu Ca
+                            <button onclick="markAllCompleted()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white text-xs font-medium rounded-lg transition-colors">
+                                Nghiệm Thu Ca
                             </button>
                         </div>
                     </div>
 
                     <!-- Automated Maintenance Schedule & Countdown Table -->
-                    <div class="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
-                        <div class="p-4 border-b border-slate-200 bg-slate-50/70 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                        <div class="p-4 border-b border-slate-200 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                             <div>
-                                <h4 class="font-bold text-slate-800 text-sm flex items-center gap-2">
-                                    <i class="fa-solid fa-hourglass-half text-amber-500"></i> Bảng Theo Dõi Đếm Ngày Bảo Trì & Tự Động Cập Nhật Lịch
+                                <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                    Bảng Theo Dõi Đếm Ngày Bảo Trì & Tự Động Cập Nhật Lịch
                                 </h4>
-                                <p class="text-[11px] text-slate-500 mt-0.5">Khi nhấn <strong>"Hoàn tất bảo trì"</strong>, hệ thống tự động nhảy lịch sang kỳ tiếp theo dựa trên chu kỳ thiết bị. Khi đếm ngược về <strong>0 ngày (hoặc quá hạn)</strong>, hệ thống tự động gửi Email cho người phụ trách.</p>
+                                <p class="text-[11px] text-slate-500 mt-0.5">Thiết bị quá hạn hoặc đến hạn bảo trì được tô nổi bật bằng <strong class="text-red-600">màu đỏ</strong> để ưu tiên thực hiện.</p>
                             </div>
                             <div class="flex flex-wrap items-center gap-2 flex-shrink-0">
-                                <span id="maint-stat-overdue" class="px-2.5 py-1 rounded-lg bg-rose-100 text-rose-800 text-xs font-bold">0 Đến hạn / Quá hạn</span>
-                                <span id="maint-stat-soon" class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 text-xs font-semibold">0 Sắp đến hạn (≤3 ngày)</span>
-                                <button onclick="runAutoMaintenanceEmailCheck(false)" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow-sm transition-colors">
-                                    <i class="fa-solid fa-paper-plane"></i> Quét & Gửi Mail Ngay
+                                <span id="maint-stat-overdue" class="px-2.5 py-1 rounded bg-red-600 text-white text-xs font-bold">0 Đến hạn / Quá hạn</span>
+                                <span id="maint-stat-soon" class="px-2.5 py-1 rounded bg-slate-200 text-slate-800 text-xs font-medium">0 Sắp đến hạn (≤3 ngày)</span>
+                                <button onclick="runAutoMaintenanceEmailCheck(false)" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors">
+                                    <i class="fa-solid fa-paper-plane"></i> Quét & Gửi Mail
                                 </button>
                             </div>
                         </div>
                         <div class="overflow-x-auto">
                             <table class="w-full text-left text-xs">
-                                <thead class="bg-slate-100 border-b border-slate-200 text-slate-600 uppercase font-semibold">
+                                <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase font-semibold">
                                     <tr>
                                         <th class="px-4 py-3">Mã & Tên Thiết Bị</th>
                                         <th class="px-4 py-3">Hệ Thống</th>
                                         <th class="px-4 py-3">Chu Kỳ</th>
                                         <th class="px-4 py-3">Bảo Trì Gần Nhất</th>
                                         <th class="px-4 py-3">Lịch Kế Tiếp</th>
-                                        <th class="px-4 py-3">Đếm Ngày Bảo Trì</th>
-                                        <th class="px-4 py-3">Người Vận Hành & Email Tự Động</th>
+                                        <th class="px-4 py-3">Trạng Thái Đếm Ngày</th>
+                                        <th class="px-4 py-3">Email Người Vận Hành</th>
                                         <th class="px-4 py-3 text-right">Cập Nhật Lịch</th>
                                     </tr>
                                 </thead>
@@ -684,18 +711,18 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="ppm-cards-container"></div>
                 </section>
 
-                <!-- TAB 5: TECHNICAL SYSTEMS MANAGEMENT (EXACTLY AS SCREENSHOT 3) -->
+                <!-- TAB 5: TECHNICAL SYSTEMS MANAGEMENT -->
                 <section id="tab-systems" class="tab-content hidden space-y-4">
-                    <div class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <div>
-                            <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
-                                <i class="fa-solid fa-layer-group text-sky-600"></i> Quản Lý Danh Mục Hệ Thống Kỹ Thuật Tòa Nhà
+                            <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-layer-group text-slate-500"></i> Quản Lý Danh Mục Hệ Thống Kỹ Thuật Tòa Nhà
                             </h3>
-                            <p class="text-xs text-slate-500 mt-1">Tự do thêm mới, tùy chỉnh màu sắc, biểu tượng các hệ thống kỹ thuật (MEP, ELV, Y tế, An ninh...). Khi thêm hoặc sửa, toàn bộ bộ lọc, thiết bị và biểu đồ sẽ tự động đồng bộ.</p>
+                            <p class="text-xs text-slate-500 mt-1">Thêm mới và cấu hình các phân hệ kỹ thuật. Các hệ thống có phiếu sự cố đang mở sẽ được đánh dấu số màu đỏ.</p>
                         </div>
-                        <button onclick="openModal('systemModal')" class="bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold px-4 py-2.5 rounded-lg flex items-center gap-2 shadow-sm transition-colors flex-shrink-0">
-                            <i class="fa-solid fa-plus-circle"></i>
-                            <span>Thêm Hệ Thống Kỹ Thuật Mới</span>
+                        <button onclick="openModal('systemModal')" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2.5 rounded-lg flex items-center gap-2 shadow-sm transition-colors flex-shrink-0">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Thêm Hệ Thống Mới</span>
                         </button>
                     </div>
                     <div id="systems-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
@@ -703,20 +730,20 @@
 
                 <!-- TAB 6: MULTI-SYSTEM USER PERMISSIONS (RBAC) -->
                 <section id="tab-users" class="tab-content hidden space-y-4">
-                    <div class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <div>
-                            <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
-                                <i class="fa-solid fa-users-gear text-indigo-600"></i> Quản Lý Tài Khoản & Phân Quyền Phụ Trách Đa Hệ Thống
+                            <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-users-gear text-slate-500"></i> Quản Lý Tài Khoản & Phân Quyền Phụ Trách Đa Hệ Thống
                             </h3>
-                            <p class="text-xs text-slate-500 mt-1">Một kỹ thuật viên có thể được phân công phụ trách <strong>nhiều hệ thống kỹ thuật cùng lúc</strong>. Nhấn "Chỉnh sửa" để gán thêm hoặc bớt hệ thống phụ trách.</p>
+                            <p class="text-xs text-slate-500 mt-1">Một kỹ thuật viên có thể được phân công phụ trách <strong>nhiều hệ thống kỹ thuật cùng lúc</strong>.</p>
                         </div>
-                        <button onclick="openModal('userModal')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2.5 rounded-lg flex items-center gap-2 shadow-sm transition-colors flex-shrink-0">
+                        <button onclick="openModal('userModal')" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2.5 rounded-lg flex items-center gap-2 shadow-sm transition-colors flex-shrink-0">
                             <i class="fa-solid fa-user-plus"></i>
                             <span>Thêm Tài Khoản Kỹ Thuật</span>
                         </button>
                     </div>
 
-                    <div class="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
                         <div class="overflow-x-auto">
                         <table class="w-full text-left text-xs">
                             <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase font-semibold">
@@ -737,11 +764,11 @@
                 <!-- TAB 7: DAY / MONTH / YEAR OPERATION REPORTS -->
                 <section id="tab-reports" class="tab-content hidden space-y-5">
                     <!-- Report Filter & Controls Bar -->
-                    <div class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm flex flex-col lg:flex-row items-start lg:items-end justify-between gap-4">
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col lg:flex-row items-start lg:items-end justify-between gap-4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5 w-full lg:w-auto flex-1">
                             <div>
                                 <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Loại Kỳ Báo Cáo (*)</label>
-                                <select id="report-period-type" onchange="handleReportTypeChange()" class="w-full text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-sky-500">
+                                <select id="report-period-type" onchange="handleReportTypeChange()" class="w-full text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-slate-900">
                                     <option value="DAY">Báo Cáo Theo Ngày (Daily)</option>
                                     <option value="MONTH">Báo Cáo Theo Tháng (Monthly)</option>
                                     <option value="YEAR">Báo Cáo Theo Năm (Yearly)</option>
@@ -750,17 +777,17 @@
 
                             <div id="report-date-picker-wrapper">
                                 <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Chọn Ngày (*)</label>
-                                <input type="date" id="report-date-input" value="2026-10-15" onchange="renderReportView()" class="w-full text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-800 font-mono focus:outline-none focus:ring-2 focus:ring-sky-500">
+                                <input type="date" id="report-date-input" value="2026-10-15" onchange="renderReportView()" class="w-full text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-800 font-mono focus:outline-none focus:ring-2 focus:ring-slate-900">
                             </div>
 
                             <div id="report-month-picker-wrapper" class="hidden">
                                 <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Chọn Tháng (*)</label>
-                                <input type="month" id="report-month-input" value="2026-10" onchange="renderReportView()" class="w-full text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-800 font-mono focus:outline-none focus:ring-2 focus:ring-sky-500">
+                                <input type="month" id="report-month-input" value="2026-10" onchange="renderReportView()" class="w-full text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-800 font-mono focus:outline-none focus:ring-2 focus:ring-slate-900">
                             </div>
 
                             <div id="report-year-picker-wrapper" class="hidden">
                                 <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Chọn Năm (*)</label>
-                                <select id="report-year-input" onchange="renderReportView()" class="w-full text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-800 font-mono focus:outline-none focus:ring-2 focus:ring-sky-500">
+                                <select id="report-year-input" onchange="renderReportView()" class="w-full text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-800 font-mono focus:outline-none focus:ring-2 focus:ring-slate-900">
                                     <option value="2026" selected>Năm 2026</option>
                                     <option value="2025">Năm 2025</option>
                                     <option value="2024">Năm 2024</option>
@@ -770,23 +797,23 @@
 
                             <div>
                                 <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Phạm Vi Hệ Thống</label>
-                                <select id="report-system-filter" onchange="renderReportView()" class="w-full text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500"></select>
+                                <select id="report-system-filter" onchange="renderReportView()" class="w-full text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900"></select>
                             </div>
 
                             <div>
                                 <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Ghi Chú Đánh Giá Chung</label>
-                                <input type="text" id="report-custom-note" oninput="renderReportView()" placeholder="VD: Hệ thống vận hành an toàn..." class="w-full text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                                <input type="text" id="report-custom-note" oninput="renderReportView()" placeholder="VD: Hệ thống vận hành an toàn..." class="w-full text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900">
                             </div>
                         </div>
 
                         <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto justify-end flex-shrink-0">
                             <button onclick="renderReportView(); showToast('Đã cập nhật dữ liệu báo cáo mới nhất!');" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors">
-                                <i class="fa-solid fa-arrows-rotate text-sky-600"></i> Làm mới
+                                <i class="fa-solid fa-arrows-rotate"></i> Làm mới
                             </button>
-                            <button onclick="exportReportExcel()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 shadow-sm transition-colors">
-                                <i class="fa-solid fa-file-excel"></i> Xuất Báo Cáo Excel
+                            <button onclick="exportReportExcel()" class="px-4 py-2 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors">
+                                <i class="fa-solid fa-file-excel"></i> Xuất Excel
                             </button>
-                            <button onclick="printReportSheet()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 shadow-sm transition-colors">
+                            <button onclick="printReportSheet()" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 shadow-sm transition-colors">
                                 <i class="fa-solid fa-print"></i> In Báo Cáo / PDF
                             </button>
                         </div>
@@ -1538,6 +1565,116 @@
         </div>
     </div>
 
+    <!-- MODAL: NO-CODE CENTRALIZED DATA HUB (CLOUD SYNC & MASTER EXCEL WORKBOOK) -->
+    <div id="centralDataModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-3 sm:p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl modal-content-box max-h-[92vh] overflow-y-auto flex flex-col text-xs">
+            <div class="px-6 py-4 border-b border-slate-800 bg-slate-900 text-white rounded-t-2xl flex items-center justify-between">
+                <div>
+                    <h3 class="font-bold text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-database text-slate-300"></i> Trung Tâm Dữ Liệu Tập Trung (Không Cần Chỉnh Code)
+                    </h3>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Tự động gom toàn bộ dữ liệu tòa nhà về một mối để đồng bộ giữa các máy và xử lý trực tiếp trên Excel.</p>
+                </div>
+                <button onclick="closeModal('centralDataModal')" class="text-slate-400 hover:text-white text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-5 sm:p-6 space-y-5 flex-1 overflow-y-auto">
+                <!-- Status Banner -->
+                <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span id="central-status-badge" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded font-bold text-[11px] bg-slate-900 text-white">
+                                <i class="fa-solid fa-cloud-Showers-heavy"></i> Đang đồng bộ tập trung (Realtime Cloud)
+                            </span>
+                            <span id="central-last-sync" class="text-[11px] text-slate-500 font-mono">Cập nhật: Vừa xong</span>
+                        </div>
+                        <p class="text-slate-600 text-[11px]">Toàn bộ <strong>7 phân vùng dữ liệu</strong> (Hệ thống, Thiết bị, Sự cố, Lịch PPM, Nhân sự, Điện năng, Email) được gom chung vào 1 kho duy nhất.</p>
+                    </div>
+                    <div class="text-right font-mono text-[11px] text-slate-500 flex-shrink-0">
+                        <div>Mã phiên: <strong id="central-user-uid" class="text-slate-800">Đang kết nối...</strong></div>
+                    </div>
+                </div>
+
+                <!-- Option 1: 1-Click Master Excel Workbook (Easiest for Data Processing) -->
+                <div class="p-4 border border-slate-200 rounded-xl space-y-3 bg-white">
+                    <div class="flex items-start justify-between gap-3">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-file-excel text-slate-700"></i> Cách 1: Quản Lý & Xử Lý Tập Trung Bằng 1 File Excel Tổng (.XLSX)
+                            </h4>
+                            <p class="text-slate-500 text-[11px] mt-0.5">
+                                Xuất toàn bộ dữ liệu tòa nhà ra <strong>1 file Excel duy nhất gồm 7 Sheet</strong> (Hệ thống, Thiết bị, Phiếu sự cố, Lịch bảo trì, Tài khoản, Điện năng, Email). Bạn có thể mở trên Excel để lọc, sửa hàng loạt rồi tải ngược lên đây chỉ với 1 cú nhấp chuột.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2.5 pt-1">
+                        <button type="button" onclick="exportMasterExcelWorkbook()" class="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg flex items-center gap-2 shadow-sm transition-colors">
+                            <i class="fa-solid fa-download"></i> Tải Xuống File Excel Tổng Hợp (7 Sheet)
+                        </button>
+                        <label class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 font-semibold rounded-lg flex items-center gap-2 cursor-pointer transition-colors">
+                            <i class="fa-solid fa-upload"></i> Nạp Dữ Liệu Từ File Excel Tổng (.XLSX / .JSON)
+                            <input type="file" accept=".xlsx,.xls,.json" onchange="importMasterDataFile(event)" class="hidden">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Option 2: No-Code External Cloud URL (Optional for GitHub Pages) -->
+                <div class="p-4 border border-slate-200 rounded-xl space-y-3 bg-slate-50/60">
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-cloud-arrow-up text-emerald-600"></i> Cách 2: Kết Nối Cloud Trực Tiếp Trên Giao Diện (Đã Gắn Cố Định Mặc Định)
+                        </h4>
+                        <p class="text-slate-500 text-[11px] mt-0.5">
+                            Hệ thống đã được gắn cố định sẵn kho dữ liệu <strong>ctch-6dc60-default-rtdb</strong>. Mọi thiết bị mở trang web đều tự động đồng bộ về địa chỉ này:
+                        </p>
+                    </div>
+                    <form onsubmit="handleSaveCustomCloudUrl(event)" class="flex flex-col sm:flex-row gap-2">
+                        <input type="url" id="custom-cloud-url-input" value="https://ctch-6dc60-default-rtdb.asia-southeast1.firebasedatabase.app/" placeholder="Dán link Firebase (VD: https://ten-du-an.asia-southeast1.firebasedatabase.app)..." class="flex-1 px-3 py-2 border border-slate-300 rounded-lg font-mono text-xs bg-white focus:outline-none focus:ring-2 focus:ring-slate-900">
+                        <button type="submit" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg transition-colors whitespace-nowrap">
+                            <i class="fa-solid fa-floppy-disk mr-1"></i> Lưu & Đồng Bộ Ngay
+                        </button>
+                        <button type="button" onclick="pullFromCustomCloudUrl(false)" class="px-3.5 py-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold rounded-lg transition-colors whitespace-nowrap">
+                            <i class="fa-solid fa-arrows-rotate mr-1"></i> Tải Về
+                        </button>
+                    </form>
+                    <div class="flex flex-wrap items-center justify-between gap-2 pt-1 text-[11px] text-slate-500">
+                        <span>Trạng thái kết nối: <strong id="custom-cloud-status-text" class="text-emerald-700 font-mono">Đã gắn mặc định (ctch-6dc60-default-rtdb)</strong></span>
+                        <button type="button" onclick="copyShareableCloudWebLink()" class="text-slate-800 hover:underline font-semibold flex items-center gap-1">
+                            <i class="fa-solid fa-link"></i> Copy Link Web chia sẻ cho máy khác
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Live Summary of Centralized Data Counts -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
+                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 text-center">
+                        <span class="block text-base font-bold text-slate-900" id="central-count-systems">10</span>
+                        <span class="text-[11px] text-slate-500">Hệ thống kỹ thuật</span>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 text-center">
+                        <span class="block text-base font-bold text-slate-900" id="central-count-assets">11</span>
+                        <span class="text-[11px] text-slate-500">Thiết bị định danh</span>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 text-center">
+                        <span class="block text-base font-bold text-red-600" id="central-count-tickets">5</span>
+                        <span class="text-[11px] text-slate-500">Phiếu sự cố WO</span>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 text-center">
+                        <span class="block text-base font-bold text-slate-900" id="central-count-users">4</span>
+                        <span class="text-[11px] text-slate-500">Tài khoản trực ca</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between rounded-b-2xl">
+                <span class="text-[11px] text-slate-500">Mọi thao tác thêm/sửa/xóa trên web đều tự động lưu vào kho tập trung.</span>
+                <button onclick="closeModal('centralDataModal')" class="px-4 py-2 bg-slate-900 text-white rounded-lg font-semibold">Đóng</button>
+            </div>
+        </div>
+    </div>
+
     <!-- MODAL: RESET CONFIRMATION -->
     <div id="resetConfirmModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden p-6 text-center space-y-4">
@@ -1555,22 +1692,24 @@
 
     <!-- NOTIFICATION TOAST -->
     <div id="toast" class="fixed bottom-5 right-5 z-50 transform transition-all duration-300 flex items-center gap-3 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-medium translate-y-24 opacity-0">
-        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+        <i id="toast-icon" class="fa-solid fa-circle-check text-slate-300 text-base"></i>
         <span id="toast-message">Thông báo hệ thống</span>
     </div>
 
     <script>
+        // Minimalist neutral palette for normal system tags to avoid flashy rainbow colors
+        const neutralStyle = { bg: 'bg-slate-100', text: 'text-slate-700', icon: 'text-slate-500', border: 'border-slate-200', hex: '#334155' };
         const colorStyles = {
-            sky:     { bg: 'bg-sky-100', text: 'text-sky-800', icon: 'text-sky-600', border: 'border-sky-200', hex: '#0284c7' },
-            amber:   { bg: 'bg-amber-100', text: 'text-amber-800', icon: 'text-amber-600', border: 'border-amber-200', hex: '#d97706' },
-            emerald: { bg: 'bg-emerald-100', text: 'text-emerald-800', icon: 'text-emerald-600', border: 'border-emerald-200', hex: '#059669' },
-            rose:    { bg: 'bg-rose-100', text: 'text-rose-800', icon: 'text-rose-600', border: 'border-rose-200', hex: '#e11d48' },
-            indigo:  { bg: 'bg-indigo-100', text: 'text-indigo-800', icon: 'text-indigo-600', border: 'border-indigo-200', hex: '#4f46e5' },
-            purple:  { bg: 'bg-purple-100', text: 'text-purple-800', icon: 'text-purple-600', border: 'border-purple-200', hex: '#9333ea' },
-            cyan:    { bg: 'bg-cyan-100', text: 'text-cyan-800', icon: 'text-cyan-600', border: 'border-cyan-200', hex: '#0891b2' },
-            teal:    { bg: 'bg-teal-100', text: 'text-teal-800', icon: 'text-teal-600', border: 'border-teal-200', hex: '#0d9488' },
-            orange:  { bg: 'bg-orange-100', text: 'text-orange-800', icon: 'text-orange-600', border: 'border-orange-200', hex: '#ea580c' },
-            slate:   { bg: 'bg-slate-200', text: 'text-slate-800', icon: 'text-slate-600', border: 'border-slate-300', hex: '#475569' }
+            sky:     neutralStyle,
+            amber:   neutralStyle,
+            emerald: neutralStyle,
+            rose:    neutralStyle,
+            indigo:  neutralStyle,
+            purple:  neutralStyle,
+            cyan:    neutralStyle,
+            teal:    neutralStyle,
+            orange:  neutralStyle,
+            slate:   neutralStyle
         };
 
         const initialSystems = [
@@ -1662,17 +1801,22 @@
             { id: 'USR-04', fullname: 'Đỗ Minh Quân (Tổ Điện Nhẹ ELV)', username: 'kt_elv', email: 'quan.dm@vinhtower.vn', role: 'TECHNICIAN', systems: ['CCTV', 'PA', 'ACCESS', 'NURSECALL'] }
         ];
 
-        let systems = JSON.parse(localStorage.getItem('bms_systems_v5')) || initialSystems;
-        let assets = JSON.parse(localStorage.getItem('bms_assets_v5')) || initialAssets;
-        let tickets = JSON.parse(localStorage.getItem('bms_tickets_v5')) || initialTickets;
-        let checklists = JSON.parse(localStorage.getItem('bms_checklists_v5')) || initialChecklists;
-        let users = JSON.parse(localStorage.getItem('bms_users_v5')) || initialUsers;
-        let energyLogs = JSON.parse(localStorage.getItem('bms_energy_v5')) || [
+        let systems = JSON.parse(JSON.stringify(initialSystems));
+        let assets = JSON.parse(JSON.stringify(initialAssets));
+        let tickets = JSON.parse(JSON.stringify(initialTickets));
+        let checklists = JSON.parse(JSON.stringify(initialChecklists));
+        let users = JSON.parse(JSON.stringify(initialUsers));
+        let energyLogs = [
             { date: '2026-10-15', start: 124500, end: 127920, kwh: 3420 },
             { date: '2026-10-14', start: 120930, end: 124500, kwh: 3570 }
         ];
-        let emailLogs = JSON.parse(localStorage.getItem('bms_email_logs_v5')) || [];
-        let autoEmailThreshold = parseInt(localStorage.getItem('bms_email_threshold_v5') ?? '1', 10);
+        let emailLogs = [];
+        let autoEmailThreshold = 1;
+        const DEFAULT_FIREBASE_RTDB_URL = 'https://ctch-6dc60-default-rtdb.asia-southeast1.firebasedatabase.app/';
+        let customCloudEndpoint = DEFAULT_FIREBASE_RTDB_URL;
+        let lastCentralSyncTime = 'Đang đồng bộ...';
+        let lastSyncedUpdatedAt = '';
+        let isPullingFromCustomCloud = false;
 
         let currentUser = users[0];
 
@@ -1770,16 +1914,16 @@
 
             if (daysRemaining < 0) {
                 statusType = 'OVERDUE';
-                badgeHtml = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-700 border border-rose-200"><i class="fa-solid fa-bell fa-shake"></i> Quá hạn ${Math.abs(daysRemaining)} ngày</span>`;
+                badgeHtml = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-red-600 text-white shadow-sm"><i class="fa-solid fa-triangle-exclamation"></i> Quá hạn ${Math.abs(daysRemaining)} ngày</span>`;
             } else if (daysRemaining === 0) {
                 statusType = 'DUE_TODAY';
-                badgeHtml = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-600 text-white shadow-sm"><i class="fa-solid fa-clock"></i> Đến hạn hôm nay (0 ngày)</span>`;
+                badgeHtml = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-red-600 text-white shadow-sm"><i class="fa-solid fa-bell"></i> Đến hạn hôm nay (0 ngày)</span>`;
             } else if (daysRemaining <= 3) {
                 statusType = 'SOON';
-                badgeHtml = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-200"><i class="fa-solid fa-hourglass-half"></i> Còn ${daysRemaining} ngày</span>`;
+                badgeHtml = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-red-50 text-red-700 border border-red-200"><i class="fa-solid fa-clock"></i> Sắp đến hạn (${daysRemaining} ngày)</span>`;
             } else {
                 statusType = 'NORMAL';
-                badgeHtml = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200"><i class="fa-regular fa-calendar-check"></i> Còn ${daysRemaining} ngày</span>`;
+                badgeHtml = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-600 border border-slate-200">Còn ${daysRemaining} ngày</span>`;
             }
 
             return {
@@ -1926,9 +2070,9 @@
         function updateAutoEmailThreshold() {
             const val = parseInt(document.getElementById('auto-email-threshold')?.value ?? '1', 10);
             autoEmailThreshold = val;
-            localStorage.setItem('bms_email_threshold_v5', String(val));
             const lbl = document.getElementById('email-threshold-label');
             if (lbl) lbl.innerText = val;
+            saveState();
             runAutoMaintenanceEmailCheck(false);
         }
 
@@ -1955,27 +2099,27 @@
                     <tr class="hover:bg-slate-50">
                         <td class="px-3.5 py-2.5 font-mono text-[11px] text-slate-500 whitespace-nowrap">${log.time}</td>
                         <td class="px-3.5 py-2.5">
-                            <span class="font-mono font-bold text-sky-800">${log.assetCode}</span>
+                            <span class="font-mono font-bold text-slate-900">${log.assetCode}</span>
                             <div class="text-[11px] text-slate-600">${log.assetName}</div>
                         </td>
                         <td class="px-3.5 py-2.5">
                             <div class="font-semibold text-slate-800">${log.recipientName}</div>
-                            <div class="font-mono text-[11px] text-indigo-600"><i class="fa-regular fa-envelope mr-1"></i>${log.recipientEmail}</div>
+                            <div class="font-mono text-[11px] text-slate-600"><i class="fa-regular fa-envelope mr-1"></i>${log.recipientEmail}</div>
                         </td>
                         <td class="px-3.5 py-2.5">
                             <div class="font-semibold text-slate-800">${log.subject}</div>
-                            <div class="text-[10px] text-rose-600 font-bold mt-0.5">${log.urgencyText}</div>
+                            <div class="text-[10px] text-red-600 font-bold mt-0.5">${log.urgencyText}</div>
                         </td>
                         <td class="px-3.5 py-2.5">
-                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800">
-                                <i class="fa-solid fa-check-double"></i> ${log.status === 'AUTO_SENT' ? 'Đã gửi tự động' : 'Đã gửi nhắc lại'}
+                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-700 border border-slate-200">
+                                <i class="fa-solid fa-check"></i> ${log.status === 'AUTO_SENT' ? 'Đã gửi tự động' : 'Đã gửi nhắc lại'}
                             </span>
                         </td>
                         <td class="px-3.5 py-2.5 text-right whitespace-nowrap space-x-1">
-                            <button onclick="openEditSingleEmailModal('${log.id}')" class="px-2.5 py-1 bg-sky-50 hover:bg-sky-100 text-sky-700 rounded border border-sky-200 text-[11px] font-semibold inline-flex items-center gap-1">
+                            <button onclick="openEditSingleEmailModal('${log.id}')" class="px-2.5 py-1 bg-white hover:bg-slate-100 text-slate-700 rounded border border-slate-300 text-[11px] font-medium inline-flex items-center gap-1">
                                 <i class="fa-regular fa-pen-to-square"></i> Sửa Mail
                             </button>
-                            <a href="${mailtoHref}" class="px-2.5 py-1 bg-slate-100 hover:bg-indigo-50 text-indigo-700 rounded border border-slate-200 text-[11px] font-semibold inline-flex items-center gap-1">
+                            <a href="${mailtoHref}" class="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 text-white rounded text-[11px] font-medium inline-flex items-center gap-1">
                                 <i class="fa-solid fa-up-right-from-square"></i> Mở Mail Client
                             </a>
                         </td>
@@ -1994,8 +2138,8 @@
             listContainer.innerHTML = editableUsers.map(u => {
                 const sysArr = Array.isArray(u.systems) ? u.systems : [u.system || 'ALL'];
                 const sysBadges = (u.role === 'ADMIN' || sysArr.includes('ALL'))
-                    ? `<span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 font-bold text-[10px]">Toàn bộ hệ thống</span>`
-                    : sysArr.map(c => `<span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 font-mono font-bold text-[10px]">${c}</span>`).join(' ');
+                    ? `<span class="px-2 py-0.5 rounded bg-slate-200 text-slate-800 font-bold text-[10px]">Toàn bộ hệ thống</span>`
+                    : sysArr.map(c => `<span class="px-1.5 py-0.5 rounded bg-slate-200 text-slate-700 font-mono font-bold text-[10px]">${c}</span>`).join(' ');
 
                 return `
                     <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -2008,7 +2152,7 @@
                         <div class="w-full sm:w-64 flex-shrink-0">
                             <div class="relative">
                                 <i class="fa-regular fa-envelope absolute left-3 top-2.5 text-slate-400"></i>
-                                <input type="email" data-user-email-id="${u.id}" value="${u.email || `${u.username}@vinhtower.vn`}" required placeholder="Nhập email nhận lịch..." class="w-full pl-8 pr-3 py-1.5 border border-slate-300 rounded-lg font-mono text-xs bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <input type="email" data-user-email-id="${u.id}" value="${u.email || `${u.username}@vinhtower.vn`}" required placeholder="Nhập email nhận lịch..." class="w-full pl-8 pr-3 py-1.5 border border-slate-300 rounded-lg font-mono text-xs bg-white focus:outline-none focus:ring-2 focus:ring-slate-900">
                             </div>
                         </div>
                     </div>
@@ -2112,41 +2256,43 @@
             tbody.innerHTML = enriched.map(({ asset, mInfo }) => {
                 const canManage = isSystemAllowedForCurrentUser(asset.system);
                 const operators = getOperatorsForSystem(asset.system);
-                const opEmails = operators.map(o => `<span class="inline-flex items-center gap-1 font-mono text-[10px] bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded border border-slate-200"><i class="fa-regular fa-envelope text-sky-600"></i>${o.email}</span>`).join(' ');
+                const opEmails = operators.map(o => `<span class="inline-flex items-center gap-1 font-mono text-[10px] bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded border border-slate-200"><i class="fa-regular fa-envelope text-slate-500"></i>${o.email}</span>`).join(' ');
 
                 const sentLog = emailLogs.find(l => l.assetCode === asset.code && l.mailKey.includes(mInfo.nextDateStr));
                 const emailStatusHtml = sentLog
-                    ? `<div class="text-[10px] text-emerald-700 font-semibold mt-1"><i class="fa-solid fa-paper-plane mr-1"></i>Đã tự động gửi mail (${sentLog.time})</div>`
-                    : `<div class="text-[10px] text-slate-400 mt-1"><i class="fa-regular fa-clock mr-1"></i>Sẽ tự động gửi khi ≤ ${autoEmailThreshold} ngày</div>`;
+                    ? `<div class="text-[10px] text-slate-600 font-medium mt-1"><i class="fa-solid fa-check mr-1"></i>Đã gửi mail (${sentLog.time})</div>`
+                    : `<div class="text-[10px] text-slate-400 mt-1"><i class="fa-regular fa-clock mr-1"></i>Tự động gửi khi ≤ ${autoEmailThreshold} ngày</div>`;
+
+                const isUrgentRow = mInfo.daysRemaining <= 0;
 
                 return `
-                    <tr class="hover:bg-slate-50/90 transition-colors ${mInfo.daysRemaining <= 0 ? 'bg-rose-50/40' : ''}">
+                    <tr class="hover:bg-slate-50/90 transition-colors ${isUrgentRow ? 'bg-red-50/50' : ''}">
                         <td class="px-4 py-3">
-                            <div class="font-mono font-bold text-sky-900">${asset.code}</div>
+                            <div class="font-mono font-bold ${isUrgentRow ? 'text-red-700' : 'text-slate-900'}">${asset.code}</div>
                             <div class="font-semibold text-slate-800">${asset.name}</div>
                             <div class="text-[10px] text-slate-500"><i class="fa-solid fa-location-dot mr-1"></i>${asset.location}</div>
                         </td>
                         <td class="px-4 py-3">${renderSystemBadge(asset.system, true)}</td>
                         <td class="px-4 py-3 font-medium text-slate-700">${asset.cycle} <span class="text-[10px] text-slate-400">(${mInfo.cycleDays} ngày)</span></td>
                         <td class="px-4 py-3 font-mono text-slate-600">${formatIsoToVnDate(mInfo.lastDateStr)}</td>
-                        <td class="px-4 py-3 font-mono font-bold ${mInfo.daysRemaining <= 0 ? 'text-rose-600' : 'text-slate-800'}">${formatIsoToVnDate(mInfo.nextDateStr)}</td>
+                        <td class="px-4 py-3 font-mono font-bold ${isUrgentRow ? 'text-red-600' : 'text-slate-800'}">${formatIsoToVnDate(mInfo.nextDateStr)}</td>
                         <td class="px-4 py-3">${mInfo.badgeHtml}</td>
                         <td class="px-4 py-3">
                             <div class="flex flex-wrap items-center gap-1">
                                 ${opEmails}
-                                <button onclick="openEmailQuickConfigModal()" title="Nhấn để sửa địa chỉ Email nhận thông báo" class="px-1.5 py-0.5 text-[10px] bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded border border-indigo-200 font-semibold transition-colors">
-                                    <i class="fa-solid fa-pen"></i> Sửa Email
+                                <button onclick="openEmailQuickConfigModal()" title="Nhấn để sửa địa chỉ Email nhận thông báo" class="px-1.5 py-0.5 text-[10px] bg-white hover:bg-slate-100 text-slate-700 rounded border border-slate-300 font-medium transition-colors">
+                                    <i class="fa-solid fa-pen"></i> Sửa
                                 </button>
                             </div>
                             ${emailStatusHtml}
                         </td>
                         <td class="px-4 py-3 text-right space-x-1 whitespace-nowrap">
                             ${canManage ? `
-                                <button onclick="completeAssetMaintenance('${asset.id}')" title="Xác nhận đã bảo trì xong hôm nay và tự động nhảy lịch sang kỳ tiếp theo" class="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-[11px] font-semibold shadow-sm transition-colors inline-flex items-center gap-1">
-                                    <i class="fa-solid fa-calendar-plus"></i> Hoàn tất bảo trì
+                                <button onclick="completeAssetMaintenance('${asset.id}')" title="Xác nhận đã bảo trì xong hôm nay và tự động nhảy lịch sang kỳ tiếp theo" class="px-2.5 py-1.5 ${isUrgentRow ? 'bg-red-600 hover:bg-red-700' : 'bg-slate-900 hover:bg-slate-800'} text-white rounded-lg text-[11px] font-semibold shadow-sm transition-colors inline-flex items-center gap-1">
+                                    <i class="fa-solid fa-check"></i> Hoàn tất BT
                                 </button>
-                                <button onclick="sendManualEmailReminder('${asset.id}')" title="Gửi mail nhắc việc ngay cho người vận hành" class="p-1.5 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 rounded-lg transition-colors">
-                                    <i class="fa-solid fa-envelope"></i>
+                                <button onclick="sendManualEmailReminder('${asset.id}')" title="Gửi mail nhắc việc ngay cho người vận hành" class="p-1.5 bg-white hover:bg-slate-100 text-slate-600 border border-slate-300 rounded-lg transition-colors">
+                                    <i class="fa-regular fa-envelope"></i>
                                 </button>
                             ` : `
                                 <span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-slate-100 text-slate-400 text-[10px] font-medium">
@@ -2159,14 +2305,319 @@
             }).join('');
         }
 
+        function getCentralPayloadObject() {
+            return {
+                updatedAt: new Date().toISOString(),
+                updatedBy: currentUser ? currentUser.email : 'system',
+                autoEmailThreshold,
+                customCloudEndpoint,
+                systems,
+                assets,
+                tickets,
+                checklists,
+                users,
+                energyLogs,
+                emailLogs
+            };
+        }
+
+        function applyCentralPayloadObject(data) {
+            if (!data || typeof data !== 'object') return;
+            if (data.updatedAt) lastSyncedUpdatedAt = data.updatedAt;
+            if (Array.isArray(data.systems) && data.systems.length > 0) systems = data.systems;
+            if (Array.isArray(data.assets) && data.assets.length > 0) assets = data.assets;
+            if (Array.isArray(data.tickets)) tickets = data.tickets;
+            if (Array.isArray(data.checklists)) checklists = data.checklists;
+            if (Array.isArray(data.users) && data.users.length > 0) users = data.users;
+            if (Array.isArray(data.energyLogs)) energyLogs = data.energyLogs;
+            if (Array.isArray(data.emailLogs)) emailLogs = data.emailLogs;
+            if (typeof data.autoEmailThreshold === 'number') autoEmailThreshold = data.autoEmailThreshold;
+            if (data.customCloudEndpoint) {
+                customCloudEndpoint = data.customCloudEndpoint;
+                const urlInput = document.getElementById('custom-cloud-url-input');
+                if (urlInput) urlInput.value = customCloudEndpoint;
+            }
+
+            if (currentUser) {
+                const updatedCurrentUser = users.find(u => u.id === currentUser.id || u.email === currentUser.email);
+                if (updatedCurrentUser) currentUser = updatedCurrentUser;
+            }
+
+            const now = new Date();
+            lastCentralSyncTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+            refreshAllViewsAfterSync();
+        }
+
+        function refreshAllViewsAfterSync() {
+            syncAllSystemSelectors();
+            updateDashboard();
+            renderAssetTable();
+            renderTicketTable();
+            renderChecklists();
+            renderSystemsGrid();
+            renderUserTable();
+            renderRoleSelection();
+            renderEnergyHistory();
+            updateEmailBadgeAndModal();
+            updateCentralModalStats();
+        }
+
+        function updateCentralModalStats() {
+            const elSys = document.getElementById('central-count-systems');
+            const elAst = document.getElementById('central-count-assets');
+            const elTkt = document.getElementById('central-count-tickets');
+            const elUsr = document.getElementById('central-count-users');
+            const elSync = document.getElementById('central-last-sync');
+            const elCustomStatus = document.getElementById('custom-cloud-status-text');
+            const urlInput = document.getElementById('custom-cloud-url-input');
+            if (elSys) elSys.innerText = systems.length;
+            if (elAst) elAst.innerText = assets.length;
+            if (elTkt) elTkt.innerText = tickets.length;
+            if (elUsr) elUsr.innerText = users.length;
+            if (elSync) elSync.innerText = `Cập nhật: ${lastCentralSyncTime}`;
+            if (urlInput && customCloudEndpoint) {
+                urlInput.value = customCloudEndpoint;
+            }
+            if (elCustomStatus) {
+                elCustomStatus.innerHTML = customCloudEndpoint
+                    ? `<span class="text-emerald-700 font-mono">Đã kết nối (${customCloudEndpoint})</span>`
+                    : 'Chưa gắn link ngoài';
+            }
+        }
+
+        function getNormalizedFirebaseJsonUrl(rawUrl) {
+            const base = (rawUrl || DEFAULT_FIREBASE_RTDB_URL).trim().replace(/\/+$/, '');
+            if (!base) return '';
+            return base.endsWith('.json') ? base : `${base}/bms_central_store.json`;
+        }
+
+        async function pushToCustomCloudUrl(payload, silent = true) {
+            if (isPullingFromCustomCloud) return;
+            const endpointUrl = getNormalizedFirebaseJsonUrl(customCloudEndpoint);
+            if (!endpointUrl) return;
+
+            const syncDot = document.getElementById('cloud-sync-dot');
+            try {
+                const dataToPush = payload || getCentralPayloadObject();
+                lastSyncedUpdatedAt = dataToPush.updatedAt;
+
+                const response = await fetch(endpointUrl, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dataToPush)
+                });
+
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                const now = new Date();
+                lastCentralSyncTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+                if (syncDot) syncDot.className = 'w-2 h-2 rounded-full bg-emerald-500';
+                updateCentralModalStats();
+
+                if (!silent) {
+                    showToast('Đã đồng bộ toàn bộ dữ liệu lên Firebase Cloud thành công!');
+                }
+            } catch (err) {
+                console.error('Lỗi đồng bộ Firebase RTDB:', err);
+                if (syncDot) syncDot.className = 'w-2 h-2 rounded-full bg-red-500';
+                if (!silent) {
+                    showToast('Không thể ghi dữ liệu lên Firebase! Hãy kiểm tra Rules (.read: true, .write: true) trên Firebase.', 'error');
+                }
+            }
+        }
+
+        async function pullFromCustomCloudUrl(silent = true) {
+            const endpointUrl = getNormalizedFirebaseJsonUrl(customCloudEndpoint);
+            if (!endpointUrl) return;
+
+            const syncDot = document.getElementById('cloud-sync-dot');
+            try {
+                const response = await fetch(endpointUrl, { cache: 'no-store' });
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                const cloudData = await response.json();
+                if (cloudData && Array.isArray(cloudData.systems) && cloudData.systems.length > 0) {
+                    if (!silent || cloudData.updatedAt !== lastSyncedUpdatedAt) {
+                        isPullingFromCustomCloud = true;
+                        applyCentralPayloadObject(cloudData);
+                        isPullingFromCustomCloud = false;
+                    }
+                    if (syncDot) syncDot.className = 'w-2 h-2 rounded-full bg-emerald-500';
+                    if (!silent) {
+                        showToast('Đã tải dữ liệu mới nhất từ Firebase Cloud về máy!');
+                    }
+                } else {
+                    // First time database is empty: seed initial building data automatically to Firebase
+                    await pushToCustomCloudUrl(getCentralPayloadObject(), true);
+                }
+            } catch (err) {
+                console.error('Lỗi tải dữ liệu từ Firebase RTDB:', err);
+                if (syncDot) syncDot.className = 'w-2 h-2 rounded-full bg-red-500';
+                if (!silent) {
+                    showToast('Không thể tải dữ liệu từ Firebase! Hãy kiểm tra kết nối hoặc Rules trên Firebase.', 'error');
+                }
+            }
+        }
+
         function saveState() {
-            localStorage.setItem('bms_systems_v5', JSON.stringify(systems));
-            localStorage.setItem('bms_assets_v5', JSON.stringify(assets));
-            localStorage.setItem('bms_tickets_v5', JSON.stringify(tickets));
-            localStorage.setItem('bms_checklists_v5', JSON.stringify(checklists));
-            localStorage.setItem('bms_users_v5', JSON.stringify(users));
-            localStorage.setItem('bms_energy_v5', JSON.stringify(energyLogs));
-            localStorage.setItem('bms_email_logs_v5', JSON.stringify(emailLogs));
+            const payload = getCentralPayloadObject();
+            const now = new Date();
+            lastCentralSyncTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+            updateCentralModalStats();
+
+            // 1. Push to built-in Cloud Firestore if active
+            if (typeof window.pushCentralDataToFirestore === 'function') {
+                window.pushCentralDataToFirestore(payload);
+            }
+
+            // 2. Push to hardcoded default Firebase RTDB URL
+            if (customCloudEndpoint) {
+                pushToCustomCloudUrl(payload, true);
+            }
+        }
+
+        function handleSaveCustomCloudUrl(e) {
+            e.preventDefault();
+            const inputEl = document.getElementById('custom-cloud-url-input');
+            customCloudEndpoint = (inputEl?.value || '').trim() || DEFAULT_FIREBASE_RTDB_URL;
+            updateCentralModalStats();
+            pushToCustomCloudUrl(getCentralPayloadObject(), false);
+        }
+
+        function copyShareableCloudWebLink() {
+            const inputEl = document.getElementById('custom-cloud-url-input');
+            const urlVal = (inputEl?.value || customCloudEndpoint || '').trim();
+            if (!urlVal) {
+                showToast('Vui lòng dán link Firebase vào ô trước khi tạo link chia sẻ!', 'error');
+                return;
+            }
+            const baseUrl = window.location.href.split('?')[0];
+            const shareUrl = `${baseUrl}?cloud=${encodeURIComponent(urlVal)}`;
+            const tempInput = document.createElement('textarea');
+            tempInput.value = shareUrl;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast('Đã copy Link Web kèm sẵn Firebase! Gửi link này cho máy khác để tự động đồng bộ.');
+        }
+
+        // --- 1-CLICK MASTER EXCEL WORKBOOK (ALL 7 TABLES IN 1 FILE) ---
+        function exportMasterExcelWorkbook() {
+            if (typeof XLSX === 'undefined') {
+                showToast('Thư viện Excel đang tải, vui lòng thử lại!', 'error');
+                return;
+            }
+            const wb = XLSX.utils.book_new();
+
+            // Sheet 1: Systems
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(systems), '1_He_Thong');
+            // Sheet 2: Assets
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(assets), '2_Thiet_Bi');
+            // Sheet 3: Tickets (Work Orders)
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(tickets), '3_Su_Co_WO');
+            // Sheet 4: PPM Checklists (serialize items to readable string)
+            const flatChecklists = checklists.map(c => ({
+                id: c.id,
+                title: c.title,
+                subsystem: c.subsystem,
+                location: c.location,
+                items_json: JSON.stringify(c.items || [])
+            }));
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(flatChecklists), '4_Checklist_PPM');
+            // Sheet 5: Users
+            const flatUsers = users.map(u => ({
+                id: u.id,
+                fullname: u.fullname,
+                username: u.username,
+                email: u.email,
+                role: u.role,
+                systems_csv: Array.isArray(u.systems) ? u.systems.join(',') : 'ALL'
+            }));
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(flatUsers), '5_Tai_Khoan');
+            // Sheet 6: Energy Logs
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(energyLogs), '6_Dien_Nang');
+            // Sheet 7: Email Logs
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(emailLogs.length ? emailLogs : [{ info: 'Chưa có lịch sử email' }]), '7_Lich_Su_Email');
+
+            XLSX.writeFile(wb, `BMS_Du_Lieu_Tap_Trung_Toa_Nha_${getTodayIsoDate()}.xlsx`);
+            showToast('Đã xuất toàn bộ 7 bảng dữ liệu ra 1 file Excel tập trung!');
+        }
+
+        function importMasterDataFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const fileName = file.name.toLowerCase();
+            if (fileName.endsWith('.json')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const parsed = JSON.parse(e.target.result);
+                        applyCentralPayloadObject(parsed);
+                        saveState();
+                        showToast('Đã nạp toàn bộ dữ liệu tập trung từ file JSON thành công!');
+                    } catch (err) {
+                        showToast('File JSON không hợp lệ!', 'error');
+                    }
+                };
+                reader.readAsText(file);
+            } else {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = new Uint8Array(e.target.result);
+                        const wb = XLSX.read(data, { type: 'array' });
+
+                        if (wb.Sheets['1_He_Thong']) {
+                            const s = XLSX.utils.sheet_to_json(wb.Sheets['1_He_Thong']);
+                            if (s.length) systems = s;
+                        }
+                        if (wb.Sheets['2_Thiet_Bi']) {
+                            const a = XLSX.utils.sheet_to_json(wb.Sheets['2_Thiet_Bi']);
+                            if (a.length) assets = a;
+                        }
+                        if (wb.Sheets['3_Su_Co_WO']) {
+                            tickets = XLSX.utils.sheet_to_json(wb.Sheets['3_Su_Co_WO']);
+                        }
+                        if (wb.Sheets['4_Checklist_PPM']) {
+                            const rawChk = XLSX.utils.sheet_to_json(wb.Sheets['4_Checklist_PPM']);
+                            checklists = rawChk.map(r => ({
+                                id: r.id,
+                                title: r.title,
+                                subsystem: r.subsystem,
+                                location: r.location,
+                                items: r.items_json ? JSON.parse(r.items_json) : []
+                            }));
+                        }
+                        if (wb.Sheets['5_Tai_Khoan']) {
+                            const rawUsr = XLSX.utils.sheet_to_json(wb.Sheets['5_Tai_Khoan']);
+                            if (rawUsr.length) {
+                                users = rawUsr.map(u => ({
+                                    id: u.id,
+                                    fullname: u.fullname,
+                                    username: u.username,
+                                    email: u.email,
+                                    role: u.role,
+                                    systems: u.systems_csv ? String(u.systems_csv).split(',').map(x => x.trim()) : ['ALL']
+                                }));
+                            }
+                        }
+                        if (wb.Sheets['6_Dien_Nang']) {
+                            energyLogs = XLSX.utils.sheet_to_json(wb.Sheets['6_Dien_Nang']);
+                        }
+
+                        ensureAssetsMaintenanceDates();
+                        refreshAllViewsAfterSync();
+                        saveState();
+                        showToast('Đã đồng bộ toàn bộ 7 bảng dữ liệu từ file Excel Tổng!');
+                    } catch (err) {
+                        showToast('Không thể đọc cấu trúc file Excel tổng hợp!', 'error');
+                    }
+                };
+                reader.readAsArrayBuffer(file);
+            }
+            event.target.value = '';
         }
 
         // --- LIVE CLOCK TICKER ---
@@ -2197,26 +2648,26 @@
             if (!container) return;
 
             container.innerHTML = `
-                <div class="p-3.5 bg-sky-50 rounded-xl border border-sky-200 space-y-1">
-                    <p class="font-bold text-sky-900"><i class="fa-solid fa-circle-info mr-1"></i> Tóm Tắt Nhiệm Vụ Ca Trực & Lịch Bảo Trì Hôm Nay:</p>
-                    <p class="text-sky-800">Hệ thống ghi nhận có <strong>${dueMaintAssets.length} thiết bị đến hạn / sắp đến hạn bảo trì</strong> (đã tự động gửi Email đến người vận hành), <strong>${openTickets.length} phiếu sự cố</strong> và <strong>${pendingChecklists.length} checklist PPM</strong> trong ngày.</p>
+                <div class="p-3.5 bg-slate-100 rounded-lg border border-slate-200 space-y-1">
+                    <p class="font-bold text-slate-900">Tóm Tắt Nhiệm Vụ Ca Trực & Cảnh Báo Hôm Nay:</p>
+                    <p class="text-slate-600">Ghi nhận <strong class="text-red-600">${dueMaintAssets.length} thiết bị đến hạn / sắp đến hạn bảo trì</strong>, <strong class="text-red-600">${openTickets.length} phiếu sự cố đang mở</strong> và <strong>${pendingChecklists.length} checklist PPM</strong> trong ca.</p>
                 </div>
                 <div>
                     <div class="flex items-center justify-between mb-2">
-                        <h4 class="font-bold text-slate-800">1. Thiết Bị Đến Lịch Bảo Trì & Tự Động Gửi Mail (${dueMaintAssets.length}):</h4>
-                        <button onclick="closeModal('dailyTaskModal'); openModal('emailLogModal');" class="text-[11px] text-amber-700 hover:underline font-semibold"><i class="fa-solid fa-envelope-circle-check mr-1"></i>Xem nhật ký gửi Mail (${emailLogs.length})</button>
+                        <h4 class="font-bold text-slate-900">1. Thiết Bị Đến Hạn Bảo Trì Cần Chú Ý (${dueMaintAssets.length}):</h4>
+                        <button onclick="closeModal('dailyTaskModal'); openModal('emailLogModal');" class="text-[11px] text-slate-600 hover:text-slate-900 underline font-medium">Nhật ký gửi Mail (${emailLogs.length})</button>
                     </div>
                     ${dueMaintAssets.length === 0 ? '<p class="text-slate-400 italic">Không có thiết bị nào đến hạn bảo trì trong 3 ngày tới.</p>' : `
                         <div class="space-y-2 max-h-36 overflow-y-auto pr-1">
                             ${dueMaintAssets.map(({ asset, mInfo }) => `
-                                <div class="p-2.5 bg-amber-50/70 rounded border border-amber-200 flex items-center justify-between gap-2">
+                                <div class="p-2.5 ${mInfo.daysRemaining <= 0 ? 'bg-red-50 border-red-200' : 'bg-slate-50 border-slate-200'} rounded-lg border flex items-center justify-between gap-2">
                                     <div>
-                                        <span class="font-mono font-bold text-sky-800">${asset.code}</span>: <strong class="text-slate-800">${asset.name}</strong>
-                                        <p class="text-[11px] text-slate-500">Hạn bảo trì: ${formatIsoToVnDate(mInfo.nextDateStr)} • Đã gửi mail tự động cho tổ ${asset.system}</p>
+                                        <span class="font-mono font-bold ${mInfo.daysRemaining <= 0 ? 'text-red-700' : 'text-slate-900'}">${asset.code}</span>: <strong class="text-slate-800">${asset.name}</strong>
+                                        <p class="text-[11px] text-slate-500">Hạn bảo trì: ${formatIsoToVnDate(mInfo.nextDateStr)} • Phân hệ: ${asset.system}</p>
                                     </div>
                                     <div class="flex items-center gap-2 flex-shrink-0">
                                         ${mInfo.badgeHtml}
-                                        <button onclick="closeModal('dailyTaskModal'); navigateTab('ppm');" class="px-2.5 py-1 bg-emerald-600 text-white rounded text-[11px] font-semibold hover:bg-emerald-700">Lịch BT</button>
+                                        <button onclick="closeModal('dailyTaskModal'); navigateTab('ppm');" class="px-2.5 py-1 bg-slate-900 text-white rounded text-[11px] font-medium hover:bg-slate-800">Lịch BT</button>
                                     </div>
                                 </div>
                             `).join('')}
@@ -2224,32 +2675,34 @@
                     `}
                 </div>
                 <div>
-                    <h4 class="font-bold text-slate-800 mb-2">2. Phiếu Sự Cố / Công Việc Trọng Tâm (${openTickets.length}):</h4>
+                    <h4 class="font-bold text-slate-900 mb-2">2. Phiếu Sự Cố Đang Xử Lý (${openTickets.length}):</h4>
                     ${openTickets.length === 0 ? '<p class="text-slate-400 italic">Không có sự cố tồn đọng trong ca.</p>' : `
                         <div class="space-y-2 max-h-32 overflow-y-auto pr-1">
-                            ${openTickets.map(t => `
-                                <div class="p-2.5 bg-slate-50 rounded border border-slate-200 flex items-center justify-between">
+                            ${openTickets.map(t => {
+                                const isUrgent = t.priority === 'CRITICAL' || t.priority === 'HIGH';
+                                return `
+                                <div class="p-2.5 ${isUrgent ? 'bg-red-50/70 border-red-200' : 'bg-slate-50 border-slate-200'} rounded-lg border flex items-center justify-between">
                                     <div>
-                                        <span class="font-mono font-bold text-sky-700">${t.id}</span>: <strong class="text-slate-800">${t.title}</strong>
-                                        <p class="text-[11px] text-slate-500">Ưu tiên: ${t.priority} • Phụ trách: ${t.assignee}</p>
+                                        <span class="font-mono font-bold ${isUrgent ? 'text-red-600' : 'text-slate-800'}">${t.id}</span>: <strong class="text-slate-900">${t.title}</strong>
+                                        <p class="text-[11px] text-slate-500">Ưu tiên: <span class="${isUrgent ? 'text-red-600 font-bold' : ''}">${t.priority}</span> • Phụ trách: ${t.assignee}</p>
                                     </div>
-                                    <span class="px-2 py-0.5 bg-amber-100 text-amber-800 font-semibold rounded text-[10px]">${t.status}</span>
+                                    <span class="px-2 py-0.5 ${isUrgent ? 'bg-red-600 text-white' : 'bg-slate-200 text-slate-700'} font-semibold rounded text-[10px]">${t.status}</span>
                                 </div>
-                            `).join('')}
+                            `}).join('')}
                         </div>
                     `}
                 </div>
                 <div>
-                    <h4 class="font-bold text-slate-800 mb-2">3. Checklist Bảo Trì Định Kỳ (PPM) Cần Hoàn Thành (${pendingChecklists.length}):</h4>
+                    <h4 class="font-bold text-slate-900 mb-2">3. Checklist Bảo Trì Định Kỳ (PPM) Trong Ca (${pendingChecklists.length}):</h4>
                     ${pendingChecklists.length === 0 ? '<p class="text-slate-400 italic">Đã hoàn thành toàn bộ checklist trong ngày!</p>' : `
                         <div class="space-y-2 max-h-32 overflow-y-auto pr-1">
                             ${pendingChecklists.map(c => `
-                                <div class="p-2.5 bg-slate-50 rounded border border-slate-200 flex items-center justify-between">
+                                <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-between">
                                     <div>
-                                        <span class="font-mono font-bold text-emerald-700">${c.id}</span>: <strong class="text-slate-800">${c.title}</strong>
+                                        <span class="font-mono font-bold text-slate-700">${c.id}</span>: <strong class="text-slate-800">${c.title}</strong>
                                         <p class="text-[11px] text-slate-500">Khu vực: ${c.location} • Hệ thống: ${c.subsystem}</p>
                                     </div>
-                                    <button onclick="closeModal('dailyTaskModal'); navigateTab('ppm');" class="px-2.5 py-1 bg-sky-600 text-white rounded text-[11px] font-semibold hover:bg-sky-700">Mở PPM</button>
+                                    <button onclick="closeModal('dailyTaskModal'); navigateTab('ppm');" class="px-2.5 py-1 bg-slate-900 text-white rounded text-[11px] font-medium hover:bg-slate-800">Mở PPM</button>
                                 </div>
                             `).join('')}
                         </div>
@@ -2274,8 +2727,7 @@
         function getSystemMeta(sysCode) {
             const found = systems.find(s => s.code === sysCode);
             if (found) {
-                const style = colorStyles[found.color] || colorStyles.sky;
-                return { ...found, style };
+                return { ...found, style: neutralStyle };
             }
             return {
                 code: sysCode || 'OTHER',
@@ -2283,55 +2735,90 @@
                 icon: 'fa-microchip',
                 color: 'slate',
                 desc: '',
-                style: colorStyles.slate
+                style: neutralStyle
             };
         }
 
         function renderSystemBadge(sysCode, compact = false) {
             const meta = getSystemMeta(sysCode);
             const label = compact ? meta.code : meta.name;
-            return `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold ${meta.style.bg} ${meta.style.text}">
-                <i class="fa-solid ${meta.icon} ${meta.style.icon}"></i>
+            return `<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded border border-slate-200 text-[11px] font-medium bg-slate-100 text-slate-700">
+                <i class="fa-solid ${meta.icon} text-slate-500"></i>
                 <span>${label}</span>
             </span>`;
         }
 
-        // --- LOGIN & MULTI-SYSTEM ROLE SWITCHER ---
+        // --- EMAIL LOGIN & MULTI-SYSTEM ROLE SWITCHER ---
+        let hasShownInitialDailyPopup = false;
+
         function renderRoleSelection() {
             const list = document.getElementById('role-selection-list');
             if (!list) return;
             list.innerHTML = users.map(u => {
                 const sysArr = Array.isArray(u.systems) ? u.systems : [u.system || 'ALL'];
+                const userEmail = u.email || `${u.username}@vinhtower.vn`;
                 const badgesHtml = u.role === 'ADMIN' || sysArr.includes('ALL')
-                    ? `<span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 font-semibold text-[10px]">Toàn bộ ${systems.length} Hệ Thống</span>`
-                    : sysArr.map(code => {
-                        const m = getSystemMeta(code);
-                        return `<span class="px-2 py-0.5 rounded ${m.style.bg} ${m.style.text} font-mono font-bold text-[10px]">${code}</span>`;
-                    }).join(' ');
+                    ? `<span class="px-2 py-0.5 rounded bg-slate-900 text-white font-medium text-[10px]">Toàn bộ ${systems.length} Hệ Thống</span>`
+                    : sysArr.map(code => `<span class="px-1.5 py-0.5 rounded bg-slate-200 text-slate-700 font-mono font-semibold text-[10px]">${code}</span>`).join(' ');
 
                 return `
-                    <div onclick="loginAsUser('${u.id}')" class="p-3.5 bg-slate-50 hover:bg-sky-50 border border-slate-200 hover:border-sky-400 rounded-xl cursor-pointer flex items-center justify-between gap-3 transition-all group">
-                        <div class="flex items-start gap-3 min-w-0">
-                            <div class="w-10 h-10 rounded-xl ${u.role === 'ADMIN' ? 'bg-indigo-600' : 'bg-sky-600'} text-white font-bold flex items-center justify-center flex-shrink-0 shadow-sm">
+                    <div onclick="fillEmailAndLogin('${userEmail}')" class="p-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-400 rounded-lg cursor-pointer flex items-center justify-between gap-2.5 transition-all group">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <div class="w-8 h-8 rounded-lg bg-slate-800 text-white font-bold flex items-center justify-center flex-shrink-0 text-xs">
                                 ${u.fullname.charAt(0)}
                             </div>
-                            <div class="space-y-1 min-w-0">
-                                <p class="font-bold text-slate-800 text-xs truncate">${u.fullname} <span class="font-mono text-slate-400 font-normal">(@${u.username})</span></p>
-                                <div class="flex flex-wrap gap-1">${badgesHtml}</div>
+                            <div class="space-y-0.5 min-w-0">
+                                <p class="font-bold text-slate-900 text-[11px] truncate">${u.fullname}</p>
+                                <p class="font-mono text-[11px] text-slate-600 truncate">${userEmail}</p>
+                                <div class="flex flex-wrap gap-1 pt-0.5">${badgesHtml}</div>
                             </div>
                         </div>
-                        <span class="text-xs text-sky-600 font-semibold group-hover:translate-x-1 transition-transform flex items-center gap-1 flex-shrink-0">
-                            Vào ca <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        <span class="text-[11px] text-slate-700 font-semibold group-hover:translate-x-0.5 transition-transform flex items-center gap-1 flex-shrink-0">
+                            Đăng nhập <i class="fa-solid fa-arrow-right text-[9px]"></i>
                         </span>
                     </div>
                 `;
             }).join('');
         }
 
+        function fillEmailAndLogin(emailStr) {
+            const input = document.getElementById('login-email-input');
+            const errEl = document.getElementById('login-email-error');
+            if (errEl) errEl.classList.add('hidden');
+            if (input) {
+                input.value = emailStr;
+                input.focus();
+            }
+            const found = users.find(u => (u.email || `${u.username}@vinhtower.vn`).toLowerCase() === emailStr.trim().toLowerCase());
+            if (found) {
+                loginAsUser(found.id);
+            }
+        }
+
+        function handleEmailLoginSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('login-email-input');
+            const errEl = document.getElementById('login-email-error');
+            const emailVal = (input?.value || '').trim().toLowerCase();
+            if (!emailVal) return;
+
+            const found = users.find(u => (u.email || `${u.username}@vinhtower.vn`).toLowerCase() === emailVal);
+            if (!found) {
+                if (errEl) errEl.classList.remove('hidden');
+                showToast('Địa chỉ Email này chưa được cấp quyền truy cập hệ thống!', 'error');
+                return;
+            }
+
+            if (errEl) errEl.classList.add('hidden');
+            loginAsUser(found.id);
+        }
+
         function loginAsUser(userId) {
             const found = users.find(u => u.id === userId);
             if (!found) return;
             currentUser = found;
+            const userEmail = currentUser.email || `${currentUser.username}@vinhtower.vn`;
+
             document.getElementById('loginScreen').classList.add('hidden');
             document.getElementById('current-user-name').innerText = currentUser.fullname;
             document.getElementById('current-user-avatar').innerText = currentUser.fullname.charAt(0);
@@ -2341,7 +2828,7 @@
                 ? `Toàn bộ (${systems.length} hệ thống)`
                 : sysArr.join(', ');
 
-            document.getElementById('current-user-role-label').innerText = `Phụ trách: ${sysText}`;
+            document.getElementById('current-user-role-label').innerText = `${userEmail} • ${sysText}`;
             document.getElementById('header-assigned-systems').innerText = sysText;
 
             const navUsersBtn = document.getElementById('nav-users');
@@ -2365,11 +2852,22 @@
             renderSystemsGrid();
             renderUserTable();
 
-            showToast(`Đã đăng nhập: ${currentUser.fullname}`);
+            showToast(`Đã đăng nhập: ${userEmail}`);
+
+            if (!hasShownInitialDailyPopup) {
+                hasShownInitialDailyPopup = true;
+                setTimeout(showDailyTaskModal, 350);
+            }
         }
 
         function openLoginSwitchModal() {
             renderRoleSelection();
+            const input = document.getElementById('login-email-input');
+            const errEl = document.getElementById('login-email-error');
+            if (errEl) errEl.classList.add('hidden');
+            if (input && currentUser) {
+                input.value = currentUser.email || '';
+            }
             document.getElementById('loginScreen').classList.remove('hidden');
         }
 
@@ -2385,16 +2883,16 @@
 
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('bg-sky-600', 'text-white', 'shadow-md', 'shadow-sky-600/30');
-                btn.classList.add('hover:bg-slate-800', 'hover:text-white');
+                btn.classList.remove('bg-white', 'text-slate-900', 'shadow-sm', 'font-semibold');
+                btn.classList.add('text-slate-300', 'hover:bg-slate-800', 'hover:text-white', 'font-medium');
             });
 
             const currentTab = document.getElementById(`tab-${tabName}`);
             const currentNav = document.getElementById(`nav-${tabName}`);
             if (currentTab) currentTab.classList.remove('hidden');
             if (currentNav) {
-                currentNav.classList.remove('hover:bg-slate-800', 'hover:text-white');
-                currentNav.classList.add('bg-sky-600', 'text-white', 'shadow-md', 'shadow-sky-600/30');
+                currentNav.classList.remove('text-slate-300', 'hover:bg-slate-800', 'hover:text-white', 'font-medium');
+                currentNav.classList.add('bg-white', 'text-slate-900', 'shadow-sm', 'font-semibold');
             }
 
             const titles = {
@@ -2442,8 +2940,8 @@
 
             msgEl.innerText = message;
             iconEl.className = type === 'error'
-                ? 'fa-solid fa-circle-xmark text-rose-400 text-base'
-                : 'fa-solid fa-circle-check text-emerald-400 text-base';
+                ? 'fa-solid fa-circle-exclamation text-red-500 text-base'
+                : 'fa-solid fa-circle-check text-slate-300 text-base';
 
             toast.classList.remove('translate-y-24', 'opacity-0');
             setTimeout(() => {
@@ -2453,7 +2951,7 @@
 
         function toggleNotificationPanel() {
             const active = tickets.filter(t => t.status === 'NEW' || t.status === 'IN_PROGRESS').length;
-            showToast(`Đang có ${active} phiếu công việc kỹ thuật cần theo dõi xử lý trong ca trực!`);
+            showToast(`Đang có ${active} phiếu sự cố kỹ thuật cần xử lý!`, active > 0 ? 'error' : 'success');
         }
 
         function handleAddHandoverNote(e) {
@@ -2466,10 +2964,10 @@
             const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
             const container = document.getElementById('handover-logs-container');
             const noteEl = document.createElement('div');
-            noteEl.className = 'p-3.5 bg-sky-50/70 rounded-xl border border-sky-200/80';
+            noteEl.className = 'p-3.5 bg-slate-50 rounded-lg border border-slate-200';
             noteEl.innerHTML = `
                 <div class="flex items-center justify-between text-slate-500 text-[11px] mb-1 font-medium">
-                    <span><i class="fa-solid fa-user-check mr-1 text-sky-600"></i>${currentUser.fullname}</span>
+                    <span><i class="fa-regular fa-user mr-1"></i>${currentUser.fullname}</span>
                     <span>${timeStr}</span>
                 </div>
                 <p class="text-slate-800 leading-relaxed">${text}</p>
@@ -2491,12 +2989,12 @@
                     const hasIssue = sysAssets.some(a => a.status !== 'RUNNING');
                     const isManaged = isSystemAllowedForCurrentUser(sys.code);
                     return `
-                        <div onclick="filterBySystemFromSidebar('${sys.code}')" class="flex items-center justify-between py-1.5 px-1.5 rounded hover:bg-slate-800/80 cursor-pointer border-b border-slate-800/60 transition-colors" title="${isManaged ? 'Hệ thống bạn phụ trách' : 'Hệ thống khác (Chỉ xem)'}">
-                            <span class="truncate pr-2">
-                                <i class="fa-solid ${meta.icon} ${meta.style.icon} w-4 mr-1.5"></i>${sys.name.replace('Hệ thống ', '')}
+                        <div onclick="filterBySystemFromSidebar('${sys.code}')" class="flex items-center justify-between py-1.5 px-2 rounded hover:bg-slate-800 cursor-pointer transition-colors" title="${isManaged ? 'Hệ thống bạn phụ trách' : 'Hệ thống khác (Chỉ xem)'}">
+                            <span class="truncate pr-2 text-slate-300">
+                                <i class="fa-solid ${meta.icon} text-slate-500 w-4 mr-1.5"></i>${sys.name.replace('Hệ thống ', '')}
                             </span>
-                            <span class="${hasIssue ? 'text-amber-400' : 'text-emerald-400'} font-medium text-[10px] flex-shrink-0">
-                                ${sysAssets.length} TB ${!isManaged ? '<i class="fa-solid fa-eye text-slate-500 ml-0.5"></i>' : ''}
+                            <span class="${hasIssue ? 'bg-red-600 text-white px-1.5 py-0.2 rounded font-bold' : 'text-slate-400'} font-mono text-[10px] flex-shrink-0">
+                                ${sysAssets.length} TB
                             </span>
                         </div>
                     `;
@@ -2551,39 +3049,39 @@
                 const countAssets = assets.filter(a => a.system === sys.code).length;
                 const countTickets = tickets.filter(t => {
                     const ast = assets.find(a => a.code === t.assetCode);
-                    return ast && ast.system === sys.code;
+                    return ast && ast.system === sys.code && (t.status === 'NEW' || t.status === 'IN_PROGRESS');
                 }).length;
                 const countPpm = checklists.filter(c => c.subsystem === sys.code).length;
                 const canEditThisSystem = isSystemAllowedForCurrentUser(sys.code);
 
                 return `
-                    <div class="bg-white rounded-xl border ${canEditThisSystem ? 'border-slate-200/80' : 'border-slate-200 opacity-65'} shadow-sm p-5 flex flex-col justify-between hover:shadow-md transition-shadow">
+                    <div class="bg-white rounded-xl border ${countTickets > 0 ? 'border-red-300' : 'border-slate-200'} ${canEditThisSystem ? '' : 'opacity-70'} shadow-sm p-5 flex flex-col justify-between hover:border-slate-400 transition-all">
                         <div>
                             <div class="flex items-start justify-between gap-3">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-xl ${meta.style.bg} ${meta.style.icon} flex items-center justify-center text-lg shadow-sm">
+                                    <div class="w-10 h-10 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center text-base">
                                         <i class="fa-solid ${meta.icon}"></i>
                                     </div>
                                     <div>
                                         <div class="flex items-center gap-1.5">
-                                            <span class="font-mono text-[11px] font-bold px-2 py-0.5 rounded ${meta.style.bg} ${meta.style.text}">${sys.code}</span>
+                                            <span class="font-mono text-[11px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-200">${sys.code}</span>
                                             ${!canEditThisSystem ? '<span class="text-[10px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded font-medium"><i class="fa-solid fa-lock mr-1"></i>Chỉ xem</span>' : ''}
                                         </div>
-                                        <h4 class="font-bold text-slate-800 text-sm mt-1">${sys.name}</h4>
+                                        <h4 class="font-bold text-slate-900 text-sm mt-1">${sys.name}</h4>
                                     </div>
                                 </div>
                                 <div class="flex items-center gap-1">
                                     ${canEditThisSystem ? `
-                                        <button onclick="editSystem('${sys.code}')" title="Chỉnh sửa hệ thống ${sys.code}" class="p-1.5 text-slate-400 hover:text-sky-600 hover:bg-slate-100 rounded transition-colors">
+                                        <button onclick="editSystem('${sys.code}')" title="Chỉnh sửa hệ thống ${sys.code}" class="p-1.5 text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded transition-colors">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </button>
                                     ` : `
-                                        <span title="Tài khoản của bạn không phụ trách hệ thống ${sys.code} nên không thể chỉnh sửa" class="p-1.5 text-slate-300 cursor-not-allowed">
+                                        <span title="Tài khoản của bạn không phụ trách hệ thống ${sys.code}" class="p-1.5 text-slate-300 cursor-not-allowed">
                                             <i class="fa-solid fa-lock"></i>
                                         </span>
                                     `}
                                     ${isAdmin ? `
-                                        <button onclick="deleteSystem('${sys.code}')" title="Xóa hệ thống (Chỉ Admin)" class="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-slate-100 rounded transition-colors">
+                                        <button onclick="deleteSystem('${sys.code}')" title="Xóa hệ thống (Chỉ Admin)" class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors">
                                             <i class="fa-regular fa-trash-can"></i>
                                         </button>
                                     ` : ''}
@@ -2593,16 +3091,16 @@
                         </div>
 
                         <div class="mt-4 pt-3 border-t border-slate-100 grid grid-cols-3 gap-2 text-center text-[11px]">
-                            <div onclick="filterBySystemFromSidebar('${sys.code}')" class="bg-slate-50 hover:bg-sky-50 p-2 rounded-lg cursor-pointer transition-colors">
-                                <span class="block font-bold text-slate-800 text-sm">${countAssets}</span>
+                            <div onclick="filterBySystemFromSidebar('${sys.code}')" class="bg-slate-50 hover:bg-slate-100 p-2 rounded-lg cursor-pointer transition-colors">
+                                <span class="block font-bold text-slate-900 text-sm">${countAssets}</span>
                                 <span class="text-slate-500">Thiết bị</span>
                             </div>
-                            <div onclick="navigateTab('tickets')" class="bg-slate-50 hover:bg-rose-50 p-2 rounded-lg cursor-pointer transition-colors">
-                                <span class="block font-bold text-rose-600 text-sm">${countTickets}</span>
-                                <span class="text-slate-500">Phiếu WO</span>
+                            <div onclick="navigateTab('tickets')" class="${countTickets > 0 ? 'bg-red-50 border border-red-200' : 'bg-slate-50'} hover:bg-slate-100 p-2 rounded-lg cursor-pointer transition-colors">
+                                <span class="block font-bold ${countTickets > 0 ? 'text-red-600' : 'text-slate-700'} text-sm">${countTickets}</span>
+                                <span class="${countTickets > 0 ? 'text-red-700 font-semibold' : 'text-slate-500'}">Sự cố mở</span>
                             </div>
-                            <div onclick="navigateTab('ppm')" class="bg-slate-50 hover:bg-emerald-50 p-2 rounded-lg cursor-pointer transition-colors">
-                                <span class="block font-bold text-emerald-600 text-sm">${countPpm}</span>
+                            <div onclick="navigateTab('ppm')" class="bg-slate-50 hover:bg-slate-100 p-2 rounded-lg cursor-pointer transition-colors">
+                                <span class="block font-bold text-slate-900 text-sm">${countPpm}</span>
                                 <span class="text-slate-500">Checklist</span>
                             </div>
                         </div>
@@ -3078,23 +3576,27 @@
                     const ast = assets.find(a => a.code === t.assetCode);
                     return ast && ast.system === sys.code && (t.status === 'NEW' || t.status === 'IN_PROGRESS');
                 }).length;
+                const hasDeviceFault = sysAssets.some(a => a.status !== 'RUNNING');
+                const needsAttention = sysIssues > 0 || hasDeviceFault;
 
                 return `
-                    <div onclick="filterBySystemFromSidebar('${sys.code}')" class="p-3 rounded-xl border ${isManaged ? 'border-slate-200 bg-slate-50/60' : 'border-slate-200/70 bg-slate-50/30 opacity-80'} hover:border-sky-400 hover:bg-sky-50/40 cursor-pointer transition-all flex flex-col justify-between gap-2 group">
+                    <div onclick="filterBySystemFromSidebar('${sys.code}')" class="p-3.5 rounded-xl border ${needsAttention ? 'border-red-300 bg-red-50/20' : 'border-slate-200 bg-white'} ${!isManaged ? 'opacity-75' : ''} hover:border-slate-400 cursor-pointer transition-all flex flex-col justify-between gap-2 group">
                         <div class="flex items-center justify-between">
-                            <div class="w-8 h-8 rounded-lg ${meta.style.bg} ${meta.style.icon} flex items-center justify-center text-sm">
+                            <div class="w-8 h-8 rounded-lg ${needsAttention ? 'bg-red-100 text-red-600' : 'bg-slate-100 text-slate-600'} flex items-center justify-center text-sm">
                                 <i class="fa-solid ${meta.icon}"></i>
                             </div>
                             <div class="flex items-center gap-1">
-                                ${!isManaged ? '<span class="text-[9px] bg-slate-200 text-slate-600 px-1.5 py-0.5 rounded font-medium" title="Chỉ xem">Xem</span>' : ''}
-                                <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded ${meta.style.bg} ${meta.style.text}">${sys.code}</span>
+                                ${!isManaged ? '<span class="text-[9px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded font-medium">Xem</span>' : ''}
+                                <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-800">${sys.code}</span>
                             </div>
                         </div>
                         <div>
-                            <h4 class="font-bold text-slate-800 text-xs truncate group-hover:text-sky-700">${sys.name.replace('Hệ thống ', '')}</h4>
-                            <div class="flex items-center justify-between text-[11px] text-slate-500 mt-1">
+                            <h4 class="font-bold text-slate-900 text-xs truncate">${sys.name.replace('Hệ thống ', '')}</h4>
+                            <div class="flex items-center justify-between text-[11px] text-slate-500 mt-1.5">
                                 <span><strong>${sysAssets.length}</strong> thiết bị</span>
-                                <span class="${sysIssues > 0 ? 'text-rose-600 font-bold' : 'text-emerald-600'}">${sysIssues > 0 ? `${sysIssues} sự cố` : 'Ổn định'}</span>
+                                ${sysIssues > 0
+                                    ? `<span class="text-red-600 font-bold flex items-center gap-1"><i class="fa-solid fa-circle-exclamation"></i>${sysIssues} sự cố</span>`
+                                    : (hasDeviceFault ? `<span class="text-red-600 font-semibold">Cần kiểm tra</span>` : `<span class="text-slate-500">Ổn định</span>`)}
                             </div>
                         </div>
                     </div>
@@ -3112,38 +3614,39 @@
             }
 
             const priorityBadge = {
-                CRITICAL: '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-700">Khẩn Cấp</span>',
-                HIGH: '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-100 text-orange-700">Cao</span>',
-                MEDIUM: '<span class="px-2 py-0.5 rounded text-[10px] font-medium bg-amber-100 text-amber-700">Trung Bình</span>',
-                LOW: '<span class="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-600">Thấp</span>',
+                CRITICAL: '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-600 text-white">Khẩn Cấp</span>',
+                HIGH: '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-50 text-red-700 border border-red-200">Ưu Tiên Cao</span>',
+                MEDIUM: '<span class="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-700">Trung Bình</span>',
+                LOW: '<span class="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-500">Thấp</span>',
             };
 
             const statusBadge = {
-                NEW: '<span class="text-xs text-amber-600 font-medium"><i class="fa-solid fa-clock mr-1"></i>Mới tiếp nhận</span>',
-                IN_PROGRESS: '<span class="text-xs text-sky-600 font-medium"><i class="fa-solid fa-screwdriver-wrench mr-1"></i>Đang xử lý</span>',
-                RESOLVED: '<span class="text-xs text-emerald-600 font-medium"><i class="fa-solid fa-circle-check mr-1"></i>Đã xong</span>',
-                VERIFIED: '<span class="text-xs text-indigo-600 font-medium"><i class="fa-solid fa-shield-halved mr-1"></i>Đã nghiệm thu</span>'
+                NEW: '<span class="text-xs text-red-600 font-bold"><i class="fa-solid fa-circle-exclamation mr-1"></i>Mới tiếp nhận</span>',
+                IN_PROGRESS: '<span class="text-xs text-red-600 font-semibold"><i class="fa-solid fa-screwdriver-wrench mr-1"></i>Đang xử lý</span>',
+                RESOLVED: '<span class="text-xs text-slate-600 font-medium"><i class="fa-solid fa-check mr-1"></i>Đã xong</span>',
+                VERIFIED: '<span class="text-xs text-slate-500 font-medium"><i class="fa-solid fa-check-double mr-1"></i>Đã nghiệm thu</span>'
             };
 
             container.innerHTML = recent.map(t => {
                 const ast = assets.find(a => a.code === t.assetCode);
-                const sysBadge = ast ? renderSystemBadge(ast.system) : '';
+                const sysBadge = ast ? renderSystemBadge(ast.system, true) : '';
+                const isActive = t.status === 'NEW' || t.status === 'IN_PROGRESS';
                 return `
-                    <div class="p-4 hover:bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-colors">
+                    <div class="p-4 hover:bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-colors ${isActive ? 'bg-red-50/15' : ''}">
                         <div class="space-y-1.5 flex-1">
                             <div class="flex flex-wrap items-center gap-2">
                                 <span class="font-bold text-slate-900 text-xs font-mono bg-slate-100 px-2 py-0.5 rounded border border-slate-200">${t.id}</span>
                                 ${priorityBadge[t.priority] || ''}
                                 ${sysBadge}
-                                <span class="text-sky-800 text-[11px] font-mono font-semibold bg-sky-50 px-2 py-0.5 rounded">${t.assetCode}</span>
+                                <span class="text-slate-700 text-[11px] font-mono font-semibold bg-slate-100 px-2 py-0.5 rounded">${t.assetCode}</span>
                             </div>
-                            <p class="font-semibold text-slate-800 text-sm">${t.title}</p>
-                            <p class="text-xs text-slate-500">Kỹ thuật viên: <strong class="text-slate-700 font-semibold">${t.assignee}</strong> • <span class="text-slate-400">${t.time}</span></p>
+                            <p class="font-semibold text-slate-900 text-sm">${t.title}</p>
+                            <p class="text-xs text-slate-500">Phụ trách: <strong class="text-slate-700 font-medium">${t.assignee}</strong> • <span class="text-slate-400">${t.time}</span></p>
                         </div>
                         <div class="flex sm:flex-col items-center sm:items-end justify-between gap-2 flex-shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
                             ${statusBadge[t.status] || ''}
-                            <button onclick="editTicket('${t.id}')" class="px-3 py-1 bg-slate-100 hover:bg-sky-50 text-sky-700 rounded-lg text-xs font-semibold transition-colors">
-                                <i class="fa-regular fa-pen-to-square mr-1"></i>Cập nhật
+                            <button onclick="editTicket('${t.id}')" class="px-3 py-1 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-lg text-xs font-medium transition-colors">
+                                Cập nhật
                             </button>
                         </div>
                     </div>
@@ -3167,7 +3670,7 @@
                         labels: ['Hoạt động tốt', 'Cảnh báo / Bảo trì', 'Đang sửa chữa', 'Ngưng / Lỗi'],
                         datasets: [{
                             data: [running, warning, maint, offline],
-                            backgroundColor: ['#10b981', '#f59e0b', '#ef4444', '#64748b'],
+                            backgroundColor: ['#334155', '#f87171', '#dc2626', '#991b1b'],
                             borderWidth: 2,
                             borderColor: '#ffffff'
                         }]
@@ -3207,14 +3710,14 @@
                             {
                                 label: 'Số lượng Thiết bị',
                                 data: assetCounts,
-                                backgroundColor: '#0284c7',
-                                borderRadius: 5
+                                backgroundColor: '#94a3b8',
+                                borderRadius: 4
                             },
                             {
-                                label: 'Sự cố / Phiếu WO',
+                                label: 'Sự cố / Phiếu WO (Cần chú ý)',
                                 data: ticketCounts,
-                                backgroundColor: '#f43f5e',
-                                borderRadius: 5
+                                backgroundColor: '#dc2626',
+                                borderRadius: 4
                             }
                         ]
                     },
@@ -3273,18 +3776,19 @@
             }
 
             const statusTemplates = {
-                RUNNING: '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-100 text-emerald-800"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>Hoạt động tốt</span>',
-                WARNING: '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-800"><span class="w-1.5 h-1.5 rounded-full bg-amber-500 mr-1.5"></span>Cảnh báo / Bảo trì</span>',
-                MAINT: '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-rose-100 text-rose-800"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 mr-1.5"></span>Đang sửa chữa</span>',
-                OFFLINE: '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-200 text-slate-700"><span class="w-1.5 h-1.5 rounded-full bg-slate-500 mr-1.5"></span>Ngưng / Lỗi</span>'
+                RUNNING: '<span class="inline-flex items-center px-2.5 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-slate-700 border border-slate-200"><span class="w-1.5 h-1.5 rounded-full bg-slate-500 mr-1.5"></span>Hoạt động tốt</span>',
+                WARNING: '<span class="inline-flex items-center px-2.5 py-0.5 rounded text-[11px] font-bold bg-red-50 text-red-700 border border-red-200"><span class="w-1.5 h-1.5 rounded-full bg-red-500 mr-1.5"></span>Cảnh báo / Bảo trì</span>',
+                MAINT: '<span class="inline-flex items-center px-2.5 py-0.5 rounded text-[11px] font-bold bg-red-600 text-white"><span class="w-1.5 h-1.5 rounded-full bg-white mr-1.5"></span>Đang sửa chữa</span>',
+                OFFLINE: '<span class="inline-flex items-center px-2.5 py-0.5 rounded text-[11px] font-bold bg-red-700 text-white"><span class="w-1.5 h-1.5 rounded-full bg-white mr-1.5"></span>Ngưng / Lỗi</span>'
             };
 
             tbody.innerHTML = filtered.map(item => {
                 const canManage = isSystemAllowedForCurrentUser(item.system);
                 const mInfo = getAssetMaintenanceStatus(item);
+                const needsAttention = item.status !== 'RUNNING' || mInfo.daysRemaining <= 0;
                 return `
-                <tr class="hover:bg-slate-50/80 transition-colors">
-                    <td class="px-4 py-3 font-mono font-bold text-sky-900">${item.code}</td>
+                <tr class="hover:bg-slate-50/80 transition-colors ${needsAttention ? 'bg-red-50/20' : ''}">
+                    <td class="px-4 py-3 font-mono font-bold ${needsAttention ? 'text-red-700' : 'text-slate-900'}">${item.code}</td>
                     <td class="px-4 py-3">
                         <div class="font-semibold text-slate-900">${item.name}</div>
                         <div class="text-[11px] text-slate-500">${item.brand || '---'}</div>
@@ -3298,28 +3802,28 @@
                         <div class="text-[10px] text-slate-400 font-mono mt-0.5">Kế tiếp: ${formatIsoToVnDate(mInfo.nextDateStr)}</div>
                     </td>
                     <td class="px-4 py-3 text-center">
-                        <div onclick="openSingleQrModal('${item.id}')" title="Nhấn để phóng to & in tem mã QR của ${item.code}" class="inline-flex flex-col items-center gap-1 p-1.5 rounded-lg bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 cursor-pointer transition-all shadow-sm group">
+                        <div onclick="openSingleQrModal('${item.id}')" title="Nhấn để phóng to & in tem mã QR của ${item.code}" class="inline-flex flex-col items-center gap-1 p-1.5 rounded-lg bg-white hover:bg-slate-100 border border-slate-200 cursor-pointer transition-all shadow-sm group">
                             <div id="mini-qr-${item.id}" class="w-10 h-10 flex items-center justify-center"></div>
-                            <span class="text-[9px] font-mono font-bold text-indigo-600 group-hover:underline">In Tem QR</span>
+                            <span class="text-[9px] font-mono font-semibold text-slate-700 group-hover:underline">In QR</span>
                         </div>
                     </td>
                     <td class="px-4 py-3">${statusTemplates[item.status] || item.status}</td>
                     <td class="px-4 py-3 text-right space-x-1 whitespace-nowrap">
-                        <button onclick="viewAssetDetails('${item.id}')" title="Xem hồ sơ kỹ thuật" class="p-1.5 text-slate-500 hover:text-sky-600 hover:bg-slate-100 rounded">
+                        <button onclick="viewAssetDetails('${item.id}')" title="Xem hồ sơ kỹ thuật" class="p-1.5 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded">
                             <i class="fa-regular fa-eye"></i>
                         </button>
                         ${canManage ? `
-                            <button onclick="completeAssetMaintenance('${item.id}')" title="Xác nhận hoàn tất bảo trì & tự động cập nhật ngày bảo trì kế tiếp" class="p-1.5 text-emerald-600 hover:bg-emerald-50 rounded">
+                            <button onclick="completeAssetMaintenance('${item.id}')" title="Xác nhận hoàn tất bảo trì & tự động cập nhật ngày bảo trì kế tiếp" class="p-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded">
                                 <i class="fa-solid fa-calendar-check"></i>
                             </button>
-                            <button onclick="editAsset('${item.id}')" title="Sửa thiết bị" class="p-1.5 text-slate-500 hover:text-amber-600 hover:bg-slate-100 rounded">
+                            <button onclick="editAsset('${item.id}')" title="Sửa thiết bị" class="p-1.5 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </button>
-                            <button onclick="deleteAsset('${item.id}')" title="Xóa thiết bị" class="p-1.5 text-slate-500 hover:text-rose-600 hover:bg-slate-100 rounded">
+                            <button onclick="deleteAsset('${item.id}')" title="Xóa thiết bị" class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded">
                                 <i class="fa-regular fa-trash-can"></i>
                             </button>
                         ` : `
-                            <span title="Bạn không phụ trách hệ thống ${item.system} nên không được sửa/xóa thiết bị này" class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 text-slate-400 text-[10px] font-medium cursor-not-allowed">
+                            <span title="Bạn không phụ trách hệ thống ${item.system}" class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 text-slate-400 text-[10px] font-medium cursor-not-allowed">
                                 <i class="fa-solid fa-lock"></i> Chỉ xem
                             </span>
                         `}
@@ -3993,25 +4497,26 @@
             }
 
             const priorityBadge = {
-                CRITICAL: '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-700">Khẩn Cấp</span>',
-                HIGH: '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-100 text-orange-700">Cao</span>',
-                MEDIUM: '<span class="px-2 py-0.5 rounded text-[10px] font-medium bg-amber-100 text-amber-700">Trung Bình</span>',
-                LOW: '<span class="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-600">Thấp</span>',
+                CRITICAL: '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-600 text-white shadow-sm">Khẩn Cấp</span>',
+                HIGH: '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-50 text-red-700 border border-red-200">Ưu Tiên Cao</span>',
+                MEDIUM: '<span class="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-700 border border-slate-200">Trung Bình</span>',
+                LOW: '<span class="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-50 text-slate-500 border border-slate-200">Thấp</span>',
             };
 
             const statusTemplates = {
-                NEW: '<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-100 text-amber-800">Mới Tiếp Nhận</span>',
-                IN_PROGRESS: '<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-sky-100 text-sky-800">Đang Xử Lý</span>',
-                RESOLVED: '<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-100 text-emerald-800">Đã Hoàn Thành</span>',
-                VERIFIED: '<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-indigo-100 text-indigo-800">Đã Nghiệm Thu</span>'
+                NEW: '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-600 text-white">Mới Tiếp Nhận</span>',
+                IN_PROGRESS: '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-50 text-red-700 border border-red-200">Đang Xử Lý</span>',
+                RESOLVED: '<span class="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-700">Đã Hoàn Thành</span>',
+                VERIFIED: '<span class="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-500">Đã Nghiệm Thu</span>'
             };
 
             tbody.innerHTML = filtered.map(t => {
                 const ast = assets.find(a => a.code === t.assetCode);
                 const sysCode = ast ? ast.system : 'OTHER';
+                const isHighAttention = (t.status === 'NEW' || t.status === 'IN_PROGRESS') && (t.priority === 'CRITICAL' || t.priority === 'HIGH');
                 return `
-                    <tr class="hover:bg-slate-50/80 transition-colors">
-                        <td class="px-4 py-3 font-mono font-bold text-slate-800">${t.id}</td>
+                    <tr class="hover:bg-slate-50/80 transition-colors ${isHighAttention ? 'bg-red-50/30' : ''}">
+                        <td class="px-4 py-3 font-mono font-bold ${isHighAttention ? 'text-red-600' : 'text-slate-900'}">${t.id}</td>
                         <td class="px-4 py-3">
                             <div class="font-semibold text-slate-900">${t.title}</div>
                             <div class="text-[11px] text-slate-500 truncate max-w-xs">${t.desc || 'Không có ghi chú thêm.'}</div>
@@ -4022,13 +4527,13 @@
                         </td>
                         <td class="px-4 py-3">${priorityBadge[t.priority] || t.priority}</td>
                         <td class="px-4 py-3 text-slate-700 font-medium">${t.assignee}</td>
-                        <td class="px-4 py-3 text-slate-500 text-[11px] whitespace-nowrap">${t.time}</td>
+                        <td class="px-4 py-3 text-slate-500 text-[11px] whitespace-nowrap font-mono">${t.time}</td>
                         <td class="px-4 py-3">${statusTemplates[t.status] || t.status}</td>
                         <td class="px-4 py-3 text-right whitespace-nowrap">
-                            <button onclick="editTicket('${t.id}')" title="Cập nhật phiếu" class="p-1.5 text-slate-500 hover:text-sky-600 hover:bg-slate-100 rounded">
+                            <button onclick="editTicket('${t.id}')" title="Cập nhật phiếu" class="p-1.5 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </button>
-                            <button onclick="deleteTicket('${t.id}')" title="Xóa phiếu" class="p-1.5 text-slate-500 hover:text-rose-600 hover:bg-slate-100 rounded">
+                            <button onclick="deleteTicket('${t.id}')" title="Xóa phiếu" class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded">
                                 <i class="fa-regular fa-trash-can"></i>
                             </button>
                         </td>
@@ -4472,7 +4977,6 @@
         }
 
         function confirmResetDemoData() {
-            localStorage.clear();
             systems = JSON.parse(JSON.stringify(initialSystems));
             assets = JSON.parse(JSON.stringify(initialAssets));
             tickets = JSON.parse(JSON.stringify(initialTickets));
@@ -4483,9 +4987,9 @@
             ensureAssetsMaintenanceDates();
             runAutoMaintenanceEmailCheck(true);
             saveState();
-            loginAsUser(currentUser.id);
             closeModal('resetConfirmModal');
-            showToast('Đã khôi phục toàn bộ dữ liệu mẫu chuẩn!');
+            openLoginSwitchModal();
+            showToast('Đã khôi phục toàn bộ dữ liệu mẫu! Vui lòng đăng nhập lại bằng Email.');
         }
 
         // --- MODAL HELPERS ---
@@ -4495,6 +4999,9 @@
                 return;
             }
             syncAllSystemSelectors();
+            if (id === 'centralDataModal') {
+                updateCentralModalStats();
+            }
             if (id === 'emailLogModal') {
                 updateEmailBadgeAndModal();
             }
@@ -4544,22 +5051,43 @@
         }
 
         window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const cloudParam = params.get('cloud');
+            if (cloudParam) {
+                customCloudEndpoint = decodeURIComponent(cloudParam).trim();
+            } else {
+                customCloudEndpoint = DEFAULT_FIREBASE_RTDB_URL;
+            }
+
             ensureAssetsMaintenanceDates();
             runAutoMaintenanceEmailCheck(true);
             renderRoleSelection();
             renderEnergyHistory();
-            loginAsUser(users[0].id);
             updateLiveDateTime();
-            
-            // Show daily task popup on startup
-            setTimeout(showDailyTaskModal, 500);
 
-            const params = new URLSearchParams(window.location.search);
+            // Pre-render background data but keep loginScreen visible until user logs in with Email
+            syncAllSystemSelectors();
+            updateDashboard();
+            renderAssetTable();
+            renderTicketTable();
+            renderChecklists();
+            renderSystemsGrid();
+            renderUserTable();
+            updateCentralModalStats();
+
+            // Automatically pull and sync with https://ctch-6dc60-default-rtdb.asia-southeast1.firebasedatabase.app/
+            if (customCloudEndpoint) {
+                pullFromCustomCloudUrl(true);
+                // Auto-sync every 6 seconds so all computers & phones stay updated in real time
+                setInterval(() => {
+                    pullFromCustomCloudUrl(true);
+                }, 6000);
+            }
+
             const scannedCode = params.get('asset');
             if (scannedCode) {
                 const found = assets.find(a => a.code.toUpperCase() === scannedCode.trim().toUpperCase());
                 if (found) {
-                    document.getElementById('loginScreen').classList.add('hidden');
                     navigateTab('assets');
                     viewAssetDetails(found.id);
                 }
@@ -4570,6 +5098,86 @@
                 if (el) el.addEventListener('input', updateFormQrPreview);
             });
         };
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        let db = null;
+        let auth = null;
+        let activeUser = null;
+        let isApplyingRemoteSnapshot = false;
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'vinh-tower-bms-app';
+
+        async function initCentralCloudSync() {
+            if (typeof __firebase_config === 'undefined' || !__firebase_config) {
+                const uidEl = document.getElementById('central-user-uid');
+                if (uidEl) uidEl.innerText = 'Chế độ File Excel / Cloud URL';
+                return;
+            }
+
+            try {
+                const firebaseConfig = JSON.parse(__firebase_config);
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                onAuthStateChanged(auth, (user) => {
+                    activeUser = user;
+                    if (!user) return;
+
+                    const uidEl = document.getElementById('central-user-uid');
+                    if (uidEl) uidEl.innerText = user.uid;
+
+                    // Follow RULE 1 strictly: /artifacts/{appId}/public/data/bms_central_store
+                    const storeDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'bms_central_store', 'master_state');
+
+                    onSnapshot(
+                        storeDocRef,
+                        (snapshot) => {
+                            if (snapshot.exists()) {
+                                const cloudData = snapshot.data();
+                                isApplyingRemoteSnapshot = true;
+                                if (typeof window.applyCentralPayloadObject === 'function') {
+                                    window.applyCentralPayloadObject(cloudData);
+                                }
+                                isApplyingRemoteSnapshot = false;
+                            } else {
+                                // Initialize cloud store with initial state if empty
+                                if (typeof window.getCentralPayloadObject === 'function') {
+                                    setDoc(storeDocRef, window.getCentralPayloadObject());
+                                }
+                            }
+                        },
+                        (error) => {
+                            console.error("Cloud sync listener error:", error);
+                        }
+                    );
+                });
+
+                window.pushCentralDataToFirestore = async (payload) => {
+                    if (!activeUser || !db || isApplyingRemoteSnapshot) return;
+                    try {
+                        const storeDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'bms_central_store', 'master_state');
+                        await setDoc(storeDocRef, payload);
+                    } catch (e) {
+                        console.error("Failed to save central state to cloud:", e);
+                    }
+                };
+            } catch (err) {
+                console.error("Cloud initialization skipped:", err);
+            }
+        }
+
+        initCentralCloudSync();
     </script>
 </body>
 </html>
