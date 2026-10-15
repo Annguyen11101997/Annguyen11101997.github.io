@@ -190,59 +190,59 @@
 
             <!-- Navigation Links -->
             <nav class="flex-1 p-3 space-y-1 overflow-y-auto">
-                <div class="text-[10px] uppercase font-bold tracking-wider text-slate-400 px-3 py-2">Danh Mục Quản Trị</div>
+                <div class="text-[10px] uppercase font-bold tracking-wider text-slate-500 px-3 py-2">Danh Mục Quản Trị</div>
                 
-                <button onclick="navigateTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold transition-all bg-sky-600 text-white shadow-md shadow-sky-600/30">
-                    <i class="fa-solid fa-chart-pie w-4 text-center text-sky-200"></i>
+                <button onclick="navigateTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold transition-all bg-slate-800 text-white border-l-4 border-sky-500">
+                    <i class="fa-solid fa-chart-pie w-4 text-center text-slate-300"></i>
                     <span>Tổng quan vận hành</span>
                 </button>
 
-                <button onclick="navigateTab('assets')" id="nav-assets" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
-                    <i class="fa-solid fa-server w-4 text-center text-cyan-400"></i>
+                <button onclick="navigateTab('assets')" id="nav-assets" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800/70 hover:text-white">
+                    <i class="fa-solid fa-server w-4 text-center text-slate-400"></i>
                     <span>Danh Mục Thiết Bị</span>
-                    <span id="badge-total-assets" class="ml-auto text-[11px] bg-slate-800 px-2 py-0.5 rounded-full text-sky-400 font-mono font-semibold">11</span>
+                    <span id="badge-total-assets" class="ml-auto text-[11px] bg-slate-800 px-2 py-0.5 rounded-full text-slate-300 font-mono font-semibold">11</span>
                 </button>
 
-                <button onclick="navigateTab('tickets')" id="nav-tickets" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
-                    <i class="fa-solid fa-triangle-exclamation w-4 text-center text-red-500"></i>
+                <button onclick="navigateTab('tickets')" id="nav-tickets" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800/70 hover:text-white">
+                    <i class="fa-solid fa-triangle-exclamation w-4 text-center text-red-400"></i>
                     <span>Phiếu Sự Cố / WO</span>
                     <span id="badge-active-tickets" class="ml-auto text-[11px] bg-red-600 text-white px-2 py-0.5 rounded-full font-bold font-mono">3</span>
                 </button>
 
-                <button onclick="navigateTab('ppm')" id="nav-ppm" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
-                    <i class="fa-solid fa-calendar-check w-4 text-center text-amber-400"></i>
+                <button onclick="navigateTab('ppm')" id="nav-ppm" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800/70 hover:text-white">
+                    <i class="fa-solid fa-calendar-check w-4 text-center text-slate-400"></i>
                     <span>Bảo Trì Định Kỳ (PPM)</span>
                 </button>
 
-                <button onclick="navigateTab('reports')" id="nav-reports" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
-                    <i class="fa-solid fa-file-contract w-4 text-center text-emerald-400"></i>
+                <button onclick="navigateTab('reports')" id="nav-reports" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800/70 hover:text-white">
+                    <i class="fa-solid fa-file-contract w-4 text-center text-slate-400"></i>
                     <span>Báo Cáo Ngày/Tháng/Năm</span>
                 </button>
 
-                <button onclick="navigateTab('systems')" id="nav-systems" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
-                    <i class="fa-solid fa-layer-group w-4 text-center text-purple-400"></i>
+                <button onclick="navigateTab('systems')" id="nav-systems" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800/70 hover:text-white">
+                    <i class="fa-solid fa-layer-group w-4 text-center text-slate-400"></i>
                     <span>Cấu Hình Hệ Thống</span>
-                    <span id="badge-total-systems" class="ml-auto text-[11px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-full font-mono font-semibold">10</span>
+                    <span id="badge-total-systems" class="ml-auto text-[11px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full font-mono font-semibold">10</span>
                 </button>
 
-                <button onclick="navigateTab('users')" id="nav-users" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white">
-                    <i class="fa-solid fa-users-gear w-4 text-center text-indigo-400"></i>
+                <button onclick="navigateTab('users')" id="nav-users" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:bg-slate-800/70 hover:text-white">
+                    <i class="fa-solid fa-users-gear w-4 text-center text-slate-400"></i>
                     <span>Phân Quyền Tài Khoản</span>
                 </button>
 
-                <!-- Nút Dữ Liệu Tập Trung được chuyển về cột bên trái -->
+                <!-- Nút Dữ Liệu Tập Trung bên trái với màu dịu mắt -->
                 <div class="pt-2 pb-1">
-                    <button onclick="openModal('centralDataModal')" class="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md shadow-emerald-900/30 transition-all">
-                        <span id="cloud-sync-dot" class="w-2.5 h-2.5 rounded-full bg-white animate-pulse flex-shrink-0"></span>
-                        <i class="fa-solid fa-cloud-arrow-up w-4 text-center"></i>
+                    <button onclick="openModal('centralDataModal')" class="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all">
+                        <span id="cloud-sync-dot" class="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0"></span>
+                        <i class="fa-solid fa-database w-4 text-center text-slate-400"></i>
                         <span class="truncate">Dữ Liệu Tập Trung</span>
-                        <span id="sidebar-sync-badge" class="ml-auto text-[10px] bg-black/25 px-1.5 py-0.5 rounded font-mono">Cloud</span>
+                        <span id="sidebar-sync-badge" class="ml-auto text-[10px] bg-slate-900 text-slate-300 px-1.5 py-0.5 rounded font-mono">Cloud</span>
                     </button>
                 </div>
 
-                <div class="text-[10px] uppercase font-bold tracking-wider text-slate-400 px-3 pt-3 pb-1.5 flex items-center justify-between">
+                <div class="text-[10px] uppercase font-bold tracking-wider text-slate-500 px-3 pt-3 pb-1.5 flex items-center justify-between">
                     <span>Trạng Thái Phân Hệ</span>
-                    <button id="sidebar-add-sys-btn" onclick="openModal('systemModal')" title="Thêm hệ thống mới" class="text-sky-400 hover:text-sky-300"><i class="fa-solid fa-plus"></i></button>
+                    <button id="sidebar-add-sys-btn" onclick="openModal('systemModal')" title="Thêm hệ thống mới" class="text-slate-400 hover:text-white"><i class="fa-solid fa-plus"></i></button>
                 </div>
                 <div id="sidebar-systems-list" class="px-2 py-1 space-y-0.5 text-xs text-slate-400 max-h-44 overflow-y-auto">
                     <!-- Populated dynamically -->
@@ -293,34 +293,34 @@
                 <!-- Shift Status & Actions -->
                 <div class="flex items-center gap-2 flex-shrink-0">
                     <!-- Live DateTime Badge -->
-                    <div class="hidden xl:flex items-center gap-2 bg-sky-50 border border-sky-200 rounded-lg px-3 py-1.5 text-xs text-sky-900">
-                        <i class="fa-regular fa-clock text-sky-600"></i>
-                        <span id="live-datetime" class="font-mono font-semibold">--/--/---- --:--:--</span>
+                    <div class="hidden xl:flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700">
+                        <i class="fa-regular fa-clock text-slate-400"></i>
+                        <span id="live-datetime" class="font-mono font-medium">--/--/---- --:--:--</span>
                     </div>
 
-                    <!-- On-Duty Member Today Badge (Click to enter manually or import Excel/CSV) -->
-                    <div onclick="openModal('dutyRosterModal')" class="flex items-center gap-1.5 sm:gap-2 bg-amber-50 hover:bg-amber-100 border border-amber-300 rounded-lg px-2.5 sm:px-3 py-1.5 text-xs text-amber-900 cursor-pointer transition-colors shadow-sm" title="Nhấn để nhập tên thành viên trực hoặc tải file lịch trực lên">
-                        <i class="fa-solid fa-user-check text-amber-600"></i>
-                        <span class="hidden md:inline text-amber-800 font-medium">Trực hôm nay:</span>
-                        <strong id="header-onduty-member" class="font-bold text-amber-950 truncate max-w-[110px] sm:max-w-[180px]">Đang tải...</strong>
-                        <i class="fa-solid fa-pen-to-square text-[10px] text-amber-600"></i>
+                    <!-- On-Duty Member Today Badge -->
+                    <div onclick="openModal('dutyRosterModal')" class="flex items-center gap-1.5 sm:gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-300 rounded-lg px-2.5 sm:px-3 py-1.5 text-xs text-slate-800 cursor-pointer transition-colors" title="Nhấn để nhập tên thành viên trực hoặc tải file lịch trực lên">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        <span class="hidden md:inline text-slate-500 font-medium">Trực:</span>
+                        <strong id="header-onduty-member" class="font-bold text-slate-900 truncate max-w-[110px] sm:max-w-[180px]">Đang tải...</strong>
+                        <i class="fa-solid fa-pen text-[10px] text-slate-400"></i>
                     </div>
 
                     <!-- Active User Permission Pill -->
-                    <div onclick="openLoginSwitchModal()" class="hidden 2xl:flex items-center gap-2 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-lg px-3 py-1.5 text-xs text-indigo-900 cursor-pointer transition-colors" title="Nhấn để chuyển đổi tài khoản trực ca">
-                        <i class="fa-solid fa-user-shield text-indigo-600"></i>
-                        <span>Phụ trách: <strong id="header-assigned-systems" class="font-bold text-indigo-950">Tất cả hệ thống</strong></span>
+                    <div onclick="openLoginSwitchModal()" class="hidden 2xl:flex items-center gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 cursor-pointer transition-colors" title="Nhấn để chuyển đổi tài khoản trực ca">
+                        <i class="fa-solid fa-user-shield text-slate-500"></i>
+                        <span>Phụ trách: <strong id="header-assigned-systems" class="font-semibold text-slate-900">Tất cả hệ thống</strong></span>
                     </div>
 
-                    <!-- Add Asset Quick Action (Sky Blue) -->
-                    <button onclick="openModal('assetModal')" class="bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold px-3.5 py-2 rounded-lg flex items-center gap-1.5 shadow-sm transition-colors">
-                        <i class="fa-solid fa-circle-plus"></i>
+                    <!-- Add Asset Quick Action -->
+                    <button onclick="openModal('assetModal')" class="bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold px-3.5 py-2 rounded-lg flex items-center gap-1.5 shadow-sm transition-colors">
+                        <i class="fa-solid fa-plus"></i>
                         <span class="hidden sm:inline">Thêm Thiết Bị</span>
                     </button>
 
-                    <!-- Quick QR Lookup (Indigo) -->
-                    <button onclick="openModal('qrScannerModal')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-3.5 py-2 rounded-lg flex items-center gap-1.5 shadow-sm transition-colors" title="Quét hoặc nhập mã QR thiết bị">
-                        <i class="fa-solid fa-qrcode"></i>
+                    <!-- Quick QR Lookup -->
+                    <button onclick="openModal('qrScannerModal')" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-semibold px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition-colors" title="Quét hoặc nhập mã QR thiết bị">
+                        <i class="fa-solid fa-qrcode text-slate-600"></i>
                         <span class="hidden sm:inline">Quét QR</span>
                     </button>
 
@@ -345,75 +345,75 @@
                 <section id="tab-dashboard" class="tab-content space-y-6">
                     <!-- Row 1: Interactive KPI Cards Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <!-- Card 1: Navigate to Assets (Sky Blue) -->
-                        <div onclick="navigateTab('assets')" class="bg-white p-5 rounded-xl border border-sky-200 shadow-sm hover:border-sky-500 hover:shadow-md transition-all cursor-pointer group">
+                        <!-- Card 1: Navigate to Assets -->
+                        <div onclick="navigateTab('assets')" class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-slate-400 transition-all cursor-pointer group">
                             <div class="flex items-center justify-between">
-                                <span class="text-xs font-bold text-sky-800 uppercase tracking-wider">Tổng Thiết Bị MEP</span>
-                                <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center group-hover:bg-sky-600 group-hover:text-white transition-colors">
-                                    <i class="fa-solid fa-server text-base"></i>
+                                <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Tổng Thiết Bị MEP</span>
+                                <div class="w-9 h-9 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center group-hover:bg-slate-800 group-hover:text-white transition-colors">
+                                    <i class="fa-solid fa-server text-sm"></i>
                                 </div>
                             </div>
                             <div class="mt-3 flex items-baseline gap-2">
                                 <span id="kpi-total-assets" class="text-2xl font-bold text-slate-900">11</span>
-                                <span class="text-xs text-slate-500 font-medium">thiết bị phụ trách</span>
+                                <span class="text-xs text-slate-500">thiết bị phụ trách</span>
                             </div>
-                            <div class="mt-2.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-600 font-medium">
-                                <span><i class="fa-solid fa-circle-check mr-1"></i><span id="kpi-active-rate" class="font-bold">81.8%</span> sẵn sàng</span>
-                                <span class="text-sky-600 font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">Chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+                            <div class="mt-2.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                                <span><i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i><span id="kpi-active-rate" class="font-semibold text-slate-800">81.8%</span> sẵn sàng</span>
+                                <span class="text-slate-700 font-semibold flex items-center gap-1">Chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
                             </div>
                         </div>
 
                         <!-- Card 2: Navigate to Tickets (HIGH ATTENTION RED) -->
-                        <div onclick="navigateTab('tickets')" class="bg-white p-5 rounded-xl border-2 border-red-300 shadow-sm hover:border-red-600 hover:shadow-md bg-red-50/20 transition-all cursor-pointer group">
+                        <div onclick="navigateTab('tickets')" class="bg-white p-5 rounded-xl border border-red-300 shadow-sm hover:border-red-500 transition-all cursor-pointer group">
                             <div class="flex items-center justify-between">
                                 <span class="text-xs font-bold text-red-700 uppercase tracking-wider">Sự Cố Đang Xử Lý</span>
-                                <div class="w-10 h-10 rounded-xl bg-red-100 text-red-600 flex items-center justify-center group-hover:bg-red-600 group-hover:text-white transition-colors">
-                                    <i class="fa-solid fa-triangle-exclamation text-base"></i>
+                                <div class="w-9 h-9 rounded-lg bg-red-50 text-red-600 flex items-center justify-center group-hover:bg-red-600 group-hover:text-white transition-colors">
+                                    <i class="fa-solid fa-triangle-exclamation text-sm"></i>
                                 </div>
                             </div>
                             <div class="mt-3 flex items-baseline gap-2">
                                 <span id="kpi-open-tickets" class="text-2xl font-bold text-red-600">3</span>
-                                <span class="text-xs text-red-700 font-semibold">phiếu cần xử lý ngay</span>
+                                <span class="text-xs text-red-700 font-medium">phiếu cần xử lý</span>
                             </div>
-                            <div class="mt-2.5 pt-2.5 border-t border-red-100 flex items-center justify-between text-xs text-red-600 font-bold">
+                            <div class="mt-2.5 pt-2.5 border-t border-red-100 flex items-center justify-between text-xs text-red-600 font-semibold">
                                 <span><i class="fa-solid fa-circle-exclamation mr-1"></i><span id="kpi-urgent-tickets">3 phiếu khẩn cấp / cao</span></span>
-                                <span class="flex items-center gap-1 group-hover:translate-x-1 transition-transform">Xử lý <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+                                <span class="flex items-center gap-1">Xử lý <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
                             </div>
                         </div>
 
-                        <!-- Card 3: Navigate to PPM (Amber) -->
-                        <div onclick="navigateTab('ppm')" class="bg-white p-5 rounded-xl border border-amber-200 shadow-sm hover:border-amber-500 hover:shadow-md transition-all cursor-pointer group">
+                        <!-- Card 3: Navigate to PPM -->
+                        <div onclick="navigateTab('ppm')" class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-slate-400 transition-all cursor-pointer group">
                             <div class="flex items-center justify-between">
-                                <span class="text-xs font-bold text-amber-800 uppercase tracking-wider">Lịch Bảo Trì Ca Này</span>
-                                <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-white transition-colors">
-                                    <i class="fa-solid fa-clipboard-check text-base"></i>
+                                <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Lịch Bảo Trì Ca Này</span>
+                                <div class="w-9 h-9 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center group-hover:bg-slate-800 group-hover:text-white transition-colors">
+                                    <i class="fa-solid fa-clipboard-check text-sm"></i>
                                 </div>
                             </div>
                             <div class="mt-3 flex items-baseline gap-2">
-                                <span id="kpi-ppm-count" class="text-2xl font-bold text-amber-600">4</span>
-                                <span class="text-xs text-slate-500 font-medium">hạng mục kiểm tra</span>
+                                <span id="kpi-ppm-count" class="text-2xl font-bold text-slate-900">4</span>
+                                <span class="text-xs text-slate-500">hạng mục kiểm tra</span>
                             </div>
                             <div class="mt-2.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
                                 <span>Theo dõi định kỳ & đếm ngày</span>
-                                <span class="text-amber-600 font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">Mở PPM <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+                                <span class="text-slate-700 font-semibold flex items-center gap-1">Mở PPM <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
                             </div>
                         </div>
 
-                        <!-- Card 4: Open Energy Modal (Emerald) -->
-                        <div onclick="openModal('energyModal')" class="bg-white p-5 rounded-xl border border-emerald-200 shadow-sm hover:border-emerald-500 hover:shadow-md transition-all cursor-pointer group">
+                        <!-- Card 4: Open Energy Modal -->
+                        <div onclick="openModal('energyModal')" class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-slate-400 transition-all cursor-pointer group">
                             <div class="flex items-center justify-between">
-                                <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider">Điện Năng Tiêu Thụ</span>
-                                <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-colors">
-                                    <i class="fa-solid fa-bolt text-base"></i>
+                                <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Điện Năng Tiêu Thụ</span>
+                                <div class="w-9 h-9 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center group-hover:bg-slate-800 group-hover:text-white transition-colors">
+                                    <i class="fa-solid fa-bolt text-sm"></i>
                                 </div>
                             </div>
                             <div class="mt-3 flex items-baseline gap-2">
                                 <span id="kpi-energy-kwh" class="text-2xl font-bold text-slate-900">3,420</span>
-                                <span class="text-xs text-slate-500 font-medium">kWh hôm nay</span>
+                                <span class="text-xs text-slate-500">kWh hôm nay</span>
                             </div>
-                            <div class="mt-2.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-600 font-medium">
-                                <span><i class="fa-solid fa-arrow-trend-down mr-1"></i>-4.2% so với hôm qua</span>
-                                <span class="text-emerald-700 font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">Ghi số kWh <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+                            <div class="mt-2.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                                <span><i class="fa-solid fa-arrow-trend-down text-emerald-600 mr-1"></i>-4.2% so với hôm qua</span>
+                                <span class="text-slate-700 font-semibold flex items-center gap-1">Ghi số <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
                             </div>
                         </div>
                     </div>
@@ -1535,20 +1535,24 @@
         </div>
     </div>
 
-    <!-- MODAL: DAILY TASKS SUMMARY (POPUPS AUTOMATICALLY UPON OPENING WEB) -->
+    <!-- MODAL: DAILY TASKS SUMMARY (GLANCEABLE & MINIMAL POPUP UPON OPENING WEB) -->
     <div id="dailyTaskModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-3 sm:p-4">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl modal-content-box max-h-[90vh] overflow-y-auto p-6 space-y-4 text-xs">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-200">
-                <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
-                    <i class="fa-solid fa-clipboard-list text-sky-600"></i> Công Việc Cần Thực Hiện Trong Ngày (<span id="daily-task-date"></span>)
-                </h3>
-                <button onclick="closeModal('dailyTaskModal')" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg modal-content-box overflow-hidden border border-slate-200 text-xs">
+            <div class="px-5 py-3.5 bg-slate-900 text-white flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-bolt text-amber-400"></i>
+                    <h3 class="font-bold text-sm">Tóm Tắt Nhanh Ca Trực (<span id="daily-task-date"></span>)</h3>
+                </div>
+                <button onclick="closeModal('dailyTaskModal')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-base"></i></button>
             </div>
-            <div id="daily-task-content" class="space-y-4">
+            <div id="daily-task-content" class="p-5 space-y-4">
                 <!-- Populated dynamically -->
             </div>
-            <div class="pt-3 border-t border-slate-200 flex justify-end">
-                <button onclick="closeModal('dailyTaskModal')" class="px-5 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-lg font-semibold shadow-sm">Bắt Đầu Ca Trực</button>
+            <div class="px-5 py-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+                <span class="text-[11px] text-slate-500">Trực hôm nay: <strong id="daily-popup-onduty" class="text-slate-800">---</strong></span>
+                <button onclick="closeModal('dailyTaskModal')" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg font-semibold transition-colors">
+                    Đã nắm • Vào ca trực
+                </button>
             </div>
         </div>
     </div>
@@ -1816,16 +1820,16 @@
 
     <script>
         const colorStyles = {
-            sky:     { bg: 'bg-sky-100', text: 'text-sky-800', icon: 'text-sky-600', border: 'border-sky-200', hex: '#0284c7' },
-            amber:   { bg: 'bg-amber-100', text: 'text-amber-800', icon: 'text-amber-600', border: 'border-amber-200', hex: '#d97706' },
-            emerald: { bg: 'bg-emerald-100', text: 'text-emerald-800', icon: 'text-emerald-600', border: 'border-emerald-200', hex: '#059669' },
-            rose:    { bg: 'bg-rose-100', text: 'text-rose-800', icon: 'text-rose-600', border: 'border-rose-200', hex: '#e11d48' },
-            indigo:  { bg: 'bg-indigo-100', text: 'text-indigo-800', icon: 'text-indigo-600', border: 'border-indigo-200', hex: '#4f46e5' },
-            purple:  { bg: 'bg-purple-100', text: 'text-purple-800', icon: 'text-purple-600', border: 'border-purple-200', hex: '#9333ea' },
-            cyan:    { bg: 'bg-cyan-100', text: 'text-cyan-800', icon: 'text-cyan-600', border: 'border-cyan-200', hex: '#0891b2' },
-            teal:    { bg: 'bg-teal-100', text: 'text-teal-800', icon: 'text-teal-600', border: 'border-teal-200', hex: '#0d9488' },
-            orange:  { bg: 'bg-orange-100', text: 'text-orange-800', icon: 'text-orange-600', border: 'border-orange-200', hex: '#ea580c' },
-            slate:   { bg: 'bg-slate-200', text: 'text-slate-800', icon: 'text-slate-600', border: 'border-slate-300', hex: '#475569' }
+            sky:     { bg: 'bg-slate-100', text: 'text-slate-700', icon: 'text-sky-600', border: 'border-slate-200', hex: '#0284c7' },
+            amber:   { bg: 'bg-slate-100', text: 'text-slate-700', icon: 'text-amber-600', border: 'border-slate-200', hex: '#d97706' },
+            emerald: { bg: 'bg-slate-100', text: 'text-slate-700', icon: 'text-emerald-600', border: 'border-slate-200', hex: '#059669' },
+            rose:    { bg: 'bg-slate-100', text: 'text-slate-700', icon: 'text-rose-600', border: 'border-slate-200', hex: '#e11d48' },
+            indigo:  { bg: 'bg-slate-100', text: 'text-slate-700', icon: 'text-indigo-600', border: 'border-slate-200', hex: '#4f46e5' },
+            purple:  { bg: 'bg-slate-100', text: 'text-slate-700', icon: 'text-purple-600', border: 'border-slate-200', hex: '#9333ea' },
+            cyan:    { bg: 'bg-slate-100', text: 'text-slate-700', icon: 'text-cyan-600', border: 'border-slate-200', hex: '#0891b2' },
+            teal:    { bg: 'bg-slate-100', text: 'text-slate-700', icon: 'text-teal-600', border: 'border-slate-200', hex: '#0d9488' },
+            orange:  { bg: 'bg-slate-100', text: 'text-slate-700', icon: 'text-orange-600', border: 'border-slate-200', hex: '#ea580c' },
+            slate:   { bg: 'bg-slate-100', text: 'text-slate-700', icon: 'text-slate-600', border: 'border-slate-200', hex: '#475569' }
         };
 
         const initialSystems = [
@@ -3012,12 +3016,15 @@
         }
         setInterval(updateLiveDateTime, 1000);
 
-        // --- DAILY TASK POPUP ON LOAD ---
+        // --- DAILY TASK POPUP ON LOAD (ULTRA-SIMPLE & GLANCEABLE) ---
         function showDailyTaskModal() {
             const now = new Date();
             const dateStr = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth()+1).toString().padStart(2, '0')}/${now.getFullYear()}`;
             const dateEl = document.getElementById('daily-task-date');
             if (dateEl) dateEl.innerText = dateStr;
+
+            const onDutyEl = document.getElementById('daily-popup-onduty');
+            if (onDutyEl) onDutyEl.innerText = getTodayOnDutyEntry().members || 'Chưa phân công';
 
             const openTickets = tickets.filter(t => t.status === 'NEW' || t.status === 'IN_PROGRESS');
             const pendingChecklists = checklists.filter(c => c.items.some(i => !i.done));
@@ -3029,66 +3036,50 @@
             const container = document.getElementById('daily-task-content');
             if (!container) return;
 
+            // Build a single concise list of urgent bullet points (max 5 items)
+            const urgentBullets = [];
+            openTickets.forEach(t => {
+                urgentBullets.push(`
+                    <li onclick="closeModal('dailyTaskModal'); navigateTab('tickets');" class="flex items-center justify-between py-1.5 px-2.5 rounded-lg bg-red-50/70 border border-red-200 cursor-pointer hover:bg-red-100/70 transition-colors">
+                        <span class="truncate pr-2"><strong class="text-red-700 font-mono">[Sự cố]</strong> <span class="font-medium text-slate-800">${t.title}</span></span>
+                        <span class="text-[10px] font-bold text-red-600 flex-shrink-0">${t.assetCode}</span>
+                    </li>
+                `);
+            });
+            dueMaintAssets.forEach(({ asset, mInfo }) => {
+                const isOverdue = mInfo.daysRemaining <= 0;
+                urgentBullets.push(`
+                    <li onclick="closeModal('dailyTaskModal'); navigateTab('ppm');" class="flex items-center justify-between py-1.5 px-2.5 rounded-lg ${isOverdue ? 'bg-red-50/70 border-red-200' : 'bg-slate-50 border-slate-200'} border cursor-pointer hover:bg-slate-100 transition-colors">
+                        <span class="truncate pr-2"><strong class="${isOverdue ? 'text-red-600' : 'text-amber-600'} font-mono">[Bảo trì]</strong> <span class="font-medium text-slate-800">${asset.name}</span></span>
+                        <span class="text-[10px] font-semibold ${isOverdue ? 'text-red-600' : 'text-slate-600'} flex-shrink-0">${isOverdue ? 'Đến hạn' : `Còn ${mInfo.daysRemaining} ngày`}</span>
+                    </li>
+                `);
+            });
+
             container.innerHTML = `
-                <div class="p-3.5 bg-slate-100 rounded-lg border border-slate-200 space-y-1">
-                    <p class="font-bold text-slate-900">Tóm Tắt Nhiệm Vụ Ca Trực & Cảnh Báo Hôm Nay:</p>
-                    <p class="text-slate-600">Ghi nhận <strong class="text-red-600">${dueMaintAssets.length} thiết bị đến hạn / sắp đến hạn bảo trì</strong>, <strong class="text-red-600">${openTickets.length} phiếu sự cố đang mở</strong> và <strong>${pendingChecklists.length} checklist PPM</strong> trong ca.</p>
-                </div>
-                <div>
-                    <div class="flex items-center justify-between mb-2">
-                        <h4 class="font-bold text-slate-900">1. Thiết Bị Đến Hạn Bảo Trì Cần Chú Ý (${dueMaintAssets.length}):</h4>
-                        <button onclick="closeModal('dailyTaskModal'); openModal('emailLogModal');" class="text-[11px] text-slate-600 hover:text-slate-900 underline font-medium">Nhật ký gửi Mail (${emailLogs.length})</button>
+                <!-- 3 Big Glanceable Numbers -->
+                <div class="grid grid-cols-3 gap-2.5 text-center">
+                    <div onclick="closeModal('dailyTaskModal'); navigateTab('tickets');" class="p-3 rounded-xl border ${openTickets.length > 0 ? 'bg-red-50 border-red-200 text-red-700' : 'bg-slate-50 border-slate-200 text-slate-700'} cursor-pointer hover:opacity-90">
+                        <div class="text-2xl font-bold font-mono">${openTickets.length}</div>
+                        <div class="text-[11px] font-semibold mt-0.5">Sự cố đang mở</div>
                     </div>
-                    ${dueMaintAssets.length === 0 ? '<p class="text-slate-400 italic">Không có thiết bị nào đến hạn bảo trì trong 3 ngày tới.</p>' : `
-                        <div class="space-y-2 max-h-36 overflow-y-auto pr-1">
-                            ${dueMaintAssets.map(({ asset, mInfo }) => `
-                                <div class="p-2.5 ${mInfo.daysRemaining <= 0 ? 'bg-red-50 border-red-200' : 'bg-slate-50 border-slate-200'} rounded-lg border flex items-center justify-between gap-2">
-                                    <div>
-                                        <span class="font-mono font-bold ${mInfo.daysRemaining <= 0 ? 'text-red-700' : 'text-slate-900'}">${asset.code}</span>: <strong class="text-slate-800">${asset.name}</strong>
-                                        <p class="text-[11px] text-slate-500">Hạn bảo trì: ${formatIsoToVnDate(mInfo.nextDateStr)} • Phân hệ: ${asset.system}</p>
-                                    </div>
-                                    <div class="flex items-center gap-2 flex-shrink-0">
-                                        ${mInfo.badgeHtml}
-                                        <button onclick="closeModal('dailyTaskModal'); navigateTab('ppm');" class="px-2.5 py-1 bg-slate-900 text-white rounded text-[11px] font-medium hover:bg-slate-800">Lịch BT</button>
-                                    </div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    `}
+                    <div onclick="closeModal('dailyTaskModal'); navigateTab('ppm');" class="p-3 rounded-xl border ${dueMaintAssets.length > 0 ? 'bg-amber-50/70 border-amber-200 text-amber-800' : 'bg-slate-50 border-slate-200 text-slate-700'} cursor-pointer hover:opacity-90">
+                        <div class="text-2xl font-bold font-mono">${dueMaintAssets.length}</div>
+                        <div class="text-[11px] font-semibold mt-0.5">TB sắp/đến hạn BT</div>
+                    </div>
+                    <div onclick="closeModal('dailyTaskModal'); navigateTab('ppm');" class="p-3 rounded-xl border bg-slate-50 border-slate-200 text-slate-700 cursor-pointer hover:bg-slate-100">
+                        <div class="text-2xl font-bold font-mono">${pendingChecklists.length}</div>
+                        <div class="text-[11px] font-semibold mt-0.5">Checklist ca trực</div>
+                    </div>
                 </div>
-                <div>
-                    <h4 class="font-bold text-slate-900 mb-2">2. Phiếu Sự Cố Đang Xử Lý (${openTickets.length}):</h4>
-                    ${openTickets.length === 0 ? '<p class="text-slate-400 italic">Không có sự cố tồn đọng trong ca.</p>' : `
-                        <div class="space-y-2 max-h-32 overflow-y-auto pr-1">
-                            ${openTickets.map(t => {
-                                const isUrgent = t.priority === 'CRITICAL' || t.priority === 'HIGH';
-                                return `
-                                <div class="p-2.5 ${isUrgent ? 'bg-red-50/70 border-red-200' : 'bg-slate-50 border-slate-200'} rounded-lg border flex items-center justify-between">
-                                    <div>
-                                        <span class="font-mono font-bold ${isUrgent ? 'text-red-600' : 'text-slate-800'}">${t.id}</span>: <strong class="text-slate-900">${t.title}</strong>
-                                        <p class="text-[11px] text-slate-500">Ưu tiên: <span class="${isUrgent ? 'text-red-600 font-bold' : ''}">${t.priority}</span> • Phụ trách: ${t.assignee}</p>
-                                    </div>
-                                    <span class="px-2 py-0.5 ${isUrgent ? 'bg-red-600 text-white' : 'bg-slate-200 text-slate-700'} font-semibold rounded text-[10px]">${t.status}</span>
-                                </div>
-                            `}).join('')}
-                        </div>
-                    `}
-                </div>
-                <div>
-                    <h4 class="font-bold text-slate-900 mb-2">3. Checklist Bảo Trì Định Kỳ (PPM) Trong Ca (${pendingChecklists.length}):</h4>
-                    ${pendingChecklists.length === 0 ? '<p class="text-slate-400 italic">Đã hoàn thành toàn bộ checklist trong ngày!</p>' : `
-                        <div class="space-y-2 max-h-32 overflow-y-auto pr-1">
-                            ${pendingChecklists.map(c => `
-                                <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-between">
-                                    <div>
-                                        <span class="font-mono font-bold text-slate-700">${c.id}</span>: <strong class="text-slate-800">${c.title}</strong>
-                                        <p class="text-[11px] text-slate-500">Khu vực: ${c.location} • Hệ thống: ${c.subsystem}</p>
-                                    </div>
-                                    <button onclick="closeModal('dailyTaskModal'); navigateTab('ppm');" class="px-2.5 py-1 bg-slate-900 text-white rounded text-[11px] font-medium hover:bg-slate-800">Mở PPM</button>
-                                </div>
-                            `).join('')}
-                        </div>
-                    `}
+
+                <!-- Quick Bullet List -->
+                <div class="space-y-1.5">
+                    <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Việc cần chú ý ngay:</div>
+                    ${urgentBullets.length === 0
+                        ? '<div class="p-3 bg-slate-50 rounded-lg text-slate-500 text-center">Hệ thống ổn định, không có sự cố hay bảo trì khẩn cấp.</div>'
+                        : `<ul class="space-y-1.5 max-h-48 overflow-y-auto">${urgentBullets.slice(0, 6).join('')}</ul>`
+                    }
                 </div>
             `;
             openModal('dailyTaskModal', true);
@@ -3141,27 +3132,21 @@
                 const sysArr = Array.isArray(u.systems) ? u.systems : [u.system || 'ALL'];
                 const userEmail = u.email || `${u.username}@vinhtower.vn`;
                 const isAdmin = u.role === 'ADMIN' || sysArr.includes('ALL');
-                const badgesHtml = isAdmin
-                    ? `<span class="px-2 py-0.5 rounded bg-indigo-600 text-white font-semibold text-[10px]"><i class="fa-solid fa-crown mr-1"></i>Toàn bộ ${systems.length} Hệ Thống (Admin)</span>`
-                    : sysArr.map(code => {
-                        const meta = getSystemMeta(code);
-                        return `<span class="px-1.5 py-0.5 rounded ${meta.style.bg} ${meta.style.text} border ${meta.style.border} font-mono font-bold text-[10px]">${code}</span>`;
-                    }).join(' ');
+                const sysSummary = isAdmin ? `Toàn bộ ${systems.length} hệ thống (Admin)` : `Phụ trách: ${sysArr.join(', ')}`;
 
                 return `
-                    <div onclick="fillEmailAndLogin('${userEmail}')" class="p-2.5 ${isAdmin ? 'bg-indigo-50/60 hover:bg-indigo-100/80 border-indigo-200' : 'bg-slate-50 hover:bg-sky-50 border-slate-200 hover:border-sky-300'} border rounded-xl cursor-pointer flex items-center justify-between gap-2.5 transition-all group">
+                    <div onclick="fillEmailAndLogin('${userEmail}')" class="p-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl cursor-pointer flex items-center justify-between gap-2.5 transition-all group">
                         <div class="flex items-center gap-2.5 min-w-0">
-                            <div class="w-9 h-9 rounded-lg ${isAdmin ? 'bg-indigo-600' : 'bg-sky-600'} text-white font-bold flex items-center justify-center flex-shrink-0 text-xs shadow-sm">
+                            <div class="w-8 h-8 rounded-lg ${isAdmin ? 'bg-slate-900' : 'bg-slate-700'} text-white font-bold flex items-center justify-center flex-shrink-0 text-xs">
                                 ${u.fullname.charAt(0)}
                             </div>
-                            <div class="space-y-0.5 min-w-0">
+                            <div class="min-w-0">
                                 <p class="font-bold text-slate-900 text-xs truncate">${u.fullname}</p>
-                                <p class="font-mono text-[11px] text-sky-700 font-semibold truncate"><i class="fa-regular fa-envelope mr-1"></i>${userEmail}</p>
-                                <div class="flex flex-wrap gap-1 pt-0.5">${badgesHtml}</div>
+                                <p class="font-mono text-[11px] text-slate-500 truncate">${userEmail} • <span class="font-sans text-slate-600">${sysSummary}</span></p>
                             </div>
                         </div>
-                        <button type="button" class="px-2.5 py-1.5 ${isAdmin ? 'bg-indigo-600 group-hover:bg-indigo-700' : 'bg-sky-600 group-hover:bg-sky-700'} text-white rounded-lg text-[11px] font-semibold transition-all flex items-center gap-1 flex-shrink-0 shadow-sm">
-                            <i class="fa-solid fa-bolt"></i> Đăng nhập nhanh
+                        <button type="button" class="px-2.5 py-1.5 bg-white group-hover:bg-slate-900 text-slate-700 group-hover:text-white border border-slate-300 rounded-lg text-[11px] font-semibold transition-all flex-shrink-0">
+                            Vào ca
                         </button>
                     </div>
                 `;
@@ -3270,16 +3255,16 @@
 
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('bg-sky-600', 'text-white', 'shadow-md', 'shadow-sky-600/30', 'font-semibold');
-                btn.classList.add('text-slate-300', 'hover:bg-slate-800', 'hover:text-white', 'font-medium');
+                btn.classList.remove('bg-slate-800', 'text-white', 'border-l-4', 'border-sky-500', 'font-semibold');
+                btn.classList.add('text-slate-300', 'hover:bg-slate-800/70', 'hover:text-white', 'font-medium');
             });
 
             const currentTab = document.getElementById(`tab-${tabName}`);
             const currentNav = document.getElementById(`nav-${tabName}`);
             if (currentTab) currentTab.classList.remove('hidden');
             if (currentNav) {
-                currentNav.classList.remove('text-slate-300', 'hover:bg-slate-800', 'hover:text-white', 'font-medium');
-                currentNav.classList.add('bg-sky-600', 'text-white', 'shadow-md', 'shadow-sky-600/30', 'font-semibold');
+                currentNav.classList.remove('text-slate-300', 'hover:bg-slate-800/70', 'hover:text-white', 'font-medium');
+                currentNav.classList.add('bg-slate-800', 'text-white', 'border-l-4', 'border-sky-500', 'font-semibold');
             }
 
             const titles = {
