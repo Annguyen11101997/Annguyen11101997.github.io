@@ -107,7 +107,7 @@
 <body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
 
     <!-- LOGIN & EMAIL AUTHENTICATION SCREEN -->
-    <div id="loginScreen" class="fixed inset-0 z-50 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+    <div id="loginScreen" class="fixed inset-0 z-50 bg-slate-900/75 backdrop-blur-xl flex items-center justify-center p-3 sm:p-4 transition-all duration-300">
         <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg p-6 sm:p-8 space-y-5 border border-slate-200">
             <div class="text-center space-y-2">
                 <div class="w-12 h-12 rounded-xl bg-slate-900 flex items-center justify-center text-white font-bold text-xl mx-auto">
@@ -117,7 +117,7 @@
                 <p class="text-xs text-slate-500">Hệ Thống Quản Lý Kỹ Thuật, Thiết Bị & Vận Hành Tòa Nhà</p>
             </div>
 
-            <!-- Email Login Form -->
+            <!-- Email & Password Login Form -->
             <form onsubmit="handleEmailLoginSubmit(event)" class="space-y-3 text-xs">
                 <div>
                     <label class="block font-semibold text-slate-700 mb-1">Địa Chỉ Email Tài Khoản Vận Hành (*)</label>
@@ -125,20 +125,33 @@
                         <i class="fa-regular fa-envelope absolute left-3.5 top-3 text-slate-400"></i>
                         <input type="email" id="login-email-input" required placeholder="Nhập email (VD: nam.vh@vinhtower.vn)..." class="w-full pl-9 pr-3 py-2.5 border border-slate-300 rounded-lg font-mono text-xs focus:outline-none focus:ring-2 focus:ring-slate-900">
                     </div>
+                </div>
+                <div>
+                    <div class="flex items-center justify-between mb-1">
+                        <label class="block font-semibold text-slate-700">Mật Khẩu Đăng Nhập (*)</label>
+                        <span class="text-[11px] text-slate-400 font-mono">Mặc định: <strong class="text-slate-600">123456</strong></span>
+                    </div>
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-3.5 top-3 text-slate-400"></i>
+                        <input type="password" id="login-password-input" required placeholder="Nhập mật khẩu tài khoản..." class="w-full pl-9 pr-9 py-2.5 border border-slate-300 rounded-lg font-mono text-xs focus:outline-none focus:ring-2 focus:ring-slate-900">
+                        <button type="button" onclick="toggleLoginPasswordVisibility()" class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-700 p-0.5" title="Hiện / Ẩn mật khẩu">
+                            <i id="login-pwd-eye-icon" class="fa-regular fa-eye"></i>
+                        </button>
+                    </div>
                     <p id="login-email-error" class="hidden text-[11px] text-red-600 font-semibold mt-1.5">
-                        <i class="fa-solid fa-circle-exclamation mr-1"></i>Email không tồn tại trong danh sách phân quyền! Vui lòng kiểm tra lại hoặc chọn tài khoản bên dưới.
+                        <i class="fa-solid fa-circle-exclamation mr-1"></i><span id="login-email-error-text">Email hoặc mật khẩu không chính xác! Vui lòng kiểm tra lại.</span>
                     </p>
                 </div>
                 <button type="submit" class="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg flex items-center justify-center gap-2 transition-all shadow-sm">
                     <i class="fa-solid fa-right-to-bracket"></i>
-                    <span>Đăng Nhập Bằng Email</span>
+                    <span>Đăng Nhập Hệ Thống</span>
                 </button>
             </form>
 
             <div class="space-y-2 text-xs pt-3 border-t border-slate-200">
                 <div class="flex items-center justify-between">
-                    <span class="font-bold text-slate-700 text-[11px] uppercase tracking-wider"><i class="fa-solid fa-bolt text-amber-500 mr-1"></i>Tài khoản đăng nhập nhanh (Nhấn 1 chạm):</span>
-                    <span class="text-[10px] text-slate-400">Không cần mật khẩu</span>
+                    <span class="font-bold text-slate-700 text-[11px] uppercase tracking-wider"><i class="fa-solid fa-users text-slate-500 mr-1"></i>Chọn nhanh Email tài khoản trực ca:</span>
+                    <span class="text-[10px] text-slate-500 font-mono">MK mặc định: 123456</span>
                 </div>
                 <div class="space-y-2 max-h-60 overflow-y-auto pr-1" id="role-selection-list">
                     <!-- Static fallback & populated dynamically -->
@@ -152,7 +165,7 @@
                             </div>
                         </div>
                         <span class="px-2.5 py-1.5 bg-indigo-600 group-hover:bg-indigo-700 text-white rounded-lg text-[11px] font-semibold flex items-center gap-1 flex-shrink-0 shadow-sm">
-                            <i class="fa-solid fa-bolt"></i> Vào ngay
+                            <i class="fa-solid fa-check"></i> Chọn Email
                         </span>
                     </div>
                 </div>
@@ -166,7 +179,7 @@
     </div>
 
     <!-- MAIN APP WRAPPER -->
-    <div id="mainAppWrapper" class="flex h-screen overflow-hidden relative">
+    <div id="mainAppWrapper" class="flex h-screen overflow-hidden relative blur-xl pointer-events-none select-none transition-all duration-300">
         <!-- Sidebar Backdrop for Mobile -->
         <div id="sidebar-backdrop" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/60 z-40 hidden md:hidden"></div>
 
@@ -230,8 +243,8 @@
                     <span>Phân Quyền Tài Khoản</span>
                 </button>
 
-                <!-- Nút Dữ Liệu Tập Trung bên trái với màu dịu mắt -->
-                <div class="pt-2 pb-1">
+                <!-- Nút Dữ Liệu Tập Trung bên trái (Chỉ hiển thị cho Admin) -->
+                <div id="nav-central-data-wrapper" class="pt-2 pb-1">
                     <button onclick="openModal('centralDataModal')" class="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all">
                         <span id="cloud-sync-dot" class="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0"></span>
                         <i class="fa-solid fa-database w-4 text-center text-slate-400"></i>
@@ -279,53 +292,53 @@
 
         <!-- MAIN CONTENT AREA -->
         <div class="flex-1 flex flex-col overflow-hidden w-full">
-            <!-- Top Header -->
-            <header class="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-3 sm:px-6 z-20 flex-shrink-0">
-                <div class="flex items-center gap-3 min-w-0">
+            <!-- Top Header (Fixed flex layout to prevent overlapping badges) -->
+            <header class="bg-white border-b border-slate-200 min-h-[4rem] py-2 flex flex-wrap md:flex-nowrap items-center justify-between gap-2 sm:gap-4 px-3 sm:px-6 z-20 flex-shrink-0">
+                <div class="flex items-center gap-2.5 sm:gap-3 flex-1 min-w-[160px] overflow-hidden">
                     <button onclick="toggleSidebar()" title="Đóng / Mở thanh menu" class="w-9 h-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none transition-colors flex-shrink-0">
                         <i class="fa-solid fa-bars text-sm"></i>
                     </button>
-                    <div class="min-w-0">
-                        <h2 id="page-title" class="text-sm sm:text-base font-bold text-slate-900 truncate">Bảng Tin Kỹ Thuật & Giám Sát Vận Hành</h2>
+                    <div class="min-w-0 flex-1 overflow-hidden">
+                        <h2 id="page-title" class="text-xs sm:text-base font-bold text-slate-900 truncate">Bảng Tin Kỹ Thuật & Giám Sát Vận Hành</h2>
                     </div>
                 </div>
 
                 <!-- Shift Status & Actions -->
-                <div class="flex items-center gap-2 flex-shrink-0">
+                <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0 ml-auto">
                     <!-- Live DateTime Badge -->
-                    <div class="hidden xl:flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700">
+                    <div class="hidden xl:flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 whitespace-nowrap">
                         <i class="fa-regular fa-clock text-slate-400"></i>
                         <span id="live-datetime" class="font-mono font-medium">--/--/---- --:--:--</span>
                     </div>
 
                     <!-- On-Duty Member Today Badge -->
-                    <div onclick="openModal('dutyRosterModal')" class="flex items-center gap-1.5 sm:gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-300 rounded-lg px-2.5 sm:px-3 py-1.5 text-xs text-slate-800 cursor-pointer transition-colors" title="Nhấn để nhập tên thành viên trực hoặc tải file lịch trực lên">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                        <span class="hidden md:inline text-slate-500 font-medium">Trực:</span>
-                        <strong id="header-onduty-member" class="font-bold text-slate-900 truncate max-w-[110px] sm:max-w-[180px]">Đang tải...</strong>
-                        <i class="fa-solid fa-pen text-[10px] text-slate-400"></i>
+                    <div onclick="openModal('dutyRosterModal')" class="flex items-center gap-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-300 rounded-lg px-2.5 sm:px-3 py-1.5 text-xs text-slate-800 cursor-pointer transition-colors whitespace-nowrap" title="Nhấn để nhập tên thành viên trực hoặc tải file lịch trực lên">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 flex-shrink-0"></span>
+                        <span class="hidden lg:inline text-slate-500 font-medium">Trực:</span>
+                        <strong id="header-onduty-member" class="font-bold text-slate-900 truncate max-w-[95px] sm:max-w-[150px]">Đang tải...</strong>
+                        <i class="fa-solid fa-pen text-[10px] text-slate-400 flex-shrink-0"></i>
                     </div>
 
                     <!-- Active User Permission Pill -->
-                    <div onclick="openLoginSwitchModal()" class="hidden 2xl:flex items-center gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 cursor-pointer transition-colors" title="Nhấn để chuyển đổi tài khoản trực ca">
+                    <div onclick="openLoginSwitchModal()" class="hidden 2xl:flex items-center gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 cursor-pointer transition-colors whitespace-nowrap" title="Nhấn để chuyển đổi tài khoản trực ca">
                         <i class="fa-solid fa-user-shield text-slate-500"></i>
                         <span>Phụ trách: <strong id="header-assigned-systems" class="font-semibold text-slate-900">Tất cả hệ thống</strong></span>
                     </div>
 
                     <!-- Add Asset Quick Action -->
-                    <button onclick="openModal('assetModal')" class="bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold px-3.5 py-2 rounded-lg flex items-center gap-1.5 shadow-sm transition-colors">
+                    <button onclick="openModal('assetModal')" class="bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold px-2.5 sm:px-3.5 py-2 rounded-lg flex items-center gap-1.5 shadow-sm transition-colors whitespace-nowrap">
                         <i class="fa-solid fa-plus"></i>
                         <span class="hidden sm:inline">Thêm Thiết Bị</span>
                     </button>
 
                     <!-- Quick QR Lookup -->
-                    <button onclick="openModal('qrScannerModal')" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-semibold px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition-colors" title="Quét hoặc nhập mã QR thiết bị">
+                    <button onclick="openModal('qrScannerModal')" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-semibold px-2.5 sm:px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition-colors whitespace-nowrap" title="Quét hoặc nhập mã QR thiết bị">
                         <i class="fa-solid fa-qrcode text-slate-600"></i>
                         <span class="hidden sm:inline">Quét QR</span>
                     </button>
 
                     <!-- Quick Action: HIGH ATTENTION RED -->
-                    <button onclick="openModal('ticketModal')" class="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-3.5 py-2 rounded-lg flex items-center gap-1.5 shadow-sm transition-colors">
+                    <button onclick="openModal('ticketModal')" class="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-2.5 sm:px-3.5 py-2 rounded-lg flex items-center gap-1.5 shadow-sm transition-colors whitespace-nowrap">
                         <i class="fa-solid fa-triangle-exclamation"></i>
                         <span class="hidden sm:inline">Báo Sự Cố Mới</span>
                     </button>
@@ -1025,7 +1038,7 @@
             </div>
             <form id="user-form" onsubmit="handleUserSubmit(event)" class="space-y-4 text-xs">
                 <input type="hidden" id="user-form-id" value="">
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                         <label class="block font-semibold text-slate-700 mb-1">Họ và Tên Nhân Sự (*)</label>
                         <input type="text" id="user-fullname" required placeholder="VD: Trần Văn Kiên" class="w-full px-3 py-2 border border-slate-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
@@ -1037,6 +1050,10 @@
                     <div>
                         <label class="block font-semibold text-slate-700 mb-1">Email Nhận Thông Báo Bảo Trì (*)</label>
                         <input type="email" id="user-email" required placeholder="VD: kien.tv@vinhtower.vn" class="w-full px-3 py-2 border border-slate-300 rounded-lg font-mono bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Mật Khẩu Đăng Nhập (*)</label>
+                        <input type="text" id="user-password" required value="123456" placeholder="Mặc định: 123456" class="w-full px-3 py-2 border border-slate-300 rounded-lg font-mono bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
                     </div>
                 </div>
 
@@ -1913,12 +1930,12 @@
             }
         ];
 
-        // Multi-System Users: `systems` is an array of system codes (or ['ALL'] for Admin)
+        // Multi-System Users: `systems` is an array of system codes (or ['ALL'] for Admin), default password is '123456'
         const initialUsers = [
-            { id: 'USR-01', fullname: 'Võ Hoài Nam (MEP Lead)', username: 'admin', email: 'nam.vh@vinhtower.vn', role: 'ADMIN', systems: ['ALL'] },
-            { id: 'USR-02', fullname: 'Trần Văn Kiên (Tổ Lạnh & Nước)', username: 'kt_hvac_plumb', email: 'kien.tv@vinhtower.vn', role: 'TECHNICIAN', systems: ['HVAC', 'PLUMB', 'BMS'] },
-            { id: 'USR-03', fullname: 'Nguyễn Văn Hưng (Tổ Điện & PCCC)', username: 'kt_elec_fire', email: 'hung.nv@vinhtower.vn', role: 'TECHNICIAN', systems: ['ELEC', 'FIRE', 'LIFT'] },
-            { id: 'USR-04', fullname: 'Đỗ Minh Quân (Tổ Điện Nhẹ ELV)', username: 'kt_elv', email: 'quan.dm@vinhtower.vn', role: 'TECHNICIAN', systems: ['CCTV', 'PA', 'ACCESS', 'NURSECALL'] }
+            { id: 'USR-01', fullname: 'Võ Hoài Nam (MEP Lead)', username: 'admin', email: 'nam.vh@vinhtower.vn', password: '123456', role: 'ADMIN', systems: ['ALL'] },
+            { id: 'USR-02', fullname: 'Trần Văn Kiên (Tổ Lạnh & Nước)', username: 'kt_hvac_plumb', email: 'kien.tv@vinhtower.vn', password: '123456', role: 'TECHNICIAN', systems: ['HVAC', 'PLUMB', 'BMS'] },
+            { id: 'USR-03', fullname: 'Nguyễn Văn Hưng (Tổ Điện & PCCC)', username: 'kt_elec_fire', email: 'hung.nv@vinhtower.vn', password: '123456', role: 'TECHNICIAN', systems: ['ELEC', 'FIRE', 'LIFT'] },
+            { id: 'USR-04', fullname: 'Đỗ Minh Quân (Tổ Điện Nhẹ ELV)', username: 'kt_elv', email: 'quan.dm@vinhtower.vn', password: '123456', role: 'TECHNICIAN', systems: ['CCTV', 'PA', 'ACCESS', 'NURSECALL'] }
         ];
 
         let systems = JSON.parse(JSON.stringify(initialSystems));
@@ -2016,10 +2033,14 @@
                 }
             });
 
-            // Ensure all users have email field
+            // Ensure all users have email and default password '123456'
             users.forEach(u => {
                 if (!u.email) {
                     u.email = `${u.username}@vinhtower.vn`;
+                    changed = true;
+                }
+                if (!u.password) {
+                    u.password = '123456';
                     changed = true;
                 }
             });
@@ -2472,7 +2493,12 @@
             if (Array.isArray(data.assets) && data.assets.length > 0) assets = data.assets;
             if (Array.isArray(data.tickets)) tickets = data.tickets;
             if (Array.isArray(data.checklists)) checklists = data.checklists;
-            if (Array.isArray(data.users) && data.users.length > 0) users = data.users;
+            if (Array.isArray(data.users) && data.users.length > 0) {
+                users = data.users.map(u => ({
+                    ...u,
+                    password: u.password ? String(u.password) : '123456'
+                }));
+            }
             if (Array.isArray(data.energyLogs)) energyLogs = data.energyLogs;
             if (Array.isArray(data.handoverLogs)) handoverLogs = data.handoverLogs;
             if (Array.isArray(data.dutyRoster) && data.dutyRoster.length > 0) dutyRoster = data.dutyRoster;
@@ -2911,6 +2937,7 @@
                 fullname: u.fullname,
                 username: u.username,
                 email: u.email,
+                password: u.password || '123456',
                 role: u.role,
                 systems_csv: Array.isArray(u.systems) ? u.systems.join(',') : 'ALL'
             }));
@@ -2980,6 +3007,7 @@
                                     fullname: u.fullname,
                                     username: u.username,
                                     email: u.email,
+                                    password: u.password ? String(u.password) : '123456',
                                     role: u.role,
                                     systems: u.systems_csv ? String(u.systems_csv).split(',').map(x => x.trim()) : ['ALL']
                                 }));
@@ -3094,36 +3122,52 @@
         }
 
         function getAllowedSystemsList() {
-            return systems.filter(s => isSystemAllowedForCurrentUser(s.code));
+            if (!currentUser || currentUser.role === 'ADMIN') return systems;
+            const list = Array.isArray(currentUser.systems) ? currentUser.systems : [currentUser.system];
+            if (list.includes('ALL')) return systems;
+            return systems.filter(s => list.includes(s.code));
         }
 
         function getSystemMeta(sysCode) {
             const found = systems.find(s => s.code === sysCode);
             if (found) {
-                const style = colorStyles[found.color] || colorStyles.sky;
-                return { ...found, style };
+                return {
+                    ...found,
+                    style: colorStyles[found.color] || colorStyles.slate
+                };
             }
             return {
                 code: sysCode || 'OTHER',
                 name: sysCode || 'Hệ thống khác',
                 icon: 'fa-microchip',
                 color: 'slate',
-                desc: '',
                 style: colorStyles.slate
             };
         }
 
         function renderSystemBadge(sysCode, compact = false) {
             const meta = getSystemMeta(sysCode);
-            const label = compact ? meta.code : meta.name;
-            return `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md border ${meta.style.border} text-[11px] font-semibold ${meta.style.bg} ${meta.style.text}">
-                <i class="fa-solid ${meta.icon} ${meta.style.icon}"></i>
-                <span>${label}</span>
-            </span>`;
+            if (compact) {
+                return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold ${meta.style.bg} ${meta.style.text} border ${meta.style.border}"><i class="fa-solid ${meta.icon} ${meta.style.icon}"></i>${meta.code}</span>`;
+            }
+            return `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold ${meta.style.bg} ${meta.style.text} border ${meta.style.border}"><i class="fa-solid ${meta.icon} ${meta.style.icon}"></i><span>${meta.code}</span></span>`;
         }
 
-        // --- EMAIL LOGIN & MULTI-SYSTEM ROLE SWITCHER ---
+        // --- EMAIL & PASSWORD LOGIN & MULTI-SYSTEM ROLE SWITCHER ---
         let hasShownInitialDailyPopup = false;
+
+        function toggleLoginPasswordVisibility() {
+            const pwdInput = document.getElementById('login-password-input');
+            const eyeIcon = document.getElementById('login-pwd-eye-icon');
+            if (!pwdInput || !eyeIcon) return;
+            if (pwdInput.type === 'password') {
+                pwdInput.type = 'text';
+                eyeIcon.className = 'fa-regular fa-eye-slash';
+            } else {
+                pwdInput.type = 'password';
+                eyeIcon.className = 'fa-regular fa-eye';
+            }
+        }
 
         function renderRoleSelection() {
             const list = document.getElementById('role-selection-list');
@@ -3146,7 +3190,7 @@
                             </div>
                         </div>
                         <button type="button" class="px-2.5 py-1.5 bg-white group-hover:bg-slate-900 text-slate-700 group-hover:text-white border border-slate-300 rounded-lg text-[11px] font-semibold transition-all flex-shrink-0">
-                            Vào ca
+                            Chọn TK
                         </button>
                     </div>
                 `;
@@ -3154,34 +3198,49 @@
         }
 
         function fillEmailAndLogin(emailStr) {
-            const input = document.getElementById('login-email-input');
+            const emailInput = document.getElementById('login-email-input');
+            const pwdInput = document.getElementById('login-password-input');
             const errEl = document.getElementById('login-email-error');
             if (errEl) errEl.classList.add('hidden');
-            if (input) {
-                input.value = emailStr;
-                input.focus();
+            if (emailInput) {
+                emailInput.value = emailStr;
             }
-            const found = users.find(u => (u.email || `${u.username}@vinhtower.vn`).toLowerCase() === emailStr.trim().toLowerCase());
-            if (found) {
-                loginAsUser(found.id);
+            if (pwdInput) {
+                pwdInput.value = '';
+                pwdInput.focus();
             }
+            showToast(`Đã điền email ${emailStr}. Vui lòng nhập mật khẩu để đăng nhập!`);
         }
 
         function handleEmailLoginSubmit(e) {
             e.preventDefault();
-            const input = document.getElementById('login-email-input');
+            const emailInput = document.getElementById('login-email-input');
+            const pwdInput = document.getElementById('login-password-input');
             const errEl = document.getElementById('login-email-error');
-            const emailVal = (input?.value || '').trim().toLowerCase();
-            if (!emailVal) return;
+            const errTextEl = document.getElementById('login-email-error-text');
+
+            const emailVal = (emailInput?.value || '').trim().toLowerCase();
+            const pwdVal = (pwdInput?.value || '').trim();
+            if (!emailVal || !pwdVal) return;
 
             const found = users.find(u => (u.email || `${u.username}@vinhtower.vn`).toLowerCase() === emailVal);
             if (!found) {
+                if (errTextEl) errTextEl.innerText = 'Email không tồn tại trong danh sách phân quyền! Vui lòng kiểm tra lại.';
                 if (errEl) errEl.classList.remove('hidden');
-                showToast('Địa chỉ Email này chưa được cấp quyền truy cập hệ thống!', 'error');
+                showToast('Địa chỉ Email này chưa được cấp quyền truy cập!', 'error');
+                return;
+            }
+
+            const expectedPassword = String(found.password || '123456');
+            if (pwdVal !== expectedPassword) {
+                if (errTextEl) errTextEl.innerText = 'Mật khẩu không chính xác! Vui lòng kiểm tra lại (Mặc định: 123456).';
+                if (errEl) errEl.classList.remove('hidden');
+                showToast('Mật khẩu đăng nhập không chính xác!', 'error');
                 return;
             }
 
             if (errEl) errEl.classList.add('hidden');
+            if (pwdInput) pwdInput.value = '';
             loginAsUser(found.id);
         }
 
@@ -3192,6 +3251,10 @@
             const userEmail = currentUser.email || `${currentUser.username}@vinhtower.vn`;
 
             document.getElementById('loginScreen').classList.add('hidden');
+            const mainWrapper = document.getElementById('mainAppWrapper');
+            if (mainWrapper) {
+                mainWrapper.classList.remove('blur-xl', 'pointer-events-none', 'select-none');
+            }
             document.getElementById('current-user-name').innerText = currentUser.fullname;
             document.getElementById('current-user-avatar').innerText = currentUser.fullname.charAt(0);
 
@@ -3204,15 +3267,23 @@
             document.getElementById('header-assigned-systems').innerText = sysText;
 
             const navUsersBtn = document.getElementById('nav-users');
-            if (navUsersBtn) {
-                if (currentUser.role === 'ADMIN') {
-                    navUsersBtn.classList.remove('hidden');
-                } else {
-                    navUsersBtn.classList.add('hidden');
-                    const usersTab = document.getElementById('tab-users');
-                    if (usersTab && !usersTab.classList.contains('hidden')) {
-                        navigateTab('dashboard');
-                    }
+            const navCentralDataWrapper = document.getElementById('nav-central-data-wrapper');
+            const sidebarAddSysBtn = document.getElementById('sidebar-add-sys-btn');
+
+            if (currentUser.role === 'ADMIN') {
+                if (navUsersBtn) navUsersBtn.classList.remove('hidden');
+                if (navCentralDataWrapper) navCentralDataWrapper.classList.remove('hidden');
+                if (sidebarAddSysBtn) sidebarAddSysBtn.classList.remove('hidden');
+            } else {
+                // Các tài khoản kỹ thuật viên mặc định đồng bộ ngầm theo URL Firebase có sẵn
+                customCloudEndpoint = customCloudEndpoint || DEFAULT_FIREBASE_RTDB_URL;
+                if (navUsersBtn) navUsersBtn.classList.add('hidden');
+                if (navCentralDataWrapper) navCentralDataWrapper.classList.add('hidden');
+                if (sidebarAddSysBtn) sidebarAddSysBtn.classList.add('hidden');
+                closeModal('centralDataModal');
+                const usersTab = document.getElementById('tab-users');
+                if (usersTab && !usersTab.classList.contains('hidden')) {
+                    navigateTab('dashboard');
                 }
             }
 
@@ -3235,10 +3306,18 @@
         function openLoginSwitchModal() {
             renderRoleSelection();
             const input = document.getElementById('login-email-input');
+            const pwdInput = document.getElementById('login-password-input');
             const errEl = document.getElementById('login-email-error');
             if (errEl) errEl.classList.add('hidden');
             if (input && currentUser) {
                 input.value = currentUser.email || '';
+            }
+            if (pwdInput) {
+                pwdInput.value = '';
+            }
+            const mainWrapper = document.getElementById('mainAppWrapper');
+            if (mainWrapper) {
+                mainWrapper.classList.add('blur-xl', 'pointer-events-none', 'select-none');
             }
             document.getElementById('loginScreen').classList.remove('hidden');
         }
@@ -4730,6 +4809,7 @@
             if (!tbody) return;
             tbody.innerHTML = users.map(u => {
                 const sysArr = Array.isArray(u.systems) ? u.systems : [u.system || 'ALL'];
+                const userPwd = u.password || '123456';
                 const sysBadges = (u.role === 'ADMIN' || sysArr.includes('ALL'))
                     ? `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-bold bg-indigo-100 text-indigo-800"><i class="fa-solid fa-crown text-indigo-600"></i> Toàn bộ ${systems.length} Hệ Thống</span>`
                     : `<div class="flex flex-wrap gap-1.5">${sysArr.map(code => renderSystemBadge(code)).join('')}</div>`;
@@ -4740,6 +4820,7 @@
                         <td class="px-4 py-3.5">
                             <div class="font-mono text-sky-700 font-semibold">@${u.username}</div>
                             <div class="font-mono text-[11px] text-slate-500"><i class="fa-regular fa-envelope mr-1 text-amber-600"></i>${u.email || `${u.username}@vinhtower.vn`}</div>
+                            <div class="font-mono text-[11px] text-slate-500 mt-0.5"><i class="fa-solid fa-key mr-1 text-slate-400"></i>MK: <span class="bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200 text-slate-700 font-semibold">${userPwd}</span></div>
                         </td>
                         <td class="px-4 py-3.5">
                             <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${u.role === 'ADMIN' ? 'bg-indigo-100 text-indigo-800' : 'bg-sky-100 text-sky-800'}">
@@ -4748,10 +4829,10 @@
                         </td>
                         <td class="px-4 py-3.5">${sysBadges}</td>
                         <td class="px-4 py-3.5 text-right space-x-1 whitespace-nowrap">
-                            <button onclick="loginAsUser('${u.id}')" class="px-2.5 py-1 bg-sky-50 hover:bg-sky-100 text-sky-700 rounded text-[11px] font-semibold">
+                            <button onclick="openLoginSwitchModal(); fillEmailAndLogin('${u.email || `${u.username}@vinhtower.vn`}');" class="px-2.5 py-1 bg-sky-50 hover:bg-sky-100 text-sky-700 rounded text-[11px] font-semibold">
                                 Chuyển sang TK này
                             </button>
-                            <button onclick="editUser('${u.id}')" title="Chỉnh sửa phân quyền" class="p-1.5 text-slate-500 hover:text-amber-600 hover:bg-slate-100 rounded">
+                            <button onclick="editUser('${u.id}')" title="Chỉnh sửa phân quyền & mật khẩu" class="p-1.5 text-slate-500 hover:text-amber-600 hover:bg-slate-100 rounded">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </button>
                             ${users.length > 1 ? `<button onclick="deleteUser('${u.id}')" title="Xóa tài khoản" class="p-1.5 text-slate-500 hover:text-rose-600 hover:bg-slate-100 rounded"><i class="fa-regular fa-trash-can"></i></button>` : ''}
@@ -4811,6 +4892,7 @@
                 fullname: document.getElementById('user-fullname').value.trim(),
                 username: document.getElementById('user-username').value.trim().toLowerCase(),
                 email: document.getElementById('user-email').value.trim(),
+                password: document.getElementById('user-password').value.trim() || '123456',
                 role,
                 systems: role === 'ADMIN' ? ['ALL'] : checkedSystems
             };
@@ -4821,7 +4903,7 @@
                 if (currentUser && currentUser.id === id) {
                     loginAsUser(id);
                 }
-                showToast('Đã cập nhật phân quyền & địa chỉ Email nhận thông báo bảo trì!');
+                showToast('Đã cập nhật thông tin tài khoản, mật khẩu & phân quyền!');
             } else {
                 users.push(userData);
                 showToast('Đã tạo tài khoản kỹ thuật viên mới!');
@@ -4840,11 +4922,12 @@
             }
             const u = users.find(x => x.id === id);
             if (!u) return;
-            document.getElementById('user-modal-title').innerHTML = `<i class="fa-solid fa-user-pen text-amber-500"></i> Chỉnh Sửa Phân Quyền: ${u.fullname}`;
+            document.getElementById('user-modal-title').innerHTML = `<i class="fa-solid fa-user-pen text-amber-500"></i> Chỉnh Sửa Tài Khoản & Mật Khẩu: ${u.fullname}`;
             document.getElementById('user-form-id').value = u.id;
             document.getElementById('user-fullname').value = u.fullname;
             document.getElementById('user-username').value = u.username;
             document.getElementById('user-email').value = u.email || `${u.username}@vinhtower.vn`;
+            document.getElementById('user-password').value = u.password || '123456';
             document.getElementById('user-role').value = u.role;
             const sysArr = Array.isArray(u.systems) ? u.systems : [u.system || 'HVAC'];
             renderUserSystemsCheckboxes(sysArr);
@@ -5393,6 +5476,10 @@
                 showToast('Chỉ Quản trị viên (Admin) mới có chức năng phân quyền hệ thống!', 'error');
                 return;
             }
+            if (id === 'centralDataModal' && (!currentUser || currentUser.role !== 'ADMIN')) {
+                showToast('Chỉ Quản trị viên (Admin) mới có quyền cấu hình Dữ liệu tập trung!', 'error');
+                return;
+            }
             syncAllSystemSelectors();
             if (id === 'centralDataModal') {
                 updateCentralModalStats();
@@ -5423,6 +5510,7 @@
                 document.getElementById('user-modal-title').innerHTML = `<i class="fa-solid fa-user-plus text-indigo-600"></i> Thêm Tài Khoản Kỹ Thuật & Phân Quyền`;
                 document.getElementById('user-form').reset();
                 document.getElementById('user-form-id').value = '';
+                document.getElementById('user-password').value = '123456';
                 renderUserSystemsCheckboxes(['HVAC']);
                 toggleUserSystemAccess();
             }
