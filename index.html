@@ -260,20 +260,20 @@
         <!-- Main Content Area -->
         <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
 
-            <!-- Top Header Bar (Clean layout without overlap) -->
-            <header class="h-16 bg-white border-b border-slate-200 px-3 sm:px-6 flex items-center justify-between gap-2 shrink-0 z-20">
-                <!-- Left side: Hamburger + Title + Duty Member Badge -->
-                <div class="flex items-center gap-2.5 min-w-0 flex-1">
-                    <button onclick="toggleMobileSidebar()" class="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 shrink-0">
-                        <i class="fa-solid fa-bars text-lg"></i>
-                    </button>
+            <!-- Top Header Bar (Responsive 2-row on mobile, 1-row on desktop to prevent overlap) -->
+            <header class="bg-white border-b border-slate-200 px-3 sm:px-6 py-2.5 md:py-0 md:h-16 flex flex-col md:flex-row md:items-center md:justify-between gap-2 shrink-0 z-20">
+                <!-- Top Row on Mobile / Left side on Desktop: Hamburger + Title + Duty Member Badge -->
+                <div class="flex items-center justify-between md:justify-start gap-2 min-w-0">
+                    <div class="flex items-center gap-2 min-w-0">
+                        <button onclick="toggleMobileSidebar()" class="lg:hidden p-2 -ml-1 rounded-lg text-slate-600 hover:bg-slate-100 shrink-0">
+                            <i class="fa-solid fa-bars text-lg"></i>
+                        </button>
 
-                    <div class="hidden sm:block min-w-0 shrink-0">
                         <h2 id="pageHeaderTitle" class="text-sm sm:text-base font-bold text-slate-900 truncate">Tổng Quan Vận Hành</h2>
                     </div>
 
                     <!-- Duty Member of the Day Pill -->
-                    <button onclick="openDutyRosterModal()" class="flex items-center space-x-2 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-slate-200/80 text-xs transition shrink-0 max-w-[230px] sm:max-w-xs" title="Nhấn để cập nhật hoặc tải lịch trực ca">
+                    <button onclick="openDutyRosterModal()" class="flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-slate-200/80 text-xs transition min-w-0 max-w-[190px] sm:max-w-xs shrink-0" title="Nhấn để cập nhật hoặc tải lịch trực ca">
                         <span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
                         <span class="text-slate-500 font-medium shrink-0">Trực:</span>
                         <span id="headerDutyMemberName" class="font-bold text-slate-800 truncate">Trần Văn Kiên</span>
@@ -281,8 +281,8 @@
                     </button>
                 </div>
 
-                <!-- Right side: Live Clock + Action Buttons -->
-                <div class="flex items-center gap-2 shrink-0">
+                <!-- Bottom Row on Mobile / Right side on Desktop: Live Clock + Action Buttons -->
+                <div class="grid grid-cols-6 md:flex items-center gap-1.5 sm:gap-2 shrink-0">
                     <!-- Live Clock -->
                     <div class="hidden xl:flex items-center space-x-2 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-xl text-xs font-mono font-semibold text-slate-700 shrink-0">
                         <i class="fa-regular fa-clock text-blue-600"></i>
@@ -290,36 +290,36 @@
                     </div>
 
                     <!-- Audio Alert Mute/Unmute Toggle Button -->
-                    <button id="soundToggleBtn" onclick="toggleAudioAlert()" class="px-2.5 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-semibold flex items-center space-x-1.5 transition shrink-0" title="Bật/Tắt chuông báo âm thanh khi có sự cố mới">
+                    <button id="soundToggleBtn" onclick="toggleAudioAlert()" class="px-2 sm:px-2.5 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-semibold flex items-center justify-center space-x-1.5 transition shrink-0" title="Bật/Tắt chuông báo âm thanh khi có sự cố mới">
                         <i id="soundToggleIcon" class="fa-solid fa-volume-high"></i>
                         <span id="soundToggleText" class="hidden xl:inline">Chuông: Bật</span>
                     </button>
 
                     <!-- Daily Tasks Summary Button -->
-                    <button onclick="showDailyTaskModal()" class="px-2.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold flex items-center space-x-1.5 transition shrink-0" title="Xem tóm tắt công việc trong ngày">
+                    <button onclick="showDailyTaskModal()" class="px-2 sm:px-2.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold flex items-center justify-center space-x-1.5 transition shrink-0" title="Xem tóm tắt công việc trong ngày">
                         <i class="fa-solid fa-list-check text-blue-600"></i>
-                        <span class="hidden md:inline">Việc Trong Ngày</span>
+                        <span class="hidden lg:inline">Việc Trong Ngày</span>
                     </button>
 
                     <!-- Scan QR Button -->
-                    <button onclick="openQrScannerModal()" class="px-3 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-semibold flex items-center space-x-1.5 transition shrink-0">
+                    <button onclick="openQrScannerModal()" class="px-2 sm:px-3 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-semibold flex items-center justify-center space-x-1.5 transition shrink-0" title="Quét mã QR">
                         <i class="fa-solid fa-qrcode"></i>
                         <span class="hidden sm:inline">Quét QR</span>
                     </button>
 
-                    <!-- Add Asset Button (Replaces Add System on Top Bar) -->
-                    <button onclick="openAssetModal()" class="px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold flex items-center space-x-1.5 shadow-sm transition shrink-0">
+                    <!-- Add Asset Button -->
+                    <button onclick="openAssetModal()" class="px-2 sm:px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold flex items-center justify-center space-x-1.5 shadow-sm transition shrink-0" title="Thêm thiết bị">
                         <i class="fa-solid fa-plus"></i>
                         <span class="hidden sm:inline">Thêm Thiết Bị</span>
                     </button>
 
-                    <button onclick="openQuickRequestModal()" class="px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold flex items-center space-x-1.5 shadow-sm transition shrink-0" title="Biểu mẫu báo hỏng nhanh theo Khu vực dành cho Lễ tân / Bảo vệ">
+                    <button onclick="openQuickRequestModal()" class="px-2 sm:px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold flex items-center justify-center space-x-1.5 shadow-sm transition shrink-0" title="Biểu mẫu báo hỏng nhanh theo Khu vực dành cho Lễ tân / Bảo vệ">
                         <i class="fa-solid fa-bell-concierge"></i>
-                        <span class="hidden md:inline">Báo Hỏng Nhanh</span>
+                        <span class="hidden lg:inline">Báo Hỏng Nhanh</span>
                     </button>
 
                     <!-- Urgent Incident Button (High-attention Red) -->
-                    <button onclick="openTicketModal()" class="px-3 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-semibold flex items-center space-x-1.5 shadow-sm transition shrink-0">
+                    <button onclick="openTicketModal()" class="px-2 sm:px-3 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-semibold flex items-center justify-center space-x-1.5 shadow-sm transition shrink-0" title="Báo sự cố">
                         <i class="fa-solid fa-triangle-exclamation"></i>
                         <span class="hidden sm:inline">Báo Sự Cố</span>
                     </button>
@@ -472,9 +472,7 @@
 
                                 <div class="grid grid-cols-2 gap-2 text-xs">
                                     <select id="handoverShiftSelect" class="px-2.5 py-1.5 rounded-lg bg-slate-50 border border-slate-200 font-semibold text-slate-700">
-                                        <option value="Ca Sáng (06:00 - 14:00)">Ca Sáng (06h-14h)</option>
-                                        <option value="Ca Chiều (14:00 - 22:00)">Ca Chiều (14h-22h)</option>
-                                        <option value="Ca Đêm (22:00 - 06:00)">Ca Đêm (22h-06h)</option>
+                                        <option value="Ca trực 24h (07:00 - 07:00 hôm sau)">Ca 24h (07:00 - 07:00 hôm sau)</option>
                                     </select>
                                     <div class="px-2.5 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-[11px] text-slate-600 truncate flex items-center">
                                         <i class="fa-solid fa-key text-amber-500 mr-1.5"></i>Vật tư bàn giao:
@@ -506,14 +504,14 @@
 
                             <div class="pt-2 border-t border-slate-100 space-y-2">
                                 <div class="flex items-center justify-between gap-2">
-                                    <button onclick="saveShiftHandover()" class="flex-1 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition">
+                                    <button id="btnSignHandover" onclick="saveShiftHandover()" class="flex-1 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white text-xs font-semibold transition">
                                         <i class="fa-solid fa-signature mr-1"></i>Ký Giao Ca
                                     </button>
-                                    <button onclick="acknowledgeLatestHandover()" class="flex-1 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition">
+                                    <button id="btnAckHandover" onclick="acknowledgeLatestHandover()" class="flex-1 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white text-xs font-semibold transition">
                                         <i class="fa-solid fa-user-check mr-1"></i>Xác Nhận Nhận Ca
                                     </button>
                                 </div>
-                                <div id="handoverSavedTime" class="text-[10px] text-center text-slate-400">Đồng bộ thời gian thực qua Cloud</div>
+                                <div id="handoverSavedTime" class="text-[10px] text-center text-slate-400">Ca trực 24 tiếng (07:00 - 07:00 hôm sau)</div>
                             </div>
                         </div>
                     </div>
@@ -566,10 +564,10 @@
                         </div>
 
                         <!-- Assets Table -->
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse">
+                        <div class="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+                            <table class="w-full min-w-[780px] text-left border-collapse">
                                 <thead>
-                                    <tr class="border-b border-slate-200 text-[11px] font-bold uppercase text-slate-500 bg-slate-50/80">
+                                    <tr class="border-b border-slate-200 text-[11px] font-bold uppercase text-slate-500 bg-slate-50/80 whitespace-nowrap">
                                         <th class="py-3 px-3">Mã & Tên Thiết Bị</th>
                                         <th class="py-3 px-3">Hệ Thống</th>
                                         <th class="py-3 px-3">Vị Trí / Hãng</th>
@@ -638,10 +636,10 @@
                             </select>
                         </div>
 
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse">
+                        <div class="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+                            <table class="w-full min-w-[820px] text-left border-collapse">
                                 <thead>
-                                    <tr class="border-b border-slate-200 text-[11px] font-bold uppercase text-slate-500 bg-slate-50/80">
+                                    <tr class="border-b border-slate-200 text-[11px] font-bold uppercase text-slate-500 bg-slate-50/80 whitespace-nowrap">
                                         <th class="py-3 px-3">Mã WO & Thời Gian</th>
                                         <th class="py-3 px-3">Thiết Bị / Khu Vực</th>
                                         <th class="py-3 px-3">Mô Tả Sự Cố & Vật Tư</th>
@@ -677,10 +675,10 @@
                             </div>
                         </div>
 
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse">
+                        <div class="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+                            <table class="w-full min-w-[760px] text-left border-collapse">
                                 <thead>
-                                    <tr class="border-b border-slate-200 text-[11px] font-bold uppercase text-slate-500 bg-slate-50/80">
+                                    <tr class="border-b border-slate-200 text-[11px] font-bold uppercase text-slate-500 bg-slate-50/80 whitespace-nowrap">
                                         <th class="py-3 px-3">Thiết Bị & Hệ Thống</th>
                                         <th class="py-3 px-3">Chu Kỳ</th>
                                         <th class="py-3 px-3">Bảo Trì Gần Nhất</th>
@@ -748,10 +746,10 @@
                             </select>
                         </div>
 
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse">
+                        <div class="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+                            <table class="w-full min-w-[680px] text-left border-collapse">
                                 <thead>
-                                    <tr class="border-b border-slate-200 text-[11px] font-bold uppercase text-slate-500 bg-slate-50/80">
+                                    <tr class="border-b border-slate-200 text-[11px] font-bold uppercase text-slate-500 bg-slate-50/80 whitespace-nowrap">
                                         <th class="py-3 px-3">Mã & Tên Vật Tư</th>
                                         <th class="py-3 px-3">Hệ Thống</th>
                                         <th class="py-3 px-3">Vị Trí Kệ Kho</th>
@@ -796,10 +794,10 @@
                             </select>
                         </div>
 
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse">
+                        <div class="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+                            <table class="w-full min-w-[820px] text-left border-collapse">
                                 <thead>
-                                    <tr class="border-b border-slate-200 text-[11px] font-bold uppercase text-slate-500 bg-slate-50/80">
+                                    <tr class="border-b border-slate-200 text-[11px] font-bold uppercase text-slate-500 bg-slate-50/80 whitespace-nowrap">
                                         <th class="py-3 px-3">Mã PTW & Ngày</th>
                                         <th class="py-3 px-3">Đơn Vị Nhà Thầu</th>
                                         <th class="py-3 px-3">Loại Hình & Nội Dung</th>
@@ -841,10 +839,10 @@
                             </select>
                         </div>
 
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse">
+                        <div class="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+                            <table class="w-full min-w-[780px] text-left border-collapse">
                                 <thead>
-                                    <tr class="border-b border-slate-200 text-[11px] font-bold uppercase text-slate-500 bg-slate-50/80">
+                                    <tr class="border-b border-slate-200 text-[11px] font-bold uppercase text-slate-500 bg-slate-50/80 whitespace-nowrap">
                                         <th class="py-3 px-3">Thời Gian Đo</th>
                                         <th class="py-3 px-3">Thiết Bị & Hệ Thống</th>
                                         <th class="py-3 px-3">Thông Số Kiểm Tra</th>
@@ -1275,6 +1273,19 @@
                     <label class="block font-bold text-slate-600 mb-1">Ghi Chú Kết Quả Xử Lý / Nghiệm Thu (*)</label>
                     <textarea id="resolveNoteInput" required rows="2" placeholder="VD: Đã thay thế linh kiện, cân chỉnh thông số và chạy thử tải ổn định..." class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300"></textarea>
                 </div>
+                <div class="p-3 rounded-xl bg-amber-50/70 border border-amber-200 space-y-2">
+                    <div class="font-bold text-amber-900"><i class="fa-solid fa-boxes-stacked mr-1"></i>Lãnh Bổ Sung Vật Tư Thay Thế Từ Kho (Nếu có)</div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                        <div class="sm:col-span-2">
+                            <select id="resolveSparePartSelect" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-slate-300">
+                                <option value="">-- Không lãnh thêm vật tư --</option>
+                            </select>
+                        </div>
+                        <div>
+                            <input type="number" id="resolveSparePartQty" min="1" value="1" placeholder="Số lượng" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-slate-300">
+                        </div>
+                    </div>
+                </div>
                 <div class="p-3 rounded-xl bg-emerald-50/70 border border-emerald-200 space-y-2">
                     <div class="font-bold text-emerald-900"><i class="fa-solid fa-camera-rotate mr-1"></i>Ảnh Nghiệm Thu Sau Khi Sửa Xong (Tùy chọn)</div>
                     <input type="file" id="ticketAfterPhotoInput" accept="image/*" capture="environment" onchange="handleTicketPhotoSelect(event, 'AFTER')" class="block w-full text-xs text-slate-600 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-emerald-600 file:text-white file:font-semibold cursor-pointer">
@@ -1283,6 +1294,68 @@
                 <div class="flex justify-end space-x-2 pt-2">
                     <button type="button" onclick="closeModal('resolveTicketModal')" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-700 font-semibold">Hủy</button>
                     <button type="submit" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold">Xác Nhận Hoàn Tất WO</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Issue Spare Parts for Work Order Modal (Lãnh Vật Tư Thay Thế) -->
+    <div id="issuePartModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-5 sm:p-6 shadow-2xl border border-slate-200 my-auto space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <div class="flex items-center space-x-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-slate-900">Phiếu Lãnh Vật Tư Thay Thế (Xuất Kho)</h3>
+                        <p id="issuePartModalSubtitle" class="text-xs text-slate-500">Liên kết trực tiếp và tự động trừ tồn kho vật tư</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('issuePartModal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <form onsubmit="saveIssuePartForm(event)" class="space-y-3 text-xs">
+                <input type="hidden" id="issuePartWoIdInput">
+
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+                    <div class="text-[11px] font-bold uppercase text-slate-500">Vật tư đã lãnh cho sự cố này:</div>
+                    <div id="issuePartHistoryBox" class="text-xs font-semibold text-slate-800">Chưa lãnh vật tư nào</div>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between mb-1">
+                        <label class="font-bold text-slate-600">Chọn Vật Tư / Phụ Tùng Trong Kho (*)</label>
+                        <button type="button" onclick="closeModal('issuePartModal'); switchTab('inventory');" class="text-[11px] text-blue-600 hover:underline font-semibold">
+                            <i class="fa-solid fa-box-open mr-0.5"></i>Xem Kho Vật Tư
+                        </button>
+                    </div>
+                    <input type="text" id="issuePartSearchInput" oninput="filterIssuePartDropdown()" placeholder="🔍 Gõ tên hoặc mã vật tư để lọc nhanh..." class="w-full mb-1.5 px-3 py-1.5 rounded-lg bg-slate-100 border border-slate-200 text-xs focus:bg-white focus:border-amber-500 focus:outline-none">
+                    <select id="issuePartSelect" required onchange="updateIssuePartStockHint()" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 font-semibold text-slate-800"></select>
+                    <div id="issuePartStockHint" class="mt-1 text-[11px] text-slate-500"></div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-600 mb-1">Số Lượng Xuất (*)</label>
+                        <input type="number" id="issuePartQtyInput" required min="1" value="1" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 font-bold text-slate-900">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block font-bold text-slate-600 mb-1">Người Lãnh Vật Tư (*)</label>
+                        <input type="text" id="issuePartReceiverInput" required class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 font-medium">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-600 mb-1">Ghi Chú Lý Do Thay Thế (Tùy chọn)</label>
+                    <input type="text" id="issuePartReasonInput" placeholder="VD: Thay mới do linh kiện cũ bị cháy/hỏng tiếp điểm..." class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300">
+                </div>
+
+                <div class="flex justify-end space-x-2 pt-3 border-t border-slate-100">
+                    <button type="button" onclick="closeModal('issuePartModal')" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-700 font-semibold">Đóng</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold shadow-sm">
+                        <i class="fa-solid fa-dolly mr-1"></i>Xác Nhận Lãnh & Trừ Kho
+                    </button>
                 </div>
             </form>
         </div>
@@ -2039,11 +2112,11 @@
         const initialHandoverLogs = [
             {
                 id: 'HO-101',
-                shift: 'Ca Đêm (22:00 - 06:00)',
+                shift: 'Ca trực 24h (07:00 - 07:00 hôm sau)',
                 fromUser: 'Đặng Minh Quân',
                 toUser: 'Trần Văn Kiên',
-                createdAt: '16/10/2026 06:05',
-                ackedAt: '16/10/2026 06:12',
+                createdAt: '16/10/2026 07:00',
+                ackedAt: '16/10/2026 07:05',
                 items: ['Bộ đàm (02)', 'Chìa khóa phòng máy', 'Đồng hồ VOM/Ampe', 'Tủ PCCC bình thường'],
                 note: 'Hệ thống Chiller #1 chạy ổn định ở 7.2°C. Đang theo dõi biến tần cụm bơm tăng áp #2.',
                 status: 'ACKNOWLEDGED'
@@ -2346,11 +2419,11 @@
             const txt = document.getElementById('soundToggleText');
             if (!btn || !icon || !txt) return;
             if (audioAlertEnabled) {
-                btn.className = 'px-2.5 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-semibold flex items-center space-x-1.5 transition shrink-0';
+                btn.className = 'px-2 sm:px-2.5 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-semibold flex items-center justify-center space-x-1.5 transition shrink-0';
                 icon.className = 'fa-solid fa-volume-high';
                 txt.textContent = 'Chuông: Bật';
             } else {
-                btn.className = 'px-2.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 border border-slate-200 text-xs font-semibold flex items-center space-x-1.5 transition shrink-0';
+                btn.className = 'px-2 sm:px-2.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 border border-slate-200 text-xs font-semibold flex items-center justify-center space-x-1.5 transition shrink-0';
                 icon.className = 'fa-solid fa-volume-xmark';
                 txt.textContent = 'Chuông: Tắt';
             }
@@ -2878,41 +2951,69 @@
             const countEl = document.getElementById('handoverHistoryCount');
             if (countEl) countEl.textContent = handoverLogs.length;
             const banner = document.getElementById('latestShiftBanner');
+            const btnSign = document.getElementById('btnSignHandover');
+            const btnAck = document.getElementById('btnAckHandover');
             if (!banner) return;
 
             if (handoverLogs.length === 0) {
-                banner.innerHTML = `<div class="text-slate-500">Chưa có biên bản bàn giao ca nào.</div>`;
+                banner.innerHTML = `<div class="text-slate-500">Chưa có biên bản bàn giao ca nào (Ca 24h: 07:00 - 07:00 hôm sau).</div>`;
+                if (btnSign) {
+                    btnSign.disabled = false;
+                    btnSign.innerHTML = `<i class="fa-solid fa-signature mr-1"></i>Ký Giao Ca`;
+                }
+                if (btnAck) {
+                    btnAck.disabled = true;
+                }
                 return;
             }
             const latest = handoverLogs[0];
+            const shiftLabel = 'Ca trực 24h (07:00 - 07:00 hôm sau)';
             if (latest.status === 'PENDING') {
                 banner.className = 'p-2.5 rounded-xl bg-amber-50 border border-amber-300 text-[11px] space-y-1';
                 banner.innerHTML = `
                     <div class="flex items-center justify-between font-bold text-amber-900">
-                        <span>⏳ Chờ nhận ca: ${latest.shift}</span>
+                        <span>⏳ Chờ nhận ca: ${shiftLabel}</span>
                         <span>${latest.createdAt}</span>
                     </div>
-                    <div class="text-amber-800">Người giao: <strong>${latest.fromUser}</strong> • Đợi ca sau bấm "Xác Nhận Nhận Ca"</div>
+                    <div class="text-amber-800">Người giao: <strong>${latest.fromUser}</strong> • Đã khóa Ký giao ca, chờ ca sau bấm "Xác Nhận Nhận Ca"</div>
                 `;
+                if (btnSign) {
+                    btnSign.disabled = true;
+                    btnSign.innerHTML = `<i class="fa-solid fa-lock mr-1"></i>Đã Ký Giao Ca`;
+                }
+                if (btnAck) {
+                    btnAck.disabled = false;
+                }
             } else {
                 banner.className = 'p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-[11px] space-y-1';
                 banner.innerHTML = `
                     <div class="flex items-center justify-between font-bold text-emerald-900">
-                        <span>✅ Đã nhận ca: ${latest.shift}</span>
+                        <span>✅ Đang trong ca: ${shiftLabel}</span>
                         <span>${latest.ackedAt}</span>
                     </div>
                     <div class="text-emerald-800">Giao: <strong>${latest.fromUser}</strong> <i class="fa-solid fa-arrow-right mx-1"></i> Nhận: <strong>${latest.toUser}</strong></div>
                 `;
+                if (btnSign) {
+                    btnSign.disabled = false;
+                    btnSign.innerHTML = `<i class="fa-solid fa-signature mr-1"></i>Ký Giao Ca`;
+                }
+                if (btnAck) {
+                    btnAck.disabled = true;
+                }
             }
         }
 
         function saveShiftHandover() {
+            if (handoverLogs.length > 0 && handoverLogs[0].status === 'PENDING') {
+                showToast('Đã ký giao ca rồi! Không thể ký thêm khi ca tiếp theo chưa bấm Xác Nhận Nhận Ca.', 'warning');
+                return;
+            }
             handoverNote = document.getElementById('shiftHandoverNote').value.trim();
             if (!handoverNote) {
                 showToast('Vui lòng nhập nội dung bàn giao ca trực!', 'warning');
                 return;
             }
-            const shiftName = document.getElementById('handoverShiftSelect').value;
+            const shiftName = 'Ca trực 24h (07:00 - 07:00 hôm sau)';
             const items = [];
             if (document.getElementById('chkHandoverRadio').checked) items.push('Bộ đàm (02)');
             if (document.getElementById('chkHandoverKeys').checked) items.push('Chìa khóa phòng máy');
@@ -2923,7 +3024,7 @@
                 id: 'HO-' + Math.floor(100 + Math.random() * 900),
                 shift: shiftName,
                 fromUser: currentUser ? currentUser.name : getTodayDutyMemberName(),
-                toUser: 'Chờ ca sau xác nhận',
+                toUser: 'Chờ ca sau xác nhận (07:00)',
                 createdAt: new Date().toLocaleString('vi-VN'),
                 ackedAt: '--',
                 items,
@@ -2932,25 +3033,29 @@
             };
 
             handoverLogs.unshift(newLog);
-            document.getElementById('handoverSavedTime').textContent = 'Đã ký giao ca lúc ' + new Date().toLocaleTimeString('vi-VN');
+            document.getElementById('handoverSavedTime').textContent = 'Đã ký giao ca lúc ' + new Date().toLocaleTimeString('vi-VN') + ' (Đang chờ nhận ca)';
             logActivity('KÝ GIAO CA', `Ký bàn giao ${shiftName} (${items.length} danh mục vật tư ca)`);
             saveState();
             renderHandoverBanner();
-            showToast('Đã ký bàn giao ca trực! Ca tiếp theo có thể bấm Xác Nhận Nhận Ca.', 'success');
+            showToast('Đã ký bàn giao ca 24h! Nút Ký Giao Ca đã được khóa cho đến khi ca sau nhận ca.', 'success');
         }
 
         function acknowledgeLatestHandover() {
-            if (handoverLogs.length === 0) return;
+            if (handoverLogs.length === 0 || handoverLogs[0].status !== 'PENDING') {
+                showToast('Hiện không có biên bản giao ca nào đang chờ xác nhận!', 'info');
+                return;
+            }
             const latest = handoverLogs[0];
             const receiver = currentUser ? currentUser.name : getTodayDutyMemberName();
             latest.toUser = receiver;
             latest.ackedAt = new Date().toLocaleString('vi-VN');
             latest.status = 'ACKNOWLEDGED';
 
+            document.getElementById('handoverSavedTime').textContent = 'Đã nhận ca 24h lúc ' + new Date().toLocaleTimeString('vi-VN');
             logActivity('NHẬN CA TRỰC', `${receiver} đã xác nhận nhận bàn giao ${latest.shift} từ ${latest.fromUser}`);
             saveState();
             renderHandoverBanner();
-            showToast(`Đã xác nhận tiếp quản ca trực (${receiver}) thành công!`, 'success');
+            showToast(`Đã xác nhận tiếp quản ca trực 24h (${receiver}) thành công!`, 'success');
         }
 
         function openHandoverHistoryModal() {
@@ -3081,6 +3186,9 @@
                     <td class="py-3 px-3">${stBadge}</td>
                     <td class="py-3 px-3 text-right whitespace-nowrap space-x-1">
                         ${t.status !== 'RESOLVED' ? `
+                            <button onclick="openIssuePartModal('${t.id}')" class="px-2.5 py-1 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 text-[11px] font-semibold" title="Lãnh vật tư phụ tùng từ kho để thay thế">
+                                <i class="fa-solid fa-boxes-stacked mr-1 text-amber-600"></i>Lãnh vật tư
+                            </button>
                             <button onclick="resolveTicket('${t.id}')" class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-semibold">
                                 <i class="fa-solid fa-check mr-1"></i>Nghiệm thu
                             </button>
@@ -3088,6 +3196,136 @@
                     </td>
                 </tr>`;
             }).join('');
+        }
+
+        function openIssuePartModal(woId) {
+            const t = tickets.find(x => x.id === woId);
+            if (!t) return;
+            document.getElementById('issuePartWoIdInput').value = t.id;
+            document.getElementById('issuePartModalSubtitle').textContent = `Phiếu ${t.id} • Thiết bị: ${t.assetId} (${t.system})`;
+            document.getElementById('issuePartHistoryBox').textContent = t.partUsed ? t.partUsed : 'Chưa lãnh vật tư nào cho phiếu này';
+            document.getElementById('issuePartSearchInput').value = '';
+            document.getElementById('issuePartQtyInput').value = 1;
+            document.getElementById('issuePartReceiverInput').value = currentUser ? currentUser.name : (t.assignee || getTodayDutyMemberName());
+            document.getElementById('issuePartReasonInput').value = '';
+
+            filterIssuePartDropdown();
+            openModal('issuePartModal');
+        }
+
+        function filterIssuePartDropdown() {
+            const woId = document.getElementById('issuePartWoIdInput').value;
+            const t = tickets.find(x => x.id === woId);
+            const targetSys = t ? t.system : 'ALL';
+            const q = (document.getElementById('issuePartSearchInput')?.value || '').trim().toLowerCase();
+            const sel = document.getElementById('issuePartSelect');
+            if (!sel) return;
+
+            // Sort parts matching ticket's system first
+            const sortedParts = [...inventory].sort((a, b) => {
+                const aMatch = a.system === targetSys ? 0 : 1;
+                const bMatch = b.system === targetSys ? 0 : 1;
+                return aMatch - bMatch;
+            }).filter(p => {
+                if (!q) return true;
+                return String(p.id).toLowerCase().includes(q) ||
+                       String(p.name).toLowerCase().includes(q) ||
+                       String(p.system).toLowerCase().includes(q) ||
+                       String(p.shelf || '').toLowerCase().includes(q);
+            });
+
+            if (sortedParts.length === 0) {
+                sel.innerHTML = `<option value="">-- Không tìm thấy vật tư khớp từ khóa --</option>`;
+                document.getElementById('issuePartStockHint').textContent = '';
+                return;
+            }
+
+            sel.innerHTML = sortedParts.map(p => {
+                const outText = p.qty <= 0 ? ' [HẾT HÀNG]' : (p.qty <= p.minQty ? ' [Sắp hết]' : '');
+                return `<option value="${p.id}" ${p.qty <= 0 ? 'disabled' : ''}>[${p.system}] ${p.id} - ${p.name} (Tồn: ${p.qty} ${p.unit})${outText}</option>`;
+            }).join('');
+
+            // Select first available item
+            const firstAvailable = sortedParts.find(p => p.qty > 0);
+            if (firstAvailable) sel.value = firstAvailable.id;
+            updateIssuePartStockHint();
+        }
+
+        function updateIssuePartStockHint() {
+            const partId = document.getElementById('issuePartSelect')?.value;
+            const hintEl = document.getElementById('issuePartStockHint');
+            const qtyInput = document.getElementById('issuePartQtyInput');
+            if (!hintEl) return;
+            const p = inventory.find(x => x.id === partId);
+            if (!p) {
+                hintEl.textContent = 'Vui lòng chọn vật tư còn tồn kho để xuất.';
+                return;
+            }
+            if (qtyInput) qtyInput.max = Math.max(1, p.qty);
+            hintEl.innerHTML = `Vị trí kệ: <strong>${p.shelf || 'Kho kỹ thuật'}</strong> • Tồn khả dụng: <strong class="${p.qty <= p.minQty ? 'text-red-600' : 'text-emerald-700'}">${p.qty} ${p.unit}</strong> (Định mức tối thiểu: ${p.minQty} ${p.unit})`;
+        }
+
+        function appendPartUsedToTicket(ticketObj, partObj, qty, receiver, reason) {
+            const entryText = `${partObj.name} (x${qty} ${partObj.unit})`;
+            if (ticketObj.partUsed && ticketObj.partUsed.trim() !== '') {
+                ticketObj.partUsed = `${ticketObj.partUsed}; ${entryText}`;
+            } else {
+                ticketObj.partUsed = entryText;
+            }
+            if (!Array.isArray(ticketObj.partsList)) ticketObj.partsList = [];
+            ticketObj.partsList.push({
+                partId: partObj.id,
+                name: partObj.name,
+                qty,
+                unit: partObj.unit,
+                receiver: receiver || '',
+                reason: reason || '',
+                time: new Date().toLocaleString('vi-VN')
+            });
+        }
+
+        function saveIssuePartForm(e) {
+            e.preventDefault();
+            const woId = document.getElementById('issuePartWoIdInput').value;
+            const t = tickets.find(x => x.id === woId);
+            if (!t) return;
+
+            const partId = document.getElementById('issuePartSelect').value;
+            const qty = Number(document.getElementById('issuePartQtyInput').value) || 0;
+            const receiver = document.getElementById('issuePartReceiverInput').value.trim();
+            const reason = document.getElementById('issuePartReasonInput').value.trim();
+
+            if (!partId || qty <= 0) {
+                showToast('Vui lòng chọn vật tư và nhập số lượng hợp lệ!', 'warning');
+                return;
+            }
+
+            const partObj = inventory.find(p => p.id === partId);
+            if (!partObj) return;
+
+            if (partObj.qty < qty) {
+                showToast(`Tồn kho "${partObj.name}" chỉ còn ${partObj.qty} ${partObj.unit}, không đủ để xuất ${qty} ${partObj.unit}!`, 'error');
+                return;
+            }
+
+            partObj.qty -= qty;
+            appendPartUsedToTicket(t, partObj, qty, receiver, reason);
+
+            if (t.status === 'OPEN') {
+                t.status = 'IN_PROGRESS';
+            }
+
+            const reasonStr = reason ? ` (${reason})` : '';
+            logActivity('LÃNH VẬT TƯ WO', `${receiver} lãnh ${qty} ${partObj.unit} "${partObj.name}" cho phiếu ${t.id} - TB ${t.assetId}${reasonStr}. Tồn còn: ${partObj.qty}`);
+            saveState();
+            refreshAllViews();
+            closeModal('issuePartModal');
+
+            if (partObj.qty <= partObj.minQty) {
+                showToast(`Đã xuất ${qty} ${partObj.unit} ${partObj.name}! (Cảnh báo: Tồn kho chạm mức tối thiểu ${partObj.qty} ${partObj.unit})`, 'warning');
+            } else {
+                showToast(`Đã lãnh ${qty} ${partObj.unit} "${partObj.name}" cho phiếu ${t.id}!`, 'success');
+            }
         }
 
         function openTicketModal(preselectedAssetId = null) {
@@ -3187,6 +3425,15 @@
             document.getElementById('resolveWoIdInput').value = woId;
             document.getElementById('resolveModalWoSubtitle').textContent = `Phiếu ${t.id} • Thiết bị: ${t.assetId}`;
             document.getElementById('resolveNoteInput').value = 'Đã kiểm tra khắc phục và vận hành ổn định.';
+
+            const rPartSel = document.getElementById('resolveSparePartSelect');
+            if (rPartSel) {
+                rPartSel.innerHTML = `<option value="">-- Không lãnh thêm vật tư --</option>` +
+                    inventory.map(p => `<option value="${p.id}" ${p.qty <= 0 ? 'disabled' : ''}>[${p.system}] ${p.id} - ${p.name} (Tồn: ${p.qty} ${p.unit})</option>`).join('');
+            }
+            const rQtyEl = document.getElementById('resolveSparePartQty');
+            if (rQtyEl) rQtyEl.value = 1;
+
             tempTicketAfterPhoto = "";
             document.getElementById('ticketAfterPhotoInput').value = '';
             document.getElementById('ticketAfterPhotoPreview').classList.add('hidden');
@@ -3198,6 +3445,23 @@
             const woId = document.getElementById('resolveWoIdInput').value;
             const t = tickets.find(x => x.id === woId);
             if (!t) return;
+
+            const extraPartId = document.getElementById('resolveSparePartSelect')?.value;
+            const extraPartQty = Number(document.getElementById('resolveSparePartQty')?.value) || 1;
+            if (extraPartId) {
+                const partObj = inventory.find(p => p.id === extraPartId);
+                if (partObj) {
+                    if (partObj.qty < extraPartQty) {
+                        showToast(`Số lượng tồn kho của "${partObj.name}" chỉ còn ${partObj.qty} ${partObj.unit}!`, 'error');
+                        return;
+                    }
+                    partObj.qty -= extraPartQty;
+                    const receiver = currentUser ? currentUser.name : t.assignee;
+                    appendPartUsedToTicket(t, partObj, extraPartQty, receiver, 'Kê khai khi nghiệm thu');
+                    logActivity('LÃNH VẬT TƯ WO', `Xuất bổ sung ${extraPartQty} ${partObj.unit} "${partObj.name}" khi nghiệm thu phiếu ${t.id}`);
+                }
+            }
+
             t.status = 'RESOLVED';
             t.resolutionNote = document.getElementById('resolveNoteInput').value.trim();
             if (tempTicketAfterPhoto) t.afterPhoto = tempTicketAfterPhoto;
@@ -3828,19 +4092,22 @@
                 const editable = canManageSystem(a.system);
                 return `
                 <tr class="hover:bg-slate-50/80 transition">
-                    <td class="py-3 px-3">
-                        <div class="font-bold text-slate-900">${a.id}</div>
-                        <div class="text-slate-500">${a.name} (${renderSystemBadge(a.system)})</div>
+                    <td class="py-3 px-3 min-w-[200px]">
+                        <div class="flex items-center space-x-2">
+                            <span class="font-bold text-slate-900">${a.id}</span>
+                            ${renderSystemBadge(a.system)}
+                        </div>
+                        <div class="text-slate-600 mt-0.5">${a.name}</div>
                     </td>
-                    <td class="py-3 px-3 font-medium text-slate-700">${a.cycle || 'Hàng Tháng'}</td>
-                    <td class="py-3 px-3 text-slate-600">${formatIsoToVnDate(a.lastMaint)}</td>
-                    <td class="py-3 px-3 font-semibold text-slate-800">${formatIsoToVnDate(a.nextMaint)}</td>
-                    <td class="py-3 px-3">${renderCountdownBadge(a.nextMaint)}</td>
-                    <td class="py-3 px-3">
+                    <td class="py-3 px-3 font-medium text-slate-700 whitespace-nowrap">${a.cycle || 'Hàng Tháng'}</td>
+                    <td class="py-3 px-3 text-slate-600 whitespace-nowrap font-mono">${formatIsoToVnDate(a.lastMaint)}</td>
+                    <td class="py-3 px-3 font-semibold text-slate-800 whitespace-nowrap font-mono">${formatIsoToVnDate(a.nextMaint)}</td>
+                    <td class="py-3 px-3 whitespace-nowrap">${renderCountdownBadge(a.nextMaint)}</td>
+                    <td class="py-3 px-3 min-w-[180px]">
                         <div class="font-semibold text-slate-800">${op.name}</div>
                         <div class="flex items-center space-x-1.5 text-[11px] text-slate-500">
-                            <span>${op.email}</span>
-                            ${isAdminUser() ? `<button onclick="openUserModal('${op.id}')" class="text-blue-600 hover:underline font-semibold">[Sửa Email]</button>` : ''}
+                            <span class="truncate max-w-[140px]">${op.email}</span>
+                            ${isAdminUser() ? `<button onclick="openUserModal('${op.id}')" class="text-blue-600 hover:underline font-semibold shrink-0">[Sửa]</button>` : ''}
                         </div>
                     </td>
                     <td class="py-3 px-3 text-right whitespace-nowrap">
