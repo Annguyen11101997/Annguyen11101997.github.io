@@ -4247,13 +4247,14 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                             <div>
                                 <h3 class="text-base font-bold text-slate-900">Kho Vật Tư & Phụ Tùng Thay Thế</h3>
-                                <p class="text-xs text-slate-500">Cảnh báo đỏ khi số lượng tồn kho chạm ngưỡng tối thiểu và tự động trừ kho khi lập phiếu WO</p>
+                                <p class="text-xs text-slate-500">Cảnh báo đỏ khi số lượng tồn kho chạm ngưỡng tối thiểu và tự động trừ kho khi cấp vật tư cho phiếu WO</p>
+                                <p id="inventoryPermissionNote" class="mt-1 text-xs text-slate-600"></p>
                             </div>
                             <div class="flex items-center gap-2 self-start sm:self-auto flex-wrap">
                                 <button onclick="openMaterialIssueHistory()" class="px-3.5 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 text-xs font-semibold flex items-center space-x-1.5">
                                     <i class="fa-solid fa-clock-rotate-left"></i><span>Lịch sử cấp vật tư</span>
                                 </button>
-                                <button onclick="openPartModal()" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold flex items-center space-x-1.5">
+                                <button data-inventory-write onclick="openPartModal()" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold flex items-center space-x-1.5">
                                     <i class="fa-solid fa-plus"></i><span>Thêm Vật Tư Mới</span>
                                 </button>
                             </div>
@@ -5057,9 +5058,9 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
                     <div class="font-bold text-slate-700">Xuất Vật Tư / Phụ Tùng Thay Thế Từ Kho (Tùy chọn)</div>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                         <div class="sm:col-span-2">
-                            <select id="ticketSparePartSelect" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-slate-300">
+                            <select aria-describedby="ticketInventoryPermissionNote" id="ticketSparePartSelect" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-slate-300">
                                 <option value="">-- Không sử dụng vật tư --</option>
-                            </select>
+                            </select><p id="ticketInventoryPermissionNote" class="mt-1 text-[11px] text-slate-600">Chỉ tài khoản có quyền kho mới xuất vật tư. Anh vẫn có thể gửi phiếu khi không xuất thêm vật tư.</p>
                         </div>
                         <div>
                             <input type="number" id="ticketSparePartQty" min="1" value="1" placeholder="Số lượng" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-slate-300">
@@ -5102,9 +5103,9 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
                     <div class="font-bold text-amber-900"><i class="fa-solid fa-boxes-stacked mr-1"></i>Lãnh Bổ Sung Vật Tư Thay Thế Từ Kho (Nếu có)</div>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                         <div class="sm:col-span-2">
-                            <select id="resolveSparePartSelect" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-slate-300">
+                            <select aria-describedby="resolveInventoryPermissionNote" id="resolveSparePartSelect" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-slate-300">
                                 <option value="">-- Không lãnh thêm vật tư --</option>
-                            </select>
+                            </select><p id="resolveInventoryPermissionNote" class="mt-1 text-[11px] text-slate-600">Chỉ tài khoản có quyền kho mới xuất vật tư. Anh vẫn có thể gửi phiếu khi không xuất thêm vật tư.</p>
                         </div>
                         <div>
                             <input type="number" id="resolveSparePartQty" min="1" value="1" placeholder="Số lượng" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-slate-300">
@@ -5573,6 +5574,10 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
                     <div id="userTechnicalSystemsPermissionBlock" class="space-y-2">
                         <label class="block font-bold text-slate-700">Chọn các hệ thống kỹ thuật được quyền chỉnh sửa:</label>
                         <div id="userSystemsCheckboxes" class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-40 overflow-y-auto"></div>
+                    </div>
+                    <div id="userInventoryPermissionWrapper" class="pt-3 border-t border-slate-200 space-y-2">
+                        <label class="flex items-start gap-2 font-bold text-slate-800"><input id="userInventoryManageInput" type="checkbox" class="mt-0.5 rounded border-slate-300 text-blue-600" onchange="this.dataset.userTouched='true'"><span>Quản lý kho vật tư &amp; phụ tùng</span></label>
+                        <p id="userInventoryPermissionNote" class="text-[11px] text-slate-600">Cho phép thêm/sửa vật tư và nhập/xuất kho. Quyền này được cấp riêng theo từng tòa nhà.</p>
                     </div>
                     <div id="userFurniturePermissionWrapper" class="pt-3 border-t border-slate-200 space-y-2">
                         <label class="flex items-start gap-2 font-bold text-slate-800"><input id="userFurnitureManageInput" type="checkbox" class="mt-0.5 rounded border-slate-300 text-blue-600" onchange="this.dataset.userTouched='true'"><span>Được quyền thêm/sửa, điều chuyển, thu hồi, ghi nhận mất và nhập hàng loạt Nội Thất & Doanh Cụ</span></label>
@@ -6281,6 +6286,7 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
                 role:String(user.role || 'PENDING'), status:String(user.status || 'PENDING'),
                 systems:Array.isArray(user.systems) ? [...user.systems] : [],
                 furnitureManage:user.furnitureManage === true,
+                inventoryManage:user.inventoryManage === true,
                 createdAt:user.createdAt, updatedAt:user.updatedAt
             };
         }
@@ -6459,6 +6465,38 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
 
         function canReviewContractorApplications() {
             return Boolean(hasAuthenticatedClientSession() && currentUser && ['ADMIN', 'BUILDING_HEAD'].includes(String(currentUser.role || '').toUpperCase()));
+        }
+
+        function canManageInventory() {
+            return Boolean(hasAuthenticatedClientSession() && window.SharedData?.ready()
+                && (currentUser.role === 'ADMIN' || currentUser.inventoryManage === true));
+        }
+
+        function updateInventoryPermissionUI() {
+            const allowed=canManageInventory();
+            document.querySelectorAll('[data-inventory-write]').forEach(button=>{
+                button.disabled=!allowed;button.classList.toggle('hidden',!allowed);
+            });
+            const note=document.getElementById('inventoryPermissionNote');
+            if(note)note.textContent=allowed
+                ?'Anh có quyền thêm/sửa vật tư và nhập/xuất kho của tòa này.'
+                :'Chỉ xem kho. Admin hoặc Trưởng Ban cấp quyền Quản lý kho vật tư & phụ tùng trong Phân quyền tài khoản.';
+            ['ticketSparePartSelect','resolveSparePartSelect','ticketSparePartQty','resolveSparePartQty'].forEach(id=>{
+                const field=document.getElementById(id);if(!field)return;
+                field.disabled=!allowed;
+                if(!allowed&&field.tagName==='SELECT')field.value='';
+            });
+            ['ticketInventoryPermissionNote','resolveInventoryPermissionNote'].forEach(id=>document.getElementById(id)?.classList.toggle('hidden',allowed));
+        }
+
+        function updateUserInventoryPermissionControl() {
+            const role=document.getElementById('userRoleInput').value;
+            const checkbox=document.getElementById('userInventoryManageInput');
+            checkbox.disabled=role==='ADMIN';
+            if(role==='ADMIN')checkbox.checked=true;
+            document.getElementById('userInventoryPermissionNote').textContent=role==='ADMIN'
+                ?'Admin tự động có toàn quyền kho vật tư của tòa này.'
+                :'Quyền kho độc lập với hệ thống kỹ thuật và quyền nội thất. Nhân sự chỉ phụ trách kho có thể để trống danh sách hệ thống kỹ thuật.';
         }
 
         function canManageSystem(sysCode) {
@@ -7166,7 +7204,7 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
                     ? `<button onclick="openPhotoPreviewModal(${idArg})" class="px-2 py-1 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-[11px] font-semibold flex items-center space-x-1"><i class="fa-solid fa-images"></i><span>${t.beforePhoto && t.afterPhoto ? 'Trước & Sau' : (t.beforePhoto ? 'Ảnh Trước' : 'Ảnh Sau')}</span></button>`
                     : '<span class="text-[11px] text-slate-400">Chưa có ảnh</span>';
                 const actionHtml = canRepairTicket(t)
-                    ? `${t.status==='OPEN' ? `<button onclick="startRepairTicket(${idArg})" class="workflow-btn border border-blue-200 bg-blue-50 text-blue-800 hover:bg-blue-100">Bắt đầu sửa</button> ` : ''}<button onclick="openIssuePartModal(${idArg})" class="workflow-btn border border-amber-200 bg-amber-50 text-amber-900 hover:bg-amber-100">Lãnh vật tư</button> <button onclick="resolveTicket(${idArg})" class="workflow-btn bg-indigo-700 text-white hover:bg-indigo-800">Báo hoàn tất</button>`
+                    ? `${t.status==='OPEN' ? `<button onclick="startRepairTicket(${idArg})" class="workflow-btn border border-blue-200 bg-blue-50 text-blue-800 hover:bg-blue-100">Bắt đầu sửa</button> ` : ''}${canManageInventory() ? `<button onclick="openIssuePartModal(${idArg})" class="workflow-btn border border-amber-200 bg-amber-50 text-amber-900 hover:bg-amber-100">Lãnh vật tư</button>` : ''} <button onclick="resolveTicket(${idArg})" class="workflow-btn bg-indigo-700 text-white hover:bg-indigo-800">Báo hoàn tất</button>`
                     : canAcceptTicket(t)
                     ? `<button onclick="resolveTicket(${idArg})" class="workflow-btn bg-emerald-700 text-white hover:bg-emerald-800">Nghiệm thu / Trả lại</button>`
                     : `<span class="text-[11px] text-slate-400">${t.status==='PENDING_ACCEPTANCE'?'Đợi cấp quản lý':'Chỉ xem'}</span>`;
@@ -7180,6 +7218,7 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
         }
 
         function openIssuePartModal(woId) {
+            if(!canManageInventory()){showToast('Tài khoản chưa được cấp quyền xuất kho vật tư.','error');return;}
             const t = tickets.find(x => String(x.id) === String(woId));
             if (!t) return;
             if (!canRepairTicket(t)) { showToast('Chỉ KTV phụ trách mới được lãnh vật tư khi phiếu đang sửa.', 'error'); return; }
@@ -7273,6 +7312,7 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
         }
 
         function ensureMaterialIssueHistoryFromTicketParts() {
+            if(hasAuthenticatedClientSession() && !canManageInventory())return;
             if (!Array.isArray(materialIssueHistory)) materialIssueHistory = [];
             materialIssueHistory = materialIssueHistory.filter(row => row && typeof row === 'object' && !Array.isArray(row)).map(row => ({
                 ...row,
@@ -7393,6 +7433,7 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
             e.preventDefault();
             if (!hasAuthenticatedClientSession()) { showToast('Vui lòng đăng nhập trước khi xuất kho.', 'error'); return; }
             const woId = document.getElementById('issuePartWoIdInput').value;
+            if(!canManageInventory()){showToast('Tài khoản chưa được cấp quyền xuất kho vật tư.','error');return;}
             const t = tickets.find(x => String(x.id) === String(woId));
             if (!t) return;
             if (!canRepairTicket(t)) { showToast('Chỉ KTV phụ trách mới được lãnh vật tư khi phiếu đang sửa.', 'error'); return; }
@@ -7403,7 +7444,7 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
             if (!partId || !Number.isSafeInteger(qty) || qty <= 0) { showToast('Vui lòng chọn vật tư và nhập số lượng nguyên dương.', 'warning'); return; }
             const partObj = inventory.find(p => String(p.id) === String(partId));
             if (!partObj) { showToast('Không tìm thấy vật tư đã chọn.', 'error'); return; }
-            if (!canManageSystem(partObj.system)) { showToast('Bạn không có quyền xuất vật tư thuộc hệ thống kho này.', 'error'); return; }
+            if (!canManageInventory()) { showToast('Bạn không có quyền xuất vật tư thuộc hệ thống kho này.', 'error'); return; }
             if (Number(partObj.qty) < qty) { showToast(`Tồn kho "${partObj.name}" chỉ còn ${partObj.qty} ${partObj.unit}, không đủ để xuất ${qty} ${partObj.unit}!`, 'error'); return; }
             partObj.qty = Number(partObj.qty) - qty;
             appendPartUsedToTicket(t, partObj, qty, receiver, reason);
@@ -7429,6 +7470,7 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
             partSel.innerHTML = `<option value="">-- Không xuất vật tư phụ tùng --</option>` +
                 inventory.map(p => `<option value="${advEscape(p.id)}">${advEscape(p.id)} - ${advEscape(p.name)} (Tồn: ${Number(p.qty)||0} ${advEscape(p.unit)})</option>`).join('');
             document.getElementById('ticketSparePartQty').value = 1;
+            updateInventoryPermissionUI();
             tempTicketBeforePhoto = "";
             document.getElementById('ticketBeforePhotoInput').value = '';
             document.getElementById('ticketBeforePhotoPreview').classList.add('hidden');
@@ -7470,10 +7512,11 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
             let partUsedDesc = '';
             let issueOnCreate = null;
             if (partId) {
+                if (!canManageInventory()) {showToast('Tài khoản chưa được cấp quyền xuất kho vật tư.','error');return;}
                 if (VCTCHRules.roleOf(currentUser) !== 'TECHNICIAN') { showToast('Chỉ KTV được xuất vật tư trong quá trình xử lý sự cố.', 'error'); return; }
                 const partObj = inventory.find(p => p.id === partId);
                 if (partObj) {
-                    if (!canManageSystem(partObj.system)) { showToast('Bạn không có quyền xuất vật tư thuộc hệ thống kho này.', 'error'); return; }
+                    if (!canManageInventory()) { showToast('Tài khoản chưa được cấp quyền xuất kho vật tư.', 'error'); return; }
                     if (!Number.isSafeInteger(partQty) || partQty <= 0) { showToast('Số lượng vật tư phải là số nguyên dương.', 'error'); return; }
                     if (partObj.qty < partQty) {
                         showToast(`Số lượng tồn kho của ${partObj.name} chỉ còn ${partObj.qty} ${partObj.unit}!`, 'error');
@@ -7563,6 +7606,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
             document.getElementById('resolveNoteInput').value='Đã hoàn tất sửa chữa, kiểm tra và chạy thử.';
             const sel=document.getElementById('resolveSparePartSelect');
             if(sel)sel.innerHTML='<option value="">-- Không lãnh thêm vật tư --</option>'+inventory.map(p=>`<option value="${advEscape(p.id)}" ${Number(p.qty)<=0?'disabled':''}>[${advEscape(p.system)}] ${advEscape(p.id)} - ${advEscape(p.name)} (Tồn: ${Number(p.qty)||0} ${advEscape(p.unit)})</option>`).join('');
+            updateInventoryPermissionUI();
             const qty=document.getElementById('resolveSparePartQty');if(qty)qty.value=1;
             tempTicketAfterPhoto='';
             document.getElementById('ticketAfterPhotoInput').value='';
@@ -7581,7 +7625,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
             let part=null;
             if(partId) {
                 part=inventory.find(p=>p.id===partId);
-                if (!part || !canManageSystem(part.system) || !Number.isSafeInteger(qty) || qty<1 || Number(part.qty)<qty) {
+                if (!part || !canManageInventory() || !Number.isSafeInteger(qty) || qty<1 || Number(part.qty)<qty) {
                     showToast('Vật tư không hợp lệ hoặc số lượng tồn không đủ.','error');return;
                 }
             }
@@ -9079,6 +9123,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
         }
 
         function renderInventoryTable() {
+            updateInventoryPermissionUI();
             const tbody = document.getElementById('inventoryTableBody');
             if (!tbody) return;
             const q = (document.getElementById('partSearchInput')?.value || '').toLowerCase();
@@ -9092,7 +9137,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
             if (!filtered.length) { tbody.innerHTML = '<tr><td colspan="6" class="py-8 text-center text-slate-400">Không có vật tư phụ tùng nào khớp bộ lọc.</td></tr>'; return; }
             tbody.innerHTML = filtered.map(p => {
                 const isLow = Number(p.qty) <= Number(p.minQty);
-                const editable = canManageSystem(p.system);
+                const editable = canManageInventory();
                 const idArg = advJsQuote(p.id);
                 const statusBadge = isLow
                     ? '<span class="px-2 py-0.5 rounded-md text-[11px] font-bold bg-red-600 text-white"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Sắp hết / Cần nhập</span>'
@@ -9107,7 +9152,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
         async function adjustPartStock(partId, delta) {
             const p = inventory.find(x => String(x.id) === String(partId));
             if (!p) return;
-            if (!hasAuthenticatedClientSession() || !canManageSystem(p.system)) { showToast('Bạn không có quyền nhập/xuất kho thuộc hệ thống này.', 'error'); return; }
+            if (!canManageInventory()) { showToast('Tài khoản chưa được cấp quyền quản lý kho vật tư.', 'error'); return; }
             if (![1, -1].includes(Number(delta))) { showToast('Chỉ cho phép điều chỉnh tồn kho từng đơn vị qua thao tác này.', 'error'); return; }
             const currentQty = Number(p.qty);
             if (!Number.isFinite(currentQty) || currentQty + Number(delta) < 0) { showToast('Tồn kho không hợp lệ hoặc đã bằng 0, không thể xuất thêm.', 'error'); return; }
@@ -9120,14 +9165,14 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
         }
 
         function openPartModal(editId = null) {
-            if (!hasAuthenticatedClientSession()) { showToast('Vui lòng đăng nhập để quản lý kho vật tư.', 'error'); return; }
+            if (!canManageInventory()) { showToast('Tài khoản chưa được cấp quyền quản lý kho vật tư.', 'error'); return; }
             syncAllSystemSelectors();
             const modeEl = document.getElementById('partEditMode');
             const idEl = document.getElementById('partIdInput');
             if (editId) {
                 const p = inventory.find(x => x.id === editId);
                 if (!p) return;
-                if (!canManageSystem(p.system)) { showToast('Bạn không có quyền sửa vật tư thuộc hệ thống này.', 'error'); return; }
+                if (!canManageInventory()) { showToast('Bạn không có quyền sửa vật tư thuộc hệ thống này.', 'error'); return; }
                 modeEl.value = 'EDIT';
                 idEl.value = p.id;
                 idEl.readOnly = true;
@@ -9152,19 +9197,19 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
 
         async function savePartForm(e) {
             e.preventDefault();
-            if (!hasAuthenticatedClientSession()) { showToast('Vui lòng đăng nhập để quản lý kho vật tư.', 'error'); return; }
+            if (!canManageInventory()) { showToast('Tài khoản chưa được cấp quyền quản lý kho vật tư.', 'error'); return; }
             const mode = document.getElementById('partEditMode').value;
             const id = document.getElementById('partIdInput').value.trim().toUpperCase();
             const obj = { id, name: document.getElementById('partNameInput').value.trim(), system: document.getElementById('partSystemInput').value, qty: Number(document.getElementById('partQtyInput').value), minQty: Number(document.getElementById('partMinQtyInput').value), unit: document.getElementById('partUnitInput').value.trim(), shelf: document.getElementById('partShelfInput').value.trim() };
             if (!id || !obj.name || !obj.unit || !Number.isSafeInteger(obj.qty) || obj.qty < 0 || !Number.isSafeInteger(obj.minQty) || obj.minQty < 0) { showToast('Vui lòng nhập mã/tên/đơn vị hợp lệ và số lượng nguyên không âm.', 'error'); return; }
-            if (!canManageSystem(obj.system)) { showToast('Bạn không có quyền quản lý vật tư thuộc hệ thống đã chọn.', 'error'); return; }
+            if (!canManageInventory()) { showToast('Bạn không có quyền quản lý vật tư thuộc hệ thống đã chọn.', 'error'); return; }
             if (mode === 'ADD') {
                 if (inventory.some(x => String(x.id).toUpperCase() === id)) { showToast('Mã vật tư đã tồn tại. Hãy dùng mã khác.', 'error'); return; }
                 inventory.unshift(obj); logActivity('KHO VẬT TƯ', `Thêm danh mục vật tư mới: ${obj.name}`);
             } else {
                 const idx = inventory.findIndex(x => String(x.id) === id);
                 if (idx === -1) { showToast('Không tìm thấy vật tư cần cập nhật.', 'error'); return; }
-                if (!canManageSystem(inventory[idx].system)) { showToast('Bạn không có quyền sửa vật tư ở hệ thống hiện tại.', 'error'); return; }
+                if (!canManageInventory()) { showToast('Bạn không có quyền sửa vật tư ở hệ thống hiện tại.', 'error'); return; }
                 inventory[idx] = obj; logActivity('KHO VẬT TƯ', `Cập nhật vật tư: ${obj.name}`);
             }
             const synced = await saveState();
@@ -9416,6 +9461,9 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
                 `<label class="flex items-center gap-2 p-2 bg-white border border-slate-200 rounded-lg"><input type="checkbox" name="userSysChk" value="${advEscape(system.code)}" ${user.systems.includes(system.code) ? 'checked' : ''}><span>${advEscape(system.code)} · ${advEscape(system.name)}</span></label>`
             ).join('');
             document.getElementById('userFurnitureManageInput').checked = user.furnitureManage;
+            document.getElementById('userInventoryManageInput').checked = user.inventoryManage === true;
+            document.getElementById('userInventoryManageInput').dataset.userTouched = 'false';
+            updateUserInventoryPermissionControl();
             toggleUserSystemCheckboxes();
             updateUserFurniturePermissionControl();
             openModal('userModal');
@@ -9455,6 +9503,9 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
             }
             const checkbox = document.getElementById('userFurnitureManageInput');
             if (checkbox && checkbox.dataset.userTouched !== 'true' && previousRole === 'ADMIN' && role !== 'ADMIN') checkbox.checked = false;
+            const inventoryCheckbox=document.getElementById('userInventoryManageInput');
+            if(inventoryCheckbox.dataset.userTouched!=='true' && previousRole==='ADMIN' && role!=='ADMIN')inventoryCheckbox.checked=false;
+            updateUserInventoryPermissionControl();
             select.dataset.previousRole = role;
             toggleUserSystemCheckboxes();
             updateUserFurniturePermissionControl();
@@ -10447,10 +10498,12 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
             const allowedSys = systems.filter(s => canManageSystem(s.code));
             const formOptions = (allowedSys.length > 0 ? allowedSys : systems)
                 .map(s => `<option value="${s.code}">${s.code} - ${s.name}</option>`).join('');
-            ['assetSystemInput', 'partSystemInput'].forEach(id => {
+            ['assetSystemInput'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.innerHTML = formOptions;
             });
+            const partSelector=document.getElementById('partSystemInput');
+            if(partSelector)partSelector.innerHTML=systems.map(system=>`<option value="${advEscape(system.code)}">${advEscape(system.code)} - ${advEscape(system.name)}</option>`).join('');
         }
 
         function openModal(id) {
@@ -12769,7 +12822,7 @@ window.RealAuth = (() => {
     function profileFromSnapshot(snapshot) {
         const data = snapshot.data();
         if (!data || data.uid !== snapshot.id || !activeRoles.includes(data.role) || data.status !== 'ACTIVE') return null;
-        if (!Array.isArray(data.systems) || !data.systems.length) return null;
+        if (!Array.isArray(data.systems) || (!data.systems.length && data.inventoryManage !== true)) return null;
         return normalizeUserObject({...data, id:snapshot.id});
     }
 
@@ -12947,7 +13000,7 @@ window.RealAuth = (() => {
             if (existing.exists()) return;
             transaction.set(ref, {
                 uid:user.uid, email:user.email, name:fullName, title:'', role:'PENDING', status:'PENDING',
-                systems:[], furnitureManage:false, createdAt:sdk.serverTimestamp(), updatedAt:sdk.serverTimestamp()
+                systems:[], furnitureManage:false, inventoryManage:false, createdAt:sdk.serverTimestamp(), updatedAt:sdk.serverTimestamp()
             });
         });
     }
@@ -13084,15 +13137,17 @@ window.RealAuth = (() => {
         const role = el('userRoleInput').value;
         const systems = ['ADMIN', 'BUILDING_HEAD'].includes(role) ? ['ALL'] :
             [...document.querySelectorAll('input[name="userSysChk"]:checked')].map(input => input.value);
-        if (!systems.length || !activeRoles.includes(role)) {
-            showToast('Chọn vai trò và ít nhất một hệ thống phụ trách.', 'warning');
+        const inventoryManage = role === 'ADMIN' || el('userInventoryManageInput').checked === true;
+        if ((!systems.length && !inventoryManage && el('userStatusInput').value !== 'DISABLED') || !activeRoles.includes(role)) {
+            showToast('Chọn hệ thống kỹ thuật hoặc cấp quyền quản lý kho. Nếu thu hồi toàn bộ quyền, chọn Tạm ngừng truy cập.', 'warning');
             return;
         }
         const button = event.target.querySelector('[type=submit]');
         const changes = {
             name:el('userNameInput').value.trim(), title:el('userTitleInput').value.trim(),
             role, systems, status:el('userStatusInput').value,
-            furnitureManage:role === 'ADMIN' || el('userFurnitureManageInput').checked
+            furnitureManage:role === 'ADMIN' || el('userFurnitureManageInput').checked,
+            inventoryManage
         };
         button.disabled = true;
         try {
@@ -13125,7 +13180,7 @@ window.RealAuth = (() => {
                 `<span class="text-slate-500">${user.id === currentUser.id ? 'Đang đăng nhập' : 'Quản trị viên'}</span>`;
             return `<tr><td class="py-3 px-3"><b>${advEscape(user.name)}</b><div>${advEscape(user.title)}</div></td>
                 <td class="py-3 px-3 break-words">${advEscape(user.email)}</td><td class="py-3 px-3">${statusName[user.status] || 'Chưa xác nhận'}</td>
-                <td class="py-3 px-3">${roleLabel(user.role)}</td><td class="py-3 px-3"><div class="flex flex-wrap gap-1">${user.systems.map(system => system === 'ALL' ? 'Toàn bộ hệ thống' : renderSystemBadge(system)).join(' ')}</div>${user.furnitureManage ? '<div class="mt-1">Được quản lý nội thất/doanh cụ</div>' : ''}</td>
+                <td class="py-3 px-3">${roleLabel(user.role)}</td><td class="py-3 px-3"><div class="flex flex-wrap gap-1">${user.systems.map(system => system === 'ALL' ? 'Toàn bộ hệ thống' : renderSystemBadge(system)).join(' ')}</div>${user.furnitureManage ? '<div class="mt-1">Được quản lý nội thất/doanh cụ</div>' : ''}<div class="mt-1">${user.role === 'ADMIN' || user.inventoryManage ? 'Kho vật tư: Được quản lý' : 'Kho vật tư: Chỉ xem'}</div></td>
                 <td class="py-3 px-3 text-right">${action}</td></tr>`;
         }).join('') || '<tr><td colspan="6" class="p-4">Chưa có hồ sơ trong danh sách.</td></tr>';
     }
