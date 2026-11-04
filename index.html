@@ -3350,6 +3350,13 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
         @media print{.portal-header-actions{display:none}}
     </style>
     <style id="workflow-ui">
+      .remember-login-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+      .remember-login-button{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:8px 11px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;color:#334155;font-size:12px;font-weight:700;white-space:nowrap}
+      .remember-login-button:focus-visible{outline:3px solid #93c5fd;outline-offset:2px}
+      .remember-login-button.remember-login-active{background:#eff6ff;border-color:#93c5fd;color:#1d4ed8}
+      .remember-login-box{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border:1px solid currentColor;border-radius:4px}
+      #rememberLoginHelp{flex:1;min-width:150px;margin:0;color:#64748b;font-size:11px;line-height:1.5}
+
       .shared-data-panel{display:flex;flex-wrap:wrap;align-items:center;gap:7px;padding:9px 18px;border-bottom:1px solid #d5e6dd;background:#eef8f1;color:#245b45;font-size:12px;line-height:1.5}
       .shared-data-panel span{flex:1;min-width:140px}
       .shared-data-panel span[data-error="true"]{color:#a12633;font-weight:700}
@@ -3535,6 +3542,13 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
                                     <input type="password" id="loginPasswordInput" required autocomplete="current-password" placeholder="Nhập mật khẩu" class="w-full rounded-xl border border-slate-300 bg-slate-50 p-3 pr-11 text-sm text-slate-900">
                                     <button type="button" onclick="toggleLoginPasswordVisibility()" class="absolute right-3 top-2.5 rounded-lg p-1 text-slate-500" aria-label="Hiện hoặc ẩn mật khẩu"><i id="loginPwdEyeIcon" class="fa-regular fa-eye text-sm" aria-hidden="true"></i></button>
                                 </div>
+                            </div>
+                            <div class="remember-login-row">
+                                <button type="button" id="rememberLoginButton" aria-pressed="false" aria-describedby="rememberLoginHelp" onclick="RealAuth.toggleRememberLogin()" class="remember-login-button">
+                                    <span class="remember-login-box" aria-hidden="true"><svg id="rememberLoginCheck" class="hidden" viewBox="0 0 16 16" width="14" height="14"><path d="m3 8 3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                                    Lưu tài khoản
+                                </button>
+                                <p id="rememberLoginHelp">Nhớ email và giữ đăng nhập khi mở lại trình duyệt.</p>
                             </div>
                             <div id="loginErrorMsg" class="auth-message hidden" role="alert"></div>
                             <button type="submit" id="loginSubmitButton" disabled class="w-full rounded-xl bg-slate-900 px-4 py-3.5 text-sm font-bold text-white disabled:opacity-50">Đăng nhập</button>
@@ -12645,6 +12659,8 @@ window.RealAuth = (() => {
     let busy = false;
     let initialized = false;
     let directoryReady = false;
+    let rememberLogin = false;
+    const loginPreferenceKey = 'vctch_login_preferences_v1';
 
     const el = id => document.getElementById(id);
     const roleLabel = role => ({ADMIN:'Quản trị viên', BUILDING_HEAD:'Trưởng Ban', TEAM_LEAD:'Tổ trưởng', TECHNICIAN:'Kỹ thuật viên', PENDING:'Chờ cấp quyền'})[role] || 'Chưa cấp quyền';
@@ -12683,6 +12699,40 @@ window.RealAuth = (() => {
         ['loginSubmitButton', 'registerSubmitButton', 'forgotSubmitButton'].forEach(id => {
             el(id).disabled = value || !initialized;
         });
+        el('rememberLoginButton').disabled = value;
+    }
+
+    function renderLoginPreference() {
+        el('rememberLoginButton').setAttribute('aria-pressed', String(rememberLogin));
+        el('rememberLoginButton').classList.toggle('remember-login-active', rememberLogin);
+        el('rememberLoginCheck').classList.toggle('hidden', !rememberLogin);
+    }
+
+    function restoreLoginPreference() {
+        try {
+            const saved = JSON.parse(localStorage.getItem(loginPreferenceKey) || '{}');
+            rememberLogin = saved.remember === true;
+            if (rememberLogin && typeof saved.email === 'string') el('loginEmailInput').value = saved.email;
+        } catch (_) { rememberLogin = false; }
+        renderLoginPreference();
+    }
+
+    function saveLoginPreference(email = el('loginEmailInput').value.trim()) {
+        try {
+            if (rememberLogin) localStorage.setItem(loginPreferenceKey, JSON.stringify({remember:true,email:String(email || '').slice(0,254)}));
+            else localStorage.removeItem(loginPreferenceKey);
+        } catch (_) { /* The current login can still proceed without saving the preference. */ }
+    }
+
+    function toggleRememberLogin() {
+        if (busy) return;
+        rememberLogin = !rememberLogin;
+        saveLoginPreference();
+        renderLoginPreference();
+    }
+
+    async function applyLoginPersistence() {
+        await sdk.setPersistence(auth, rememberLogin ? sdk.browserLocalPersistence : sdk.browserSessionPersistence);
     }
 
     function unsubscribe() {
@@ -12834,6 +12884,7 @@ window.RealAuth = (() => {
     }
 
     async function init() {
+        restoreLoginPreference();
         setBusy(true);
         try {
             let config = JSON.parse(el('firebase-web-config').textContent);
@@ -12852,7 +12903,7 @@ window.RealAuth = (() => {
             const app = sdk.initializeApp(config, 'bms-' + config.projectId);
             auth = sdk.getAuth(app);
             auth.languageCode = 'vi';
-            await sdk.setPersistence(auth, sdk.browserSessionPersistence);
+            await applyLoginPersistence();
             db = sdk.getFirestore(app);
             window.SharedData.configure(sdk,db,auth);
             initialized = true;
@@ -12874,7 +12925,9 @@ window.RealAuth = (() => {
         setBusy(true);
         message('loginErrorMsg', '');
         try {
+            await applyLoginPersistence();
             await sdk.signInWithEmailAndPassword(auth, el('loginEmailInput').value.trim(), el('loginPasswordInput').value);
+            saveLoginPreference();
         } catch (error) {
             message('loginErrorMsg', errorText(error), true);
         } finally {
@@ -12915,8 +12968,10 @@ window.RealAuth = (() => {
         setBusy(true);
         let identityCreated = false;
         try {
+            await applyLoginPersistence();
             const result = await sdk.createUserWithEmailAndPassword(auth, el('registerEmail').value.trim(), password);
             identityCreated = true;
+            saveLoginPreference(result.user.email);
             await sdk.updateProfile(result.user, {displayName:name});
             await requestAccess(name);
             await sdk.sendEmailVerification(result.user);
@@ -13094,7 +13149,7 @@ window.RealAuth = (() => {
         }
     }
 
-    return {init, authorized, login, register, logout, requestAccess:submitAccessRequest, verifyEmail, refreshAccess,
+    return {init, authorized, login, toggleRememberLogin, register, logout, requestAccess:submitAccessRequest, verifyEmail, refreshAccess,
         forgotPassword, changePassword, saveMember, renderDirectory, canEdit, downloadConfig, roleLabel};
 })();
 
