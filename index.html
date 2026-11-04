@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="connect-src 'self' https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://www.googleapis.com; form-action 'none'; object-src 'none'; base-uri 'self'">
-    <meta name="description" content="Cổng hỗ trợ và quản lý kỹ thuật tòa nhà 500G và 1000G. Hai môi trường thử nghiệm riêng.">
+    <meta name="description" content="Cổng hỗ trợ và quản lý kỹ thuật tòa nhà 500G và 1000G. Dữ liệu và quyền truy cập riêng theo từng tòa nhà.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>V.CTCH 500G | Quản lý vận hành</title>
     <script id="firebase-web-config" type="application/json">{}</script>
@@ -3350,6 +3350,11 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
         @media print{.portal-header-actions{display:none}}
     </style>
     <style id="workflow-ui">
+      .shared-data-panel{display:flex;flex-wrap:wrap;align-items:center;gap:7px;padding:9px 18px;border-bottom:1px solid #d5e6dd;background:#eef8f1;color:#245b45;font-size:12px;line-height:1.5}
+      .shared-data-panel span{flex:1;min-width:140px}
+      .shared-data-panel span[data-error="true"]{color:#a12633;font-weight:700}
+      .shared-data-panel button{min-height:38px;background:white;border:1px solid #bbd6c8;padding:6px 10px;border-radius:8px;font-weight:750}
+
       .auth-message{font-size:13px;line-height:1.6;color:#315c50;padding:10px 12px;border-radius:9px;background:#eef7f2;overflow-wrap:anywhere}
       .auth-message[data-error="true"]{color:#9f1735;background:#fff1f3}
       .auth-link{min-height:40px;padding:8px 0;font-size:13px;font-weight:750;color:#17694e;text-align:left}
@@ -3492,7 +3497,7 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
 
                     <div class="mt-5 flex items-start gap-2 rounded-xl border border-slate-200 bg-white/80 px-3.5 py-3 text-[11px] leading-relaxed text-slate-500">
                         <i class="fa-solid fa-circle-info mt-0.5 text-slate-400"></i>
-                        <p>Bản thử nghiệm lưu yêu cầu trên trình duyệt này. Vui lòng dùng thông tin mẫu.</p>
+                        <p>Yêu cầu được gửi đến bộ phận vận hành của tòa đang chọn qua Firebase.</p>
                     </div>
                 </section>
 
@@ -3722,6 +3727,12 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
                 </div>
             </header>
 
+            <div id="sharedDataPanel" class="shared-data-panel" role="status" aria-live="polite">
+                <span id="sharedDataStatus">Đăng nhập để kết nối dữ liệu chung.</span>
+                <button type="button" id="initializeSharedData" class="hidden" onclick="SharedData.initializeFromLocal()">Đưa dữ liệu máy này lên Firebase</button>
+                <button type="button" id="retrySharedData" class="hidden" onclick="SharedData.retry()">Gửi lại thay đổi</button>
+                <button type="button" id="loadIncomingData" class="hidden" onclick="SharedData.useRemote()">Tải cập nhật</button>
+            </div>
             <!-- Scrollable Content Container -->
             <main id="appMain" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
 
@@ -4355,7 +4366,7 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
                             <div><h3 class="text-base font-bold text-slate-900"><i class="fa-solid fa-file-signature mr-2 text-orange-600"></i>Hồ Sơ Đăng Ký Thi Công Nhà Thầu</h3><p class="text-xs text-slate-500 mt-1">Tiếp nhận đơn theo mẫu “Đơn đề nghị thi công – Bệnh viện Quân y 175”; Ban QLTN xem xét, ghi quyết định và thông báo nhà thầu.</p></div>
                             <div class="flex flex-wrap gap-2"><button type="button" onclick="exportContractorApplicationsCsv()" class="px-3 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-700 text-xs font-semibold"><i class="fa-solid fa-file-csv mr-1"></i>Xuất CSV</button><button type="button" onclick="renderContractorApplications()" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold"><i class="fa-solid fa-rotate mr-1"></i>Làm mới</button></div>
                         </div>
-                        <div class="rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs leading-relaxed text-amber-950"><i class="fa-solid fa-circle-info mr-1"></i><b>Lưu ý triển khai:</b> bản HTML hiện có thể lưu hồ sơ cục bộ và vào hàng chờ trên cùng trình duyệt. Muốn nhận hồ sơ từ máy nhà thầu khác, dùng chung nhiều máy và gửi email tự động, cần triển khai API/backend riêng có kiểm soát quyền; không ghi hồ sơ công khai vào toàn bộ CSDL Firebase từ trình duyệt khách.</div>
+                        <div class="rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs leading-relaxed text-amber-950"><i class="fa-solid fa-circle-info mr-1"></i><b>Lưu ý triển khai:</b> hồ sơ nhà thầu được gửi lên Firebase và đưa vào danh sách khi người phụ trách kết nối. Email kết quả cần gửi riêng; chức năng gửi email tự động chưa được kích hoạt.</div>
                         <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 space-y-2"><label for="contractorEmailApiUrlInput" class="block text-xs font-bold text-slate-700">URL API gửi email quyết định (HTTPS, do IT triển khai)</label><div class="flex flex-col sm:flex-row gap-2"><input id="contractorEmailApiUrlInput" type="url" placeholder="https://api.donvi.vn/contractor-email" class="min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs"><button type="button" onclick="saveContractorEmailApiUrl()" class="px-3 py-2 rounded-lg bg-slate-900 text-white text-xs font-bold">Lưu cấu hình</button></div><p class="text-[10px] text-slate-500">Endpoint phải xử lý POST JSON, gửi email thực tế và bảo vệ endpoint. Nếu để trống, nút Email kết quả chỉ mở bản nháp mailto; không tự gửi.</p></div>
                         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
                             <div class="rounded-xl border border-slate-200 bg-slate-50 p-3"><div class="text-[10px] uppercase tracking-wide text-slate-500">Tổng hồ sơ</div><div id="contractorAppsTotal" class="text-xl font-extrabold text-slate-900">0</div></div>
@@ -4366,7 +4377,7 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 border-t border-slate-100 pt-3">
                             <input id="contractorAppsSearch" type="search" oninput="renderContractorApplications()" placeholder="Tìm mã hồ sơ, nhà thầu, công trình, email..." class="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs focus:bg-white focus:outline-none">
                             <select id="contractorAppsStatusFilter" onchange="renderContractorApplications()" class="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-700"><option value="ALL">Tất cả trạng thái</option><option value="PENDING">Chờ duyệt</option><option value="APPROVED">Đã phê duyệt</option><option value="REJECTED">Từ chối</option></select>
-                            <div id="contractorAppsStorageState" class="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 flex items-center">Đang dùng bộ nhớ trình duyệt</div>
+                            <div id="contractorAppsStorageState" class="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 flex items-center">Dữ liệu chung trên Firebase</div>
                         </div>
                         <div class="overflow-x-auto"><table class="w-full min-w-[1050px] text-left border-collapse"><thead><tr class="border-b border-slate-200 text-[10px] font-bold uppercase text-slate-500 bg-slate-50 whitespace-nowrap"><th class="py-3 px-3">Ngày nộp / Mã hồ sơ</th><th class="py-3 px-3">Đơn vị nhà thầu</th><th class="py-3 px-3">Công trình đề nghị</th><th class="py-3 px-3">Thời gian thi công</th><th class="py-3 px-3">Liên hệ / Email</th><th class="py-3 px-3">Trạng thái</th><th class="py-3 px-3 text-right">Thao tác</th></tr></thead><tbody id="contractorAppsTableBody" class="divide-y divide-slate-100 text-xs"></tbody></table></div>
                     </div>
@@ -4753,7 +4764,7 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
                         <ol><li>Mở <a href="https://notebooklm.google.com/" target="_blank" rel="noopener noreferrer">NotebookLM</a> bằng tài khoản Google đang quản lý tài liệu.</li><li>Tạo notebook cho một hệ thống kỹ thuật (ví dụ PCCC), thêm tài liệu hướng dẫn, quy trình và PDF làm nguồn.</li><li>Chọn <strong>Chia sẻ</strong> → thêm email nhân viên với quyền <strong>Người xem / Viewer</strong> hoặc chọn chế độ chia sẻ liên kết nếu chính sách đơn vị cho phép.</li><li>Sao chép liên kết chia sẻ, quay lại trang này và chọn <strong>Thêm notebook</strong>, chọn hệ thống rồi dán liên kết.</li><li>Kiểm tra bằng một tài khoản Google của nhân viên đã được cấp quyền. Mỗi notebook mở trong tab mới; website không tự động đăng nhập Google.</li></ol>
                         <p class="nb-warning"><i class="fa-solid fa-shield-halved"></i> Với tài liệu nội bộ bệnh viện, ưu tiên chia sẻ cho từng email nhân viên. Không bật “Bất kỳ ai có liên kết” nếu tài liệu không được phép công khai. Việc ẩn tài liệu trong chế độ Chat View không thay thế quyền truy cập nguồn.</p>
                     </details>
-                    <details id="nbConfigPanel" class="nb-details"><summary><i class="fa-solid fa-file-arrow-down"></i> Sao lưu / chuyển danh sách notebook sang máy khác</summary><p>Website đang chạy dưới dạng HTML đơn lẻ. Liên kết lưu trên <strong>trình duyệt hiện tại</strong>, chưa tự đồng bộ sang thiết bị khác. Quản trị viên/Trưởng Ban có thể xuất JSON rồi nhập lại ở máy khác; không gửi file cấu hình chứa liên kết nội bộ cho người không được phép.</p><div class="nb-config-controls"><button id="nbExportButton" type="button" class="nb-secondary-btn" onclick="exportNotebookLmConfig()"><i class="fa-solid fa-download"></i> Xuất danh sách JSON</button><label id="nbImportControl" class="nb-upload-control">Nhập danh sách JSON <input id="nbImportFile" type="file" accept=".json,application/json" onchange="importNotebookLmConfig(event)"></label></div></details>
+                    <details id="nbConfigPanel" class="nb-details"><summary><i class="fa-solid fa-file-arrow-down"></i> Sao lưu / chuyển danh sách notebook sang máy khác</summary><p>Liên kết được lưu cùng dữ liệu chung trên Firebase. Quản trị viên/Trưởng Ban có thể xuất JSON để sao lưu hoặc nhập danh sách khác.</p><div class="nb-config-controls"><button id="nbExportButton" type="button" class="nb-secondary-btn" onclick="exportNotebookLmConfig()"><i class="fa-solid fa-download"></i> Xuất danh sách JSON</button><label id="nbImportControl" class="nb-upload-control">Nhập danh sách JSON <input id="nbImportFile" type="file" accept=".json,application/json" onchange="importNotebookLmConfig(event)"></label></div></details>
                 </section>
 
                 <section id="tab-shiftlog" class="tab-content hidden space-y-4">
@@ -5837,23 +5848,18 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div>
                     <h3 class="text-base font-bold text-slate-900">Quản Lý Dữ Liệu Tập Trung (Chỉ Admin)</h3>
-                    <p class="text-xs text-slate-500">Đồng bộ dữ liệu và sao lưu. Trước khi dùng thật, bắt buộc bật Firebase Authentication và khóa Realtime Database Rules ở chế độ từ chối mặc định; giao diện HTML không thể tự bảo vệ máy chủ.</p>
+                    <p class="text-xs text-slate-500">Dữ liệu chung trên Firebase Firestore được phân theo từng tòa. Xuất bản sao lưu trước khi thay thế bộ dữ liệu.</p>
                 </div>
                 <button onclick="closeModal('centralDataModal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="space-y-4 text-xs">
                 <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2.5">
-                    <div class="flex items-center justify-between">
-                        <span class="font-bold text-slate-800">1. Đường Dẫn Firebase Realtime Database Mặc Định</span>
-                        <span id="modalCloudStatusText" class="font-semibold text-emerald-600">Đang kết nối Realtime</span>
-                    </div>
-                    <input type="url" id="cloudUrlInput" class="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 font-mono text-[11px]">
-                    <div class="flex flex-wrap gap-2 pt-1">
-                        <button onclick="saveCloudUrlAndSync()" class="px-3.5 py-2 rounded-lg bg-slate-900 text-white font-semibold">Lưu & Đồng Bộ Ngay</button>
-                        <button onclick="loadStateFromCloud(true)" class="px-3.5 py-2 rounded-lg bg-blue-50 text-blue-700 border border-blue-200 font-semibold">Tải Dữ Liệu Từ Cloud Về</button>
-                    </div>
+                    <p class="font-bold">Dữ liệu chung trên Firebase Firestore</p>
+                    <p id="sharedDataDetail">Đang chờ kết nối.</p>
+                    <p id="modalCloudStatusText" class="text-slate-600"></p>
+                    <button type="button" onclick="SharedData.useRemote()" class="workflow-btn bg-white border border-slate-300">Tải bản dữ liệu chung</button>
+                    <button type="button" onclick="SharedData.downloadLocalCheckpoint()" class="workflow-btn bg-white border border-slate-300">Tải dữ liệu cũ trên máy</button>
                 </div>
-
                 <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200 space-y-2.5">
                     <div class="font-bold text-blue-950">Sao lưu an toàn trước khi nạp / khôi phục</div>
                     <p class="text-slate-600">Tải bản sao lưu JSON của dữ liệu hiện tại. File có thể chứa dữ liệu vận hành và thông tin xác thực đã băm; chỉ lưu ở vị trí được bảo vệ, không gửi qua kênh công cộng.</p>
@@ -5960,8 +5966,8 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
                 <section id="guestKeyReturnPanel" class="hidden space-y-3">
                     <form id="guestKeyReturnSearchForm" onsubmit="searchGuestKeyReturns(event)" class="space-y-2">
                         <label for="guestKeyReturnSearch" class="block text-xs font-bold text-slate-700">Tìm trong lịch sử mượn/trả</label>
-                        <div class="flex gap-2"><input id="guestKeyReturnSearch" type="search" maxlength="160" placeholder="Họ tên, số điện thoại hoặc mã chìa khóa (để trống xem tất cả)" oninput="filterGuestKeyHistoryFromSearch(); showGuestBorrowerSuggestions('return')" class="min-w-0 flex-1 rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm focus:border-indigo-500 focus:outline-none"><button id="guestKeyReturnSearchButton" type="submit" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm"><i class="fa-solid fa-magnifying-glass mr-1.5"></i>Tìm</button></div><div id="guestKeyReturnBorrowerSuggestions" class="hidden rounded-lg border border-indigo-200 bg-white shadow-lg overflow-hidden" role="listbox" aria-label="Gợi ý người từng mượn chìa khóa"></div>
-                        <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500"><span>Chìa chưa trả luôn hiển thị trước lịch sử đã trả.</span><button type="button" onclick="clearGuestKeyHistorySearch()" class="font-bold text-indigo-700 hover:underline">Xem toàn bộ lịch sử</button></div>
+                        <div class="flex gap-2"><input id="guestKeyReturnSearch" type="search" maxlength="160" placeholder="Mã phiếu KEYLOAN-… hoặc thông tin trên máy đã mượn" oninput="filterGuestKeyHistoryFromSearch(); showGuestBorrowerSuggestions('return')" class="min-w-0 flex-1 rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm focus:border-indigo-500 focus:outline-none"><button id="guestKeyReturnSearchButton" type="submit" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm"><i class="fa-solid fa-magnifying-glass mr-1.5"></i>Tìm</button></div><div id="guestKeyReturnBorrowerSuggestions" class="hidden rounded-lg border border-indigo-200 bg-white shadow-lg overflow-hidden" role="listbox" aria-label="Gợi ý người từng mượn chìa khóa"></div>
+                        <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500"><span>Chìa chưa trả luôn hiển thị trước lịch sử đã trả.</span><button type="button" onclick="clearGuestKeyHistorySearch()" class="font-bold text-indigo-700 hover:underline">Xem lịch sử có quyền tra cứu</button></div>
                     </form>
                     <div id="guestKeyReturnFeedback" class="hidden rounded-lg p-3 text-xs leading-relaxed" aria-live="polite"></div>
                     <div id="guestKeyReturnResults" class="space-y-2"></div>
@@ -5971,7 +5977,7 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
                         <div class="flex justify-end gap-2"><button type="button" onclick="cancelGuestKeyReturnConfirmation()" class="px-4 py-2.5 rounded-lg bg-white border border-slate-300 text-slate-700 font-semibold text-sm">Chưa trả / Hủy</button><button id="guestKeyConfirmReturnButton" type="button" onclick="confirmGuestKeyReturn()" class="px-4 py-2.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-sm"><i class="fa-solid fa-check-double mr-1.5"></i>Xác nhận đã trả</button></div>
                     </div>
                 </section>
-                <p class="border-t border-slate-100 pt-3 text-[10px] leading-relaxed text-slate-500"><i class="fa-solid fa-shield-halved mr-1"></i>Không nhập mật khẩu/tài liệu cá nhân tại đây. Khi triển khai dùng chung, cần API máy chủ giới hạn quyền và chống dò tìm thông tin khách.</p>
+                <p class="border-t border-slate-100 pt-3 text-[10px] leading-relaxed text-slate-500"><i class="fa-solid fa-shield-halved mr-1"></i>Giữ mã phiếu để tra cứu trên máy khác. Chỉ xác nhận trả khi đã bàn giao chìa khóa cho lễ tân/bảo vệ.</p>
             </div>
         </div>
     </div>
@@ -5981,7 +5987,7 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
         <div class="bg-white w-full max-w-5xl max-h-[96vh] overflow-y-auto rounded-2xl shadow-2xl border border-slate-200">
             <div class="sticky top-0 z-10 bg-white px-5 py-4 border-b border-slate-200 flex items-start justify-between gap-3"><div><h2 id="contractorRegTitle" class="text-lg sm:text-xl font-extrabold text-slate-900">Đơn đề nghị thi công – Bệnh viện Quân y 175</h2><p class="text-xs text-slate-500 mt-1">Biểu mẫu điện tử theo file mẫu do Ban QLTN cung cấp · Không cần đăng nhập</p></div><button type="button" onclick="closeContractorRegistrationModal()" class="w-9 h-9 shrink-0 rounded-lg hover:bg-slate-100 text-slate-500" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button></div>
             <div class="p-5 sm:p-6 space-y-4">
-                <div class="rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs leading-relaxed text-amber-950"><i class="fa-solid fa-circle-info mr-1"></i>Hồ sơ sẽ ở trạng thái <b>CHỜ BAN QLTN PHÊ DUYỆT</b>. Email là địa chỉ nhận kết quả. Bản hiện tại lưu trên trình duyệt này; đồng bộ nhiều máy, lưu file đính kèm và email tự động cần kết nối backend.</div>
+                <div class="rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs leading-relaxed text-amber-950"><i class="fa-solid fa-circle-info mr-1"></i>Hồ sơ sẽ ở trạng thái <b>CHỜ BAN QLTN PHÊ DUYỆT</b>. Email là địa chỉ nhận kết quả. Hồ sơ được lưu trên Firebase. Email kết quả chưa tự động gửi.</div>
                 <form id="contractorRegistrationForm" novalidate onsubmit="submitContractorApplication(event)" class="space-y-5">
                     <div class="rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm text-slate-700">
                         <div class="text-center font-extrabold uppercase">BỆNH VIỆN QUÂN Y 175 – BỘ QUỐC PHÒNG</div>
@@ -6442,16 +6448,16 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
         }
 
         function canManageSystem(sysCode) {
-            if (!hasAuthenticatedClientSession()) return false;
+            if (!hasAuthenticatedClientSession() || !window.SharedData?.ready()) return false;
             if (currentUser.role === 'ADMIN') return true;
             return Array.isArray(currentUser.systems) && (currentUser.systems.includes('ALL') || currentUser.systems.includes(sysCode));
         }
 
         function canRepairTicket(ticket) {
-            return hasAuthenticatedClientSession() && VCTCHRules.canRepair(currentUser, ticket);
+            return hasAuthenticatedClientSession() && window.SharedData?.ready() && VCTCHRules.canRepair(currentUser, ticket);
         }
         function canAcceptTicket(ticket) {
-            return hasAuthenticatedClientSession() && VCTCHRules.canAccept(currentUser, ticket);
+            return hasAuthenticatedClientSession() && window.SharedData?.ready() && VCTCHRules.canAccept(currentUser, ticket);
         }
 
         function getSystemMeta(sysCode) {
@@ -6483,7 +6489,6 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
                 category: category,
                 detail: detail
             });
-            if (auditLogs.length > 250) auditLogs = auditLogs.slice(0, 250);
             renderAuditTable();
         }
 
@@ -6494,14 +6499,8 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
             return `${String(prefix || 'ID')}-${randomPart}`;
         }
 
-        function showSaveOutcome(cloudSaved, successMessage) {
-            if (SITES_LOCAL_PREVIEW) { showToast('Đã lưu trên trình duyệt này. Bản thử nghiệm không đồng bộ Cloud.', 'info'); return; }
-            if (cloudSaved) {
-                showToast(successMessage, 'success');
-            } else {
-                const reason = lastCloudWriteError || (!isCloudLoaded ? 'Cloud chưa được tải/xác thực.' : 'Chưa xác nhận được đồng bộ Cloud.');
-                showToast(`Đã lưu trên máy này nhưng CHƯA xác nhận đồng bộ Cloud. ${reason}`, 'warning');
-            }
+        function showSaveOutcome(saved, successMessage) {
+            showToast(saved ? successMessage : (lastCloudWriteError || 'Thay đổi đang được giữ trên máy để đồng bộ.'), saved ? 'success' : 'warning');
         }
 
         function getCleanFirebaseEndpoint() {
@@ -6571,7 +6570,7 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
             }
         }
 
-        async function saveState() {
+        function persistLocalState() {
             try {
                 localStorage.setItem(storageKey('bms_systems_v6'), JSON.stringify(systems));
                 localStorage.setItem(storageKey('bms_assets_v6'), JSON.stringify(assets));
@@ -6597,193 +6596,37 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
                 localStorage.setItem(FURNITURE_ITEMS_STORAGE_KEY, JSON.stringify(furnitureItems));
                 localStorage.setItem(FURNITURE_MOVEMENTS_STORAGE_KEY, JSON.stringify(furnitureMovementLogs));
                 localStorage.setItem(CONTRACTOR_APPLICATION_STORAGE_KEY, JSON.stringify(contractorApplications));
+                localStorage.setItem(GUEST_KEY_STORAGE_KEY, JSON.stringify(guestKeyLoans));
+                if(typeof notebookLmEntries!=='undefined')localStorage.setItem(NOTEBOOKLM_STORAGE_KEY,JSON.stringify(notebookLmEntries));
+                return true;
             } catch (storageError) {
                 lastCloudWriteError = 'Không ghi được bộ nhớ cục bộ: ' + (storageError.message || storageError);
                 if (typeof showToast === 'function') showToast(lastCloudWriteError + '. Hãy xuất sao lưu và giảm dung lượng ảnh.', 'error');
                 return false;
             }
 
-            localStorage.removeItem(storageKey('bms_users_v6'));
-            localStorage.removeItem(storageKey('bms_logged_email_v6'));
-            tickets.forEach(t => knownTicketIds.add(t.id));
-            if (SITES_LOCAL_PREVIEW) { lastCloudWriteError = 'Bản thử nghiệm: chỉ lưu trên trình duyệt.'; return false; }
-            if (!isCloudLoaded) return false;
-            if (cloudConflictDetected) return false;
-            if (!cloudETag) {
-                lastCloudWriteError = 'Thiếu Firebase ETag; đã lưu cục bộ nhưng khóa ghi Cloud để tránh ghi đè.';
-                updateCloudIndicator(false);
-                if (!localOnlyWarningShown && typeof showToast === 'function') {
-                    showToast('Đang lưu cục bộ; chưa thể xác nhận đồng bộ Cloud. Hãy mở Quản lý Dữ liệu để kiểm tra.', 'warning');
-                    localOnlyWarningShown = true;
-                }
-                return false;
-            }
-
-            const ts = new Date().toISOString();
-            const payload = {
-                updatedAt: ts,
-                updatedBy: currentUser ? currentUser.email : 'system',
-                systems, assets, tickets, checklists, inventory, energyLogs,
-                workPermits, handoverLogs, paramLogs, dieselTankLevel, emailLogs,
-                dutyRoster, auditLogs, handoverNote, incidentMeta, shiftLogs,
-                assetChecklistStates, shiftChecklistRuns, assetChecklistRuns, maintenanceHistory, materialIssueHistory, contractorApplications, furnitureItems, furnitureMovementLogs
-            };
-
-            const writeCloud = async () => {
-                if (cloudConflictDetected) return false;
-                if (!cloudETag) { updateCloudIndicator(false); return false; }
-                cloudWriteInProgress = true;
-                try {
-                    const res = await fetch(getCleanFirebaseEndpoint(), {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json', 'If-Match': cloudETag },
-                        body: JSON.stringify(payload)
-                    });
-                    if (res.status === 412) {
-                        cloudConflictDetected = true;
-                        lastCloudWriteError = 'Xung đột dữ liệu: Cloud đã được máy khác cập nhật. Hệ thống đã khóa ghi Cloud để tránh ghi đè.';
-                        updateCloudIndicator(false);
-                        showToast(lastCloudWriteError + ' Hãy tải dữ liệu Cloud hoặc xuất sao lưu trước khi xử lý tiếp.', 'error');
-                        return false;
-                    }
-                    if (!res.ok) throw new Error('HTTP ' + res.status + (res.status === 401 || res.status === 403 ? ' – kiểm tra Firebase Authentication/Rules' : ''));
-                    const nextEtag = res.headers.get('ETag');
-                    if (nextEtag) cloudETag = nextEtag;
-                    else {
-                        // If the server does not provide a new version token, do not issue blind writes afterward.
-                        cloudETag = null;
-                    }
-                    lastCloudTimestamp = ts;
-                    lastCloudWriteError = '';
-                    localOnlyWarningShown = false;
-                    updateCloudIndicator(true);
-                    return true;
-                } catch (e) {
-                    lastCloudWriteError = e && e.message ? e.message : String(e);
-                    updateCloudIndicator(false);
-                    return false;
-                } finally {
-                    cloudWriteInProgress = false;
-                }
-            };
-            cloudWriteQueue = cloudWriteQueue.then(writeCloud, writeCloud);
-            return await cloudWriteQueue;
         }
 
-        /* Lightweight 30-byte check to save 99% Firebase bandwidth */
+        async function saveState() {
+            const snapshot=collectApplicationSnapshot();
+            window.BmsSyncCore.identify(snapshot);
+            persistLocalState();
+            const saved=await window.SharedData.save(snapshot);
+            isCloudLoaded=window.SharedData.ready();
+            return saved;
+        }
+
         async function checkCloudTimestampOnly() {
-            if (!isCloudLoaded || cloudConflictDetected || cloudWriteInProgress) return;
-            try {
-                const res = await fetch(`${getFirebaseTimestampEndpoint()}?t=${Date.now()}`, { cache: 'no-store' });
-                if (!res.ok) return;
-                const remoteTs = await res.json();
-                if (remoteTs && lastCloudTimestamp && remoteTs !== lastCloudTimestamp) {
-                    // Never replace a user's current working copy automatically. A remote change
-                    // may race with an unsynced local edit; freeze cloud writes and ask for review.
-                    cloudConflictDetected = true;
-                    lastCloudWriteError = 'Dữ liệu Cloud đã thay đổi trên máy khác. Ghi Cloud tạm khóa để tránh ghi đè; hãy sao lưu và chủ động tải dữ liệu Cloud để đối chiếu.';
-                    updateCloudIndicator(false);
-                    if (!cloudConflictNoticeShown) {
-                        cloudConflictNoticeShown = true;
-                        showToast(lastCloudWriteError, 'warning');
-                    }
-                    return;
-                }
-                updateCloudIndicator(Boolean(res.ok));
-            } catch (e) {
-                updateCloudIndicator(false);
-            }
+            // SharedData subscribes to Firestore updates.
         }
 
-        async function loadStateFromCloud(manualNotify = false) {
-            if (SITES_LOCAL_PREVIEW) { updateCloudIndicator(false); if (manualNotify) showToast('Bản thử nghiệm chỉ lưu trên trình duyệt, không kết nối Cloud.', 'info'); return; }
-            if (cloudConflictDetected && !manualNotify) return;
-            if (manualNotify && !window.confirm('Tải dữ liệu từ Cloud sẽ thay thế dữ liệu đang có trong bộ nhớ phiên. Hãy xuất sao lưu trước khi tiếp tục. Tải dữ liệu Cloud?')) return;
-            try {
-                const endpoint = `${getCleanFirebaseEndpoint()}?t=${Date.now()}`;
-                const res = await fetch(endpoint, { cache: 'no-store', headers: { 'X-Firebase-ETag': 'true' } });
-                if (!res.ok) throw new Error('HTTP ' + res.status);
-                cloudETag = res.headers.get('ETag') || null;
-                const data = await res.json();
-                // Clear the conflict lock only after a successful explicit fetch of the latest data.
-                if (manualNotify) { cloudConflictDetected = false; cloudConflictNoticeShown = false; }
-
-                if (data && Array.isArray(data.systems) && Array.isArray(data.assets)) {
-                    if (data.updatedAt && data.updatedAt === lastCloudTimestamp && !manualNotify) {
-                        isCloudLoaded = true;
-                        updateCloudIndicator(true);
-                        return;
-                    }
-                    const hadKnownTickets = knownTicketIds.size > 0;
-                    lastCloudTimestamp = data.updatedAt || "";
-                    systems = data.systems;
-                    assets = data.assets;
-                    const incomingTickets = Array.isArray(data.tickets) ? data.tickets : [];
-                    if (hadKnownTickets) {
-                        const newArrivals = incomingTickets.filter(t => !knownTicketIds.has(t.id));
-                        if (newArrivals.length > 0) {
-                            playAlertSound(true);
-                            showToast(`🔔 CÓ YÊU CẦU / SỰ CỐ MỚI: ${newArrivals[0].id} (${newArrivals[0].assetId})`, 'error');
-                        }
-                    }
-                    tickets = incomingTickets;
-                    sanitizeDataCollections();
-                    tickets.forEach(t => knownTicketIds.add(t.id));
-
-                    checklists = Array.isArray(data.checklists) ? data.checklists : [];
-                    inventory = Array.isArray(data.inventory) ? data.inventory : initialInventory;
-                    energyLogs = Array.isArray(data.energyLogs) ? data.energyLogs : initialEnergyLogs;
-                    workPermits = Array.isArray(data.workPermits) ? data.workPermits : initialWorkPermits;
-                    handoverLogs = Array.isArray(data.handoverLogs) ? data.handoverLogs : initialHandoverLogs;
-                    paramLogs = Array.isArray(data.paramLogs) ? data.paramLogs : initialParamLogs;
-                    if (typeof data.dieselTankLevel === 'number') dieselTankLevel = data.dieselTankLevel;
-                    emailLogs = Array.isArray(data.emailLogs) ? data.emailLogs : [];
-                    dutyRoster = data.dutyRoster || {};
-                    auditLogs = Array.isArray(data.auditLogs) ? data.auditLogs : auditLogs;
-                    if (typeof data.handoverNote === 'string') handoverNote = data.handoverNote;
-                    if (data.incidentMeta && typeof data.incidentMeta === 'object' && !Array.isArray(data.incidentMeta)) incidentMeta = data.incidentMeta;
-                    if (Array.isArray(data.shiftLogs)) shiftLogs = data.shiftLogs;
-                    if (data.assetChecklistStates && typeof data.assetChecklistStates === 'object' && !Array.isArray(data.assetChecklistStates)) assetChecklistStates = data.assetChecklistStates;
-                    if (data.shiftChecklistRuns && typeof data.shiftChecklistRuns === 'object' && !Array.isArray(data.shiftChecklistRuns)) shiftChecklistRuns = data.shiftChecklistRuns;
-                    if (data.assetChecklistRuns && typeof data.assetChecklistRuns === 'object' && !Array.isArray(data.assetChecklistRuns)) assetChecklistRuns = data.assetChecklistRuns;
-                    if (Array.isArray(data.maintenanceHistory)) maintenanceHistory = data.maintenanceHistory;
-                    if (Array.isArray(data.materialIssueHistory)) materialIssueHistory = data.materialIssueHistory;
-                    if (Array.isArray(data.furnitureItems)) furnitureItems = data.furnitureItems;
-                    if (Array.isArray(data.furnitureMovementLogs)) furnitureMovementLogs = data.furnitureMovementLogs;
-                    if (Array.isArray(data.contractorApplications)) contractorApplications = mergeContractorApplications(data.contractorApplications, contractorApplications);
-                    ensureMaterialIssueHistoryFromTicketParts();
-
-                    isCloudLoaded = true;
-                    updateCloudIndicator(true);
-                    refreshAllViews();
-                    if (manualNotify) showToast('Đã tải dữ liệu Cloud. Kiểm tra trạng thái đồng bộ trước khi tiếp tục.', cloudETag ? 'success' : 'warning');
-                } else {
-
-                    isCloudLoaded = true;
-                    await saveState();
-                }
-            } catch (e) {
-                isCloudLoaded = true;
-                updateCloudIndicator(false);
-                if (manualNotify) showToast('Đang dùng dữ liệu bộ nhớ máy (Kiểm tra kết nối hoặc Rules Firebase)', 'warning');
-            }
+        async function loadStateFromCloud(manualNotify=false) {
+            if(manualNotify)window.SharedData.useRemote();
         }
 
-        function updateCloudIndicator(isOnline) {
-            const dot = document.getElementById('cloudStatusDot');
-            const text = document.getElementById('modalCloudStatusText');
-            const safeOnline = Boolean(isOnline && cloudETag && !cloudConflictDetected);
-            if (dot) {
-                dot.className = safeOnline
-                    ? 'w-2 h-2 rounded-full bg-emerald-400 animate-pulse'
-                    : 'w-2 h-2 rounded-full bg-amber-400';
-            }
-            if (text) {
-                if (cloudConflictDetected) text.textContent = 'Xung đột dữ liệu – đã khóa ghi Cloud';
-                else if (isOnline && !cloudETag) text.textContent = 'Cloud phản hồi nhưng thiếu ETag – chỉ lưu cục bộ';
-                else text.textContent = safeOnline ? 'Cloud kết nối, kiểm soát phiên bản đang bật' : BUILDING + ' · Dữ liệu trên trình duyệt';
-                text.className = safeOnline ? 'font-semibold text-emerald-600' : 'font-semibold text-amber-600';
-            }
+        function updateCloudIndicator() {
+            const node=document.getElementById('modalCloudStatusText');
+            if(node)node.textContent=window.SharedData?.ready()?'Đã kết nối Firestore':'Đang chờ kết nối Firestore';
         }
 
         function toggleLoginPasswordVisibility() {
@@ -7740,7 +7583,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
             Object.assign(incidentMeta[t.id],{repairCompletedAt:new Date().toISOString(),repairCompletedBy:currentUser.name,repairNote:note,completionAt:'',completionBy:''});
             logActivity('KTV BÁO HOÀN TẤT',`${currentUser.name} gửi hồ sơ WO ${t.id} chờ nghiệm thu`);
             const synced=await saveState();refreshAllViews();closeModal('resolveTicketModal');
-            showToast(synced?'Đã gửi hồ sơ chờ nghiệm thu và đồng bộ.':'Đã gửi chờ nghiệm thu (lưu trên trình duyệt thử nghiệm).','success');
+            showToast(synced?'Đã gửi hồ sơ chờ nghiệm thu và đồng bộ.':'Kết quả đang giữ trên máy; Firebase chưa xác nhận. Kiểm tra thanh đồng bộ.','success');
         }
         async function confirmAcceptTicket(e) {
             e.preventDefault();
@@ -7756,7 +7599,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
             if(asset && asset.status==='ERROR' && VCTCHRules.canRestoreAsset(tickets,t.assetId,t.id)) asset.status='OPERATIONAL';
             logActivity('NGHIỆM THU WO',`${currentUser.name} nghiệm thu đạt phiếu ${t.id}; ${VCTCHRules.canRestoreAsset(tickets,t.assetId,t.id)?'không còn WO mở':'vẫn còn WO mở khác'}`);
             const synced=await saveState();refreshAllViews();closeModal('acceptTicketModal');
-            showToast(synced?'Đã nghiệm thu và đồng bộ Cloud.':'Đã nghiệm thu (lưu trên trình duyệt thử nghiệm).','success');
+            showToast(synced?'Đã nghiệm thu và đồng bộ Cloud.':'Kết quả nghiệm thu đang giữ trên máy; Firebase chưa xác nhận. Kiểm tra thanh đồng bộ.','success');
         }
         async function rejectTicketAcceptance() {
             const t=tickets.find(x=>String(x.id)===String(document.getElementById('acceptTicketId').value));
@@ -7791,15 +7634,12 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
 
         function openGuestKeyModal(mode = 'borrow') {
             setGuestKeyMode(mode);
-            const notice = document.getElementById('guestKeyStorageNotice');
-            if (notice) {
-                if (PUBLIC_KEY_LOAN_ENDPOINT) {
-                    notice.className = 'rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-xs leading-relaxed text-emerald-950';
-                    notice.textContent = 'Dữ liệu được xử lý qua API máy chủ đã cấu hình. Nếu API không phản hồi, hệ thống sẽ báo lỗi và không tự chuyển sang lưu cục bộ.';
-                } else {
-                    notice.className = 'rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs leading-relaxed text-amber-950';
-                    notice.textContent = 'Lưu ý: chưa cấu hình API máy chủ. Phiếu mượn/trả sẽ chỉ lưu trên trình duyệt và thiết bị này, không dùng chung với thiết bị khác. Cần cấu hình API an toàn để vận hành tại quầy nhiều máy.';
-                }
+            const notice=document.getElementById('guestKeyStorageNotice');
+            if(notice){
+                notice.className='rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs leading-relaxed';
+                notice.textContent=window.SharedData?.configured()
+                    ?'Phiếu mượn/trả lưu trên Firebase. Giữ mã phiếu KEYLOAN-… để tra cứu và trả chìa trên máy khác.'
+                    :'Chưa kết nối Firebase. Cần cấu hình trước khi gửi phiếu mượn/trả.';
             }
             openModal('guestKeyModal');
         }
@@ -7845,26 +7685,11 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
         }
 
         function createGuestKeyLoanId() {
-            const token = window.crypto && typeof window.crypto.randomUUID === 'function'
-                ? window.crypto.randomUUID().replace(/-/g, '').slice(0, 12).toUpperCase()
-                : `${Date.now().toString(36).toUpperCase()}${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
-            return `KEYLOAN-${token}`;
+            return 'KEYLOAN-'+crypto.randomUUID();
         }
 
         async function guestKeyApiRequest(payload) {
-            if (!PUBLIC_KEY_LOAN_ENDPOINT) throw new Error('Chưa cấu hình API máy chủ cho dịch vụ chìa khóa.');
-            const response = await fetch(PUBLIC_KEY_LOAN_ENDPOINT, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
-                cache: 'no-store'
-            });
-            let result = {};
-            try { result = await response.json(); } catch (_) {}
-            if (!response.ok || result.ok === false) {
-                throw new Error(String(result.message || `Máy chủ trả về HTTP ${response.status}`));
-            }
-            return result;
+            return await window.SharedData.keyRequest(payload);
         }
 
         function showGuestKeyFeedback(id, message, type = 'info') {
@@ -7957,8 +7782,8 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
             if (guestKeyBorrowerSuggestTimers[context]) clearTimeout(guestKeyBorrowerSuggestTimers[context]);
             guestKeyBorrowerSuggestTimers[context] = setTimeout(async () => {
                 const seq = ++guestKeyBorrowerSuggestSequences[context];
-                let source = [...guestKeyLoans, ...guestKeyHistoryCache];
-                if (PUBLIC_KEY_LOAN_ENDPOINT) {
+                let source = hasAuthenticatedClientSession() ? [...guestKeyLoans, ...guestKeyHistoryCache] : [];
+                if (window.SharedData?.configured()) {
                     try {
                         const result = await guestKeyApiRequest({ action: 'history', query });
                         if (Array.isArray(result.items)) source = result.items;
@@ -8050,6 +7875,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
             const button = document.getElementById('guestKeyBorrowSubmit');
             button.disabled = true;
             try {
+                if(!window.SharedData?.configured())throw new Error('Chưa kết nối Firebase. Hãy kiểm tra cấu hình rồi gửi lại.');
                 const borrower = validateGuestKeyBorrower(
                     document.getElementById('guestKeyBorrowName').value,
                     document.getElementById('guestKeyBorrowPhone').value
@@ -8065,7 +7891,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
                 const groupId = createGuestKeyLoanId();
                 const successCodes = [];
                 const errors = [];
-                if (PUBLIC_KEY_LOAN_ENDPOINT) {
+                if (window.SharedData?.configured()) {
                     // Keep compatibility with the existing single-key API: one independently returnable record per key.
                     for (const code of codes) {
                         try {
@@ -8095,7 +7921,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
                 } else if (errors.length) {
                     throw new Error(`Không ghi nhận được chìa nào. ${errors.join(' | ')}`);
                 } else {
-                    showGuestKeyFeedback('guestKeyBorrowFeedback', `Đã ghi nhận mượn ${successCodes.length} chìa khóa: ${successCodes.join(', ')}. Mỗi chìa có lịch sử trả riêng. Mã nhóm phiếu: ${groupId}${PUBLIC_KEY_LOAN_ENDPOINT ? '.' : '. Dữ liệu chỉ lưu trên thiết bị này, chưa đồng bộ giữa các máy.'}`, 'success');
+                    showGuestKeyFeedback('guestKeyBorrowFeedback', `Đã ghi nhận mượn ${successCodes.length} chìa khóa: ${successCodes.join(', ')}. Mỗi chìa có lịch sử trả riêng. Giữ mã phiếu để tra cứu và trả trên máy khác: ${groupId}${window.SharedData?.configured() ? '.' : '. Dữ liệu chỉ lưu trên thiết bị này, chưa đồng bộ giữa các máy.'}`, 'success');
                     document.getElementById('guestKeyBorrowName').value = '';
                     document.getElementById('guestKeyBorrowPhone').value = '';
                     resetGuestKeyBorrowRows(['']);
@@ -8126,13 +7952,14 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
                 const phone = String(loan.phone || '').toLocaleLowerCase('vi-VN');
                 const phoneDigits = phone.replace(/\D/g, '');
                 const key = String(loan.keyCode || '').toLocaleLowerCase('vi-VN');
-                return name.includes(q) || phone.includes(q) || key.includes(q) || (qDigits.length >= 3 && phoneDigits.includes(qDigits));
+                return String(loan.id||'').toLowerCase().includes(q) || String(loan.borrowGroupId||'').toLowerCase().includes(q) || name.includes(q) || phone.includes(q) || key.includes(q) || (qDigits.length >= 3 && phoneDigits.includes(qDigits));
             }));
         }
 
         async function loadGuestKeyHistory(query = '') {
             try {
-                if (PUBLIC_KEY_LOAN_ENDPOINT) {
+                if(!window.SharedData?.configured())throw new Error('Chưa kết nối Firebase. Hãy kiểm tra cấu hình rồi gửi lại.');
+                if (window.SharedData?.configured()) {
                     const result = await guestKeyApiRequest({ action: 'history', query: String(query || '').trim() });
                     if (!Array.isArray(result.items)) throw new Error('API chưa hỗ trợ lịch sử mượn/trả. Cần bổ sung action history trả về result.items.');
                     guestKeyHistoryCache = result.items;
@@ -8174,7 +8001,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
             if (guestKeyHistoryFilterTimer) clearTimeout(guestKeyHistoryFilterTimer);
             guestKeyHistoryFilterTimer = setTimeout(async () => {
                 // Debounce server lookups to avoid a request for every typed character.
-                if (PUBLIC_KEY_LOAN_ENDPOINT) {
+                if (window.SharedData?.configured()) {
                     await loadGuestKeyHistory(query);
                 } else {
                     const filtered = filterGuestKeyLoans(guestKeyLoans, query);
@@ -8183,7 +8010,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
                         ? `Hiển thị ${filtered.length} phiếu • ${activeCount} chìa chưa trả • ${filtered.length - activeCount} chìa đã trả. Chìa chưa trả được xếp đầu danh sách.`
                         : (query ? 'Không tìm thấy lịch sử phù hợp với thông tin đã nhập.' : 'Chưa có lịch sử mượn chìa khóa.'));
                 }
-            }, PUBLIC_KEY_LOAN_ENDPOINT ? 300 : 0);
+            }, window.SharedData?.configured() ? 300 : 0);
         }
 
         function clearGuestKeyHistorySearch() {
@@ -8277,8 +8104,8 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
                 return;
             }
             try {
-                let source = PUBLIC_KEY_LOAN_ENDPOINT ? guestKeyHistoryCache : guestKeyLoans;
-                if (PUBLIC_KEY_LOAN_ENDPOINT) {
+                let source = window.SharedData?.configured() ? guestKeyHistoryCache : guestKeyLoans;
+                if (window.SharedData?.configured()) {
                     const query = String(loan.phone || loan.fullName || '').trim();
                     const result = await guestKeyApiRequest({ action: 'history', query });
                     if (!Array.isArray(result.items)) throw new Error('API lịch sử chưa trả về danh sách phiếu mượn.');
@@ -8327,13 +8154,14 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
             const button = document.getElementById('guestKeyConfirmReturnButton');
             button.disabled = true;
             try {
+                if(!window.SharedData?.configured())throw new Error('Chưa kết nối Firebase. Hãy kiểm tra cấu hình rồi gửi lại.');
                 const returnedAt = new Date().toISOString();
                 const toReturn = batch ? batch.filter(isGuestKeyLoanActive) : [loan];
                 const successes = [];
                 const failures = [];
                 for (const item of toReturn) {
                     try {
-                        if (PUBLIC_KEY_LOAN_ENDPOINT) {
+                        if (window.SharedData?.configured()) {
                             if (!item.id) throw new Error('Phiếu không có mã ID để cập nhật trên máy chủ.');
                             await guestKeyApiRequest({ action: 'return', loanId: item.id });
                         } else {
@@ -8346,7 +8174,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
                         failures.push(`${String(item.keyCode || item.id || 'Chìa khóa')}: ${error.message || error}`);
                     }
                 }
-                if (!PUBLIC_KEY_LOAN_ENDPOINT && successes.length) localSaveGuestKeyLoans();
+                if (!window.SharedData?.configured() && successes.length) localSaveGuestKeyLoans();
                 pendingGuestKeyReturn = null;
                 pendingGuestKeyReturnBatch = null;
                 document.getElementById('guestKeyReturnConfirmation').classList.add('hidden');
@@ -8358,7 +8186,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
                     const message = batch
                         ? `Đã xác nhận trả tất cả ${successes.length} chìa khóa: ${successes.join(', ')} lúc ${formatGuestKeyDate(returnedAt)}.`
                         : `Đã xác nhận trả chìa khóa ${successes[0]} lúc ${formatGuestKeyDate(returnedAt)}.`;
-                    showGuestKeyFeedback('guestKeyReturnFeedback', PUBLIC_KEY_LOAN_ENDPOINT ? message : `${message} Dữ liệu chỉ lưu trên thiết bị này, chưa đồng bộ giữa các máy.`, 'success');
+                    showGuestKeyFeedback('guestKeyReturnFeedback', window.SharedData?.configured() ? message : `${message} Dữ liệu chỉ lưu trên thiết bị này, chưa đồng bộ giữa các máy.`, 'success');
                 }
             } catch (error) {
                 showGuestKeyFeedback('guestKeyReturnFeedback', `Chưa ghi nhận trả chìa khóa: ${error.message || error}`, 'error');
@@ -8388,37 +8216,14 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
             }
             if (tempQuickPhoto && tempQuickPhoto.length > 3_000_000) { showToast('Ảnh quá lớn. Hãy chọn ảnh nhỏ hơn trước khi gửi.', 'error'); return; }
 
-            if (SITES_LOCAL_PREVIEW && !hasAuthenticatedClientSession()) {
-                const id = createUniqueId('WO');
-                const trial = {id, assetId:'KHU VỰC: '+zone, system:sysCode, issue:'[Thử nghiệm · '+reporter+'] '+desc, priority:'HIGH', assignee:'Chưa phân công',status:'OPEN',createdAt:new Date().toLocaleString('vi-VN'),partUsed:'',beforePhoto:tempQuickPhoto||'',afterPhoto:'',resolutionNote:''};
-                tickets.unshift(trial);
-                try { localStorage.setItem(storageKey('bms_tickets_v6'), JSON.stringify(tickets)); }
-                catch (err) { tickets.shift(); showToast('Không lưu được dữ liệu trên thiết bị này.', 'error'); return; }
-                refreshAllViews(); closeModal('quickRequestModal'); tempQuickPhoto='';
-                showToast('Đã lưu yêu cầu thử '+id+' trên trình duyệt này. Chưa gửi đến Ban quản lý.', 'info'); return;
-            }
-            // A public, unauthenticated form must call a narrow backend endpoint, never saveState()/PUT the whole database.
             if (!hasAuthenticatedClientSession()) {
-                if (!PUBLIC_QUICK_REQUEST_ENDPOINT) {
-                    showToast('Chưa cấu hình API tiếp nhận báo hỏng công khai an toàn. Yêu cầu CHƯA được gửi; liên hệ quản trị viên để cấu hình backend.', 'error');
-                    return;
-                }
                 try {
-                    const response = await fetch(PUBLIC_QUICK_REQUEST_ENDPOINT, {
-                        method: 'POST', headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ reporter, zone, system: sysCode, description: desc, photoDataUrl: tempQuickPhoto || '', submittedAt: new Date().toISOString() })
-                    });
-                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                    let result = {}; try { result = await response.json(); } catch (_) {}
-                    closeModal('quickRequestModal');
-                    tempQuickPhoto = '';
-                    showToast(`Backend đã tiếp nhận yêu cầu${result && result.id ? ' ' + String(result.id) : ''}.`, 'success');
-                } catch (error) {
-                    showToast(`Không gửi được báo hỏng đến máy chủ: ${error.message || error}. Yêu cầu chưa được xác nhận.`, 'error');
-                }
+                    const id=await window.SharedData.submitIntake('ticket',{reporter,zone,system:sysCode,description:desc,photoDataUrl:tempQuickPhoto||''});
+                    closeModal('quickRequestModal');tempQuickPhoto='';
+                    showToast('Đã gửi báo hỏng lên Firebase. Mã tiếp nhận '+id+'.','success');
+                } catch(error) {showToast('Chưa gửi được yêu cầu. '+error.message,'error');}
                 return;
             }
-
             if (!canManageSystem(sysCode)) { showToast('Tài khoản không có quyền tạo yêu cầu cho hệ thống này.', 'error'); return; }
             const op = getOperatorForSystem(sysCode);
             const newWo = {
@@ -10299,33 +10104,11 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
                 showToast('Chỉ tài khoản Admin mới được truy cập cấu hình Dữ liệu tập trung!', 'error');
                 return;
             }
-            document.getElementById('cloudUrlInput').value = cloudDatabaseUrl;
             openModal('centralDataModal');
         }
 
         async function saveCloudUrlAndSync() {
-            if (SITES_LOCAL_PREVIEW) { showToast('Bản thử nghiệm đã tách khỏi Cloud; không thay đổi kết nối tại đây.', 'info'); return; }
-            const val = document.getElementById('cloudUrlInput').value.trim();
-            if (!val) { showToast('Vui lòng nhập URL Firebase.', 'error'); return; }
-            let parsed;
-            try { parsed = new URL(val); } catch (e) { showToast('URL không hợp lệ.', 'error'); return; }
-            const hostOk = parsed.protocol === 'https:' && (parsed.hostname.endsWith('firebasedatabase.app') || parsed.hostname.endsWith('firebaseio.com'));
-            if (!hostOk) { showToast('Chỉ chấp nhận URL HTTPS của Firebase Realtime Database.', 'error'); return; }
-            const oldUrl = cloudDatabaseUrl;
-            if (val.replace(/\/$/, '') !== oldUrl.replace(/\/$/, '')) {
-                if (!window.confirm('Bạn đang đổi sang một Firebase URL khác. Vì dữ liệu đang dùng cơ chế ghi toàn bộ bản ghi trung tâm, hãy xác nhận bạn đã sao lưu và đã kiểm tra dữ liệu đích. Tiếp tục đổi URL?')) return;
-                cloudETag = null;
-                cloudConflictDetected = false;
-            }
-            cloudDatabaseUrl = val;
-            localStorage.setItem(storageKey('bms_cloud_url_v6'), val);
-            if (!cloudETag) {
-                updateCloudIndicator(false);
-                showToast('Đã lưu URL. Chưa ghi dữ liệu lên Cloud vì chưa lấy được ETag của cơ sở dữ liệu đích. Hãy dùng “Tải dữ liệu từ Cloud về” để kiểm tra phiên bản trước.', 'warning');
-                return;
-            }
-            const saved = await saveState();
-            showToast(saved ? 'Đã lưu dữ liệu Cloud có kiểm tra phiên bản.' : (lastCloudWriteError || 'Đã lưu cục bộ; chưa xác nhận được ghi Cloud.'), saved ? 'success' : 'warning');
+            await window.SharedData.retry();
         }
 
         function collectApplicationSnapshot() {
@@ -10334,10 +10117,10 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
                 building: BUILDING,
                 backupCreatedAt: new Date().toISOString(),
                 updatedBy: currentUser ? currentUser.email : 'local-admin',
-                systems, users: users.map(({ password, ...u }) => ({ ...u })), assets, tickets,
+                systems, assets, tickets,
                 checklists, inventory, energyLogs, workPermits, handoverLogs, paramLogs,
                 dieselTankLevel, emailLogs, dutyRoster, auditLogs, handoverNote,
-                incidentMeta, shiftLogs, assetChecklistStates, shiftChecklistRuns, assetChecklistRuns, maintenanceHistory, materialIssueHistory, guestKeyLoans, contractorApplications, furnitureItems, furnitureMovementLogs
+                incidentMeta, shiftLogs, assetChecklistStates, shiftChecklistRuns, assetChecklistRuns, maintenanceHistory, materialIssueHistory, guestKeyLoans, contractorApplications, furnitureItems, furnitureMovementLogs, notebookLmEntries
             };
         }
         function applyApplicationSnapshot(snap) {
@@ -10368,6 +10151,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
             try { localStorage.setItem(CONTRACTOR_APPLICATION_STORAGE_KEY, JSON.stringify(contractorApplications)); } catch (_) {}
             guestKeyLoans = Array.isArray(snap.guestKeyLoans) ? snap.guestKeyLoans : guestKeyLoans;
             try { localStorage.setItem(GUEST_KEY_STORAGE_KEY, JSON.stringify(guestKeyLoans)); } catch (_) {}
+            if(Array.isArray(snap.notebookLmEntries))notebookLmEntries=snap.notebookLmEntries.map(notebookLmSanitize).filter(Boolean);
             sanitizeDataCollections();
             ensureMaterialIssueHistoryFromTicketParts();
             knownTicketIds = new Set(tickets.map(t => t.id));
@@ -10388,7 +10172,8 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
                     }
                     if ((snap.building ?? '500G') !== BUILDING) throw new Error('Bản sao lưu thuộc tòa nhà khác.');
                     applyApplicationSnapshot(snap);
-                    const cloudSaved = await saveState();
+                    await window.SharedData.initialize(true,collectApplicationSnapshot());
+                    const cloudSaved = true;
                     if (currentUser) { applyRolePermissionsUI(); }
                     else { logoutShiftUser(); }
                     refreshAllViews();
@@ -10497,7 +10282,8 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
                     ensureMaterialIssueHistoryFromTicketParts();
 
                     logActivity('NẠP DỮ LIỆU TỔNG', 'Khôi phục dữ liệu từ file Excel Master (đã sao lưu trước khi nạp)');
-                    const cloudSaved = await saveState();
+                    await window.SharedData.initialize(true,collectApplicationSnapshot());
+                    const cloudSaved = true;
                     refreshAllViews();
                     closeModal('centralDataModal');
                     showToast(cloudSaved ? 'Đã nạp dữ liệu và xác nhận ghi Cloud.' : 'Đã nạp cục bộ; chưa xác nhận ghi Cloud. Kiểm tra trạng thái và xử lý xung đột trước khi tiếp tục.', cloudSaved ? 'success' : 'warning');
@@ -10672,6 +10458,10 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
         }
 
         function showToast(msg, type = 'info') {
+            if(type==='success' && hasAuthenticatedClientSession() && window.SharedData?.dirty()) {
+                msg=String(msg)+' · Đang chờ xác nhận đồng bộ.';
+                type='warning';
+            }
             let box = document.getElementById('toastContainer');
             if (!box) {
                 box = document.createElement('div');
@@ -10755,7 +10545,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
             ISSUE_FROM_WAREHOUSE: 'Cấp từ kho', REPAIR_COMPLETE: 'Xác nhận sửa chữa', MARK_LOST: 'Báo mất'
         };
         function canManageFurniture() {
-            if (!hasAuthenticatedClientSession() || !currentUser) return false;
+            if (!hasAuthenticatedClientSession() || !currentUser || !window.SharedData?.ready()) return false;
             const role = String(currentUser.role || '').toUpperCase();
             if (role === 'ADMIN') return true;
             return currentUser.furnitureManage === true;
@@ -12047,14 +11837,13 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
                 commitmentsAccepted: document.getElementById('contractorCommitmentsAccepted').checked,
                 reviewedAt: '', reviewedBy: '', decisionNote: '', emailStatus: 'NOT_CONFIGURED'
             };
-            contractorApplications = mergeContractorApplications([app], contractorApplications);
-            if (!persistContractorApplicationsLocal()) { contractorApplications = contractorApplications.filter(a => a.id !== app.id); return; }
-            const fb = document.getElementById('contractorRegistrationFeedback');
-            if (fb) {
-                fb.className = 'rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-xs leading-relaxed text-emerald-900';
-                fb.textContent = `Đã ghi nhận hồ sơ ${app.id} trên trình duyệt này. Trạng thái: CHỜ BAN QLTN PHÊ DUYỆT. Đã khai báo ${personnel.length} nhân sự, ${equipment.length} thiết bị/máy móc và ${schedule.length} công tác. Email nhận kết quả: ${app.contactEmail}. Lưu ý: hồ sơ chưa được gửi lên máy chủ và chưa kích hoạt email tự động; cần triển khai backend để sử dụng nhiều máy.`;
-            }
-            if (typeof showToast === 'function') showToast(`Đã tạo hồ sơ ${app.id}; hiện lưu cục bộ và chờ Ban QLTN duyệt.`, 'warning');
+            try {
+                const receipt=await window.SharedData.submitIntake('contractor',app);
+                const fb=document.getElementById('contractorRegistrationFeedback');
+                fb.className='rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-xs text-emerald-900';
+                fb.textContent='Đã gửi hồ sơ lên Firebase. Mã tiếp nhận '+receipt+'. Trạng thái chờ Ban QLTN duyệt.';
+                showToast('Đã gửi hồ sơ lên Firebase.','success');
+            } catch(error) {showToast('Chưa gửi được hồ sơ. '+error.message,'error');return;}
             form.reset(); resetContractorDynamicRows();
             const submitButton = document.getElementById('contractorSubmitButton');
             if (submitButton) submitButton.disabled = true;
@@ -12074,12 +11863,12 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
             if (badge) { badge.textContent = String(pendingCount); badge.classList.toggle('hidden', !canReviewContractorApplications() || pendingCount === 0); }
             document.querySelectorAll('.permitPendingCountBadge').forEach(el => { el.textContent = String(pendingCount); el.classList.toggle('hidden', pendingCount === 0); });
             const state = document.getElementById('contractorAppsStorageState');
-            if (state) { state.textContent = isCloudLoaded ? 'Có phiên Cloud mở; hồ sơ mới từ cổng công khai vẫn cần API riêng để gửi từ thiết bị khác.' : 'Đang dùng bộ nhớ trình duyệt — chưa đồng bộ nhiều máy'; }
+            if (state) { state.textContent = window.SharedData?.ready() ? 'Hồ sơ được đồng bộ qua Firebase.' : 'Đang chờ tải dữ liệu chung từ Firebase.'; }
             const filtered = all.filter(a => (status === 'ALL' || (a.status || 'PENDING') === status) && [a.id,a.organizationName,a.workName,a.proposalShort,a.contactEmail,a.contactPhone,a.workLocation].some(v => String(v || '').toLowerCase().includes(search))).sort((a,b) => {
                 const pa = (a.status || 'PENDING') === 'PENDING' ? 0 : 1; const pb = (b.status || 'PENDING') === 'PENDING' ? 0 : 1;
                 return pa - pb || String(b.submittedAt || '').localeCompare(String(a.submittedAt || ''));
             });
-            if (!filtered.length) { body.innerHTML = `<tr><td colspan="7" class="py-10 px-4 text-center text-slate-400">${all.length ? 'Không có hồ sơ phù hợp bộ lọc.' : 'Chưa có hồ sơ nhà thầu được ghi nhận trên trình duyệt này.'}</td></tr>`; return; }
+            if (!filtered.length) { body.innerHTML = `<tr><td colspan="7" class="py-10 px-4 text-center text-slate-400">${all.length ? 'Không có hồ sơ phù hợp bộ lọc.' : 'Chưa có hồ sơ nhà thầu trong dữ liệu chung của tòa này.'}</td></tr>`; return; }
             body.innerHTML = filtered.map(a => {
                 const statusKey = a.status || 'PENDING';
                 const startEnd = `${advEscape(a.workStart || '—')} ${advEscape(a.workStartTime || '')} → ${advEscape(a.workEnd || '—')} ${advEscape(a.workEndTime || '')}`;
@@ -12125,7 +11914,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
                 const emailOk = await sendContractorDecisionEmail(a.id, true);
                 showToast(emailOk ? 'Đã lưu quyết định và API email xác nhận gửi kết quả.' : 'Đã lưu quyết định; API email lỗi hoặc chưa xác nhận gửi.', emailOk ? 'success' : 'warning');
             } else {
-                showToast(`Đã ghi nhận quyết định. ${cloudSaved ? 'Dữ liệu đã đồng bộ Cloud.' : 'Dữ liệu ở cục bộ/chưa xác nhận đồng bộ Cloud.'} Bản thử nghiệm không gửi email; quyết định chỉ được lưu trên trình duyệt.`, 'warning');
+                showToast(`Đã ghi nhận quyết định. ${cloudSaved ? 'Dữ liệu đã đồng bộ Cloud.' : 'Dữ liệu ở cục bộ/chưa xác nhận đồng bộ Cloud.'} Email kết quả chưa được gửi tự động.`, 'warning');
             }
         }
         function prepareContractorDecisionEmail(id) {
@@ -12135,7 +11924,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
             sendContractorDecisionEmail(id, false);
         }
         async function sendContractorDecisionEmail(id, attemptApi = false) {
-            if (SITES_LOCAL_PREVIEW) { showToast('Bản thử nghiệm không gửi email. Hồ sơ được lưu trên trình duyệt này.', 'info'); return false; }
+            if (SITES_LOCAL_PREVIEW) { showToast('Chưa kích hoạt gửi email tự động. Có thể sao chép quyết định để gửi riêng.', 'info'); return false; }
             const a = getContractorApplicationOrWarn(id); if (!a) return false;
             const approved = a.status === 'APPROVED';
             const subject = `Kết quả hồ sơ đăng ký thi công ${a.id}: ${approved ? 'Đã phê duyệt' : 'Từ chối'}`;
@@ -12161,7 +11950,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
             return false;
         }
         function saveContractorEmailApiUrl() {
-            if (SITES_LOCAL_PREVIEW) { showToast('Bản thử nghiệm chưa kết nối dịch vụ gửi email.', 'info'); return; }
+            if (SITES_LOCAL_PREVIEW) { showToast('Chưa kết nối dịch vụ gửi email tự động.', 'info'); return; }
             if (!canReviewContractorApplications()) { showToast('Chỉ Ban QLTN/Admin được cấu hình email.', 'error'); return; }
             const value = String(document.getElementById('contractorEmailApiUrlInput')?.value || '').trim();
             if (value) {
@@ -12306,6 +12095,540 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
         });
         document.addEventListener('change', function contractorBadgeMode(event) { const t = event.target; if (t && t.id === 'contractorBadgeCount') t.dataset.auto = '0'; });
         </script>
+<script id="shared-data-sync">
+window.BmsSyncCore = (() => {
+    const lists = ['systems','assets','tickets','checklists','inventory','energyLogs','workPermits','handoverLogs','paramLogs','emailLogs','auditLogs','shiftLogs','maintenanceHistory','materialIssueHistory','guestKeyLoans','contractorApplications','furnitureItems','furnitureMovementLogs','notebookLmEntries'];
+    const maps = ['dutyRoster','incidentMeta','assetChecklistStates'];
+    const runs = ['shiftChecklistRuns','assetChecklistRuns'];
+    const scalars = ['dieselTankLevel','handoverNote'];
+    const keyFor = (kind, key, subKey) => kind + '__' + encodeURIComponent(key) + (subKey === undefined ? '' : '__' + encodeURIComponent(subKey));
+    const clean = value => JSON.parse(JSON.stringify(value));
+    function canonical(value) {
+        if (Array.isArray(value)) return '[' + value.map(canonical).join(',') + ']';
+        if (value && typeof value === 'object') return '{' + Object.keys(value).sort().map(key => JSON.stringify(key)+':'+canonical(value[key])).join(',') + '}';
+        return JSON.stringify(value);
+    }
+    async function hash(value) {
+        const bytes = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(typeof value === 'string' ? value : canonical(value)));
+        return [...new Uint8Array(bytes)].map(byte => byte.toString(16).padStart(2,'0')).join('');
+    }
+    function identify(snapshot) {
+        for(const kind of lists) for(const item of snapshot[kind] || []) {
+            if(item && typeof item==='object' && !item.id && !item.assetCode && !(kind==='systems'&&item.code) && !item._syncId) item._syncId=crypto.randomUUID();
+        }
+        return snapshot;
+    }
+    async function flatten(snapshot) {
+        const entries = new Map();
+        const add = async (kind,key,payload,subKey) => {
+            const record = {kind,key:String(key),payload:clean(payload),deleted:false};
+            if (subKey !== undefined) record.subKey=String(subKey);
+            let source;
+            if(kind==='shiftChecklistRuns')source=(snapshot.checklists||[]).find(item=>String(item.id)===String(subKey));
+            if(kind==='assetChecklistRuns'||kind==='assetChecklistStates')source=(snapshot.assets||[]).find(item=>String(item.id)===String(key).split('|')[0]);
+            if(kind==='incidentMeta')source=(snapshot.tickets||[]).find(item=>String(item.id)===String(key));
+            if(source){
+                record.system=source.system;
+                record.sourceRecord=keyFor(kind==='shiftChecklistRuns'?'checklists':kind==='incidentMeta'?'tickets':'assets',source.id);
+            }
+            record.hash=await hash(record.payload);
+            entries.set(keyFor(kind,key,subKey),record);
+        };
+        for (const kind of lists) {
+            const order=[];
+            for (const item of (snapshot[kind] || []).filter(item=>kind!=='guestKeyLoans'||item.storageMode!=='firebase-public')) {
+                if (!item || typeof item !== 'object') continue;
+                if (!item.id && !item.assetCode && !(kind==='systems'&&item.code) && !item._syncId) item._syncId=crypto.randomUUID();
+                const key=String(item.id || item.assetCode || (kind==='systems'?item.code:'') || item._syncId);
+                if (order.includes(key)) throw new Error('Trùng mã trong '+kind+': '+key+'. Hãy xử lý bản ghi trùng trước khi đồng bộ.');
+                order.push(key);
+                await add(kind,key,item);
+            }
+            await add('$order',kind,{ids:order});
+        }
+        for (const kind of maps) for (const [key,payload] of Object.entries(snapshot[kind] || {})) await add(kind,key,payload);
+        for (const kind of runs) for (const [key,items] of Object.entries(snapshot[kind] || {})) for (const [subKey,payload] of Object.entries(items || {})) await add(kind,key,payload,subKey);
+        for (const key of scalars) await add('$settings',key,{value:snapshot[key] ?? (key==='dieselTankLevel'?0:'')});
+        return entries;
+    }
+    function unflatten(entries) {
+        const snapshot=Object.fromEntries([...lists.map(key=>[key,[]]),...maps.map(key=>[key,{}]),...runs.map(key=>[key,{}])]);
+        const byList=new Map(lists.map(kind=>[kind,new Map()]));
+        for (const record of entries.values()) {
+            if (record.deleted) continue;
+            if (byList.has(record.kind)) byList.get(record.kind).set(record.key,clean(record.payload));
+            else if (maps.includes(record.kind)) snapshot[record.kind][record.key]=clean(record.payload);
+            else if (runs.includes(record.kind)) (snapshot[record.kind][record.key] ||= {})[record.subKey]=clean(record.payload);
+            else if (record.kind==='$settings' && scalars.includes(record.key)) snapshot[record.key]=record.payload.value;
+        }
+        for (const [kind,items] of byList) {
+            const ids=entries.get(keyFor('$order',kind))?.payload?.ids || [];
+            for (const id of ids) if (items.has(id)) {snapshot[kind].push(items.get(id));items.delete(id);}
+            snapshot[kind].push(...items.values());
+        }
+        return snapshot;
+    }
+    function diff(before,after) {
+        return [...new Set([...before.keys(),...after.keys()])].flatMap(id=>{
+            const a=before.get(id), b=after.get(id);
+            return a?.hash===b?.hash ? [] : [{id,before:a || null,after:b || null}];
+        });
+    }
+    function mergeOrder(before,local,remote) {
+        const removed=new Set(before.filter(id=>!local.includes(id)));
+        const output=remote.filter(id=>!removed.has(id));
+        const added=local.filter(id=>!before.includes(id));
+        for (const id of added) {
+            if (output.includes(id)) continue;
+            const next=local.slice(local.indexOf(id)+1).find(candidate=>output.includes(candidate));
+            if (next===undefined) output.push(id); else output.splice(output.indexOf(next),0,id);
+        }
+        return output;
+    }
+    return {lists,maps,runs,scalars,keyFor,canonical,clean,hash,identify,flatten,unflatten,diff,mergeOrder};
+})();
+
+window.SharedData = (() => {
+    const core=window.BmsSyncCore;
+    let sdk,db,auth;
+    let dataset=null,ready=false,blocked=false,applying=false,migrating=false,generation=0;
+    let stopMeta,stopRecords,stopIntake;
+    let serverEntries=new Map(),viewEntries=new Map();
+    let queue=Promise.resolve(),pending=0,recoveryBase=null,latestDesired=null;
+    let latestRemote=null,remoteDeferred=false,recordsSequence=0;
+    const recoverKey=storageKey('bms_shared_recovery_v1');
+    const ref=(...parts)=>sdk.doc(db,'buildings',BUILDING,...parts);
+    const collection=(...parts)=>sdk.collection(db,'buildings',BUILDING,...parts);
+    const recordRef=id=>ref('datasets',dataset,'records',id);
+    const uid=()=>auth?.currentUser?.uid || '';
+    const isAdmin=()=>currentUser?.role==='ADMIN' && hasAuthenticatedClientSession();
+    const status=(text,error=false)=>{
+        const node=document.getElementById('sharedDataStatus');
+        if(node){node.textContent=text;node.dataset.error=String(error);}
+        document.querySelectorAll('.tab-content').forEach(tab=>{if(tab.id!=='tab-users')tab.inert=!ready||blocked||migrating;});
+        const detail=document.getElementById('sharedDataDetail');
+        if(detail)detail.textContent=text;
+        const dot=document.getElementById('cloudStatusDot');
+        if(dot)dot.className='w-2 h-2 rounded-full '+(ready&&!blocked&&!pending?'bg-emerald-400':'bg-amber-400');
+        const init=document.getElementById('initializeSharedData');
+        if(init)init.classList.toggle('hidden',!isAdmin()||!!dataset);
+        const retry=document.getElementById('retrySharedData');
+        if(retry)retry.classList.toggle('hidden',!blocked);
+        const incoming=document.getElementById('loadIncomingData');
+        if(incoming)incoming.classList.toggle('hidden',!remoteDeferred&&!blocked);
+    };
+    function errorText(error){
+        if(error.code==='permission-denied')return 'Firebase từ chối quyền. Kiểm tra bộ quy tắc dữ liệu và quyền nhân sự.';
+        if(error.code==='unavailable')return 'Mất kết nối Firebase. Thay đổi đang được giữ trên máy để gửi lại.';
+        return error.message || 'Chưa đồng bộ được dữ liệu.';
+    }
+    function configure(api,database,identity){sdk=api;db=database;auth=identity;}
+    function stop(){
+        ++generation;stopMeta?.();stopRecords?.();stopIntake?.();stopKeys?.();
+        stopMeta=stopRecords=stopIntake=stopKeys=null;ready=false;dataset=null;
+        publicKeyCache.clear();
+        guestKeyLoans=guestKeyLoans.filter(loan=>loan.storageMode!=='firebase-public');
+        if(typeof guestKeyHistoryCache!=='undefined')guestKeyHistoryCache=[];
+        status('Đăng nhập để kết nối dữ liệu chung.');
+    }
+    function editing(){
+        return [...document.querySelectorAll('[id$="Modal"].fixed')].some(node=>!node.classList.contains('hidden')) ||
+            document.getElementById('maintenanceConfirm')?.open ||
+            ['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName);
+    }
+    function preserveRecovery(){
+        if(!latestDesired)return;
+        const payload={building:BUILDING,dataset,at:new Date().toISOString(),base:[...(recoveryBase||viewEntries)],desired:latestDesired};
+        try{localStorage.setItem(recoverKey,JSON.stringify(payload));}
+        catch(_){status('Bộ nhớ máy đầy. Giữ trang mở đến khi Firebase xác nhận; nếu chưa gửi được, tải bản sao trước khi thoát.',true);}
+    }
+    function clearRecovery(){localStorage.removeItem(recoverKey);recoveryBase=null;latestDesired=null;}
+    function applyRemote(force=false){
+        if(!hasAuthenticatedClientSession() || !latestRemote || pending || blocked || applying || migrating)return;
+        if(!force && editing()){remoteDeferred=true;status('Có dữ liệu mới. Bấm Tải cập nhật sau khi lưu biểu mẫu.');return;}
+        applying=true;
+        try{
+            const snapshot=core.unflatten(latestRemote);
+            snapshot.guestKeyLoans=[...snapshot.guestKeyLoans,...publicKeyCache.values()];
+            const checkpoint=storageKey('bms_before_shared_v1');
+            try{if(!localStorage.getItem(checkpoint))localStorage.setItem(checkpoint,JSON.stringify(collectApplicationSnapshot()));}catch(_){/* Cloud loading must remain available when the local cache is full. */}
+            applyApplicationSnapshot(snapshot);
+            viewEntries=new Map(latestRemote);
+            persistLocalState();refreshAllViews();
+            remoteDeferred=false;
+            status('Đã đồng bộ Firebase · Tòa '+BUILDING);
+        }finally{applying=false;}
+    }
+    async function unpack(value){
+        if(value && !Array.isArray(value) && typeof value==='object' && typeof value.__bmsAttachment==='string'){
+            const parts=await Promise.all(Array.from({length:value.parts},(_,index)=>sdk.getDocFromServer(ref('attachments',value.__bmsAttachment+'_'+index))));
+            if(parts.some(part=>!part.exists()))throw new Error('Thiếu một phần ảnh đính kèm. Hãy thử tải lại.');
+            const content=parts.map(part=>part.data().content).join('');
+            if(await core.hash(content)!==value.__bmsAttachment)throw new Error('Ảnh đính kèm chưa đầy đủ.');
+            return content;
+        }
+        if(Array.isArray(value))return Promise.all(value.map(unpack));
+        if(value&&typeof value==='object')return Object.fromEntries(await Promise.all(Object.entries(value).map(async([key,item])=>[key,await unpack(item)])));
+        return value;
+    }
+    async function pack(value,attachments){
+        if(typeof value==='string' && value.length>100000){
+            const digest=await core.hash(value),parts=Math.ceil(value.length/100000);
+            for(let index=0;index<parts;index++)attachments.set(digest+'_'+index,{hash:digest,part:index,content:value.slice(index*100000,(index+1)*100000)});
+            return {__bmsAttachment:digest,parts};
+        }
+        if(Array.isArray(value))return Promise.all(value.map(item=>pack(item,attachments)));
+        if(value&&typeof value==='object')return Object.fromEntries(await Promise.all(Object.entries(value).map(async([key,item])=>[key,await pack(item,attachments)])));
+        return value;
+    }
+    async function writeBatches(items){
+        let batch=sdk.writeBatch(db),count=0,bytes=0;
+        for(const [target,data] of items){
+            const size=new TextEncoder().encode(JSON.stringify(data)).length;
+            if(size>750000)throw new Error('Một bản ghi quá lớn để đồng bộ. Hãy giảm số ảnh trong bản ghi đó.');
+            if(count && (count>=100 || bytes+size>4000000)){await batch.commit();batch=sdk.writeBatch(db);count=bytes=0;}
+            batch.set(target,data);count++;bytes+=size;
+        }
+        if(count)await batch.commit();
+    }
+    async function prepared(changes){
+        const attachments=new Map(),output=[];
+        for(const change of changes){
+            const after=change.after?{...change.after,payload:await pack(change.after.payload,attachments)}:null;
+            output.push({...change,after});
+        }
+        await writeBatches([...attachments].map(([id,data])=>[ref('attachments',id),data]));
+        return output;
+    }
+    function beginRecords(id,session){
+        stopRecords?.();recordsSequence++;dataset=id;ready=false;status('Đang tải dữ liệu chung từ Firebase…');
+        stopRecords=sdk.onSnapshot(collection('datasets',id,'records'),{includeMetadataChanges:true},async snapshot=>{
+            if(session!==generation || snapshot.metadata.fromCache || snapshot.metadata.hasPendingWrites)return;
+            const sequence=++recordsSequence;
+            try{
+                const pairs=await Promise.all(snapshot.docs.filter(doc=>!doc.data().deleted).map(async doc=>{
+                    const value=doc.data();return [doc.id,{...value,payload:await unpack(value.payload)}];
+                }));
+                if(session!==generation || dataset!==id || sequence!==recordsSequence)return;
+                serverEntries=new Map(pairs);latestRemote=new Map(serverEntries);ready=true;
+                if(!blocked&&!pending)applyRemote();
+                if(!stopIntake)listenIntake(session);
+                if(!stopKeys)listenKeys(session);
+            }catch(error){blocked=true;status(errorText(error),true);}
+        },error=>{if(session===generation){ready=false;status(errorText(error),true);}});
+    }
+    function start(){
+        if(!sdk||!hasAuthenticatedClientSession())return;
+        stop();const session=generation;
+        blocked=false;serverEntries=new Map();viewEntries=new Map();latestRemote=null;
+        const recovered=localStorage.getItem(recoverKey);
+        if(recovered){
+            try{const data=JSON.parse(recovered);if(data.building===BUILDING){recoveryBase=new Map(data.base);latestDesired=data.desired;blocked=true;}}catch(_){blocked=true;}
+        }
+        stopMeta=sdk.onSnapshot(ref('state','current'),{includeMetadataChanges:true},snapshot=>{
+            if(session!==generation || snapshot.metadata.fromCache || snapshot.metadata.hasPendingWrites)return;
+            if(!snapshot.exists()){
+                dataset=null;ready=false;
+                status(isAdmin()?'Chưa khởi tạo dữ liệu chung. Chọn Đưa dữ liệu máy này lên Firebase.':'Chờ Quản trị viên khởi tạo dữ liệu chung.');
+                return;
+            }
+            const next=snapshot.data().dataset;
+            if(next!==dataset){
+                if(pending){blocked=true;status('Bộ dữ liệu chung vừa được thay thế. Thay đổi trên máy được giữ để kiểm tra.',true);return;}
+                beginRecords(next,session);
+            }
+            if(blocked)status('Có thay đổi trên máy đang chờ đồng bộ. Chọn Gửi lại hoặc tải bản chung.',true);
+        },error=>{if(session===generation){ready=false;status(errorText(error),true);}});
+    }
+    async function commit(changes,expectedDataset,beforeEntries=viewEntries){
+        if(!changes.length)return;
+        if(changes.length>350)throw new Error('Có nhiều thay đổi. Quản trị viên dùng Nhập bộ dữ liệu để cập nhật theo phiên bản.');
+        const packed=await prepared(changes);
+        let attemptedRevision=0;
+        const owner=uid(),session=generation;
+        const run=()=>sdk.runTransaction(db,async transaction=>{
+            if(owner!==uid()||session!==generation||!hasAuthenticatedClientSession())throw new Error('Phiên làm việc đã đổi. Thay đổi được giữ trên máy.');
+            const meta=await transaction.get(ref('state','current'));
+            if(!meta.exists() || meta.data().dataset!==expectedDataset)throw new Error('Bộ dữ liệu đã đổi. Hãy tải bản chung để kiểm tra.');
+            const restoring=changes.filter(change=>change.after?.kind==='assets' && change.after.payload.status==='OPERATIONAL' && change.before?.payload.status!=='OPERATIONAL');
+            const related=[...beforeEntries].filter(([id,record])=>record.kind==='tickets'&&restoring.some(change=>String(change.after.payload.id)===String(record.payload.assetId)));
+            const newFaults=changes.filter(change=>change.after?.kind==='tickets' && change.after.payload.status!=='RESOLVED' && (!change.before || change.before.payload.status==='RESOLVED'));
+            const faultAssets=[...new Set(newFaults.map(change=>core.keyFor('assets',change.after.payload.assetId)))];
+            const faultDocuments=await Promise.all(faultAssets.map(id=>transaction.get(recordRef(id))));
+            attemptedRevision=meta.data().revision;
+            const documents=await Promise.all(packed.map(change=>transaction.get(recordRef(change.id))));
+            if(restoring.length){
+                const order=await transaction.get(recordRef(core.keyFor('$order','tickets')));
+                const expectedOrder=beforeEntries.get(core.keyFor('$order','tickets'));
+                if((order.exists()?order.data().hash:null)!==(expectedOrder?.hash||null))throw new Error('Danh sách sự cố vừa thay đổi. Tải cập nhật để kiểm tra trước khi khôi phục thiết bị.');
+                const ticketsNow=await Promise.all(related.map(([id])=>transaction.get(recordRef(id))));
+                for(let i=0;i<related.length;i++){
+                    const changed=changes.find(change=>change.id===related[i][0]);
+                    const effective=changed?changed.after:(ticketsNow[i].exists()?ticketsNow[i].data():null);
+                    if(effective&&!effective.deleted&&effective.payload.status!=='RESOLVED')throw new Error('Thiết bị còn phiếu sự cố chưa nghiệm thu. Tải dữ liệu mới để kiểm tra.');
+                }
+            }
+            const writes=[];
+            for(let index=0;index<packed.length;index++){
+                const change=packed[index],remote=documents[index].exists()?documents[index].data():null;
+                const remoteHash=remote&&!remote.deleted?remote.hash:null;
+                let after=change.after;
+                if(change.before?.kind==='$order' || after?.kind==='$order'){
+                    const payload={ids:core.mergeOrder(change.before?.payload.ids||[],after?.payload.ids||[],remote&&!remote.deleted?remote.payload.ids:[])};
+                    after={...(after||change.before),payload,hash:await core.hash(payload)};
+                }else if(remoteHash!==(change.before?.hash||null)){
+                    const conflict=new Error('Bản ghi '+change.id+' vừa được người khác sửa. Thay đổi trên máy đã được giữ lại.');
+                    conflict.code='sync-conflict';throw conflict;
+                }
+                const value=after||{...change.before,deleted:true};
+                writes.push([recordRef(change.id),{...value,updatedBy:uid(),updatedAt:sdk.serverTimestamp()}]);
+            }
+            for(let i=0;i<faultAssets.length;i++){
+                if(!faultDocuments[i].exists())continue;
+                const changed=packed.find(change=>change.id===faultAssets[i]);
+                const current=changed?.after || faultDocuments[i].data();
+                if(current.deleted||current.payload.status==='ERROR')continue;
+                const raw=await unpack(current.payload);
+                const payload={...current.payload,status:'ERROR'};
+                const value={...current,payload,hash:await core.hash({...raw,status:'ERROR'}),updatedBy:uid(),updatedAt:sdk.serverTimestamp()};
+                const existingIndex=writes.findIndex(([target])=>target.path===recordRef(faultAssets[i]).path);
+                if(existingIndex<0)writes.push([recordRef(faultAssets[i]),value]);else writes[existingIndex]=[recordRef(faultAssets[i]),value];
+            }
+            for(const [target,value] of writes)transaction.set(target,value);
+            transaction.update(ref('state','current'),{revision:sdk.increment(1),updatedBy:uid(),updatedAt:sdk.serverTimestamp()});
+        });
+        for(let attempt=0;attempt<3;attempt++){
+            try{await run();return;}
+            catch(error){
+                if(error.code!=='permission-denied'||attempt===2)throw error;
+                const latest=await sdk.getDocFromServer(ref('state','current'));
+                if(!latest.exists()||latest.data().dataset!==expectedDataset||latest.data().revision<=attemptedRevision)throw error;
+            }
+        }
+    }
+    async function refreshRecords(){
+        if(!dataset)return;
+        const snapshot=await sdk.getDocsFromServer(collection('datasets',dataset,'records'));
+        const entries=await Promise.all(snapshot.docs.filter(doc=>!doc.data().deleted).map(async doc=>[doc.id,{...doc.data(),payload:await unpack(doc.data().payload)}]));
+        serverEntries=new Map(entries);latestRemote=new Map(entries);
+    }
+    async function save(snapshot){
+        if(applying)return true;
+        if(!hasAuthenticatedClientSession()||!ready||!dataset){lastCloudWriteError='Dữ liệu chung chưa sẵn sàng. Dữ liệu hiện tại được giữ trên máy.';status(lastCloudWriteError,true);return false;}
+        const captured=core.clean(core.identify(snapshot));
+        latestDesired=captured;pending++;
+        const expectedDataset=dataset;
+        const task=queue.then(async()=>{
+            try{
+                const desired=await core.flatten(captured);
+                const changes=core.diff(viewEntries,desired);
+                if(!recoveryBase)recoveryBase=new Map(viewEntries);
+                const beforeEntries=new Map(viewEntries);
+                preserveRecovery();viewEntries=desired;
+                if(blocked)return false;
+                if(changes.length){status('Đang gửi thay đổi lên Firebase…');await commit(changes,expectedDataset,beforeEntries);}
+                return true;
+            }catch(error){blocked=true;lastCloudWriteError=errorText(error);status(lastCloudWriteError,true);return false;}
+            finally{
+                pending--;
+                if(!pending&&!blocked){
+                    try{await refreshRecords();clearRecovery();applyRemote();status('Đã đồng bộ Firebase · Tòa '+BUILDING);drainIntake().catch(error=>status(errorText(error),true));}
+                    catch(error){blocked=true;status(errorText(error),true);}
+                }
+            }
+        });
+        queue=task.catch(()=>false);
+        return task;
+    }
+    async function initialize(replace=false,snapshot=collectApplicationSnapshot()){
+        if(migrating)throw new Error('Một lần chuyển dữ liệu đang thực hiện.');
+        migrating=true;status('Đang chuyển dữ liệu lên Firebase…');
+        try{return await stageInitialize(replace,snapshot);}
+        finally{migrating=false;status(ready?'Đã kết nối Firebase · Tòa '+BUILDING:'Đang chờ bộ dữ liệu chung.');}
+    }
+    async function stageInitialize(replace,snapshot){
+        if(!isAdmin())throw new Error('Chỉ Quản trị viên được đưa bộ dữ liệu ban đầu lên Firebase.');
+        const before=await sdk.getDocFromServer(ref('state','current'));
+        if(before.exists()&&!replace)throw new Error('Firebase đã có dữ liệu chung. Hãy tải bản chung trước.');
+        const expected=before.exists()?before.data():null;
+        const entries=await core.flatten(snapshot),next=crypto.randomUUID();
+        status('Đang chuyển '+entries.size+' bản ghi lên Firebase…');
+        const root=ref('datasets',next);
+        await sdk.setDoc(root,{status:'STAGING',ownerUid:uid(),count:entries.size,createdAt:sdk.serverTimestamp()});
+        const packed=await prepared([...entries].map(([id,after])=>({id,before:null,after})));
+        await writeBatches(packed.map(change=>[ref('datasets',next,'records',change.id),{...change.after,updatedBy:uid(),updatedAt:sdk.serverTimestamp()}]));
+        await sdk.runTransaction(db,async transaction=>{
+            const current=await transaction.get(ref('state','current'));
+            const actual=current.exists()?current.data():null;
+            if((actual?.dataset||null)!==(expected?.dataset||null) || (actual?.revision||0)!==(expected?.revision||0))throw new Error('Dữ liệu chung đã thay đổi trong lúc chuyển. Bản hiện có được giữ nguyên.');
+            transaction.update(root,{status:'READY'});
+            transaction.set(ref('state','current'),{dataset:next,revision:1,updatedBy:uid(),updatedAt:sdk.serverTimestamp()});
+        });
+        blocked=false;clearRecovery();
+        status('Đã chuyển dữ liệu. Đang tải bản chung…');
+    }
+    async function initializeFromLocal(){
+        try{exportLocalBackupJson('truoc-dong-bo');await initialize();}
+        catch(error){status(errorText(error),true);showToast(errorText(error),'error');}
+    }
+    function downloadLocalCheckpoint(){
+        const data=localStorage.getItem(storageKey('bms_before_shared_v1'));
+        if(data)downloadJson(JSON.parse(data),'du-lieu-truoc-khi-dong-bo');
+        else showToast('Chưa có bản dữ liệu cũ trên máy này.','info');
+    }
+    async function retry(){
+        if(!latestDesired||!recoveryBase){await useRemote();return;}
+        try{
+            status('Đang gửi lại thay đổi trên máy…');
+            const desired=await core.flatten(latestDesired);
+            await commit(core.diff(recoveryBase,desired),dataset,recoveryBase);
+            await refreshRecords();blocked=false;clearRecovery();viewEntries=desired;applyRemote(true);
+            status('Đã đồng bộ Firebase · Tòa '+BUILDING);
+        }catch(error){blocked=true;status(errorText(error),true);}
+    }
+    async function useRemote(){
+        if(pending){showToast('Đang gửi thay đổi. Hãy chờ xác nhận trước khi tải bản chung.','info');return;}
+        if(blocked&&!confirm('Tải bản chung sau khi tải một bản sao các thay đổi đang giữ trên máy?'))return;
+        if(blocked&&latestDesired)downloadJson(latestDesired,'du-lieu-chua-dong-bo');
+        clearRecovery();blocked=false;ready=false;status('Đang tải bản dữ liệu chung…');
+        try{
+            const current=await sdk.getDocFromServer(ref('state','current'));
+            if(!current.exists())throw new Error('Chưa có bộ dữ liệu chung trên Firebase.');
+            if(current.data().dataset!==dataset){beginRecords(current.data().dataset,generation);return;}
+            await refreshRecords();ready=true;applyRemote(true);
+        }catch(error){blocked=true;status(errorText(error),true);}
+    }
+    function downloadJson(value,name){
+        const blob=new Blob([JSON.stringify(value,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+        a.href=url;a.download=BUILDING+'-'+name+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    }
+    async function submitIntake(kind,payload){
+        if(!sdk)throw new Error('Chưa kết nối Firebase. Hãy tải lại trang và kiểm tra cấu hình.');
+        const id=crypto.randomUUID();
+        const request={kind,payload:core.clean(payload),status:'NEW',createdAt:sdk.serverTimestamp()};
+        if(new TextEncoder().encode(JSON.stringify(payload)).length>650000)throw new Error('Ảnh hoặc hồ sơ quá lớn. Hãy dùng ảnh nhỏ hơn rồi gửi lại.');
+        await sdk.setDoc(ref('publicIntake',id),request);
+        return id;
+    }
+    const inFlightIntake=new Set();
+    async function drainIntake(snapshot){
+        if(!ready||blocked||pending||!hasAuthenticatedClientSession())return;
+        const items=snapshot || await sdk.getDocsFromServer(sdk.query(collection('publicIntake'),sdk.where('status','==','NEW')));
+        for(const item of items.docs){
+            if(inFlightIntake.has(item.id))continue;
+            const request=item.data();
+            if(request.kind==='contractor'?!canReviewContractorApplications():!canManageSystem(request.payload.system))continue;
+            inFlightIntake.add(item.id);
+            try{await ingestIntake(item.id);}
+            catch(error){
+                const latest=await sdk.getDocFromServer(ref('publicIntake',item.id)).catch(()=>null);
+                if(!latest?.exists()||latest.data().status!=='PROCESSED')status(errorText(error),true);
+            }finally{inFlightIntake.delete(item.id);}
+        }
+    }
+    function listenIntake(session){
+        stopIntake=sdk.onSnapshot(sdk.query(collection('publicIntake'),sdk.where('status','==','NEW')),snapshot=>{
+            if(session===generation)drainIntake(snapshot).catch(error=>status(errorText(error),true));
+        },error=>status(errorText(error),true));
+    }
+    async function ingestIntake(id){
+        const requestRef=ref('publicIntake',id);
+        await sdk.runTransaction(db,async transaction=>{
+            const meta=await transaction.get(ref('state','current'));
+            const request=await transaction.get(requestRef);
+            if(!meta.exists()||!request.exists()||request.data().status!=='NEW')return;
+            const data=request.data(),kind=data.kind==='ticket'?'tickets':'contractorApplications';
+            const recordId=(kind==='tickets'?'PUB-':'CTN-')+id;
+            const target=sdk.doc(db,'buildings',BUILDING,'datasets',meta.data().dataset,'records',core.keyFor(kind,recordId));
+            const orderTarget=sdk.doc(db,'buildings',BUILDING,'datasets',meta.data().dataset,'records',core.keyFor('$order',kind));
+            const existing=await transaction.get(target),order=await transaction.get(orderTarget);
+            let payload;
+            if(kind==='tickets'){
+                const p=data.payload;
+                payload={id:recordId,assetId:'KHU VỰC: '+p.zone,system:p.system,issue:'[Báo nhanh bởi '+p.reporter+'] '+p.description,priority:'HIGH',assignee:'Chưa phân công',status:'OPEN',createdAt:data.createdAt.toDate().toLocaleString('vi-VN',{timeZone:'Asia/Ho_Chi_Minh'}),partUsed:'',beforePhoto:p.photoDataUrl||'',afterPhoto:'',resolutionNote:''};
+            }else payload={...data.payload,id:recordId,status:'PENDING',reviewedAt:'',reviewedBy:'',decisionNote:'',emailStatus:'NOT_CONFIGURED'};
+            if(!existing.exists()){
+                transaction.set(target,{kind,key:recordId,payload,hash:await core.hash(payload),deleted:false,updatedBy:uid(),updatedAt:sdk.serverTimestamp()});
+                const ids=[recordId,...(order.exists()?order.data().payload.ids:[])];
+                transaction.set(orderTarget,{kind:'$order',key:kind,payload:{ids},hash:await core.hash({ids}),deleted:false,updatedBy:uid(),updatedAt:sdk.serverTimestamp()});
+            }
+            transaction.update(requestRef,{status:'PROCESSED',processedBy:uid(),processedAt:sdk.serverTimestamp()});
+            transaction.update(ref('state','current'),{revision:sdk.increment(1),updatedBy:uid(),updatedAt:sdk.serverTimestamp()});
+        });
+    }
+    const publicKeyCache=new Map();
+    let stopKeys;
+    const receiptKey=storageKey('bms_key_receipts_v1');
+    function keyLoanObject(snapshot){
+        const data=snapshot.data();
+        return {...data,id:snapshot.id,borrowedAt:data.borrowedAt?.toDate?.().toISOString()||data.borrowedAt,returnedAt:data.returnedAt?.toDate?.().toISOString()||data.returnedAt,storageMode:'firebase-public'};
+    }
+    async function keyRequest(request){
+        if(!sdk)throw new Error('Chưa kết nối dịch vụ chìa khóa trên Firebase.');
+        if(request.action==='borrow'){
+            const id='KEYLOAN-'+crypto.randomUUID(),groupId=request.borrowGroupId||id;
+            const keyCode=String(request.keyCode).trim().replace(/\s+/g,'').toUpperCase();
+            const keyRef=await core.hash(keyCode);
+            const loan=ref('publicKeyLoans',id),lock=ref('keyLocks',keyRef),binding=ref('keyBindings',keyRef),group=ref('keyLoanGroups',groupId);
+            await sdk.runTransaction(db,async transaction=>{
+                const current=await transaction.get(lock),groupNow=await transaction.get(group);
+                if(current.exists()&&current.data().active)throw new Error('Chìa '+keyCode+' đang được mượn chưa trả.');
+                const ids=groupNow.exists()?groupNow.data().loans:[];
+                if(ids.length>=50)throw new Error('Mỗi phiếu chỉ được mượn tối đa 50 chìa.');
+                transaction.set(loan,{id,borrowGroupId:groupId,fullName:String(request.fullName).trim(),phone:String(request.phone).trim(),keyCode,keyRef,borrowedAt:sdk.serverTimestamp(),status:'BORROWED',returnedAt:null});
+                transaction.set(binding,{loanId:id});
+                transaction.set(lock,{active:true,keyCode});
+                transaction.set(group,{loans:[...ids,id]});
+            });
+            const receipts=JSON.parse(localStorage.getItem(receiptKey)||'[]');
+            if(!receipts.includes(groupId))receipts.push(groupId);
+            try{localStorage.setItem(receiptKey,JSON.stringify(receipts));}catch(_){/* The displayed receipt remains usable from any device. */}
+            return {loan:keyLoanObject(await sdk.getDocFromServer(loan))};
+        }
+        if(request.action==='return'){
+            const loan=ref('publicKeyLoans',String(request.loanId));
+            await sdk.runTransaction(db,async transaction=>{
+                const current=await transaction.get(loan);
+                if(!current.exists())throw new Error('Không tìm thấy phiếu mượn.');
+                if(current.data().status==='RETURNED')return;
+                transaction.update(loan,{status:'RETURNED',returnedAt:sdk.serverTimestamp()});
+                transaction.update(ref('keyLocks',current.data().keyRef),{active:false});
+            });
+            return {loan:keyLoanObject(await sdk.getDocFromServer(loan))};
+        }
+        let receipts=JSON.parse(localStorage.getItem(receiptKey)||'[]');
+        if(request.query&&/^KEYLOAN-[a-f0-9-]{30,80}$/i.test(request.query.trim()))receipts=[request.query.trim()];
+        const items=[];
+        if(hasAuthenticatedClientSession()){
+            const result=await sdk.getDocsFromServer(collection('publicKeyLoans'));
+            items.push(...result.docs.map(keyLoanObject));
+            items.push(...guestKeyLoans.filter(loan=>loan.storageMode!=='firebase-public'));
+        }else{
+            for(const receipt of receipts){
+                const group=await sdk.getDocFromServer(ref('keyLoanGroups',receipt));
+                const ids=group.exists()?group.data().loans:[receipt];
+                for(const id of ids){const loan=await sdk.getDocFromServer(ref('publicKeyLoans',id));if(loan.exists())items.push(keyLoanObject(loan));}
+            }
+        }
+        const unique=[...new Map(items.map(loan=>[loan.id,loan])).values()];
+        return {items:unique};
+    }
+    function listenKeys(session){
+        stopKeys?.();
+        stopKeys=sdk.onSnapshot(collection('publicKeyLoans'),{includeMetadataChanges:true},snapshot=>{
+            if(session!==generation||snapshot.metadata.fromCache||snapshot.metadata.hasPendingWrites)return;
+            publicKeyCache.clear();for(const doc of snapshot.docs)publicKeyCache.set(doc.id,keyLoanObject(doc));
+            guestKeyLoans=[...guestKeyLoans.filter(loan=>loan.storageMode!=='firebase-public'),...publicKeyCache.values()];
+            if(!document.getElementById('guestKeyModal')?.classList.contains('hidden'))loadGuestKeyHistory();
+        },error=>status(errorText(error),true));
+    }
+
+    window.addEventListener('online',()=>{if(blocked&&hasAuthenticatedClientSession())retry();});
+    window.addEventListener('beforeunload',event=>{if(pending||blocked&&latestDesired){event.preventDefault();event.returnValue='';}});
+    return {configure,start,stop,save,initialize,initializeFromLocal,retry,useRemote,downloadLocalCheckpoint,submitIntake,keyRequest,configured:()=>!!sdk,ready:()=>ready&&!blocked&&!migrating,dirty:()=>pending>0||blocked,applyRemote};
+})();
+
+</script>
 <script id="real-account-auth">
 /* Real identities and building memberships live in Firebase. Operational records remain browser-local. */
 window.RealAuth = (() => {
@@ -12375,6 +12698,7 @@ window.RealAuth = (() => {
         stopDirectory?.();
         stopDirectory = null;
         directoryReady = false;
+        window.SharedData?.stop();
         memberProfile = null;
         authSessionVerified = false;
         currentUser = null;
@@ -12474,6 +12798,7 @@ window.RealAuth = (() => {
             if (entering) {
                 users = [profile];
                 completeUserLogin(profile);
+                window.SharedData.start();
                 message('authStatusText', '');
             } else {
                 applyRolePermissionsUI();
@@ -12529,6 +12854,7 @@ window.RealAuth = (() => {
             auth.languageCode = 'vi';
             await sdk.setPersistence(auth, sdk.browserSessionPersistence);
             db = sdk.getFirestore(app);
+            window.SharedData.configure(sdk,db,auth);
             initialized = true;
             el('authSetupPanel').classList.add('hidden');
             sdk.onIdTokenChanged(auth, attachMembership, error => lock(errorText(error)));
@@ -12827,7 +13153,7 @@ function notebookLmCanEdit() {
         && currentUser && ['ADMIN','BUILDING_HEAD'].includes(String(currentUser.role || '').toUpperCase());
 }
 function notebookLmStore() {
-    try { localStorage.setItem(NOTEBOOKLM_STORAGE_KEY, JSON.stringify(notebookLmEntries)); return true; }
+    try { localStorage.setItem(NOTEBOOKLM_STORAGE_KEY, JSON.stringify(notebookLmEntries)); saveState(); return true; }
     catch (_) { showToast('Không lưu được: trình duyệt có thể đang chặn bộ nhớ cục bộ.', 'error'); return false; }
 }
 function notebookLmSystems() {
@@ -12898,7 +13224,7 @@ function saveNotebookLmEntry(event) {
     const next = notebookLmEditingId ? notebookLmEntries.map(n=>n.id===notebookLmEditingId ? entry : n) : [...notebookLmEntries,entry];
     const previous=notebookLmEntries; notebookLmEntries=next;
     if (!notebookLmStore()) { notebookLmEntries=previous; return; }
-    closeNotebookLmEditor();renderNotebookLmCenter();showToast('Đã lưu liên kết NotebookLM trên trình duyệt này.', 'success');
+    closeNotebookLmEditor();renderNotebookLmCenter();showToast('Đã lưu liên kết vào danh sách đồng bộ.', 'success');
 }
 function notebookLmRemove(id) {
     if (!notebookLmCanEdit()) return;
@@ -12932,7 +13258,7 @@ async function importNotebookLmConfig(event) {
         if (!data || data.version!==1 || data.building!==BUILDING || !Array.isArray(data.links) || data.links.length>500) throw new Error('Cấu trúc JSON không hợp lệ hoặc không dành cho tòa đang mở.');
         const clean=data.links.map(notebookLmSanitize);
         if (clean.some(x=>!x) || clean.some(x=>!notebookLmSystems().some(s=>s.code===x.systemCode))) throw new Error('Một số liên kết không hợp lệ hoặc hệ thống không còn tồn tại.');
-        if (!window.confirm('Nhập ' + clean.length + ' liên kết và thay thế danh sách đang lưu trên trình duyệt này?')) return;
+        if (!window.confirm('Nhập ' + clean.length + ' liên kết và thay thế danh sách liên kết dùng chung của tòa này?')) return;
         const old=notebookLmEntries;notebookLmEntries=clean;
         if(!notebookLmStore()) {notebookLmEntries=old;return;}
         closeNotebookLmEditor();renderNotebookLmCenter();showToast('Đã nhập '+clean.length+' liên kết NotebookLM.', 'success');
