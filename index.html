@@ -3430,115 +3430,101 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
 @media(max-width:800px){#tab-notebooklm .nb-hero{padding:23px;flex-direction:column;align-items:flex-start}#tab-notebooklm .nb-hero h2{font-size:23px}#tab-notebooklm .nb-main-panel{padding:16px}#tab-notebooklm .nb-groups{grid-template-columns:1fr}#tab-notebooklm .nb-section-heading{flex-wrap:wrap}#tab-notebooklm .nb-filter-grid,#tab-notebooklm .nb-form{grid-template-columns:1fr}#tab-notebooklm .nb-form .nb-wide{grid-column:1}#tab-notebooklm .nb-home-link{width:100%}}
 @media(prefers-reduced-motion:reduce){#tab-notebooklm *{transition:none!important;scroll-behavior:auto!important}}
 </style>
+<style id="remotion-workspace-design">
+/* Original interface, using Remotion's published blue / charcoal / light-surface palette. */
+:root{--studio-blue:#0b84f3;--studio-blue-ink:#075eaf;--studio-dark:#18191a;--studio-bg:#f8fafc;--studio-line:#e4e7ec;--studio-ink:#191c21;--studio-muted:#657081;--studio-radius:12px}
+body{background:var(--studio-bg)!important;color:var(--studio-ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif!important;font-feature-settings:"cv11","ss01";font-variant-numeric:tabular-nums}
+button,input,textarea,select{font:inherit}button,a,input,textarea,select,summary{touch-action:manipulation}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #88c5ff;outline-offset:3px}
+#loginScreen.studio-portal{display:block;position:fixed;inset:0;z-index:100;overflow:auto;background:var(--studio-bg)!important;backdrop-filter:none!important;padding:0!important;color:var(--studio-ink)}
+#loginScreen.hidden{display:none!important}
+#loginScreen .studio-portal-shell{max-width:1312px!important;width:100%!important;min-height:100dvh;margin:0 auto!important;padding:0 40px!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;overflow:visible;display:flex;flex-direction:column}
+#loginScreen .studio-portal-header{min-height:96px;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 0!important;border:0;border-bottom:1px solid var(--studio-line);background:transparent}
+.studio-brand{display:flex;align-items:center;gap:12px;color:var(--studio-ink);text-decoration:none;min-width:0}.studio-brand-mark{width:43px;height:43px;display:grid;place-items:center;background:var(--studio-dark);color:white;border-radius:10px;flex-shrink:0}.studio-brand-mark svg{width:30px;height:30px}.studio-brand strong{display:block;font-size:17px;font-weight:750;letter-spacing:-.045em;line-height:1.5}.studio-brand small{display:block;font-size:11px;color:var(--studio-muted);line-height:1.5}
+.studio-portal-header-right{display:flex;align-items:center;gap:22px}.studio-portal-header-right .building-picker{display:flex;padding:4px;border:1px solid #d8dfe8;background:white;border-radius:8px;gap:3px;box-shadow:none}.studio-portal-header-right .building-picker a{min-height:34px;min-width:66px;display:grid;place-items:center;padding:6px 14px;border:0!important;border-radius:5px;font-size:12px;font-weight:750;color:#586172!important;background:transparent!important;box-shadow:none!important}.studio-portal-header-right .building-picker a[aria-current=page]{color:white!important;background:var(--studio-dark)!important}.studio-staff-jump{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:650;min-height:40px;white-space:nowrap;color:#515b69}.studio-staff-jump i{font-size:10px;color:var(--studio-blue)}
+.studio-portal-grid{display:grid;grid-template-columns:minmax(0,1fr) 390px;align-items:start;gap:40px;margin:36px 0 32px;flex:1}
+#loginScreen section.studio-services[aria-labelledby]{padding:0!important;border:0!important;min-width:0;background:transparent!important}
+.studio-portal-hero{display:flex;position:relative;overflow:hidden;min-height:252px;padding:28px 30px;background:var(--studio-dark);border:1px solid var(--studio-dark);border-radius:var(--studio-radius);color:white;isolation:isolate}
+.studio-portal-hero:before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(#ffffff07 1px,transparent 1px),linear-gradient(90deg,#ffffff07 1px,transparent 1px);background-size:24px 24px;mask-image:linear-gradient(90deg,transparent 40%,#000)}
+.studio-hero-copy{position:relative;z-index:1;max-width:70%}.studio-eyebrow{display:flex;align-items:center;gap:7px;font-size:9px;font-weight:650;letter-spacing:.13em;color:#b6c0cd;white-space:nowrap}.studio-eyebrow>span:first-child{height:6px;width:6px;background:var(--studio-blue);border-radius:1px}.studio-portal-hero h1{color:white!important;font-size:clamp(29px,3vw,43px)!important;line-height:1.12!important;font-weight:650!important;letter-spacing:-.055em!important;margin:20px 0 14px!important}.studio-portal-hero h1>span{color:#9dcefd}.studio-hero-copy>p:not(.studio-eyebrow){font-size:12px;color:#aeb7c3;line-height:1.75;margin:0}.studio-public-label{display:flex;align-items:center;gap:7px;margin-top:19px;color:#d6dce4;font-size:10px;font-weight:500}.studio-public-label i{color:#8dc8ff}.studio-building-art{width:210px;height:225px;position:absolute;right:16px;bottom:0;color:#9aadc5;opacity:.62;z-index:0;pointer-events:none}
+.studio-public-status{margin:12px 0 0!important;padding:10px 13px!important;font-size:11px!important;border:1px solid #ead8ac!important;border-radius:8px!important;color:#76551d!important;background:#fffbef!important;line-height:1.6}.studio-service-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:27px 0 12px}.studio-service-heading h3{font-size:14px;font-weight:700;letter-spacing:-.02em}.studio-service-heading>span{font-size:10px;color:var(--studio-muted)}
+.studio-service-list{display:grid;gap:10px}.studio-service-card{border:1px solid var(--studio-line);background:white;border-radius:10px;transition:border-color .16s,box-shadow .16s}.studio-service-card:hover{border-color:#9acbfa;box-shadow:0 3px 12px #0a3a6006}.studio-service-launch{display:flex;align-items:center;gap:16px;padding:18px;width:100%;text-align:left;border-radius:10px;min-height:100px}.studio-service-icon{display:grid;place-items:center;flex-shrink:0;width:43px;height:45px;border:1px solid #e6e9ee;border-radius:8px;background:#f8fafc;color:#384657;font-size:16px}.studio-service-copy{display:grid;gap:4px;min-width:0}.studio-service-copy small{color:#5c6c7e;font-size:8px;font-weight:650;letter-spacing:.095em}.studio-service-copy strong,.studio-service-copy h4{font-size:16px;line-height:1.4;letter-spacing:-.025em;font-weight:650;color:#1d2633}.studio-service-copy>span{font-size:11px;line-height:1.6;color:#657081}.studio-service-arrow{margin-left:auto;width:30px;height:30px;display:grid;place-items:center;font-size:11px;color:var(--studio-blue);background:#f1f7ff;border-radius:6px;flex-shrink:0}.studio-key-service{display:flex;align-items:center;gap:10px;padding:18px}.studio-service-key-copy{display:flex;align-items:center;gap:16px;min-width:0}.studio-key-actions{margin-left:auto;display:grid;gap:6px;flex-shrink:0}.studio-key-actions button{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 10px;min-height:33px;border:1px solid #dce9f7;border-radius:5px;font-size:10px;font-weight:650;background:#f3f8ff;color:#075eaf}.studio-key-actions button+button{background:white;border-color:#e4e7ec;color:#5a6370}.studio-key-actions i{font-size:9px}.studio-service-note{display:flex;align-items:start;gap:7px;font-size:10px;line-height:1.7;color:#6b7684;margin:15px 0 0}.studio-service-note i{margin-top:4px;color:#8b97a7}
+#loginScreen section#staffPortal.studio-staff-panel{min-width:0;padding:28px!important;border:1px solid var(--studio-line);border-radius:var(--studio-radius);background:white!important;box-shadow:0 3px 12px #18233303;outline:none;scroll-margin-top:20px}
+#loginScreen #staffPortal:focus{border-color:#9dcdfa;box-shadow:0 0 0 3px #e1f0ff}
+.studio-staff-badge{display:inline-flex;gap:7px;align-items:center;padding:6px 9px;border:1px solid #daeafa;border-radius:5px;background:#f3f8ff;color:#075eaf;font-size:8px;font-weight:700;letter-spacing:.07em;margin-bottom:23px}.studio-staff-badge i{font-size:9px}
+#loginCredentialsPanel>.mb-6>p:first-child{display:none}#loginCredentialsPanel>.mb-6{margin-bottom:24px}#loginScreen #staffLoginTitle{font-size:25px!important;font-weight:650!important;letter-spacing:-.045em;line-height:1.25}#loginCredentialsPanel>.mb-6>p:last-child{font-size:12px!important;line-height:1.7;color:var(--studio-muted);margin-top:9px}
+#loginScreen label{color:#4a5565;font-weight:650;font-size:11px}#loginScreen #loginEmailInput,#loginScreen #loginPasswordInput{min-height:45px!important;font-size:12px!important;background:white!important;border-color:#d6dce5!important;border-radius:7px!important;box-shadow:0 1px 2px #12253b03;padding-top:11px;padding-bottom:11px}#loginScreen input:focus-visible,#loginScreen textarea:focus-visible{outline:3px solid #d2e9ff;border-color:#58a6ef!important;outline-offset:1px}#loginScreen input::placeholder{color:#9ba5b1}
+#loginScreen #loginSubmitButton{height:45px;border-radius:7px!important;font-size:12px!important;font-weight:650!important;background:var(--studio-blue)!important;border:1px solid #0874d8;box-shadow:0 2px 3px #096fc91a}#loginScreen #loginSubmitButton:not(:disabled):hover{background:#0876db!important}#loginScreen #loginSubmitButton:disabled{opacity:.5;cursor:not-allowed}.remember-login-row{gap:8px;align-items:center}.remember-login-button{min-height:36px;padding:6px 8px;font-size:11px;border-radius:6px;border-color:#dce2ea}.remember-login-box{width:15px;height:15px;border-radius:3px}.remember-login-button.remember-login-active{color:#075eaf;border-color:#acd7ff;background:#f0f7ff}#rememberLoginHelp{font-size:10px;min-width:135px;color:#788291;line-height:1.5}.auth-link{color:#075eaf;font-size:10px;font-weight:650;min-height:38px}#loginCredentialsPanel>p:last-child{font-size:10px;color:#7a8593;padding-top:13px;border-top:1px solid #edf0f4;line-height:1.7;margin-top:12px}.auth-message{font-size:11px;line-height:1.6;border-radius:6px;background:#f1f6fc;color:#44627e;padding:9px 11px}.auth-message[data-error=true]{background:#fff3f2;color:#a33e37}#authStatusText{margin-bottom:16px}#authSetupPanel{font-size:11px;background:#fffaf0;border-radius:6px;margin-top:10px}#authSetupPanel p,#appCheckSetupPanel p{line-height:1.65}.studio-deployment{margin-top:24px;border-top:1px solid #edf0f4;padding-top:15px;font-size:10px;color:#737e8e}.studio-deployment>summary{display:flex;align-items:center;gap:7px;cursor:pointer;min-height:28px}.studio-deployment>summary:after{content:"+";margin-left:auto;font-size:15px;color:#778696}.studio-deployment[open]>summary:after{content:"−"}#appCheckSetupPanel{font-size:11px;margin:10px 0 0;border-radius:6px;padding:10px;border-color:#e5e9ef;background:#fafbfd}.studio-deployment .workflow-btn{font-size:10px}.studio-deployment input,.studio-deployment textarea{font-size:11px}
+.studio-portal-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:20px 0 24px;border-top:1px solid var(--studio-line);font-size:10px;color:#7d8795}.studio-portal-footer>span:first-child{font-weight:600;color:#526071}.studio-footer-slash{padding:0 9px;color:#b0bbc9}
+/* Internal workspace */
+#sidebar{width:266px!important;background:var(--studio-dark)!important;border-right:1px solid #2b2e32!important;box-shadow:none!important}
+#sidebar>div:first-child{height:84px!important;padding:0 19px!important;border-color:#303236!important}
+#sidebar>div:first-child .w-9{height:36px!important;width:36px!important;border-radius:7px!important;background:#2c3035!important;border:1px solid #42464c!important;box-shadow:none!important}
+#sidebar>div:first-child .font-bold.text-base{font-size:15px!important;font-weight:650;letter-spacing:-.03em!important}#sidebar>div:first-child span{color:#959da9!important;font-size:10px!important}
+.studio-nav-search{position:relative;display:flex;align-items:center;gap:8px;margin:17px 14px 4px;border:1px solid #3b3e43;border-radius:6px;color:#959daa;background:#222428;min-height:36px;padding:0 9px}.studio-nav-search>i{font-size:10px}.studio-nav-search input{min-width:0;flex:1;width:100%;height:35px;padding:0!important;background:transparent!important;color:#e9eef6!important;font-size:11px!important;border:0!important;border-radius:0!important;outline:0!important;box-shadow:none!important}.studio-nav-search input::placeholder{color:#9aa2af}.studio-nav-search input::-webkit-search-cancel-button{display:none}.studio-nav-search:focus-within{outline:2px solid var(--studio-blue);outline-offset:1px}.studio-nav-search kbd{font-family:inherit;font-size:9px;white-space:nowrap;color:#9da6b3}.studio-nav-search:has(input:not(:placeholder-shown)) kbd{display:none}.studio-nav-search button{min-width:22px;min-height:28px;font-size:11px;color:#b8c1ce}.studio-nav-search [hidden],.studio-nav-result[hidden]{display:none!important}.studio-nav-result{font-size:10px;color:#b3bfcd;padding:8px 16px 0;line-height:1.6}#sidebar [data-nav-filtered=true]{display:none!important}
+#sidebar nav{padding:6px 12px 16px!important;scrollbar-width:thin;scrollbar-color:#41444b transparent!important}#sidebar .nav-section{margin-bottom:15px}#sidebar .nav-section-label{font-size:9px;font-weight:600;letter-spacing:.05em;color:#828b99;padding:15px 10px 8px}#sidebar .nav-section-label:after{display:none}#sidebar .nav-btn{font-size:11px!important;line-height:1.45;min-height:36px;padding:9px 11px!important;border:1px solid transparent;border-radius:5px!important;margin:2px 0;color:#b7c0cd!important;box-shadow:none!important;transition:background .12s,border-color .12s}#sidebar .nav-btn i{font-size:12px!important;color:#8492a6!important}#sidebar .nav-btn:hover{background:#25282d!important;color:#fff!important}#sidebar .nav-btn.bg-blue-600{background:#103755!important;border-color:#1a507a!important;color:#dcedff!important;box-shadow:none!important}#sidebar .nav-btn.bg-blue-600 i{color:#6bbaff!important}#sidebar .nav-btn.bg-blue-600:before{display:none}#sidebar .nav-btn .rounded-full{font-size:9px;padding:1px 5px;border-radius:4px;background:#343840!important;color:#d7e0ed!important}#sidebar .nav-utility-block,#sidebar #sidebarCentralDataWrapper{border-color:#303236!important}#sidebar>div:last-child{border-color:#303236!important;background:#1f2124!important;padding:14px!important}#sidebar #currentUserAvatar{background:#0a71cc!important;border-radius:6px}#sidebar #currentUserRoleBadge{font-size:9px;color:#909baa!important}#sidebar #currentUserName{font-size:11px;font-weight:600}
+.app-topbar{min-height:84px;padding:14px 25px!important;gap:16px;background:#fff!important;border-bottom:1px solid var(--studio-line)!important;box-shadow:none!important}.app-page-heading h2,#pageHeaderTitle{font-size:19px!important;letter-spacing:-.045em;font-weight:650!important;color:#202733!important}.app-overline{font-size:8px!important;letter-spacing:.08em!important;color:#8a95a3!important;font-weight:600}.app-overline-dot{width:5px;height:5px;background:var(--studio-blue)!important;box-shadow:none}.app-duty{border:0!important;border-left:1px solid #e4e7ec!important;border-radius:0!important;padding-left:20px!important;background:transparent!important}.app-duty-label{font-size:9px!important}.app-duty strong{font-size:11px!important}.app-duty-indicator{box-shadow:none!important}.app-toolbar{gap:7px!important}.app-clock{font-size:10px!important;color:#7c8797!important}.app-action{min-height:35px!important;border-radius:6px!important;font-size:10px!important;padding:8px 11px!important;gap:7px}.app-action-outline{background:#fff!important;border-color:#dce3eb!important;color:#465566!important}.app-action-critical{background:var(--studio-blue)!important;border:1px solid #0877dc!important;color:white!important;box-shadow:none!important}.app-action-muted{background:#f8fafc!important;color:#526274!important;border:1px solid #e5e9ef!important}.app-tools-popover{border-radius:9px!important;border-color:#e0e6ed!important;box-shadow:0 12px 40px #172c4920!important}.app-tools-popover button{font-size:11px!important;border-radius:5px!important}
+.shared-data-panel{padding:7px 25px;font-size:10px;line-height:1.7;background:#f6f9fd;border-color:#e1e8f1;color:#526984}.shared-data-panel button{min-height:29px;font-size:9px;border:1px solid #cadced;border-radius:5px;padding:4px 8px}
+#appMain{background:var(--studio-bg)!important;padding:24px!important;scrollbar-width:thin;scrollbar-color:#c8d0db transparent}.tab-content>div.bg-white,.tab-content>.record-history,.dashboard-system-panel,.dashboard-data-row>div{border-color:var(--studio-line)!important;border-radius:10px!important;box-shadow:0 1px 2px #152a3f03!important}
+.dashboard-hero{min-height:0!important;padding:0!important;display:grid!important;grid-template-columns:minmax(0,1fr) 320px!important;gap:0!important;border-radius:11px!important;border:1px solid #dfe5ed!important;background:white!important;box-shadow:none!important;overflow:hidden;color:var(--studio-ink)!important}.dashboard-hero:before,.dashboard-hero:after{display:none!important}.dashboard-hero-copy{padding:27px 29px!important;background:var(--studio-dark);color:white}.dashboard-hero-eyebrow{font-size:8px!important;font-weight:500;letter-spacing:.13em!important;color:#99a8bd!important}.dashboard-live-dot{background:var(--studio-blue)!important;box-shadow:none!important;border-radius:1px}.dashboard-hero h1{font-size:clamp(24px,2.55vw,36px)!important;font-weight:600!important;letter-spacing:-.045em!important;line-height:1.25!important;margin:17px 0 10px!important;color:#fff!important}.studio-heading-dot{color:#60b1fc}.dashboard-hero-copy>p{font-size:11px!important;line-height:1.8;color:#a4b0c1!important;max-width:390px}.dashboard-hero-meta{font-size:9px!important;color:#9ba8b9!important;margin-top:20px!important;gap:7px}.dashboard-hero-meta i{color:#7fb9ef!important}.dashboard-meta-separator{margin:0 3px}.dashboard-hero-actions{padding:19px 22px!important;background:#fff!important;border:0!important;border-radius:0!important;gap:0!important;display:grid!important;align-content:start}.dashboard-hero-quick-label{color:#718094!important;font-size:8px!important;font-weight:600;letter-spacing:.09em;padding:0 0 10px}.dashboard-hero-actions>button{background:transparent!important;border:0!important;border-bottom:1px solid #edf0f5!important;border-radius:0!important;padding:10px 0!important;gap:9px!important;min-height:51px;color:#334052!important;box-shadow:none!important}.dashboard-hero-actions>button:last-child{border-bottom:0!important}.dashboard-hero-actions>button:hover{background:#f8fafc!important}.dashboard-hero-actions>button>span:nth-child(2){font-size:11px!important;font-weight:650!important}.dashboard-hero-actions small{font-size:9px!important;color:#8a96a6!important;line-height:1.6;font-weight:400}.dashboard-hero-actions strong{font-size:18px!important;color:#253f5d!important}.hero-action-icon{width:30px!important;height:31px!important;border-radius:5px!important;font-size:12px!important}.hero-action-alert{background:#fff2f0!important;color:#c3574b!important}.hero-action-planning{background:#edf6ff!important;color:#3187d2!important}.hero-action-shift{background:#f2f4f7!important;color:#65768a!important}.dashboard-hero-actions .fa-chevron-right{font-size:8px!important;color:#9ca7b4!important}
+.dashboard-section-heading{margin:25px 0 13px!important;align-items:end!important}.dashboard-section-kicker{font-size:8px!important;letter-spacing:.1em;color:#7f8da0!important;font-weight:600}.dashboard-section-heading h3{font-size:17px!important;letter-spacing:-.03em;color:#263344!important;font-weight:650;margin-top:4px!important}.dashboard-section-hint{font-size:9px!important;color:#8793a3!important}.dashboard-kpis{gap:13px!important;margin-top:0!important}.dashboard-kpis>button{padding:18px!important;border:1px solid #e1e7ef!important;border-radius:9px!important;box-shadow:0 1px 2px #152a3f03!important;text-align:left;min-height:139px!important}.dashboard-kpis>button:hover{border-color:#9ac9f4!important}.dashboard-kpis>button:nth-child(2){border-top:2px solid #dc847b!important}.dashboard-kpis>button:nth-child(2):hover{border-color:#dc847b!important}.dashboard-kpis .uppercase{font-size:8px!important;font-weight:650;letter-spacing:.055em;max-width:160px;line-height:1.6;color:#728097!important}.dashboard-kpis .w-9{width:29px!important;height:30px!important;border-radius:6px!important;font-size:11px!important}.dashboard-kpis [id^=kpi]:first-child{font-size:31px!important;font-weight:550!important;letter-spacing:-.06em;line-height:1.2}.dashboard-kpis .mt-3{margin-top:15px!important;flex-wrap:wrap;gap:4px 0}.dashboard-kpis .mt-3>span+span{font-size:9px!important;font-weight:500}.dashboard-kpis p{font-size:9px!important;color:#8b96a5!important;line-height:1.6;margin-top:8px!important}
+.dashboard-system-panel{padding:21px!important}.dashboard-system-panel h3,.dashboard-data-row h3{font-size:12px!important;font-weight:650!important;color:#2b3849!important}.dashboard-system-panel p,.dashboard-data-row>div>div>div>p{font-size:10px!important;color:#8793a3!important}.dashboard-system-panel>div>button{font-size:9px!important;color:#1b78c8!important}.dashboard-system-panel #dashboardSystemsMatrix{gap:9px!important}.dashboard-system-panel #dashboardSystemsMatrix>button{border-radius:7px!important;padding:12px!important;box-shadow:none!important}.dashboard-system-panel #dashboardSystemsMatrix>button .text-xs{font-size:10px!important}.dashboard-system-panel #dashboardSystemsMatrix>button .text-\[11px\]{font-size:9px!important}.dashboard-data-row{gap:15px!important}.dashboard-data-row>div{padding:20px!important}
+#appMain table th{font-size:10px!important;font-weight:600!important;letter-spacing:.01em;padding-top:12px!important;padding-bottom:12px!important;background:#f8fafc!important;color:#758397!important}#appMain table td{font-size:11px;line-height:1.6}#appMain table tbody tr:hover{background:#f7fbff!important}.workflow-controls{background:#f5f9fe;border-color:#e1e9f3;border-radius:8px}.workflow-btn,.workflow-field{border-radius:6px}.workflow-btn{min-height:35px;font-size:10px}.workflow-field{font-size:12px;border-color:#d6dee9}.workflow-chip{border-radius:5px;font-size:9px;background:#edf6ff;color:#0c6ab7}.workflow-note{font-size:11px;border-radius:8px;background:#f8fafc;border-color:#dfe6ef}.record-submit{background:#087adf}.record-submit:hover{background:#076bc3}.record-heading{font-size:18px;font-weight:650;letter-spacing:-.025em}.auth-dialog,#maintenanceConfirm{border-radius:12px;box-shadow:0 24px 90px #0f213640}.auth-dialog::backdrop,#maintenanceConfirm::backdrop{background:#1017208c}
+#quickRequestModal>div,#guestKeyModal>div,#contractorRegistrationModal>div{border-radius:12px!important}.studio-portal-hero,.studio-staff-panel,.studio-service-list{animation:studio-enter .3s ease-out both}.studio-service-list{animation-delay:.04s}@keyframes studio-enter{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:none}}
+@media(min-width:1600px){#appMain{padding:30px 38px!important}.dashboard-hero{grid-template-columns:minmax(0,1fr) 380px!important}.dashboard-hero-copy{padding:33px 35px!important}.dashboard-hero-actions{padding:23px 28px!important}}
+@media(max-width:1200px){.studio-portal-grid{grid-template-columns:minmax(0,1fr) 360px;gap:26px}.studio-hero-copy{max-width:75%}.studio-building-art{right:-18px;opacity:.45}.app-clock{display:none}.app-duty{display:none!important}.dashboard-hero{grid-template-columns:minmax(0,1fr) 290px!important}.dashboard-kpis .mt-3{align-items:baseline}.dashboard-kpis [id^=kpi]:first-child{font-size:27px!important}}
+@media(max-width:1023px){#sidebar{width:266px!important}.app-topbar{min-height:74px!important;padding:12px 18px!important}.app-menu-toggle{background:#f4f7fb!important;color:#52647c!important;border:1px solid #e1e6ef;border-radius:5px!important}.app-page-heading h2,#pageHeaderTitle{font-size:17px!important}.app-overline{font-size:7px!important}#appMain{padding:19px!important}.shared-data-panel{padding:7px 19px}.studio-portal-grid{grid-template-columns:minmax(0,1fr) 340px;gap:22px}#loginScreen .studio-portal-shell{padding:0 24px!important}#loginScreen section#staffPortal.studio-staff-panel{padding:23px!important}.studio-portal-hero{padding:25px}.studio-portal-hero h1{font-size:34px!important}.studio-building-art{width:160px;right:-30px;opacity:.3}.studio-service-launch{padding:16px;gap:12px}.studio-key-service{padding:16px;flex-wrap:wrap}.studio-key-actions{display:flex;margin-left:55px}.studio-service-copy strong,.studio-service-copy h4{font-size:15px}.studio-service-copy>span{font-size:10px}.studio-service-heading>span{font-size:9px}}
+@media(max-width:760px){#loginScreen .studio-portal-shell{padding:0 20px!important}#loginScreen .studio-portal-header{min-height:84px;padding:18px 0!important;gap:10px}.studio-brand strong{font-size:15px}.studio-brand small{font-size:9px}.studio-brand-mark{width:35px;height:37px;border-radius:7px}.studio-brand-mark svg{width:25px}.studio-portal-header-right{gap:10px}.studio-staff-jump{display:none}.studio-portal-header-right .building-picker a{min-width:52px;padding:6px 9px;font-size:11px;min-height:31px}.studio-portal-grid{grid-template-columns:1fr;gap:25px;margin:24px 0}.studio-portal-hero{min-height:240px;padding:27px}.studio-hero-copy{max-width:80%}.studio-portal-hero h1{font-size:39px!important}.studio-building-art{width:200px;right:0;opacity:.5}.studio-key-service{flex-wrap:nowrap}.studio-key-actions{display:grid;margin-left:auto}.studio-service-copy>span{font-size:11px}#loginScreen section#staffPortal.studio-staff-panel{padding:25px!important}.studio-service-heading{margin-top:22px}.studio-portal-footer{font-size:9px;line-height:1.7;padding-bottom:20px}.studio-portal-footer>span:last-child{width:100%}.dashboard-hero{grid-template-columns:1fr!important}.dashboard-hero-copy{padding:24px!important}.dashboard-hero h1{font-size:29px!important}.dashboard-hero-actions{padding:18px 22px!important}.dashboard-hero-meta{margin-top:16px!important}.dashboard-section-hint{display:none}.app-topbar{flex-wrap:wrap!important;gap:12px!important}.app-topbar-main{width:100%!important;flex:1!important}.app-toolbar{width:100%!important;justify-content:flex-start!important}.app-clock{display:flex;margin-right:auto}.app-toolbar .app-action{min-height:34px!important;font-size:10px!important}.app-tools-menu{margin-left:auto}.dashboard-kpis>button{min-height:135px!important}.shared-data-panel span{min-width:180px}#appMain .dashboard-data-row{grid-template-columns:1fr!important}#appMain table{min-width:650px}#sidebar .studio-nav-search kbd{display:none}}
+@media(max-width:420px){#loginScreen .studio-portal-shell{padding:0 15px!important}.studio-portal-header-right .building-picker a{min-width:43px;font-size:10px;padding:5px 7px}.studio-brand{gap:9px}.studio-brand strong{font-size:14px}.studio-brand small{font-size:8px}.studio-portal-hero{padding:23px 22px;min-height:235px}.studio-portal-hero h1{font-size:35px!important}.studio-building-art{right:-27px;opacity:.3}.studio-eyebrow{font-size:8px}.studio-service-heading>span{font-size:8px}.studio-service-launch,.studio-key-service{padding:14px;gap:11px}.studio-service-icon{width:36px;height:41px;font-size:14px}.studio-service-copy small{font-size:7px}.studio-service-copy strong,.studio-service-copy h4{font-size:14px}.studio-service-copy>span{font-size:10px}.studio-service-arrow{width:24px;height:26px}.studio-key-service{flex-wrap:wrap}.studio-service-key-copy{gap:11px}.studio-key-actions{display:flex;width:calc(100% - 47px);margin-left:47px}.studio-key-actions button{flex:1;justify-content:center;min-height:35px}.studio-service-note{font-size:9px}#loginScreen section#staffPortal.studio-staff-panel{padding:22px!important}.app-toolbar .app-clock{display:none}.app-topbar-main{gap:10px}.app-page-heading h2,#pageHeaderTitle{font-size:16px!important}.dashboard-kpis{grid-template-columns:1fr!important}.dashboard-kpis>button{min-height:130px!important}#appMain{padding:14px!important}.shared-data-panel{padding:7px 14px}.dashboard-hero-copy{padding:23px 20px!important}.dashboard-hero h1{font-size:26px!important}.dashboard-hero-meta{flex-wrap:wrap!important;font-size:8px!important}.dashboard-section-heading h3{font-size:16px!important}}
+@media(prefers-reduced-motion:reduce){.studio-portal-hero,.studio-staff-panel,.studio-service-list{animation:none!important}.studio-service-card,.nav-btn{transition:none!important}}
+@media print{.studio-nav-search,.studio-nav-result,.studio-portal-footer,.studio-portal-header-right{display:none!important}#appMain{background:white!important}.dashboard-hero-copy{background:#fff!important;color:#111!important}.dashboard-hero h1{color:#111!important}}
+
+</style>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans antialiased selection:bg-blue-600 selection:text-white overflow-hidden">
 
-    <div id="loginScreen" class="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-slate-950/75 p-3 backdrop-blur-md sm:p-6">
-        <div class="my-auto w-full max-w-6xl overflow-hidden rounded-[26px] border border-white/30 bg-white shadow-[0_28px_90px_rgba(2,6,23,0.45)]">
-            <!-- Brand header -->
-            <header class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 bg-white px-5 py-4 sm:px-8 sm:py-5">
-                <div class="flex min-w-0 items-center gap-3.5">
-                    <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-lg shadow-slate-900/15">
-                        <i class="fa-solid fa-building-shield text-xl text-blue-400"></i>
-                    </div>
-                    <div class="min-w-0">
-                        <h1 class="truncate text-lg font-extrabold tracking-tight text-slate-950 sm:text-xl" data-building-text="label">V.CTCH · 500G</h1>
-                        <p class="mt-0.5 text-xs leading-relaxed text-slate-500 sm:text-sm">Cổng hỗ trợ kỹ thuật và vận hành tòa nhà</p>
-                    </div>
+        <div id="loginScreen" class="studio-portal">
+        <div class="studio-portal-shell">
+            <header class="studio-portal-header">
+                <div class="studio-brand">
+                    <span class="studio-brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M5 27V9h9v18M14 27V5h13v22M3 27h26M9 13h1m-1 5h1m-1 5h1M19 10h3m-3 5h3m-3 5h3" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg></span>
+                    <span><strong data-building-text="label">V.CTCH · 500G</strong><small>Quản lý kỹ thuật &amp; vận hành</small></span>
                 </div>
-                <div class="portal-header-actions">
-                    <nav class="building-picker" aria-label="Chọn tòa nhà">
-                        <a href="?building=500G" data-building-link="500G">500G</a>
-                        <a href="?building=1000G" data-building-link="1000G">1000G</a>
-                    </nav>
-                    <button type="button" class="portal-staff-link" onclick="document.getElementById('staffPortal').focus()">Nhân sự đăng nhập <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></button>
+                <div class="studio-portal-header-right">
+                    <nav class="building-picker" aria-label="Chọn tòa nhà"><a href="?building=500G" data-building-link="500G">500G</a><a href="?building=1000G" data-building-link="1000G">1000G</a></nav>
+                    <button type="button" class="studio-staff-jump" onclick="document.getElementById('staffPortal').focus()">Đăng nhập nhân sự <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
                 </div>
             </header>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2">
-                <!-- Guest services: separated from staff authentication -->
-                <section class="border-b border-slate-200 bg-slate-50 p-5 sm:p-7 lg:border-b-0 lg:border-r lg:p-9" aria-labelledby="guestServicesTitle">
-                    <div class="mb-5">
-                        <p class="mb-2 text-[10px] font-extrabold uppercase tracking-[0.2em] text-blue-700">KHOA / PHÒNG / BAN &amp; NHÀ THẦU</p>
-                        <h2 id="guestServicesTitle" class="text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl">Yêu cầu hỗ trợ</h2><p id="publicFormProtectionStatus" class="hidden mt-2 rounded-lg bg-amber-50 p-3 text-xs text-amber-900" role="status"></p>
-                        <p class="mt-1.5 max-w-md text-sm leading-relaxed text-slate-600">Gửi yêu cầu cho tòa đang chọn. Các tiện ích dưới đây mở cho khách.</p>
+            <div class="studio-portal-grid">
+                <section class="studio-services" aria-labelledby="guestServicesTitle">
+                    <div class="studio-portal-hero">
+                        <div class="studio-hero-copy"><p class="studio-eyebrow"><span></span> CỔNG HỖ TRỢ · <span data-building-text="building">500G</span></p>
+                            <h1 id="guestServicesTitle">Mọi hỗ trợ.<br><span>Một điểm đến.</span></h1>
+                            <p>Gửi yêu cầu đến Ban quản lý tòa nhà.<br>Dành cho khoa, phòng, ban và nhà thầu.</p>
+                            <div class="studio-public-label"><i class="fa-solid fa-arrow-turn-down" aria-hidden="true"></i> Chọn dịch vụ để bắt đầu</div>
+                        </div>
+                        <svg class="studio-building-art" viewBox="0 0 230 245" fill="none" aria-hidden="true"><path d="M18 223h203M32 223V80l69-24v167M101 223V23l105 30v170M32 80l69 18 105-45M101 98v125M122 70v121M145 63v134M169 68v135M190 75v135M101 119l105-39M101 145l105-39M101 171l105-39M101 197l105-39M32 108l69 17M32 137l69 17M32 165l69 17M32 193l69 17M54 74v149M78 65v158" stroke="currentColor" stroke-width="1"/><path d="m101 145 68-25v28l-68 25v-28Z" fill="#0B84F3" fill-opacity=".3" stroke="#7CBFFE"/><path d="M217 118h-29m29 0-5-5m5 5-5 5" stroke="#9DCEFD"/><circle cx="188" cy="118" r="3" fill="#0B84F3"/><path d="M14 237h18m9 0h18m9 0h18m9 0h18m9 0h18m9 0h18m9 0h18m9 0h12" stroke="currentColor" stroke-opacity=".4"/></svg>
                     </div>
-
-                    <div class="space-y-3">
-                        <article class="group rounded-2xl border border-rose-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-rose-300 hover:shadow-md">
-                            <div class="flex items-start gap-3">
-                                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-rose-50 text-rose-700"><i class="fa-solid fa-bell-concierge text-lg"></i></div>
-                                <div class="min-w-0 flex-1">
-                                    <h3 class="text-sm font-bold text-slate-900">Báo hỏng nhanh</h3>
-                                    <p class="mt-1 text-xs leading-relaxed text-slate-500">Dành cho lễ tân, bảo vệ hoặc khách cần báo sự cố kỹ thuật.</p>
-                                    <button type="button" onclick="openQuickRequestModal()" class="mt-3 inline-flex items-center gap-2 rounded-lg bg-rose-600 px-3.5 py-2 text-xs font-bold text-white transition hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-300"><i class="fa-solid fa-plus"></i> Tạo yêu cầu báo hỏng <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
-                                </div>
-                            </div>
+                    <p id="publicFormProtectionStatus" class="hidden studio-public-status" role="status"></p>
+                    <div class="studio-service-heading"><h3>Dịch vụ trực tuyến</h3><span>Không cần đăng nhập</span></div>
+                    <div class="studio-service-list">
+                        <article class="studio-service-card">
+                            <button type="button" class="studio-service-launch" onclick="openQuickRequestModal()"><span class="studio-service-icon" aria-hidden="true"><i class="fa-solid fa-wrench"></i></span><span class="studio-service-copy"><small>01 / HỖ TRỢ KỸ THUẬT</small><strong>Báo hỏng nhanh</strong><span>Ghi nhận sự cố, vị trí và hình ảnh hiện trường.</span></span><span class="studio-service-arrow" aria-hidden="true"><i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
                         </article>
-
-                        <article class="rounded-2xl border border-indigo-200 bg-white p-4 shadow-sm transition hover:border-indigo-300 hover:shadow-md">
-                            <div class="flex items-start gap-3">
-                                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-700"><i class="fa-solid fa-key text-lg"></i></div>
-                                <div class="min-w-0 flex-1">
-                                    <h3 class="text-sm font-bold text-slate-900">Mượn / trả chìa khóa</h3>
-                                    <p class="mt-1 text-xs leading-relaxed text-slate-500">Đăng ký mượn một hoặc nhiều chìa khóa, tra cứu lịch sử và xác nhận trả.</p>
-                                    <div class="mt-3 grid grid-cols-2 gap-2">
-                                        <button type="button" onclick="openGuestKeyModal('borrow')" class="inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-700 px-3 py-2.5 text-xs font-bold text-white transition hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-300"><i class="fa-solid fa-arrow-up-right-from-square"></i> Mượn chìa</button>
-                                        <button type="button" onclick="openGuestKeyModal('return')" class="inline-flex items-center justify-center gap-2 rounded-lg border border-indigo-200 bg-indigo-50 px-3 py-2.5 text-xs font-bold text-indigo-800 transition hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-300"><i class="fa-solid fa-arrow-rotate-left"></i> Trả chìa</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-
-                        <article class="rounded-2xl border border-orange-200 bg-white p-4 shadow-sm transition hover:border-orange-300 hover:shadow-md">
-                            <div class="flex items-start gap-3">
-                                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-orange-700"><i class="fa-solid fa-helmet-safety text-lg"></i></div>
-                                <div class="min-w-0 flex-1">
-                                    <h3 class="text-sm font-bold text-slate-900">Đăng ký thi công nhà thầu</h3>
-                                    <p class="mt-1 text-xs leading-relaxed text-slate-500">Nộp Đơn đề nghị thi công theo mẫu Bệnh viện Quân y 175. Hồ sơ sẽ chờ Ban QLTN xem xét.</p>
-                                    <button type="button" onclick="openContractorRegistrationModal()" class="mt-3 inline-flex items-center gap-2 rounded-lg bg-orange-600 px-3.5 py-2 text-xs font-bold text-white transition hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-300"><i class="fa-solid fa-file-signature"></i> Mở biểu mẫu đăng ký <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
-                                </div>
-                            </div>
+                        <article class="studio-service-card studio-key-service"><div class="studio-service-key-copy"><span class="studio-service-icon" aria-hidden="true"><i class="fa-solid fa-key"></i></span><div class="studio-service-copy"><small>02 / QUẢN LÝ CHÌA KHÓA</small><h4>Mượn &amp; trả chìa</h4><span>Đăng ký mượn, tra cứu phiếu và xác nhận trả.</span></div></div><div class="studio-key-actions"><button type="button" onclick="openGuestKeyModal('borrow')">Mượn chìa <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button><button type="button" onclick="openGuestKeyModal('return')">Trả chìa <i class="fa-solid fa-arrow-rotate-left" aria-hidden="true"></i></button></div></article>
+                        <article class="studio-service-card">
+                            <button type="button" class="studio-service-launch" onclick="openContractorRegistrationModal()"><span class="studio-service-icon" aria-hidden="true"><i class="fa-solid fa-helmet-safety"></i></span><span class="studio-service-copy"><small>03 / DÀNH CHO NHÀ THẦU</small><strong>Đăng ký thi công</strong><span>Nộp hồ sơ để Ban quản lý tòa nhà xét duyệt.</span></span><span class="studio-service-arrow" aria-hidden="true"><i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
                         </article>
                     </div>
-
-                    <div class="mt-5 flex items-start gap-2 rounded-xl border border-slate-200 bg-white/80 px-3.5 py-3 text-[11px] leading-relaxed text-slate-500">
-                        <i class="fa-solid fa-circle-info mt-0.5 text-slate-400"></i>
-                        <p>Yêu cầu được gửi đến bộ phận vận hành của tòa đang chọn qua Firebase.</p>
-                    </div>
+                    <p class="studio-service-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Yêu cầu được tiếp nhận theo tòa nhà đang chọn.</p>
                 </section>
-
-                <!-- Staff login -->
-                <section id="staffPortal" tabindex="-1" class="p-5 sm:p-7 lg:p-10" aria-labelledby="staffLoginTitle">
+                <section id="staffPortal" tabindex="-1" class="studio-staff-panel" aria-labelledby="staffLoginTitle">
                     <div id="authStatusText" class="auth-message mb-4" role="status">Đang kết nối dịch vụ đăng nhập.</div>
-                    <div id="authSetupPanel" class="hidden">
-                        <p class="font-bold">Kết nối tài khoản thật</p>
-                        <p>Cần cấu hình Firebase và bộ quy tắc phân quyền trước khi nhân sự đăng nhập.</p>
-                        <details class="mt-2">
-                            <summary class="cursor-pointer font-semibold">Dành cho người triển khai</summary>
-                            <p class="mt-2">Bật Email/Password trong Firebase Authentication, tạo Cloud Firestore, áp dụng tệp firestore.rules rồi đặt firebase-config.json cạnh index.html trên GitHub.</p>
-                            <form onsubmit="RealAuth.downloadConfig(event)" class="mt-3 space-y-2">
-                                <label for="authConfigInput" class="block font-semibold">Cấu hình JSON của ứng dụng web Firebase</label>
-                                <textarea id="authConfigInput" rows="5" spellcheck="false" class="workflow-field w-full font-mono" placeholder='{"apiKey":"…","authDomain":"…","projectId":"…","appId":"…"}'></textarea>
-                                <button type="submit" class="workflow-btn bg-white border border-slate-300">Tải firebase-config.json</button>
-                                <p id="authConfigFeedback" class="auth-message hidden" role="status"></p>
-                            </form>
-                        </details>
-                    </div>
-                    <details id="appCheckSetupPanel" class="mb-4 rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-700">
-                        <summary class="cursor-pointer font-semibold">Thiết lập bảo vệ biểu mẫu (IT)</summary>
-                        <p id="appCheckSetupStatus" class="mt-2" role="status">Đang kiểm tra cấu hình bảo vệ.</p>
-                        <form onsubmit="PublicGuard.downloadConfig(event)" class="mt-3 space-y-2">
-                            <label for="appCheckSiteKeyInput" class="block font-semibold">Site key reCAPTCHA Enterprise đã đăng ký trong Firebase App Check</label>
-                            <input id="appCheckSiteKeyInput" type="text" maxlength="200" spellcheck="false" class="workflow-field w-full font-mono" placeholder="Site key của ứng dụng Web">
-                            <button type="submit" class="workflow-btn bg-white border border-slate-300">Tải app-check-config.json</button>
-                            <p id="appCheckConfigFeedback" role="status"></p>
-                            <p>Bật Anonymous trong Firebase Authentication cho phiên khách. Kiểm tra App Check ở chế độ theo dõi rồi mới bật Enforce.</p>
-                        </form>
-                    </details>
+                    
+                    
                     <div id="loginCredentialsPanel">
+<div class="studio-staff-badge"><i class="fa-solid fa-lock" aria-hidden="true"></i> KHÔNG GIAN NHÂN SỰ</div>
                         <div class="mb-6">
-                            <p class="mb-2 text-[10px] font-extrabold uppercase tracking-[0.2em] text-blue-700">KHU VỰC NHÂN SỰ</p>
+                            <p class="mb-2 text-[10px] font-extrabold uppercase tracking-[0.2em] text-blue-700">DÀNH CHO ĐỘI NGŨ VẬN HÀNH</p>
                             <h2 id="staffLoginTitle" tabindex="-1" class="text-2xl font-extrabold tracking-tight text-slate-950 sm:text-[28px]">Đăng nhập hệ thống</h2>
                             <p class="mt-2 text-sm leading-relaxed text-slate-500">Dùng email và mật khẩu cá nhân. Quyền truy cập được cấp riêng cho từng tòa nhà.</p>
                         </div>
@@ -3586,14 +3572,35 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
                         </div>
                         <details class="text-xs text-slate-500"><summary class="cursor-pointer">Mã tài khoản để cấp quyền</summary><p id="authSignedUid" class="mt-2 break-all font-mono"></p></details>
                     </div>
-                </section>
+                <details class="studio-deployment"><summary><i class="fa-solid fa-sliders" aria-hidden="true"></i> Thiết lập kết nối (IT)</summary><div id="authSetupPanel" class="hidden">
+                        <p class="font-bold">Kết nối tài khoản thật</p>
+                        <p>Cần cấu hình Firebase và bộ quy tắc phân quyền trước khi nhân sự đăng nhập.</p>
+                        <details class="mt-2">
+                            <summary class="cursor-pointer font-semibold">Dành cho người triển khai</summary>
+                            <p class="mt-2">Bật Email/Password trong Firebase Authentication, tạo Cloud Firestore, áp dụng tệp firestore.rules rồi đặt firebase-config.json cạnh index.html trên GitHub.</p>
+                            <form onsubmit="RealAuth.downloadConfig(event)" class="mt-3 space-y-2">
+                                <label for="authConfigInput" class="block font-semibold">Cấu hình JSON của ứng dụng web Firebase</label>
+                                <textarea id="authConfigInput" rows="5" spellcheck="false" class="workflow-field w-full font-mono" placeholder='{"apiKey":"…","authDomain":"…","projectId":"…","appId":"…"}'></textarea>
+                                <button type="submit" class="workflow-btn bg-white border border-slate-300">Tải firebase-config.json</button>
+                                <p id="authConfigFeedback" class="auth-message hidden" role="status"></p>
+                            </form>
+                        </details>
+                    </div><details id="appCheckSetupPanel" class="mb-4 rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-700">
+                        <summary class="cursor-pointer font-semibold">Thiết lập bảo vệ biểu mẫu (IT)</summary>
+                        <p id="appCheckSetupStatus" class="mt-2" role="status">Đang kiểm tra cấu hình bảo vệ.</p>
+                        <form onsubmit="PublicGuard.downloadConfig(event)" class="mt-3 space-y-2">
+                            <label for="appCheckSiteKeyInput" class="block font-semibold">Site key reCAPTCHA Enterprise đã đăng ký trong Firebase App Check</label>
+                            <input id="appCheckSiteKeyInput" type="text" maxlength="200" spellcheck="false" class="workflow-field w-full font-mono" placeholder="Site key của ứng dụng Web">
+                            <button type="submit" class="workflow-btn bg-white border border-slate-300">Tải app-check-config.json</button>
+                            <p id="appCheckConfigFeedback" role="status"></p>
+                            <p>Bật Anonymous trong Firebase Authentication cho phiên khách. Kiểm tra App Check ở chế độ theo dõi rồi mới bật Enforce.</p>
+                        </form>
+                    </details></details></section>
             </div>
-            <footer class="flex flex-wrap items-center justify-between gap-2 border-t border-slate-200 bg-white px-5 py-3 text-[10px] text-slate-400 sm:px-8">
-                <span>V.CTCH · Quản lý kỹ thuật &amp; vận hành</span>
-                <span>© Nội bộ · Vui lòng sử dụng tài khoản được cấp</span>
-            </footer>
+            <footer class="studio-portal-footer"><span>V.CTCH <span class="studio-footer-slash">/</span> Vận hành tòa nhà</span><span>500G &amp; 1000G · Hai không gian vận hành độc lập</span></footer>
         </div>
     </div>
+
 
 
     <div id="mainAppWrapper" inert class="flex h-screen overflow-hidden filter blur-xl pointer-events-none select-none transition-all duration-300">
@@ -3619,6 +3626,7 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
                 </button>
             </div>
 
+            <div class="studio-nav-search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><label class="sr-only" for="studioNavSearch">Tìm phân hệ</label><input id="studioNavSearch" type="search" placeholder="Tìm phân hệ…" autocomplete="off" oninput="StudioNavigation.filter()"><kbd aria-hidden="true">Ctrl K</kbd><button id="studioNavClear" type="button" hidden onclick="StudioNavigation.clear()" aria-label="Xóa tìm kiếm"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div><p id="studioNavResult" class="studio-nav-result" hidden role="status"></p>
             <!-- Navigation Links -->
             <nav aria-label="Phân hệ nội bộ" class="flex-1 px-3 py-4 space-y-1 overflow-y-auto text-sm"><div class="nav-section" data-nav-section="ops"><div class="nav-section-label">Trực vận hành</div><button class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium transition bg-blue-600 text-white" id="nav-dashboard" onclick="switchTab('dashboard')">
 <i class="fa-solid fa-chart-pie w-5 text-center"></i>
@@ -3764,8 +3772,8 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
                 <section id="tab-dashboard" class="tab-content space-y-6">
                     <div class="dashboard-hero">
                         <div class="dashboard-hero-copy">
-                            <div class="dashboard-hero-eyebrow"><span class="dashboard-live-dot"></span> BẢNG ĐIỀU HÀNH <span class="dashboard-hero-connector">·</span> <span data-building-text="building">500G</span></div>
-                            <h1>Điều hành ca trực</h1>
+                            <div class="dashboard-hero-eyebrow"><span class="dashboard-live-dot"></span> KHÔNG GIAN VẬN HÀNH <span class="dashboard-hero-connector">·</span> <span data-building-text="building">500G</span></div>
+                            <h1>Điều hành ca trực<span class="studio-heading-dot">.</span></h1>
                             <p>Theo dõi sự cố, nghiệm thu và công việc đến hạn của tòa đang mở.</p>
                             <div class="dashboard-hero-meta"><i class="fa-regular fa-calendar"></i><span id="dashboardTodayText">Hôm nay</span><span class="dashboard-meta-separator">•</span><i class="fa-solid fa-location-dot"></i> <span data-building-text="label">V.CTCH · 500G</span></div>
                         </div>
@@ -13499,6 +13507,47 @@ async function importNotebookLmConfig(event) {
     finally {input.value='';}
 }
 loadNotebookLmLinks();
+</script>
+<script id="studio-navigation">
+/* Navigation filtering changes presentation only; existing permission gates remain authoritative. */
+window.StudioNavigation=(()=>{
+    const text=value=>String(value).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase().trim();
+    function available(button){
+        for(let node=button;node&&node.id!=='sidebar';node=node.parentElement){
+            if(node.hidden||node.classList.contains('hidden')||node.style.display==='none')return false;
+        }
+        return true;
+    }
+    function filter(){
+        const input=document.getElementById('studioNavSearch'),query=text(input?.value||'');
+        const buttons=[...document.querySelectorAll('#sidebar .nav-btn')];let shown=0;
+        for(const button of buttons){
+            const match=!query||query.split(/\s+/).every(word=>text(button.textContent).includes(word));
+            button.dataset.navFiltered=String(!match);
+            if(match&&available(button))shown++;
+        }
+        for(const section of document.querySelectorAll('#sidebar .nav-section')){
+            section.dataset.navFiltered=String(!!query&&![...section.querySelectorAll('.nav-btn')].some(button=>button.dataset.navFiltered==='false'&&available(button)));
+        }
+        const result=document.getElementById('studioNavResult');
+        if(result){result.textContent=query?(shown?'Tìm thấy '+shown+' phân hệ.':'Không tìm thấy phân hệ phù hợp.') : '';result.hidden=!query;}
+        document.getElementById('studioNavClear').hidden=!query;
+    }
+    function clear(){const input=document.getElementById('studioNavSearch');input.value='';filter();input.focus();}
+    function focus(event){
+        if(!hasAuthenticatedClientSession())return;
+        if(event&&(event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='k'){
+            event.preventDefault();
+            const sidebar=document.getElementById('sidebar');
+            if(matchMedia('(max-width:1023px)').matches&&sidebar.classList.contains('-translate-x-full'))toggleMobileSidebar();
+            document.getElementById('studioNavSearch').focus();
+        }
+    }
+    document.addEventListener('keydown',focus);
+    document.addEventListener('keydown',event=>{if(event.key==='Escape'&&event.target.id==='studioNavSearch')clear();});
+    return {filter,clear};
+})();
+
 </script>
 </body>
 </html>
