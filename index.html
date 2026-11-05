@@ -4055,6 +4055,80 @@ html[data-building="1000G"] .app-overline [data-building-text="building"]{backgr
   html[data-theme="dark"] #tab-notebooklm .nb-details a{color:#bfdef8}
 }
 
+/* Slate/navy reading palette: text and every interactive surface stay paired. */
+@media screen {
+  html[data-theme="dark"]{
+    --dark-canvas:#111827;--dark-surface:#1f2937;--dark-raised:#263449;
+    --dark-hover:#334963;--dark-ink:#f3f4f6;--dark-muted:#cbd5e1;--dark-border:#52657b;
+    --pastel-bg:var(--dark-canvas);--pastel-card:var(--dark-surface);--pastel-ink:var(--dark-ink);
+    --pastel-muted:var(--dark-muted);--pastel-line:var(--dark-border);
+    --studio-bg:var(--dark-canvas);--studio-ink:var(--dark-ink);--studio-muted:var(--dark-muted);--studio-line:var(--dark-border);
+  }
+  html[data-theme="dark"] :is(body,#appMain,#loginScreen.studio-portal){background:var(--dark-canvas)!important;color:var(--dark-ink)!important}
+  html[data-theme="dark"] :is(.bg-white,.bg-slate-50,.bg-slate-100,.bg-gray-50,.bg-gray-100,.bg-zinc-50){background-color:var(--dark-surface)!important}
+  html[data-theme="dark"] :is(.tab-content>div.bg-white,.dashboard-system-panel,.dashboard-data-row>div,.nb-main-panel,.nb-group){background:var(--dark-surface)!important;border-color:var(--dark-border)!important}
+  html[data-theme="dark"] :is(.text-slate-950,.text-slate-900,.text-slate-800,.text-slate-700,.text-gray-900,.text-gray-800,.text-gray-700){color:var(--dark-ink)!important}
+  html[data-theme="dark"] :is(.text-slate-600,.text-slate-500,.text-slate-400,.text-slate-300,.text-gray-600,.text-gray-500,.text-gray-400){color:var(--dark-muted)!important}
+  html[data-theme="dark"] :is(input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),select,textarea){background-color:#142033!important;color:#f8fafc!important;border-color:#637b97!important}
+  html[data-theme="dark"] :is(input,textarea)::placeholder{color:#bdcadd!important;opacity:1}
+  html[data-theme="dark"] :is(dialog,[id$="Modal"].fixed>div:first-child){background:var(--dark-surface)!important;color:var(--dark-ink)!important;border-color:var(--dark-border)!important}
+
+  html[data-theme="dark"] #sidebar{background:#182333!important;color:#e5edf8!important;border-color:#42536a!important}
+  html[data-theme="dark"] #sidebar>div:first-child{border-color:#42536a!important}
+  html[data-theme="dark"] #sidebar>div:first-child :is(span,.font-bold.text-base){color:#e5edf8!important}
+  html[data-theme="dark"] :is(.studio-nav-search,#sidebar>div:last-child){background:#202e43!important;border-color:#52657b!important;color:#e5edf8!important}
+  html[data-theme="dark"] .studio-nav-search input{background:transparent!important;color:#f1f5f9!important}
+  html[data-theme="dark"] #sidebar :is(.nav-section-label,.studio-nav-search kbd,.studio-nav-search button,.studio-nav-result){color:#c6d2e4!important}
+  html[data-theme="dark"] #sidebar .nav-btn{color:#d8e2f0!important}
+  html[data-theme="dark"] #sidebar .nav-btn i{color:#c4d5eb!important}
+  html[data-theme="dark"] #sidebar .nav-btn:hover{background:#2c3e57!important;color:#fff!important}
+  html[data-theme="dark"] #sidebar .nav-btn.bg-blue-600{background:#3b5674!important;border-color:#7999be!important;color:#fff!important}
+  html[data-theme="dark"] #sidebar .nav-btn.bg-blue-600 i{color:#fff!important}
+  html[data-theme="dark"] #sidebar :is(#currentUserName,#currentUserRoleBadge){color:#e1e9f5!important}
+  html[data-theme="dark"] .app-topbar{background:#1c283a!important;border-color:#4c6078!important}
+  html[data-theme="dark"] :is(.shared-data-panel,.app-tools-popover){background:#243347!important;color:#e2ebf8!important;border-color:#52657b!important}
+
+  /* ID-level selectors also override the older light-only table hover rule. */
+  html[data-theme="dark"] #appMain table th{background:#2b3a4f!important;color:#f1f5f9!important;border-color:var(--dark-border)!important}
+  html[data-theme="dark"] #appMain table tbody tr{background:var(--dark-surface)!important;color:var(--dark-ink)!important}
+  html[data-theme="dark"] #appMain table tbody tr:nth-child(even){background:#233044!important}
+  html[data-theme="dark"] #appMain table tbody tr[class*="bg-red-"]{background:#482f3e!important}
+  html[data-theme="dark"] #appMain table tbody tr[class*="bg-amber-"]{background:#493c2b!important}
+  html[data-theme="dark"] #appMain table tbody tr>td{background-color:transparent!important;color:var(--dark-ink)!important;border-color:#52657b!important}
+  html[data-theme="dark"] #appMain table tbody tr:is(:hover,:focus-within),
+  html[data-theme="dark"] #appMain table tbody tr:is(:hover,:focus-within)>td{background:#334963!important;color:#f8fafc!important}
+  html[data-theme="dark"] #appMain table tbody tr:is(:hover,:focus-within) :is(.text-slate-600,.text-slate-500,.text-slate-400,.text-gray-500,.asset-access-label){color:#e0e8f3!important}
+  html[data-theme="dark"] :is(.asset-access-value,.asset-notes-text){color:#f3f4f6!important}
+  html[data-theme="dark"] .asset-access-label{color:#cbd5e1!important}
+
+  /* Map artwork keeps its original colors; all surrounding UI uses dark surfaces. */
+  html[data-theme="dark"] #tab-devicemap{color:var(--dark-ink)}
+  html[data-theme="dark"] #tab-devicemap :is(.map-filters,.map-board,.map-device-panel,.map-asset-detail){background:var(--dark-surface)!important;color:var(--dark-ink)!important;border-color:var(--dark-border)!important}
+  html[data-theme="dark"] #tab-devicemap :is(.map-board-toolbar,.map-board-footer,.map-device-panel-heading){background:#263449!important;color:var(--dark-ink)!important;border-color:var(--dark-border)!important}
+  html[data-theme="dark"] #tab-devicemap :is(.map-filters label,.map-summary,.map-legend,.map-heading>div>p,.map-board-footer label,.map-view-tools>span,.map-list-empty,.map-coordinate-fields label,.map-empty p){color:#d0dbee!important}
+  html[data-theme="dark"] #tab-devicemap .map-filters label{font-size:11px;font-weight:650}
+  html[data-theme="dark"] #tab-devicemap :is(.map-summary,.map-legend span,.map-view-tools>span){font-size:11px}
+  html[data-theme="dark"] #tab-devicemap .map-text-button{color:#b7d7ff!important;font-size:11px}
+  html[data-theme="dark"] #tab-devicemap .map-asset-list{background:#1b2738!important;overflow-x:hidden}
+  html[data-theme="dark"] #tab-devicemap .map-asset-row{background:#1f2c3e!important;color:#f3f4f6!important;border-color:#4b5e76!important}
+  html[data-theme="dark"] #tab-devicemap .map-asset-row strong{color:#f3f4f6!important;font-size:12px;line-height:1.55}
+  html[data-theme="dark"] #tab-devicemap .map-asset-row small{color:#cbd5e1!important;font-size:11px;line-height:1.6}
+  html[data-theme="dark"] #tab-devicemap .map-asset-row:hover{background:#30455f!important;color:#fff!important}
+  html[data-theme="dark"] #tab-devicemap .map-asset-row[aria-pressed=true]{background:#3a5676!important;box-shadow:inset 4px 0 #a9d2ff}
+  html[data-theme="dark"] #tab-devicemap .map-asset-row[aria-pressed=true] :is(strong,small){color:#fff!important}
+  html[data-theme="dark"] #tab-devicemap .map-asset-row:focus-visible{outline:2px solid #afd3ff;outline-offset:-3px}
+  html[data-theme="dark"] #tab-devicemap .map-edit-toggle{background:#304a64!important;color:#edf5ff!important;border-color:#7894b3!important}
+  html[data-theme="dark"] #tab-devicemap .map-edit-toggle[aria-pressed=true]{background:#43688b!important;color:#fff!important;border-color:#a5c5e8!important}
+  html[data-theme="dark"] #tab-devicemap .map-edit-toggle:hover{background:#3b5876!important;color:#fff!important}
+  html[data-theme="dark"] #tab-devicemap .map-asset-detail :is(h4,dt,dd){color:#e9eff8!important}
+  html[data-theme="dark"] #tab-devicemap .map-detail-code{color:#c1ddff!important}
+  html[data-theme="dark"] #tab-devicemap .map-dot.is-ok{background:#77dbaf}
+  html[data-theme="dark"] #tab-devicemap .map-dot.is-error{background:#ff9bab}
+  html[data-theme="dark"] #tab-devicemap .map-dot.is-maint{background:#f4ce83}
+  html[data-theme="dark"] #tab-devicemap .map-dot.is-unknown{background:#b5c2d6}
+  html[data-theme="dark"] #mapPlanDialog .map-dialog-note{color:#cbd5e1!important}
+}
+
 </style>
 <style id="asset-access-style">
 .asset-directory-table{min-width:1320px!important}
