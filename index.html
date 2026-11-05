@@ -4072,30 +4072,7 @@ html[data-building="1000G"] .app-overline [data-building-text="building"]{backgr
                         </div>
                         <details class="text-xs text-slate-500"><summary class="cursor-pointer">Mã tài khoản để cấp quyền</summary><p id="authSignedUid" class="mt-2 break-all font-mono"></p></details>
                     </div>
-                <details class="studio-deployment"><summary><i class="fa-solid fa-sliders" aria-hidden="true"></i> Thiết lập kết nối (IT)</summary><div id="authSetupPanel" class="hidden">
-                        <p class="font-bold">Kết nối tài khoản thật</p>
-                        <p>Cần cấu hình Firebase và bộ quy tắc phân quyền trước khi nhân sự đăng nhập.</p>
-                        <details class="mt-2">
-                            <summary class="cursor-pointer font-semibold">Dành cho người triển khai</summary>
-                            <p class="mt-2">Bật Email/Password trong Firebase Authentication, tạo Cloud Firestore, áp dụng tệp firestore.rules rồi đặt firebase-config.json cạnh index.html trên GitHub.</p>
-                            <form onsubmit="RealAuth.downloadConfig(event)" class="mt-3 space-y-2">
-                                <label for="authConfigInput" class="block font-semibold">Cấu hình JSON của ứng dụng web Firebase</label>
-                                <textarea id="authConfigInput" rows="5" spellcheck="false" class="workflow-field w-full font-mono" placeholder='{"apiKey":"…","authDomain":"…","projectId":"…","appId":"…"}'></textarea>
-                                <button type="submit" class="workflow-btn bg-white border border-slate-300">Tải firebase-config.json</button>
-                                <p id="authConfigFeedback" class="auth-message hidden" role="status"></p>
-                            </form>
-                        </details>
-                    </div><details id="appCheckSetupPanel" class="mb-4 rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-700">
-                        <summary class="cursor-pointer font-semibold">Thiết lập bảo vệ biểu mẫu (IT)</summary>
-                        <p id="appCheckSetupStatus" class="mt-2" role="status">Đang kiểm tra cấu hình bảo vệ.</p>
-                        <form onsubmit="PublicGuard.downloadConfig(event)" class="mt-3 space-y-2">
-                            <label for="appCheckSiteKeyInput" class="block font-semibold">Site key reCAPTCHA Enterprise đã đăng ký trong Firebase App Check</label>
-                            <input id="appCheckSiteKeyInput" type="text" maxlength="200" spellcheck="false" class="workflow-field w-full font-mono" placeholder="Site key của ứng dụng Web">
-                            <button type="submit" class="workflow-btn bg-white border border-slate-300">Tải app-check-config.json</button>
-                            <p id="appCheckConfigFeedback" role="status"></p>
-                            <p>Bật Anonymous trong Firebase Authentication cho phiên khách. Kiểm tra App Check ở chế độ theo dõi rồi mới bật Enforce.</p>
-                        </form>
-                    </details></details></section>
+                </section>
             </div>
             <footer class="studio-portal-footer"><span>V.CTCH <span class="studio-footer-slash">/</span> Vận hành tòa nhà</span><span>500G &amp; 1000G · Hai không gian vận hành độc lập</span></footer>
         </div>
@@ -14086,12 +14063,10 @@ window.RealAuth = (() => {
             window.SharedData.configure(sdk,db,auth);
             window.DeviceMap?.configure(sdk,db,auth);
             initialized = true;
-            el('authSetupPanel').classList.add('hidden');
             sdk.onIdTokenChanged(auth, attachMembership, error => lock(errorText(error)));
             message('authStatusText', 'Đăng nhập bằng tài khoản nhân sự của bạn.');
         } catch (error) {
             lock();
-            el('authSetupPanel').classList.remove('hidden');
             message('authStatusText', errorText(error), true);
         } finally {
             setBusy(false);
