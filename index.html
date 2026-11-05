@@ -4164,6 +4164,34 @@ html[data-theme="dark"] .asset-password-field button{color:#b7d1df}
 @media(max-width:640px){.asset-access-fields{grid-template-columns:1fr}.asset-access-editor{padding:10px}.asset-password-reveal{min-height:36px;flex-basis:36px}}
 
 </style>
+<style id="shift-diary-style">
+.shift-diary{--sd-bg:#fff;--sd-soft:#f5f8fb;--sd-ink:#243c4b;--sd-muted:#586c7c;--sd-line:#cddce5;--sd-accent:#355f7a;--sd-tint:#e8f2f7;color:var(--sd-ink);font-size:13px;line-height:1.6}
+.sd-heading,.sd-section-heading,.sd-actions,.sd-history-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.sd-heading{justify-content:space-between;margin-bottom:18px}.sd-heading h3{font-size:23px;line-height:1.3;margin:4px 0;font-weight:800;letter-spacing:-.4px}.sd-heading p,.sd-section-heading p{color:var(--sd-muted);margin:3px 0 0}.sd-eyebrow{font-size:10px;font-weight:800;letter-spacing:1.3px}
+.sd-feedback{border:1px solid var(--sd-line);background:var(--sd-tint);padding:12px 16px;border-radius:12px;margin:0 0 18px;color:var(--sd-ink)}.sd-feedback[data-error=true]{background:#fff1f2;border-color:#e8acb6;color:#9f2039}
+#shiftDiaryFields{min-width:0;border:0;margin:0;padding:0}.sd-card{background:var(--sd-bg);border:1px solid var(--sd-line);border-radius:17px;padding:22px;margin-bottom:18px;min-width:0}.sd-section-heading{margin-bottom:18px}.sd-section-heading>div{flex:1;min-width:160px}.sd-section-heading h4{font-size:16px;font-weight:800;margin:0;color:var(--sd-ink)}.sd-section-heading p{font-size:12px}.sd-number{background:var(--sd-tint);color:var(--sd-accent);font-weight:800;font-size:12px;width:34px;height:34px;display:grid;place-items:center;border-radius:11px;flex-shrink:0}
+.sd-meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:16px}.sd-meta-grid>label,.sd-field{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:700;color:var(--sd-ink)}.sd-span-2{grid-column:span 2}.sd-field{margin-top:16px}.sd-help{font-size:12px;color:var(--sd-muted);align-self:center;grid-column:span 3}
+#appMain .shift-diary :is(input:not([type=checkbox]),select,textarea){font-family:inherit;font-size:13px;line-height:1.5;color:var(--sd-ink);background:var(--sd-soft);border:1px solid var(--sd-line);border-radius:8px;padding:10px;width:100%;min-width:0;box-sizing:border-box;font-weight:400}#appMain .shift-diary textarea{resize:vertical}#appMain .shift-diary input[readonly]{background:var(--sd-tint);font-weight:600}.shift-diary :is(input,select,textarea):focus-visible{outline:3px solid #8ebbd7;outline-offset:1px}
+#appMain .sd-button{border:1px solid var(--sd-line);background:var(--sd-bg);color:var(--sd-accent);border-radius:10px;font-family:inherit;font-weight:700;font-size:12px;line-height:1.4;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:42px;padding:10px 15px;cursor:pointer;white-space:normal}#appMain .sd-button:hover{background:var(--sd-tint)}#appMain .sd-button.sd-primary{background:var(--sd-accent);border-color:var(--sd-accent);color:#fff}#appMain .sd-button.sd-primary:hover{filter:brightness(1.1)}#appMain .sd-button.sd-danger{color:#a1263a;border-color:#e1b6bf;background:#fff5f5}#appMain .sd-button:disabled{opacity:.55;cursor:wait}.sd-small{font-size:11px!important;min-height:36px!important;padding:8px 11px!important}.sd-link{color:var(--sd-accent);font-weight:700;font-size:12px;margin-top:8px;text-decoration:underline;text-underline-offset:3px}
+.sd-table-scroll{overflow-x:auto;border:1px solid var(--sd-line);border-radius:10px}.sd-table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed;text-align:left;font-size:12px}.sd-journal{min-width:1100px}.sd-journal th:nth-child(1){width:170px}.sd-journal th:nth-child(2){width:135px}.sd-journal th:nth-child(3){width:24%}.sd-journal th:nth-child(4){width:145px}.sd-journal th:nth-child(5){width:18%}.sd-journal th:nth-child(6){width:115px}.sd-journal th:last-child{width:42px}.sd-checklist{min-width:850px}.sd-checklist th:first-child{width:48px}.sd-checklist th:nth-child(2){width:21%}.sd-checklist th:nth-child(3){width:32%}.sd-checklist th:nth-child(4){width:140px}.sd-handover{min-width:760px}.sd-handover th:first-child{width:48px}.sd-handover th:nth-child(2){width:29%}
+#appMain .sd-table th{background:var(--sd-tint)!important;color:var(--sd-ink)!important;font-size:11px;font-weight:800;text-transform:none;letter-spacing:0;padding:12px 10px;border-bottom:1px solid var(--sd-line)}#appMain .sd-table td{padding:10px;vertical-align:top;border-bottom:1px solid var(--sd-line);background:var(--sd-bg)!important;color:var(--sd-ink)!important;overflow-wrap:anywhere}#appMain .sd-table tr:last-child td{border-bottom:0}#appMain .sd-table textarea{padding:8px;min-height:84px;font-size:12px}#appMain .sd-table input,#appMain .sd-table select{padding:8px;font-size:12px}.sd-remove{color:#b03c50;padding:6px;min-height:32px}.sd-check-title{font-weight:700}.sd-check-point{color:var(--sd-muted)}.sd-badge{font-size:10px;font-weight:800;padding:5px 9px;border:1px solid var(--sd-line);border-radius:7px;background:var(--sd-soft);color:var(--sd-muted);white-space:nowrap}.sd-badge[data-status=PENDING]{background:#fff4d6;color:#7c4f00;border-color:#dfc47a}.sd-badge[data-status=ACKNOWLEDGED]{background:#e5f3ec;color:#236144;border-color:#a9cdb7}.sd-badge[data-status=CANCELLED]{background:#f5ebef;color:#843b51;border-color:#dcb0be}
+.sd-submitbar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:16px 0 24px}.sd-confirm{display:flex;align-items:flex-start;gap:9px;max-width:520px;font-size:12px}.sd-confirm input{margin-top:4px;accent-color:var(--sd-accent)}.sd-history-item{border-top:1px solid var(--sd-line);padding:18px 0}.sd-history-item:last-child{padding-bottom:0}.sd-history-top{justify-content:space-between;align-items:flex-start}.sd-history-title{font-weight:800;font-size:14px;color:var(--sd-ink)}.sd-history-meta{font-size:12px;color:var(--sd-muted);margin:4px 0 9px}.sd-history-note{color:var(--sd-ink);white-space:pre-wrap;margin:8px 0;font-size:12px;overflow-wrap:anywhere}.sd-history-activity{color:var(--sd-muted);font-size:11px;margin:10px 0}.sd-empty{text-align:center;padding:25px;color:var(--sd-muted)}
+html[data-theme=dark] .shift-diary{--sd-bg:#1f2937;--sd-soft:#172232;--sd-ink:#f1f5f9;--sd-muted:#cbd5e1;--sd-line:#52657b;--sd-accent:#9cc9e6;--sd-tint:#2a3f54}html[data-theme=dark] #appMain .sd-button.sd-primary{background:#446c8b;color:#fff;border-color:#7ba2bf}html[data-theme=dark] #appMain .sd-button.sd-danger{color:#ffd6df;border-color:#bc7d8b;background:#563141}html[data-theme=dark] .sd-feedback[data-error=true]{background:#4d2838;color:#ffe1e8;border-color:#bd8090}html[data-theme=dark] .sd-badge[data-status=PENDING]{background:#564321;color:#ffe2a4;border-color:#967b46}html[data-theme=dark] .sd-badge[data-status=ACKNOWLEDGED]{background:#244d40;color:#c3f2dc;border-color:#608b78}html[data-theme=dark] .sd-badge[data-status=CANCELLED]{background:#523244;color:#ffd2e5;border-color:#9f7189}
+@media(max-width:1100px){.sd-meta-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sd-help{grid-column:span 1}.sd-card{padding:17px}}@media(max-width:640px){.sd-meta-grid{grid-template-columns:1fr}.sd-span-2,.sd-help{grid-column:auto}.sd-heading h3{font-size:20px}.sd-card{padding:14px;border-radius:13px}.sd-submitbar .sd-actions{width:100%}.sd-submitbar .sd-button{flex:1}.sd-section-heading{gap:9px}.sd-number{width:29px;height:29px}.sd-section-heading h4{font-size:14px}.sd-history .sd-actions{gap:8px}}
+
+#latestShiftBanner{--sd-bg:#fff;--sd-soft:#f5f8fb;--sd-ink:#243c4b;--sd-muted:#586c7c;--sd-line:#cddce5;--sd-accent:#355f7a;--sd-tint:#e8f2f7}html[data-theme=dark] #latestShiftBanner{--sd-bg:#1f2937;--sd-soft:#172232;--sd-ink:#f1f5f9;--sd-muted:#cbd5e1;--sd-line:#52657b;--sd-accent:#9cc9e6;--sd-tint:#2a3f54}
+.sd-history-top>div{min-width:0;flex:1}.sd-history-meta,.sd-history-title,.sd-history-activity{overflow-wrap:anywhere}
+
+</style>
+<style id="shift-diary-report-style">
+
+      .sd-report{font-family:"Times New Roman",serif;font-size:11pt;line-height:1.4;color:#17202b;background:#fff;padding:24px;overflow-wrap:anywhere}
+      .sd-report h2{font-size:14pt;text-align:center;margin:8px 0 18px;font-weight:bold}.sd-report h3{font-size:12pt;text-align:center;margin:22px 0 10px;font-weight:bold}
+      #shiftRecordDialog .sd-report :is(h2,h3){color:#17202b!important}
+      .sd-report p{margin:6px 0}.sd-report table{border-collapse:collapse;width:100%;margin:12px 0 16px;table-layout:fixed;font-size:10pt}.sd-report th,.sd-report td{border:1px solid #7d8894;padding:7px 6px;vertical-align:top;white-space:pre-wrap;overflow-wrap:anywhere}.sd-report th{background:#dfebf2;color:#17202b;font-weight:bold;text-align:center}.sd-report thead{display:table-header-group}.sd-report tr{break-inside:avoid}.sd-report .report-meta{font-size:9pt;color:#475569}.sd-report .report-number{width:6%;text-align:center}.sd-report .report-time{width:13%}.sd-report .report-signatures{display:flex;justify-content:space-around;gap:20px;text-align:center;break-inside:avoid;margin:22px 0 12px}.sd-report .report-signatures>div{width:46%}.sd-report .report-sign-name{margin-top:30px;font-weight:bold}.sd-report .report-section{break-before:page}.sd-report .report-note{white-space:pre-wrap}.sd-report .report-status{border:1px solid #7d8894;padding:9px;margin-bottom:14px;font-weight:bold}
+      @page{size:A4 portrait;margin:16mm 13mm}@media print{.sd-report{padding:0}.sd-report .report-section{break-before:page}.sd-report th{print-color-adjust:exact;-webkit-print-color-adjust:exact}body{margin:0}.sd-print-toolbar{display:none!important}}
+    
+</style>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans antialiased selection:bg-blue-600 selection:text-white overflow-hidden">
 
@@ -4607,36 +4635,7 @@ html[data-theme="dark"] .asset-password-field button{color:#b7d1df}
                                 <!-- Latest Shift Status Banner -->
                                 <div id="latestShiftBanner" class="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] space-y-1"></div>
 
-                                <div class="grid grid-cols-2 gap-2 text-xs">
-                                    <select id="handoverShiftSelect" class="px-2.5 py-1.5 rounded-lg bg-slate-50 border border-slate-200 font-semibold text-slate-700">
-                                        <option value="Ca trực 24h (07:00 - 07:00 hôm sau)">Ca 24h (07:00 - 07:00 hôm sau)</option>
-                                    </select>
-                                    <div class="px-2.5 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-[11px] text-slate-600 truncate flex items-center">
-                                        <i class="fa-solid fa-key text-amber-500 mr-1.5"></i>Vật tư bàn giao:
-                                    </div>
-                                </div>
-
-                                <!-- Equipment & Key Handover Checkboxes -->
-                                <div class="grid grid-cols-2 gap-1.5 text-[11px] bg-slate-50 p-2.5 rounded-xl border border-slate-200">
-                                    <label class="flex items-center space-x-1.5 cursor-pointer">
-                                        <input type="checkbox" id="chkHandoverRadio" checked class="rounded text-blue-600">
-                                        <span>Bộ đàm kỹ thuật (02)</span>
-                                    </label>
-                                    <label class="flex items-center space-x-1.5 cursor-pointer">
-                                        <input type="checkbox" id="chkHandoverKeys" checked class="rounded text-blue-600">
-                                        <span>Chìa khóa phòng máy</span>
-                                    </label>
-                                    <label class="flex items-center space-x-1.5 cursor-pointer">
-                                        <input type="checkbox" id="chkHandoverMeter" checked class="rounded text-blue-600">
-                                        <span>Đồng hồ VOM/Ampe</span>
-                                    </label>
-                                    <label class="flex items-center space-x-1.5 cursor-pointer">
-                                        <input type="checkbox" id="chkHandoverFire" checked class="rounded text-blue-600">
-                                        <span>Tủ PCCC bình thường</span>
-                                    </label>
-                                </div>
-
-                                <textarea id="shiftHandoverNote" rows="3" placeholder="Nhập nội dung bàn giao ca trực (tình trạng máy lạnh, bồn nước, sự cố tồn đọng cần ca sau theo dõi)..." class="w-full p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:bg-white focus:border-blue-600 focus:outline-none"></textarea>
+                                <p class="text-xs text-slate-600 leading-relaxed">Nhật ký, checklist và nội dung giao ca được ghi chung trong mục <strong>Nhật Ký &amp; Bàn Giao Ca</strong>. Mở biểu mẫu để ghi hoặc tiếp tục nhật ký đã lưu.</p>
                             </div>
 
                             <div class="pt-2 border-t border-slate-100 space-y-2">
@@ -5491,24 +5490,52 @@ html[data-theme="dark"] .asset-password-field button{color:#b7d1df}
                     <details id="nbConfigPanel" class="nb-details"><summary><i class="fa-solid fa-file-arrow-down"></i> Sao lưu / chuyển danh sách notebook sang máy khác</summary><p>Liên kết được lưu cùng dữ liệu chung trên Firebase. Quản trị viên/Trưởng Ban có thể xuất JSON để sao lưu hoặc nhập danh sách khác.</p><div class="nb-config-controls"><button id="nbExportButton" type="button" class="nb-secondary-btn" onclick="exportNotebookLmConfig()"><i class="fa-solid fa-download"></i> Xuất danh sách JSON</button><label id="nbImportControl" class="nb-upload-control">Nhập danh sách JSON <input id="nbImportFile" type="file" accept=".json,application/json" onchange="importNotebookLmConfig(event)"></label></div></details>
                 </section>
 
-                <section id="tab-shiftlog" class="tab-content hidden space-y-4">
-                    <div class="grid grid-cols-1 xl:grid-cols-5 gap-4">
-                        <div class="xl:col-span-2 bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-sm space-y-4">
-                            <div><h3 class="text-base font-bold text-slate-900">Nhật Ký Vận Hành & Bàn Giao Ca</h3><p class="text-xs text-slate-500">Ghi nhận thông số tại thời điểm bàn giao, sự cố tồn đọng, việc cần làm và xác nhận hai chiều.</p></div>
-                            <form onsubmit="saveAdvancedShiftLog(event)" class="space-y-3 text-xs">
-                                <div><label class="block font-semibold text-slate-700 mb-1">Ca trực</label><select id="shiftLogShift" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-slate-50"><option>Ca sáng (07:00–15:00)</option><option>Ca chiều (15:00–23:00)</option><option>Ca đêm (23:00–07:00)</option><option>Ca trực 24h</option></select></div>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3"><div><label class="block font-semibold text-slate-700 mb-1">Người giao ca *</label><select id="shiftLogFrom" required class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-slate-50"></select></div><div><label class="block font-semibold text-slate-700 mb-1">Người nhận ca *</label><select id="shiftLogTo" required class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-slate-50"></select></div></div>
-                                <div><label class="block font-semibold text-slate-700 mb-1">Thông số vận hành / ghi nhận tại hiện trường *</label><textarea id="shiftLogParams" required rows="3" placeholder="Ví dụ: Chiller CH-01 nước cấp 7,2°C; UPS tải 42%; bể mái 78%..." class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-slate-50"></textarea></div>
-                                <div><label class="block font-semibold text-slate-700 mb-1">Sự cố chưa xử lý</label><textarea id="shiftLogIncidents" rows="3" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-slate-50"></textarea><button type="button" onclick="fillOpenIncidentsIntoShiftLog()" class="mt-1 text-blue-700 font-semibold hover:underline">Tự lấy danh sách sự cố đang mở</button></div>
-                                <div><label class="block font-semibold text-slate-700 mb-1">Công việc tồn đọng / cần theo dõi</label><textarea id="shiftLogTasks" rows="3" placeholder="Công việc, vị trí, thời hạn, người phụ trách..." class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-slate-50"></textarea></div>
-                                <div><label class="block font-semibold text-slate-700 mb-1">Ghi chú bàn giao</label><textarea id="shiftLogNote" rows="2" class="w-full px-3 py-2 rounded-lg border border-slate-300 bg-slate-50"></textarea></div>
-                                <label class="flex gap-2 items-start"><input id="shiftLogConfirm" type="checkbox" required class="mt-0.5"><span>Tôi xác nhận thông tin bàn giao trên đã được rà soát trước khi ghi nhận.</span></label>
-                                <button type="submit" class="w-full px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold"><i class="fa-solid fa-floppy-disk mr-1"></i>Lưu biên bản bàn giao</button>
-                            </form>
-                        </div>
-                        <div class="xl:col-span-3 bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-sm space-y-3"><div class="flex items-center justify-between gap-2"><div><h3 class="text-base font-bold text-slate-900">Lịch Sử Bàn Giao</h3><p class="text-xs text-slate-500">Người nhận có thể xác nhận đã nhận ca và các việc tồn đọng.</p></div><button onclick="exportShiftLogsCsv()" class="px-3 py-2 rounded-lg bg-emerald-600 text-white text-xs font-semibold"><i class="fa-solid fa-file-csv mr-1"></i>Xuất CSV</button></div><div id="advancedShiftLogHistory" class="space-y-3"></div></div>
-                    </div>
-                </section>
+                <section id="tab-shiftlog" class="tab-content hidden shift-diary">
+  <header class="sd-heading">
+    <div><p class="sd-eyebrow">SỔ TRỰC KỸ THUẬT · <span data-building-text="building">500G</span></p><h3>Nhật Ký Vận Hành &amp; Bàn Giao Ca</h3><p>Nhật ký 24 giờ, checklist kiểm tra và phiếu bàn giao theo mẫu.</p></div>
+    <button type="button" class="sd-button" onclick="ShiftDiary.newDraft()"><i class="fa-solid fa-plus" aria-hidden="true"></i>Lập nhật ký mới</button>
+  </header>
+  <p id="shiftDiaryFeedback" class="sd-feedback" role="status" aria-live="polite">Lưu nhật ký trong ca; chỉ bấm Giao ca khi đã rà soát đủ nội dung.</p>
+  <form id="shiftDiaryForm" onsubmit="saveAdvancedShiftLog(event)" oninput="ShiftDiary.markDirty()" onchange="ShiftDiary.markDirty()">
+    <fieldset id="shiftDiaryFields">
+      <section class="sd-card">
+        <div class="sd-section-heading"><span class="sd-number">01</span><div><h4>Thông tin ca trực</h4><p id="shiftDiaryScope"></p></div><span id="shiftDiaryDraftBadge" class="sd-badge">BẢN MỚI</span></div>
+        <div class="sd-meta-grid">
+          <label>Ngày trực<input id="shiftLogDutyDate" type="date" required onchange="ShiftDiary.changeDate()"></label>
+          <label>Ca trực<select id="shiftLogShift"><option value="Ca trực 24h (07:00–07:00 hôm sau)">Ca trực 24h (07:00–07:00 hôm sau)</option><option value="Ca sáng">Ca sáng</option><option value="Ca chiều">Ca chiều</option><option value="Ca đêm">Ca đêm</option><option value="Ca khác">Ca khác</option></select></label>
+          <label>Bắt đầu ca<input id="shiftLogStart" type="datetime-local" required></label>
+          <label>Kết thúc ca<input id="shiftLogEnd" type="datetime-local" required></label>
+          <label>Người phụ trách / giao ca<input id="shiftLogFrom" readonly aria-readonly="true"></label>
+          <label>Người nhận ca<select id="shiftLogTo"><option value="">Chọn nhân sự nhận ca</option></select></label>
+          <label class="sd-span-2">Nhân viên trực<textarea id="shiftLogStaff" rows="2" maxlength="2000" placeholder="Họ tên các nhân viên cùng ca trực"></textarea></label>
+        </div>
+      </section>
+      <section class="sd-card">
+        <div class="sd-section-heading"><span class="sd-number">02</span><div><h4>Nhật ký trực 24 giờ</h4><p>Ghi theo thời điểm kiểm tra, tiếp nhận yêu cầu hoặc xử lý sự cố.</p></div><button type="button" class="sd-button sd-small" onclick="ShiftDiary.addJournalRow()"><i class="fa-solid fa-plus" aria-hidden="true"></i>Thêm dòng</button></div>
+        <div class="sd-table-scroll"><table class="sd-table sd-journal"><thead><tr><th scope="col">Thời gian</th><th scope="col">Tòa nhà / Khu vực</th><th scope="col">Nội dung kiểm tra / Yêu cầu - Sự cố</th><th scope="col">Xử lý / Đơn vị thực hiện</th><th scope="col">Kết quả - Tình trạng</th><th scope="col">Người ghi</th><th scope="col"><span class="sr-only">Thao tác</span></th></tr></thead><tbody id="shiftJournalRows"></tbody></table></div>
+        <label class="sd-field">Nội dung tồn tại / chuyển ca<textarea id="shiftLogIncidents" rows="3" maxlength="12000" placeholder="Sự cố, công việc chưa hoàn thành hoặc nội dung cần chuyển tiếp"></textarea></label>
+        <button type="button" class="sd-link" onclick="fillOpenIncidentsIntoShiftLog()">Lấy danh sách sự cố đang mở được phép xem</button>
+      </section>
+      <section class="sd-card">
+        <div class="sd-section-heading"><span class="sd-number">03</span><div><h4 id="shiftChecklistTitle">Checklist ca trực</h4><p id="shiftChecklistPurpose"></p></div><span id="shiftChecklistProgress" class="sd-badge">0 mục đã kiểm tra</span></div>
+        <div class="sd-table-scroll"><table class="sd-table sd-checklist"><thead><tr><th scope="col">STT</th><th scope="col">Hệ thống / Nội dung</th><th scope="col">Điểm kiểm tra chính</th><th scope="col">Kết quả</th><th scope="col">Ghi chú / Xử lý</th></tr></thead><tbody id="shiftChecklistRows"></tbody></table></div>
+        <div id="shiftSupervisionFields" class="sd-meta-grid" hidden><label class="sd-span-2">Kết luận ca giám sát<textarea id="shiftSupervisionConclusion" rows="3" maxlength="6000"></textarea></label><label class="sd-span-2">Nội dung yêu cầu đơn vị vận hành thuê ngoài tiếp tục xử lý<textarea id="shiftSupervisionFollowup" rows="3" maxlength="6000"></textarea></label></div>
+      </section>
+      <section class="sd-card">
+        <div class="sd-section-heading"><span class="sd-number">04</span><div><h4>Phiếu bàn giao ca trực</h4><p>Ghi rõ tình trạng đã thực hiện và việc ca sau cần tiếp tục.</p></div></div>
+        <div class="sd-meta-grid"><label>Thời gian bàn giao dự kiến<input id="shiftLogTransferAt" type="datetime-local" required></label><div class="sd-help">Người giao và người nhận được lấy từ thông tin ca trực ở trên. Thời điểm gửi và xác nhận được ghi riêng trong lịch sử.</div></div>
+        <div class="sd-table-scroll"><table class="sd-table sd-handover"><thead><tr><th scope="col">STT</th><th scope="col">Nội dung bàn giao</th><th scope="col">Tình trạng / Việc đã thực hiện</th><th scope="col">Yêu cầu ca sau tiếp tục</th></tr></thead><tbody id="shiftHandoverRows"></tbody></table></div>
+        <label class="sd-field">Ghi chú bàn giao / vật tư, dụng cụ<textarea id="shiftLogNote" rows="2" maxlength="6000" placeholder="Bộ đàm, chìa khóa, dụng cụ hoặc lưu ý khác"></textarea></label>
+      </section>
+      <div class="sd-submitbar"><label class="sd-confirm"><input id="shiftLogConfirm" type="checkbox"><span>Tôi đã rà soát nhật ký, checklist và các nội dung cần bàn giao.</span></label><div class="sd-actions"><button type="button" class="sd-button" onclick="ShiftDiary.save('draft')"><i class="fa-regular fa-floppy-disk" aria-hidden="true"></i>Lưu nhật ký</button><button type="submit" class="sd-button sd-primary"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i>Giao ca</button></div></div>
+    </fieldset>
+  </form>
+  <section id="shiftDiaryHistory" class="sd-card sd-history">
+    <div class="sd-section-heading"><span class="sd-number">05</span><div><h4>Lịch sử nhật ký &amp; bàn giao</h4><p>Biên bản đã hủy vẫn được giữ để đối chiếu. Ca đã xác nhận sẽ khóa hủy.</p></div><button type="button" class="sd-button sd-small" onclick="exportShiftLogsCsv()"><i class="fa-solid fa-file-csv" aria-hidden="true"></i>Xuất CSV</button></div>
+    <div id="advancedShiftLogHistory"></div>
+  </section>
+</section>
+
 
             </main>
         </div>
@@ -7444,6 +7471,7 @@ html[data-theme="dark"] .asset-password-field button{color:#b7d1df}
             if (!userObj) return;
             if (!hasAuthenticatedClientSession()) return;
             currentUser = normalizeUserObject(userObj);
+            window.ShiftDiary?.reset();
             window.AppNavigation.reset();
             window.BmsMotion?.reset();
 
@@ -7756,129 +7784,19 @@ html[data-theme="dark"] .asset-password-field button{color:#b7d1df}
         }
 
         function renderHandoverBanner() {
-            const countEl = document.getElementById('handoverHistoryCount');
-            if (countEl) countEl.textContent = handoverLogs.length;
-            const banner = document.getElementById('latestShiftBanner');
-            const btnSign = document.getElementById('btnSignHandover');
-            const btnAck = document.getElementById('btnAckHandover');
-            if (!banner) return;
-
-            if (handoverLogs.length === 0) {
-                banner.innerHTML = `<div class="text-slate-500">Chưa có biên bản bàn giao ca nào (Ca 24h: 07:00 - 07:00 hôm sau).</div>`;
-                if (btnSign) {
-                    btnSign.disabled = false;
-                    btnSign.innerHTML = `<i class="fa-solid fa-signature mr-1"></i>Ký Giao Ca`;
-                }
-                if (btnAck) {
-                    btnAck.disabled = true;
-                }
-                return;
-            }
-            const latest = handoverLogs[0];
-            const shiftLabel = 'Ca trực 24h (07:00 - 07:00 hôm sau)';
-            if (latest.status === 'PENDING') {
-                banner.className = 'p-2.5 rounded-xl bg-amber-50 border border-amber-300 text-[11px] space-y-1';
-                banner.innerHTML = `
-                    <div class="flex items-center justify-between font-bold text-amber-900">
-                        <span>⏳ Chờ nhận ca: ${shiftLabel}</span>
-                        <span>${latest.createdAt}</span>
-                    </div>
-                    <div class="text-amber-800">Người giao: <strong>${latest.fromUser}</strong> • Đã khóa Ký giao ca, chờ ca sau bấm "Xác Nhận Nhận Ca"</div>
-                `;
-                if (btnSign) {
-                    btnSign.disabled = true;
-                    btnSign.innerHTML = `<i class="fa-solid fa-lock mr-1"></i>Đã Ký Giao Ca`;
-                }
-                if (btnAck) {
-                    btnAck.disabled = false;
-                }
-            } else {
-                banner.className = 'p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-[11px] space-y-1';
-                banner.innerHTML = `
-                    <div class="flex items-center justify-between font-bold text-emerald-900">
-                        <span>✅ Đang trong ca: ${shiftLabel}</span>
-                        <span>${latest.ackedAt}</span>
-                    </div>
-                    <div class="text-emerald-800">Giao: <strong>${latest.fromUser}</strong> <i class="fa-solid fa-arrow-right mx-1"></i> Nhận: <strong>${latest.toUser}</strong></div>
-                `;
-                if (btnSign) {
-                    btnSign.disabled = false;
-                    btnSign.innerHTML = `<i class="fa-solid fa-signature mr-1"></i>Ký Giao Ca`;
-                }
-                if (btnAck) {
-                    btnAck.disabled = true;
-                }
-            }
+            window.ShiftDiary?.renderQuick();
         }
 
         function saveShiftHandover() {
-            if (handoverLogs.length > 0 && handoverLogs[0].status === 'PENDING') {
-                showToast('Đã ký giao ca rồi! Không thể ký thêm khi ca tiếp theo chưa bấm Xác Nhận Nhận Ca.', 'warning');
-                return;
-            }
-            handoverNote = document.getElementById('shiftHandoverNote').value.trim();
-            if (!handoverNote) {
-                showToast('Vui lòng nhập nội dung bàn giao ca trực!', 'warning');
-                return;
-            }
-            const shiftName = 'Ca trực 24h (07:00 - 07:00 hôm sau)';
-            const items = [];
-            if (document.getElementById('chkHandoverRadio').checked) items.push('Bộ đàm (02)');
-            if (document.getElementById('chkHandoverKeys').checked) items.push('Chìa khóa phòng máy');
-            if (document.getElementById('chkHandoverMeter').checked) items.push('Đồng hồ VOM/Ampe');
-            if (document.getElementById('chkHandoverFire').checked) items.push('Tủ PCCC bình thường');
-
-            const newLog = {
-                id: 'HO-' + Math.floor(100 + Math.random() * 900),
-                shift: shiftName,
-                fromUser: currentUser ? currentUser.name : getTodayDutyMemberName(),
-                toUser: 'Chờ ca sau xác nhận (07:00)',
-                createdAt: new Date().toLocaleString('vi-VN'),
-                ackedAt: '--',
-                items,
-                note: handoverNote,
-                status: 'PENDING'
-            };
-
-            handoverLogs.unshift(newLog);
-            document.getElementById('handoverSavedTime').textContent = 'Đã ký giao ca lúc ' + new Date().toLocaleTimeString('vi-VN') + ' (Đang chờ nhận ca)';
-            logActivity('KÝ GIAO CA', `Ký bàn giao ${shiftName} (${items.length} danh mục vật tư ca)`);
-            saveState();
-            renderHandoverBanner();
-            showToast('Đã ký bàn giao ca 24h! Nút Ký Giao Ca đã được khóa cho đến khi ca sau nhận ca.', 'success');
+            ShiftDiary.quickOpen();
         }
 
         function acknowledgeLatestHandover() {
-            if (handoverLogs.length === 0 || handoverLogs[0].status !== 'PENDING') {
-                showToast('Hiện không có biên bản giao ca nào đang chờ xác nhận!', 'info');
-                return;
-            }
-            const latest = handoverLogs[0];
-            const receiver = currentUser ? currentUser.name : getTodayDutyMemberName();
-            latest.toUser = receiver;
-            latest.ackedAt = new Date().toLocaleString('vi-VN');
-            latest.status = 'ACKNOWLEDGED';
-
-            document.getElementById('handoverSavedTime').textContent = 'Đã nhận ca 24h lúc ' + new Date().toLocaleTimeString('vi-VN');
-            logActivity('NHẬN CA TRỰC', `${receiver} đã xác nhận nhận bàn giao ${latest.shift} từ ${latest.fromUser}`);
-            saveState();
-            renderHandoverBanner();
-            showToast(`Đã xác nhận tiếp quản ca trực 24h (${receiver}) thành công!`, 'success');
+            ShiftDiary.quickAck();
         }
 
         function openHandoverHistoryModal() {
-            const box = document.getElementById('handoverHistoryContainer');
-            if (!box) return;
-            if (handoverLogs.length === 0) {
-                box.innerHTML = '<div class="p-6 text-center text-slate-400">Chưa có lịch sử giao nhận ca.</div>';
-            } else {
-                box.innerHTML = handoverLogs.map(h => {
-                    const pending = h.status === 'PENDING';
-                    const items = (Array.isArray(h.items) ? h.items : []).map(advEscape).join(', ') || 'Không ghi nhận';
-                    return `<div class="p-3.5 rounded-xl border ${pending ? 'border-amber-300 bg-amber-50/40' : 'border-slate-200 bg-slate-50'} space-y-1.5"><div class="flex items-center justify-between"><span class="font-bold text-slate-900">${advEscape(h.id)} • ${advEscape(h.shift)}</span><span class="px-2 py-0.5 rounded text-[10px] font-bold ${pending ? 'bg-amber-500 text-white' : 'bg-emerald-600 text-white'}">${pending ? 'Chờ Ca Sau Xác Nhận' : 'Đã Ký Nhận 2 Chiều'}</span></div><div class="text-[11px] text-slate-600">Người giao: <strong>${advEscape(h.fromUser)}</strong> (${advEscape(h.createdAt)}) <span class="mx-1.5">→</span> Người nhận: <strong>${advEscape(h.toUser)}</strong> (${advEscape(h.ackedAt)})</div><div class="text-[11px] text-blue-700 font-medium">Bàn giao: ${items}</div><div class="p-2 rounded-lg bg-white border border-slate-200 text-slate-800 whitespace-pre-wrap">${advEscape(h.note)}</div></div>`;
-                }).join('');
-            }
-            openModal('handoverHistoryModal');
+            ShiftDiary.history();
         }
 
         function compressImageFile(file, callback) {
@@ -12445,57 +12363,29 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
 
         // Advanced shift diary and two-way acknowledgement.
         function initAdvancedShiftForm() {
-            const from=document.getElementById('shiftLogFrom'), to=document.getElementById('shiftLogTo');
-            if (!from || !to) return;
-            const current=currentUser ? currentUser.name : '';
-            const names=[...new Set((users||[]).map(u=>u.name).filter(Boolean))];
-            const opts=names.map(n=>`<option value="${advEscape(n)}">${advEscape(n)}</option>`).join('');
-            from.innerHTML=opts; to.innerHTML=opts;
-            if (current && names.includes(current)) from.value=current;
-            if (names.length>1) to.value=names.find(n=>n!==from.value)||names[0];
+            ShiftDiary.init();
         }
+
         function fillOpenIncidentsIntoShiftLog() {
-            const open=tickets.filter(t=>t.status!=='RESOLVED');
-            const area=document.getElementById('shiftLogIncidents');
-            if (area) area.value=open.length ? open.map(t=>`${t.id} | ${t.assetId} | ${t.priority||'MEDIUM'} | ${t.issue} | Phụ trách: ${t.assignee||'Chưa phân công'}`).join('\n') : 'Không có sự cố đang mở tại thời điểm bàn giao.';
+            ShiftDiary.fillOpenIncidents();
         }
+
         function saveAdvancedShiftLog(event) {
-            event.preventDefault();
-            const from=document.getElementById('shiftLogFrom').value.trim(), to=document.getElementById('shiftLogTo').value.trim();
-            const params=document.getElementById('shiftLogParams').value.trim();
-            if (!from || !to || !params) { showToast('Vui lòng điền người giao, người nhận và thông số vận hành.', 'error'); return; }
-            if (from === to && !window.confirm('Người giao và người nhận đang trùng nhau. Bạn vẫn muốn lưu?')) return;
-            const entry={id:'SHIFT-'+Date.now(),shift:document.getElementById('shiftLogShift').value,fromUser:from,toUser:to,createdAt:new Date().toISOString(),operationalParams:params,openIncidents:document.getElementById('shiftLogIncidents').value.trim(),pendingTasks:document.getElementById('shiftLogTasks').value.trim(),note:document.getElementById('shiftLogNote').value.trim(),createdBy:currentUser?currentUser.name:from,status:'PENDING',acknowledgedAt:'',acknowledgedBy:''};
-            shiftLogs.unshift(entry);
-            logActivity('NHẬT KÝ / BÀN GIAO CA',`Tạo biên bản ${entry.id}: ${from} giao ca cho ${to}`);
-            saveState(); renderAdvancedShiftLogs();
-            document.getElementById('shiftLogParams').value=''; document.getElementById('shiftLogIncidents').value=''; document.getElementById('shiftLogTasks').value=''; document.getElementById('shiftLogNote').value=''; document.getElementById('shiftLogConfirm').checked=false;
-            showToast('Đã lưu biên bản; chờ người nhận xác nhận.', 'success');
+            event.preventDefault(); return ShiftDiary.save('send');
         }
+
         function acknowledgeAdvancedShiftLog(id) {
-            const log=shiftLogs.find(x=>String(x.id)===String(id)); if (!log) return;
-            if (!currentUser) { showToast('Phải đăng nhập bằng tài khoản người nhận để xác nhận bàn giao.', 'error'); return; }
-            const person=currentUser.name;
-            if (log.toUser && log.toUser !== currentUser.name) { showToast(`Chỉ tài khoản ${log.toUser} mới được xác nhận biên bản này. Hãy chuyển lại người nhận hoặc thực hiện theo quy trình xác nhận thay đã được phê duyệt.`, 'error'); return; }
-            if (!window.confirm(`Xác nhận đã nhận bàn giao ${log.id} và đã xem các công việc tồn đọng?`)) return;
-            log.status='ACKNOWLEDGED'; log.acknowledgedAt=new Date().toISOString(); log.acknowledgedBy=person;
-            logActivity('XÁC NHẬN BÀN GIAO CA',`${person} xác nhận biên bản ${log.id}`);
-            saveState(); renderAdvancedShiftLogs(); showToast('Đã lưu xác nhận nhận ca.', 'success');
+            return ShiftDiary.act('shiftLogs',id,'ack');
         }
+
         function renderAdvancedShiftLogs() {
-            const box=document.getElementById('advancedShiftLogHistory'); if (!box) return;
-            initAdvancedShiftForm();
-            if (!shiftLogs.length) { box.innerHTML='<div class="p-8 text-center text-xs text-slate-400 border border-dashed rounded-xl">Chưa có biên bản bàn giao mới.</div>'; return; }
-            box.innerHTML=shiftLogs.map(log=>`<article class="p-4 rounded-xl border ${log.status==='ACKNOWLEDGED'?'border-emerald-200 bg-emerald-50/30':'border-amber-200 bg-amber-50/30'} space-y-2"><div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2"><div><div class="font-bold text-slate-900">${advEscape(log.id)} · ${advEscape(log.shift)}</div><div class="text-[11px] text-slate-500 mt-1">${advEscape(advFmtDateTime(log.createdAt))} · Giao: <b>${advEscape(log.fromUser)}</b> → Nhận: <b>${advEscape(log.toUser)}</b></div></div><span class="self-start px-2 py-1 rounded-md text-[10px] font-bold ${log.status==='ACKNOWLEDGED'?'bg-emerald-100 text-emerald-700':'bg-amber-100 text-amber-800'}">${log.status==='ACKNOWLEDGED'?'ĐÃ XÁC NHẬN':'CHỜ XÁC NHẬN'}</span></div><div class="text-xs"><b>Thông số vận hành</b><div class="whitespace-pre-wrap mt-1 text-slate-700">${advEscape(log.operationalParams||'—')}</div></div><div class="grid grid-cols-1 md:grid-cols-2 gap-2"><div class="p-3 rounded-lg bg-white border border-slate-200 text-xs"><b>Sự cố chưa xử lý</b><div class="whitespace-pre-wrap mt-1">${advEscape(log.openIncidents||'Không ghi nhận')}</div></div><div class="p-3 rounded-lg bg-white border border-slate-200 text-xs"><b>Công việc tồn đọng</b><div class="whitespace-pre-wrap mt-1">${advEscape(log.pendingTasks||'Không ghi nhận')}</div></div></div>${log.note?`<div class="text-xs"><b>Ghi chú:</b> ${advEscape(log.note)}</div>`:''}<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-t border-slate-200 pt-2"><div class="text-[10px] text-slate-500">${log.status==='ACKNOWLEDGED'?'Người nhận xác nhận: '+advEscape(log.acknowledgedBy||'')+' · '+advEscape(advFmtDateTime(log.acknowledgedAt)):'Đang chờ người nhận xác nhận'}</div>${log.status!=='ACKNOWLEDGED'?`<button onclick="acknowledgeAdvancedShiftLog(${advJsQuote(log.id)})" class="px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold">Xác nhận đã nhận ca</button>`:''}</div></article>`).join('');
+            ShiftDiary.render();
         }
+
         function exportShiftLogsCsv() {
-            const rows=shiftLogs.map(l=>({'Mã':l.id,'Ca':l.shift,'Thời điểm giao':advFmtDateTime(l.createdAt),'Người giao':l.fromUser,'Người nhận':l.toUser,'Thông số':l.operationalParams,'Sự cố tồn đọng':l.openIncidents,'Công việc tồn đọng':l.pendingTasks,'Ghi chú':l.note,'Trạng thái':l.status,'Người xác nhận':l.acknowledgedBy,'Thời điểm xác nhận':advFmtDateTime(l.acknowledgedAt)}));
-            const keys=rows.length?Object.keys(rows[0]):['Thông báo'];
-            const csv='\ufeff'+[keys,...(rows.length?rows.map(r=>keys.map(k=>r[k]??'')):[['Chưa có biên bản']])].map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n');
-            const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`NhatKy_BanGiaoCa_${getTodayIsoDate()}.csv`; a.click(); URL.revokeObjectURL(url);
+            ShiftDiary.exportCsv();
         }
-        // Contractor permit request portal. Standalone HTML mode stores records locally; production
-        // cross-device intake and automated email require a trusted, separately deployed backend.
+
         function mergeContractorApplications(remoteRows, localRows = contractorApplications) {
             const merged = new Map();
             (Array.isArray(localRows) ? localRows : []).forEach(row => { if (row && row.id) merged.set(String(row.id), row); });
@@ -14025,9 +13915,62 @@ window.SharedData = (() => {
         },error=>status(errorText(error),true));
     }
 
+    // Shift actions read the current server record inside a transaction. No optimistic
+    // status mutation or automatic offline replay can undo an acknowledgement.
+    async function writeShiftRecord(kind, id, input, action, expectedHash = null) {
+        if (!ready || blocked || migrating || pending || !dataset || !hasAuthenticatedClientSession()) throw new Error('Hãy chờ dữ liệu đồng bộ xong rồi thực hiện bàn giao.');
+        const owner = uid(), session = generation, expectedDataset = dataset;
+        const actorSnapshot = {...currentUser,uid:owner};
+        const auditId = crypto.randomUUID();
+        pending++;
+        const job = queue.then(async () => {
+            let saved;
+            try {
+                status('Đang lưu nhật ký / bàn giao ca…');
+                await sdk.runTransaction(db, async transaction => {
+                    if (session !== generation || owner !== uid() || !hasAuthenticatedClientSession()) throw new Error('Phiên làm việc đã thay đổi.');
+                    const meta = await transaction.get(ref('state','current'));
+                    if (!meta.exists() || meta.data().dataset !== expectedDataset) throw new Error('Bộ dữ liệu đã đổi. Hãy tải cập nhật.');
+                    const target = sdk.doc(db,'buildings',BUILDING,'datasets',expectedDataset,'records',core.keyFor(kind,id));
+                    const snapshot = await transaction.get(target);
+                    const raw = snapshot.exists() && !snapshot.data().deleted ? snapshot.data() : null;
+                    if (['draft','send'].includes(action) && (raw?.hash || null) !== expectedHash) throw new Error('Nhật ký vừa được sửa trên máy khác. Hãy mở lại bản mới nhất trước khi lưu.');
+                    const before = raw ? await unpack(raw.payload) : null;
+                    const payload = window.ShiftWorkflow.prepare(kind,before,input,action,actorSnapshot,raw?.updatedBy || '');
+                    if (payload.building && payload.building !== BUILDING) throw new Error('Nhật ký thuộc tòa nhà khác.');
+                    if (new TextEncoder().encode(JSON.stringify(payload)).length > 750000) throw new Error('Nhật ký quá lớn. Hãy rút gọn nội dung hoặc tách nhật ký bổ sung trước khi lưu.');
+                    const orderTarget = sdk.doc(db,'buildings',BUILDING,'datasets',expectedDataset,'records',core.keyFor('$order',kind));
+                    const order = raw ? null : await transaction.get(orderTarget);
+                    const value = {kind,key:String(id),payload,hash:await core.hash(payload),deleted:false,updatedBy:owner,updatedAt:sdk.serverTimestamp()};
+                    const categories = {draft:'LƯU NHẬT KÝ CA',send:'GIAO CA',ack:'XÁC NHẬN NHẬN CA',cancel:'HỦY BÀN GIAO CA'};
+                    const audit = {_syncId:auditId,time:new Date().toISOString(),user:actorSnapshot.name,category:categories[action],detail:`${id} · ${action === 'cancel' ? 'Hủy khi ca sau chưa xác nhận' : payload.fromUser + ' → ' + payload.toUser}`};
+                    const auditValue = {kind:'auditLogs',key:auditId,payload:audit,hash:await core.hash(audit),deleted:false,updatedBy:owner,updatedAt:sdk.serverTimestamp()};
+                    if (session !== generation || owner !== uid() || !hasAuthenticatedClientSession()) throw new Error('Phiên làm việc đã thay đổi.');
+                    transaction.set(target,value);
+                    if (!raw) {
+                        const ids = [String(id),...(order?.exists() ? order.data().payload.ids : []).filter(value => value !== String(id))];
+                        transaction.set(orderTarget,{kind:'$order',key:kind,payload:{ids},hash:await core.hash({ids}),deleted:false,updatedBy:owner,updatedAt:sdk.serverTimestamp()});
+                    }
+                    transaction.set(sdk.doc(db,'buildings',BUILDING,'datasets',expectedDataset,'records',core.keyFor('auditLogs',auditId)),auditValue);
+                    transaction.update(ref('state','current'),{revision:sdk.increment(1),updatedBy:owner,updatedAt:sdk.serverTimestamp()});
+                    saved = payload;
+                });
+                return saved;
+            } finally {
+                if (session === generation) {
+                    pending--;
+                    try { await refreshRecords(); if (!pending && !blocked) applyRemote(true); }
+                    catch (_) { status('Chưa tải được trạng thái mới. Hãy tải cập nhật trước lần bàn giao tiếp theo.',true); }
+                }
+            }
+        });
+        queue = job.catch(() => false);
+        return job;
+    }
+
     window.addEventListener('online',()=>{if(blocked&&hasAuthenticatedClientSession())retry();});
     window.addEventListener('beforeunload',event=>{if(pending||blocked&&latestDesired){event.preventDefault();event.returnValue='';}});
-    return {configure,start,stop,save,initialize,initializeFromLocal,retry,useRemote,downloadLocalCheckpoint,submitIntake,keyRequest,configured:()=>!!sdk&&window.PublicGuard?.ready(),ready:()=>ready&&!blocked&&!migrating,dirty:()=>pending>0||blocked,applyRemote};
+    return {configure,start,stop,save,writeShiftRecord,initialize,initializeFromLocal,retry,useRemote,downloadLocalCheckpoint,submitIntake,keyRequest,configured:()=>!!sdk&&window.PublicGuard?.ready(),ready:()=>ready&&!blocked&&!migrating,dirty:()=>pending>0||blocked,applyRemote};
 })();
 
 </script>
@@ -14132,6 +14075,7 @@ window.RealAuth = (() => {
     }
 
     function lock(messageText = '') {
+        window.ShiftDiary?.reset();
         window.AssetAccess?.hidePasswords();
         window.AssetAccess?.clearForm();
         window.BmsMotion?.reset();
@@ -14942,6 +14886,479 @@ window.AssetAccess = (() => {
         if (document.hidden) { hidePasswords(); resetFormPassword(); }
     });
     return { cell, togglePassword, hidePasswords, resetFormPassword, toggleFormPassword, clearForm, fromImport };
+})();
+
+</script>
+<dialog id="shiftActionDialog" class="auth-dialog" aria-labelledby="shiftActionTitle"><h2 id="shiftActionTitle" class="record-heading"></h2><p id="shiftActionMessage" class="mt-3 text-sm text-slate-600 leading-relaxed"></p><div class="record-actions mt-5"><button id="shiftActionBack" type="button" class="record-cancel">Quay lại</button><button id="shiftActionProceed" type="button" class="record-submit">Đồng ý</button></div></dialog>
+<dialog id="shiftRecordDialog" aria-label="Xem biên bản nhật ký và bàn giao" style="width:min(960px,96vw);max-width:96vw;max-height:92vh;margin:auto;overflow:auto;padding:0;border-radius:16px"><div class="sd-print-toolbar" style="display:flex;justify-content:flex-end;gap:12px;padding:14px 20px;background:#edf3f7;color:#243c4b"><button type="button" onclick="ShiftDiary.printRecord()" style="font-weight:700"><i class="fa-solid fa-print" aria-hidden="true"></i> In / Lưu PDF</button><button type="button" onclick="document.getElementById('shiftRecordDialog').close()" style="font-weight:700;padding:4px 10px">Đóng</button></div><div id="shiftRecordContent"></div></dialog>
+
+<script id="shift-diary-script">
+window.ShiftWorkflow = (() => {
+    const uidOf = actor => String(actor?.uid || actor?.id || '');
+    const sender = (record, actor, envelopeOwner = '') => {
+        const uid = uidOf(actor), owner = record.createdByUid || record.fromUid;
+        return !!uid && (owner ? owner === uid : envelopeOwner === uid && (record.createdBy || record.fromUser) === actor.name);
+    };
+    const receiver = (record, actor, envelopeOwner = '') => {
+        if (!uidOf(actor) || sender(record, actor, envelopeOwner)) return false;
+        return record.toUid ? record.toUid === uidOf(actor) : record.toUser === actor.name || /^Chờ ca sau xác nhận/.test(record.toUser || '');
+    };
+    function prepare(kind, before, input, action, actor, envelopeOwner = '', now = new Date().toISOString()) {
+        if (!['shiftLogs','handoverLogs'].includes(kind) || !uidOf(actor)) throw new Error('Phiên đăng nhập chưa hợp lệ.');
+        if (action === 'ack' || action === 'cancel') {
+            if (!before || before.status !== 'PENDING' || before.acknowledgedAt || before.ackedAt && before.ackedAt !== '--') throw new Error('Biên bản không còn chờ xác nhận. Hãy xem trạng thái mới trong lịch sử.');
+            if (action === 'cancel') {
+                if (!sender(before, actor, envelopeOwner)) throw new Error('Chỉ người đã giao ca mới được hủy bàn giao.');
+                return {...before,status:'CANCELLED',cancelledAt:now,cancelledBy:actor.name,cancelledByUid:uidOf(actor)};
+            }
+            if (!receiver(before, actor, envelopeOwner)) throw new Error('Chỉ tài khoản người nhận ca được chỉ định mới được xác nhận.');
+            return kind === 'handoverLogs'
+                ? {...before,status:'ACKNOWLEDGED',toUser:actor.name,ackedAt:now,acknowledgedBy:actor.name,acknowledgedByUid:uidOf(actor)}
+                : {...before,status:'ACKNOWLEDGED',acknowledgedAt:now,acknowledgedBy:actor.name,acknowledgedByUid:uidOf(actor)};
+        }
+        if (kind !== 'shiftLogs' || !['draft','send'].includes(action)) throw new Error('Thao tác nhật ký không hợp lệ.');
+        if (before && (before.status !== 'DRAFT' || !sender(before, actor, envelopeOwner))) throw new Error('Nhật ký đã giao hoặc thuộc người khác. Hãy tạo bản mới để bổ sung.');
+        if (action === 'send' && (!input.toUid || input.toUid === uidOf(actor))) throw new Error('Hãy chọn một nhân sự khác nhận ca.');
+        const record = {...input,id:before?.id || input.id,schemaVersion:2,fromUid:uidOf(actor),createdByUid:uidOf(actor),fromUser:before?.fromUser || actor.name,createdBy:before?.createdBy || actor.name,createdAt:before?.createdAt || now,status:action === 'send' ? 'PENDING' : 'DRAFT',updatedOn:now,acknowledgedAt:'',acknowledgedBy:'',acknowledgedByUid:'',cancelledAt:'',cancelledBy:'',cancelledByUid:''};
+        if (action === 'send') record.submittedAt = now;
+        return record;
+    }
+    return {uidOf,sender,receiver,prepare};
+})();
+
+window.ShiftDiary = (() => {
+    const schema = {
+  "direct": [
+    {
+      "id": "1",
+      "title": "Điện - nguồn dự phòng",
+      "point": "Nguồn điện, tủ điện chính, cảnh báo, máy phát/ATS, chiếu sáng khu vực chung"
+    },
+    {
+      "id": "2",
+      "title": "Cấp nước",
+      "point": "Bể/bồn nước, bơm cấp nước, áp lực, rò rỉ, chảy nước"
+    },
+    {
+      "id": "3",
+      "title": "Thoát nước",
+      "point": "Bơm thoát nước, hố ga/khu vực có nguy cơ ngập, thoát sàn"
+    },
+    {
+      "id": "4",
+      "title": "Điều hòa - thông gió",
+      "point": "Chiller/AHU/FCU hoặc thiết bị liên quan, nhiệt độ, cảnh báo, rò nước ngưng"
+    },
+    {
+      "id": "5",
+      "title": "Thang máy",
+      "point": "Tình trạng hoạt động, cảnh báo, bất thường khi vận hành"
+    },
+    {
+      "id": "6",
+      "title": "PCCC",
+      "point": "Tủ/bảng báo cháy, bơm và các tín hiệu bất thường thuộc phạm vi theo dõi"
+    },
+    {
+      "id": "7",
+      "title": "Vận chuyển mẫu bệnh phẩm",
+      "point": "Tình trạng hoạt động, cảnh báo, bất thường khi vận hành"
+    },
+    {
+      "id": "8",
+      "title": "Điện nhẹ",
+      "point": "Tình trạng hệ thống BMS/Camera/Âm thanh công cộng/Báo gọi y tá vv…"
+    },
+    {
+      "id": "9",
+      "title": "Cơ sở hạ tầng",
+      "point": "Cửa, trần, tường, sàn, khu vệ sinh, khu kỹ thuật và các bất thường ảnh hưởng sử dụng"
+    },
+    {
+      "id": "10",
+      "title": "Sửa chữa trong ca",
+      "point": "Các yêu cầu đã tiếp nhận; nội dung tự xử lý; nội dung Tổ trưởng phân giao/điều phối"
+    },
+    {
+      "id": "11",
+      "title": "Nhà thầu",
+      "point": "Công việc cải tạo, sửa chữa, bảo trì đang thực hiện; an toàn và tình trạng sau thi công"
+    }
+  ],
+  "supervision": [
+    {
+      "id": "1",
+      "title": "Nhân sự ca trực",
+      "point": "Đủ nhân sự/vị trí theo phương án và hợp đồng; đầu mối ca trực rõ ràng"
+    },
+    {
+      "id": "2",
+      "title": "Nhật ký - checklist",
+      "point": "Có ghi chép, ký xác nhận, thực hiện đủ tần suất theo quy định"
+    },
+    {
+      "id": "3",
+      "title": "Điện - nguồn dự phòng",
+      "point": "Tình trạng hệ thống, cảnh báo và bất thường được theo dõi/xử lý"
+    },
+    {
+      "id": "4",
+      "title": "Cấp thoát nước",
+      "point": "Tình trạng bơm, áp lực, rò rỉ, chảy nước, nguy cơ ngập"
+    },
+    {
+      "id": "5",
+      "title": "Điều hòa - thông gió",
+      "point": "Tình trạng vận hành, nhiệt độ, cảnh báo, sự cố/rò nước ngưng"
+    },
+    {
+      "id": "6",
+      "title": "Thang máy",
+      "point": "Tình trạng hoạt động, cảnh báo, sự cố và phản ứng của nhân sự vận hành"
+    },
+    {
+      "id": "7",
+      "title": "PCCC",
+      "point": "Tín hiệu/cảnh báo, tình trạng trực và xử lý bất thường theo trách nhiệm"
+    },
+    {
+      "id": "8",
+      "title": "Telelifft",
+      "point": "Tình trạng hoạt động, cảnh báo, sự cố và phản ứng của nhân sự vận hành"
+    },
+    {
+      "id": "9",
+      "title": "Vận chuyển mẫu bệnh phẩm",
+      "point": "Tình trạng hoạt động, cảnh báo, sự cố và phản ứng của nhân sự vận hành"
+    },
+    {
+      "id": "10",
+      "title": "Điện nhẹ",
+      "point": "Tình trạng hoạt động BMS/Camera/Âm thanh công cộng/Báo gọi y tá vv… và phản ứng của nhân sự vận hành"
+    },
+    {
+      "id": "11",
+      "title": "Cơ sở hạ tầng",
+      "point": "Tình trạng cửa, trần, tường, sàn, khu vệ sinh, khu kỹ thuật và các bất thường ảnh hưởng sử dụng và phản ứng của nhân viên vận hành"
+    },
+    {
+      "id": "12",
+      "title": "Yêu cầu khoa/phòng/ban",
+      "point": "Thời gian tiếp nhận, phản ứng, xử lý và phản hồi kết quả"
+    },
+    {
+      "id": "13",
+      "title": "Sự cố trong ca",
+      "point": "Biện pháp xử lý, thời gian khắc phục, tồn tại hoặc sự cố tái diễn"
+    },
+    {
+      "id": "14",
+      "title": "Nhà thầu bảo hành",
+      "point": "Đã liên hệ/thống nhất phương án; giám sát trước-trong-sau thực hiện"
+    },
+    {
+      "id": "15",
+      "title": "Nhà thầu sửa chữa/bảo trì",
+      "point": "Phạm vi, an toàn, ảnh hưởng hoạt động và tình trạng hệ thống sau thực hiện"
+    },
+    {
+      "id": "16",
+      "title": "Tồn tại hợp đồng",
+      "point": "Nội dung chậm/không thực hiện cần ghi nhận để báo cáo, đánh giá"
+    }
+  ],
+  "handover": [
+    {
+      "id": "1",
+      "title": "Tình trạng hệ thống tại Viện Chấn thương Chỉnh hình"
+    },
+    {
+      "id": "2",
+      "title": "Tình hình giám sát vận hành tại Bệnh viện Đa khoa 1000 giường"
+    },
+    {
+      "id": "3",
+      "title": "Sự cố đang xử lý/chưa xử lý dứt điểm"
+    },
+    {
+      "id": "4",
+      "title": "Thiết bị/hệ thống đang vận hành bất thường hoặc tạm dừng"
+    },
+    {
+      "id": "5",
+      "title": "Công việc nhà thầu bảo hành, sửa chữa, bảo trì đang triển khai"
+    },
+    {
+      "id": "6",
+      "title": "Yêu cầu của khoa, phòng, ban chưa hoàn thành"
+    },
+    {
+      "id": "7",
+      "title": "Nội dung khác cần theo dõi"
+    }
+  ]
+};
+    const $ = id => document.getElementById(id);
+    const esc = value => advEscape(String(value ?? ''));
+    const quote = value => advJsQuote(String(value));
+    const uid = () => ShiftWorkflow.uidOf(currentUser);
+    let sessionKey = '', editorId = null, editorHash = null, dirty = false, busy = false, readOnly = false, viewed = null;
+    const buildingName = () => BUILDING === '1000G' ? 'BVĐK 1000 giường' : 'Viện Chấn thương Chỉnh hình';
+    const checklistSchema = () => BUILDING === '1000G' ? schema.supervision : schema.direct;
+    const handoverSchema = () => schema.handover.filter(row => BUILDING === '1000G' ? row.id !== '1' : row.id !== '2');
+    const people = () => (users || []).filter(person => person.status === 'ACTIVE' && ShiftWorkflow.uidOf(person));
+    const records = () => [...(shiftLogs || []).map(record => ({kind:'shiftLogs',record})),...(handoverLogs || []).map(record => ({kind:'handoverLogs',record}))];
+    const find = (kind,id) => records().find(item => item.kind === kind && String(item.record.id) === String(id))?.record;
+    const actorMayCancel = record => record.status === 'PENDING' && (record.createdByUid || record.fromUid ? ShiftWorkflow.sender(record,currentUser) : (record.createdBy || record.fromUser) === currentUser?.name);
+    const actorMayAck = record => record.status === 'PENDING' && ShiftWorkflow.receiver(record,currentUser,actorMayCancel(record) ? uid() : '');
+    const stamp = record => record.submittedAt || record.updatedOn || record.createdAt || '';
+    const sorted = () => records().sort((a,b) => (Date.parse(stamp(b.record)) || 0) - (Date.parse(stamp(a.record)) || 0));
+    const statusLabel = status => ({DRAFT:'NHẬT KÝ ĐANG GHI',PENDING:'CHỜ NHẬN CA',ACKNOWLEDGED:'ĐÃ XÁC NHẬN',CANCELLED:'ĐÃ HỦY BÀN GIAO'}[status] || 'BIÊN BẢN CŨ');
+    const badge = status => `<span class="sd-badge" data-status="${esc(status)}">${statusLabel(status)}</span>`;
+    const fmt = value => value ? advFmtDateTime(value) : '—';
+    const localValue = date => new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Ho_Chi_Minh',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).format(date).replace(' ','T');
+    const vnTime = value => value ? new Date(String(value).length === 16 ? value + ':00+07:00' : value) : null;
+    const fmtLocal = value => { const date = vnTime(value); return date && !isNaN(date) ? date.toLocaleString('vi-VN',{timeZone:'Asia/Ho_Chi_Minh',hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit',year:'numeric'}) : '—'; };
+    function feedback(message,error = false) {
+        const node = $('shiftDiaryFeedback'); if (!node) return;
+        node.textContent = message; node.dataset.error = String(error);
+    }
+    function ask(title,message,button = 'Đồng ý') {
+        return new Promise(resolve => {
+            const dialog = $('shiftActionDialog');
+            $('shiftActionTitle').textContent = title; $('shiftActionMessage').textContent = message;
+            const yes = $('shiftActionProceed'), no = $('shiftActionBack'); yes.textContent = button;
+            const finish = value => { dialog.removeEventListener('cancel',cancel);yes.onclick = no.onclick = null;dialog.close();resolve(value); };
+            const cancel = event => {event.preventDefault();finish(false);};
+            yes.onclick = () => finish(true); no.onclick = () => finish(false);
+            dialog.addEventListener('cancel',cancel);dialog.showModal();no.focus();
+        });
+    }
+    function setBusy(value) {
+        busy = value; $('shiftDiaryFields').disabled = value || readOnly;
+        $('shiftDiaryHistory').querySelectorAll('button').forEach(button => button.disabled = value);
+    }
+    function updateReceivers(selected = $('shiftLogTo')?.value || '') {
+        const list = people().filter(person => ShiftWorkflow.uidOf(person) !== uid());
+        $('shiftLogTo').innerHTML = '<option value="">Chọn nhân sự nhận ca</option>' + list.map(person => `<option value="${esc(ShiftWorkflow.uidOf(person))}">${esc(person.name)} · ${esc(person.email || '')}</option>`).join('');
+        if (selected && !list.some(person => ShiftWorkflow.uidOf(person) === selected)) {
+            const option = document.createElement('option'); option.value = selected;option.textContent = 'Nhân sự đã đổi quyền / ngừng hoạt động';option.disabled = true;$('shiftLogTo').append(option);
+        }
+        $('shiftLogTo').value = selected;
+    }
+    function init() {
+        if (!currentUser || !$('shiftDiaryForm')) return;
+        const key = BUILDING + '|' + uid();
+        if (sessionKey !== key) {sessionKey = key; fresh();}
+        else updateReceivers();
+    }
+    function fresh(record = null) {
+        editorId = null;editorHash = null;dirty = false;readOnly = false;
+        $('shiftDiaryForm').reset();$('shiftDiaryFields').disabled = busy;
+        const today = getTodayIsoDate();
+        $('shiftLogDutyDate').value = record?.dutyDate || today;
+        $('shiftLogShift').value = record?.shift || 'Ca trực 24h (07:00–07:00 hôm sau)';
+        changeDate(false);
+        for (const [field,key] of [['shiftLogStart','shiftStart'],['shiftLogEnd','shiftEnd'],['shiftLogTransferAt','transferAt'],['shiftLogStaff','staff'],['shiftLogIncidents','openIncidents'],['shiftLogNote','note'],['shiftSupervisionConclusion','supervisionConclusion'],['shiftSupervisionFollowup','supervisionFollowup']]) if (record?.[key]) $(field).value = record[key];
+        $('shiftLogFrom').value = currentUser?.name || '';
+        updateReceivers(record?.toUid || '');
+        $('shiftDiaryScope').textContent = `${buildingName()} · Tòa ${BUILDING} · Giờ Việt Nam (UTC+7)`;
+        $('shiftChecklistTitle').textContent = BUILDING === '1000G' ? 'Checklist giám sát Bệnh viện Đa khoa 1000 giường' : 'Checklist ca trực — Viện Chấn thương Chỉnh hình';
+        $('shiftChecklistPurpose').textContent = BUILDING === '1000G' ? 'Giám sát đơn vị vận hành thuê ngoài; không thay thế checklist vận hành của nhà thầu.' : 'Kiểm tra, vận hành và xử lý các nội dung ca trực có thể tự thực hiện.';
+        $('shiftSupervisionFields').hidden = BUILDING !== '1000G';
+        $('shiftJournalRows').innerHTML = '';
+        for (const row of record?.journalRows?.length ? record.journalRows : [{}]) appendJournal(row);
+        $('shiftChecklistRows').innerHTML = checklistSchema().map(row => {
+            const saved = record?.checklist?.find(item => item.id === row.id) || {};
+            return `<tr data-check-id="${esc(row.id)}"><td>${esc(row.id)}</td><td class="sd-check-title">${esc(row.title)}</td><td class="sd-check-point">${esc(row.point)}</td><td><select class="sd-check-result" aria-label="Kết quả: ${esc(row.title)}" onchange="ShiftDiary.updateProgress()">${[['','Chưa kiểm tra'],['PASS','Đạt'],['FAIL','Không đạt'],['NA','Không áp dụng']].map(([value,title]) => `<option value="${value}"${saved.result === value ? ' selected' : ''}>${title}</option>`).join('')}</select></td><td><textarea class="sd-check-note" rows="3" maxlength="4000" aria-label="Ghi chú: ${esc(row.title)}">${esc(saved.note || '')}</textarea></td></tr>`;
+        }).join('');
+        $('shiftHandoverRows').innerHTML = handoverSchema().map((row,index) => {
+            const saved = record?.handoverRows?.find(item => item.id === row.id) || {};
+            return `<tr data-handover-id="${esc(row.id)}"><td>${index+1}</td><td>${esc(row.title)}</td><td><textarea class="sd-handover-state" rows="3" maxlength="6000" aria-label="Tình trạng: ${esc(row.title)}" placeholder="Ghi tình trạng hoặc Không có">${esc(saved.state || '')}</textarea></td><td><textarea class="sd-handover-next" rows="3" maxlength="6000" aria-label="Ca sau tiếp tục: ${esc(row.title)}">${esc(saved.next || '')}</textarea></td></tr>`;
+        }).join('');
+        $('shiftDiaryDraftBadge').textContent = 'BẢN MỚI';$('shiftDiaryDraftBadge').dataset.status = 'DRAFT';
+        if (record?.schemaVersion !== 2 && record) {
+            $('shiftLogNote').value = [record.operationalParams,record.pendingTasks,record.note].filter(Boolean).join('\n\n');
+        }
+        updateProgress();
+    }
+    function changeDate(mark = true) {
+        const date = $('shiftLogDutyDate').value;if (!date) return;
+        const start = date + 'T07:00';
+        const tomorrow = new Date(date + 'T00:00:00Z');tomorrow.setUTCDate(tomorrow.getUTCDate()+1);
+        const end = tomorrow.toISOString().slice(0,10) + 'T07:00';
+        $('shiftLogStart').value = start;$('shiftLogEnd').value = end;$('shiftLogTransferAt').value = end;
+        if (mark) markDirty();
+    }
+    function appendJournal(row = {}) {
+        const tr = document.createElement('tr');
+        const cell = (key,title,placeholder = '') => `<td><textarea data-journal="${key}" rows="3" maxlength="6000" aria-label="${title}" placeholder="${placeholder}">${esc(row[key] || '')}</textarea></td>`;
+        tr.innerHTML = `<td><input type="datetime-local" data-journal="at" aria-label="Thời điểm nhật ký" value="${esc(row.at || '')}"></td>` + cell('area','Tòa nhà hoặc khu vực','Khu vực / phòng') + cell('content','Nội dung kiểm tra, yêu cầu hoặc sự cố','Nội dung ghi nhận') + cell('action','Xử lý hoặc đơn vị thực hiện') + cell('result','Kết quả và tình trạng') + cell('recorder','Người ghi') + `<td><button type="button" class="sd-remove" aria-label="Xóa dòng nhật ký" onclick="ShiftDiary.removeJournalRow(this)"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button></td>`;
+        $('shiftJournalRows').append(tr);
+    }
+    function addJournalRow() {if (readOnly || busy) return;appendJournal();markDirty();$('shiftJournalRows').lastElementChild.querySelector('input').focus();}
+    function removeJournalRow(button) {if (readOnly || busy) return;button.closest('tr').remove();if (!$('shiftJournalRows').children.length) appendJournal();markDirty();}
+    function markDirty() {if (!readOnly && !busy) {dirty = true;$('shiftDiaryDraftBadge').textContent = 'CHƯA LƯU THAY ĐỔI';}}
+    function updateProgress() {const values = [...$('shiftChecklistRows').querySelectorAll('select')];$('shiftChecklistProgress').textContent = `${values.filter(node => node.value).length}/${values.length} mục đã kiểm tra`;}
+    function capture() {
+        const receiver = people().find(person => ShiftWorkflow.uidOf(person) === $('shiftLogTo').value);
+        const journalRows = [...$('shiftJournalRows').children].map(tr => Object.fromEntries([...tr.querySelectorAll('[data-journal]')].map(node => [node.dataset.journal,node.value.trim()]))).filter(row => Object.values(row).some(Boolean));
+        const checklist = [...$('shiftChecklistRows').children].map(tr => ({...checklistSchema().find(row => row.id === tr.dataset.checkId),result:tr.querySelector('select').value,note:tr.querySelector('textarea').value.trim()}));
+        const handoverRows = [...$('shiftHandoverRows').children].map(tr => ({...handoverSchema().find(row => row.id === tr.dataset.handoverId),state:tr.querySelector('.sd-handover-state').value.trim(),next:tr.querySelector('.sd-handover-next').value.trim()}));
+        return {id:editorId || 'SHIFT-' + crypto.randomUUID(),schemaVersion:2,building:BUILDING,dutyDate:$('shiftLogDutyDate').value,shift:$('shiftLogShift').value,shiftStart:$('shiftLogStart').value,shiftEnd:$('shiftLogEnd').value,transferAt:$('shiftLogTransferAt').value,staff:$('shiftLogStaff').value.trim(),toUid:receiver ? ShiftWorkflow.uidOf(receiver) : '',toUser:receiver?.name || '',journalRows,checklist,handoverRows,openIncidents:$('shiftLogIncidents').value.trim(),note:$('shiftLogNote').value.trim(),supervisionConclusion:BUILDING === '1000G' ? $('shiftSupervisionConclusion').value.trim() : '',supervisionFollowup:BUILDING === '1000G' ? $('shiftSupervisionFollowup').value.trim() : ''};
+    }
+    function validate(record,sending) {
+        const start = vnTime(record.shiftStart), end = vnTime(record.shiftEnd);
+        if (!record.dutyDate || !start || !end || isNaN(start) || isNaN(end) || end <= start) throw new Error('Kiểm tra ngày trực: thời điểm kết thúc phải sau bắt đầu ca.');
+        if (record.journalRows.length > 150) throw new Error('Mỗi nhật ký có tối đa 150 dòng. Hãy tách thành nhật ký bổ sung.');
+        if (!sending) return;
+        if (!$('shiftLogConfirm').checked) throw new Error('Hãy đánh dấu đã rà soát nội dung trước khi giao ca.');
+        if (!record.toUid || record.toUid === uid()) throw new Error('Chọn một nhân sự đang hoạt động khác để nhận ca.');
+        if (!record.journalRows.length) throw new Error('Ghi ít nhất một dòng nhật ký trong ca trước khi bàn giao.');
+        for (let i = 0; i < record.journalRows.length; i++) {
+            const row = record.journalRows[i], at = vnTime(row.at);
+            if (!at || isNaN(at) || at < start || at > end || !row.area || !row.content || !row.recorder) throw new Error(`Dòng nhật ký ${i+1}: nhập thời điểm trong ca, khu vực, nội dung và người ghi.`);
+        }
+        const incomplete = record.checklist.find(row => !row.result || row.result === 'FAIL' && !row.note);
+        if (incomplete) throw new Error(`Checklist “${incomplete.title}”: chọn kết quả; mục Không đạt cần ghi chú xử lý.`);
+        const missing = record.handoverRows.find(row => !row.state);
+        if (missing) throw new Error(`Bàn giao “${missing.title}”: ghi tình trạng hoặc “Không có”.`);
+        if (!record.transferAt || isNaN(vnTime(record.transferAt))) throw new Error('Nhập thời gian bàn giao dự kiến.');
+    }
+    async function save(action = 'draft') {
+        if (busy || readOnly) return;
+        try {
+            const input = capture();validate(input,action === 'send');
+            if (action === 'send' && !await ask('Giao ca cho ' + input.toUser,`Gửi ${input.journalRows.length} dòng nhật ký, ${input.checklist.length} mục checklist và phiếu bàn giao? Bạn có thể hủy trước khi người nhận xác nhận.`,'Giao ca')) return;
+            setBusy(true);
+            const saved = await SharedData.writeShiftRecord('shiftLogs',input.id,input,action,editorHash);
+            if (sessionKey !== BUILDING + '|' + uid()) return;
+            editorId = saved.id;editorHash = await BmsSyncCore.hash(saved);readOnly = saved.status !== 'DRAFT';dirty = false;
+            $('shiftDiaryDraftBadge').textContent = statusLabel(saved.status);$('shiftDiaryDraftBadge').dataset.status = saved.status;
+            feedback(action === 'send' ? `Đã giao ca cho ${saved.toUser}. Đang chờ xác nhận; bạn có thể Hủy bàn giao trong lịch sử bên dưới.` : 'Đã lưu nhật ký lên Firebase. Bạn có thể tiếp tục ghi và giao ca sau.');
+            render();showToast(action === 'send' ? 'Đã giao ca, chờ người nhận xác nhận.' : 'Đã lưu nhật ký lên Firebase.','success');
+        } catch (error) {feedback(error.message || 'Chưa lưu được nhật ký.',true);showToast(error.message || 'Chưa lưu được nhật ký.','error');}
+        finally {setBusy(false);}
+    }
+    async function newDraft(copyKind = '',copyId = '') {
+        if (busy) return;
+        if (dirty && !await ask('Lập nhật ký khác','Nhật ký đang có thay đổi chưa lưu. Bỏ những thay đổi này để mở nhật ký khác?','Bỏ thay đổi')) return;
+        const record = copyId ? find(copyKind,copyId) : null;fresh(record);
+        dirty = !!record;feedback(record ? 'Đã sao chép nội dung sang bản mới chưa lưu. Rà soát lại ngày, giờ, checklist và người nhận trước khi giao.' : 'Nhật ký mới. Các mục checklist chưa được đánh dấu kiểm tra.');
+        $('shiftDiaryForm').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',block:'start'});
+    }
+    async function edit(id) {
+        if (busy) return;
+        const record = find('shiftLogs',id);if (!record || record.status !== 'DRAFT' || !ShiftWorkflow.sender(record,currentUser)) return;
+        if (dirty && !await ask('Mở nhật ký đã lưu','Bỏ thay đổi chưa lưu trong biểu mẫu hiện tại?','Mở nhật ký')) return;
+        fresh(record);editorId = record.id;editorHash = await BmsSyncCore.hash(record);dirty = false;
+        $('shiftDiaryDraftBadge').textContent = 'NHẬT KÝ ĐÃ LƯU';feedback('Đang ghi tiếp nhật ký ' + record.id + '.');
+        $('shiftDiaryForm').scrollIntoView({behavior:'smooth',block:'start'});
+    }
+    async function act(kind,id,action) {
+        if (busy) return;
+        const record = find(kind,id);if (!record) return;
+        if (action === 'cancel' ? !actorMayCancel(record) : !actorMayAck(record)) {showToast('Bạn không có quyền thực hiện thao tác này hoặc biên bản đã đổi trạng thái.','error');return;}
+        if (!await ask(action === 'cancel' ? 'Hủy bàn giao ca?' : 'Xác nhận đã nhận ca?',action === 'cancel' ? 'Chỉ hủy được khi ca mới chưa xác nhận. Nhật ký và nội dung bàn giao vẫn được giữ trong lịch sử.' : 'Xác nhận bạn đã xem nhật ký, checklist và các việc ca sau cần tiếp tục. Sau xác nhận, biên bản không thể hủy.',action === 'cancel' ? 'Hủy bàn giao' : 'Xác nhận nhận ca')) return;
+        try {
+            setBusy(true);const saved = await SharedData.writeShiftRecord(kind,id,null,action);
+            if (action === 'cancel' && editorId === id && !dirty) {fresh(saved);dirty = true;}
+            feedback(action === 'cancel' ? 'Đã hủy bàn giao. Biên bản vẫn còn trong lịch sử; có thể tạo bản mới để sửa và giao lại.' : 'Đã xác nhận nhận ca. Biên bản đã khóa hủy.');
+            render();showToast(action === 'cancel' ? 'Đã hủy bàn giao khi ca sau chưa xác nhận.' : 'Đã xác nhận nhận ca.','success');
+        } catch (error) {feedback(error.message || 'Chưa thực hiện được thao tác.',true);showToast(error.message || 'Chưa thực hiện được thao tác.','error');render();}
+        finally {setBusy(false);}
+    }
+    function actions(kind,record) {
+        const args = `${quote(kind)},${quote(record.id)}`;
+        let html = `<button type="button" class="sd-button sd-small" onclick="ShiftDiary.openView(${args})">Xem / In biên bản</button>`;
+        if (kind === 'shiftLogs' && record.status === 'DRAFT' && ShiftWorkflow.sender(record,currentUser)) html += `<button type="button" class="sd-button sd-small" onclick="ShiftDiary.edit(${quote(record.id)})">Ghi tiếp nhật ký</button>`;
+        if (actorMayAck(record)) html += `<button type="button" class="sd-button sd-small sd-primary" onclick="ShiftDiary.act(${args},'ack')">Xác nhận đã nhận ca</button>`;
+        if (actorMayCancel(record)) html += `<button type="button" class="sd-button sd-small sd-danger" onclick="ShiftDiary.act(${args},'cancel')"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i>Hủy bàn giao</button>`;
+        if (record.status === 'CANCELLED' && actorMayCopy(record)) html += `<button type="button" class="sd-button sd-small" onclick="ShiftDiary.newDraft(${args})">Sửa &amp; giao lại</button>`;
+        return html;
+    }
+    function actorMayCopy(record) {return record.createdByUid || record.fromUid ? ShiftWorkflow.sender(record,currentUser) : (record.createdBy || record.fromUser) === currentUser?.name;}
+    function render() {
+        if (!$('advancedShiftLogHistory')) return;init();
+        $('advancedShiftLogHistory').innerHTML = sorted().map(({kind,record}) => `<article class="sd-history-item" data-shift-id="${esc(record.id)}"><div class="sd-history-top"><div><div class="sd-history-title">${esc(record.dutyDate ? formatIsoToVnDate(record.dutyDate) : record.id)} · ${esc(record.shift || 'Ca trực')}</div><div class="sd-history-meta">Giao: <strong>${esc(record.fromUser)}</strong> → Nhận: <strong>${esc(record.toUser || 'Chưa chọn')}</strong><br>${esc(record.id)} · ${esc(fmt(stamp(record)))}${record.schemaVersion === 2 ? ` · ${(record.journalRows || []).length} dòng nhật ký` : ' · Biên bản mẫu cũ'}</div></div>${badge(record.status)}</div><div class="sd-history-note">${esc(record.openIncidents || record.note || 'Chưa ghi nội dung tồn tại / chuyển ca.')}</div><div class="sd-history-activity">${record.status === 'ACKNOWLEDGED' ? `Đã nhận: ${esc(record.acknowledgedBy || record.toUser)} · ${esc(fmt(record.acknowledgedAt || record.ackedAt))}` : record.status === 'CANCELLED' ? `Đã hủy bởi ${esc(record.cancelledBy)} · ${esc(fmt(record.cancelledAt))}. Ca mới chưa xác nhận tại thời điểm hủy.` : record.status === 'DRAFT' ? 'Nhật ký đang ghi, chưa gửi bàn giao.' : 'Đang chờ tài khoản người nhận xác nhận.'}</div><div class="sd-actions">${actions(kind,record)}</div></article>`).join('') || '<p class="sd-empty">Chưa có nhật ký. Bắt đầu ghi ở biểu mẫu phía trên.</p>';
+        renderQuick();
+        if (viewed && $('shiftRecordDialog').open) {const record = find(viewed.kind,viewed.id);if (record) $('shiftRecordContent').innerHTML = report(record);}
+    }
+    function fillOpenIncidents() {
+        if (readOnly || busy) return;
+        const open = tickets.filter(ticket => ticket.status !== 'RESOLVED' && (!window.SystemVisibility || SystemVisibility.full() || SystemVisibility.codes().includes(ticket.system)));
+        const text = open.length ? open.map(ticket => `${ticket.id} | ${ticket.assetId} | ${ticket.issue} | ${ticket.status === 'PENDING_ACCEPTANCE' ? 'Chờ nghiệm thu' : 'Đang xử lý'} | ${ticket.assignee || 'Chưa phân công'}`).join('\n') : 'Không có sự cố đang mở trong phạm vi được phép xem.';
+        $('shiftLogIncidents').value = [$('shiftLogIncidents').value.trim(),text].filter(Boolean).join('\n');markDirty();
+    }
+    function renderQuick() {
+        const banner = $('latestShiftBanner');if (!banner) return;
+        const relevant = sorted().filter(item => item.record.status !== 'DRAFT' && item.record.status !== 'CANCELLED');
+        const item = relevant.find(item => item.record.status === 'PENDING' && (actorMayAck(item.record) || actorMayCancel(item.record))) || relevant.find(item => item.record.status === 'PENDING') || relevant[0];
+        $('handoverHistoryCount').textContent = records().length;
+        $('btnSignHandover').disabled = false;$('btnSignHandover').innerHTML = '<i class="fa-solid fa-pen-to-square mr-1"></i>Mở nhật ký / giao ca';
+        $('btnAckHandover').disabled = !item || !actorMayAck(item.record);
+        if (!item) {banner.className = 'sd-feedback';banner.textContent = 'Chưa có bàn giao đang chờ. Mở nhật ký để ghi và giao ca.';return;}
+        const {kind,record} = item;
+        banner.className = 'sd-feedback';
+        banner.innerHTML = `<strong>${record.status === 'PENDING' ? 'Chờ nhận ca' : 'Đã xác nhận nhận ca'}</strong><br>Giao: ${esc(record.fromUser)} → Nhận: ${esc(record.toUser)}${actorMayCancel(record) ? `<div class="mt-2"><button type="button" class="sd-button sd-small sd-danger" onclick="ShiftDiary.act(${quote(kind)},${quote(record.id)},'cancel')">Hủy bàn giao</button></div>` : ''}`;
+    }
+    function quickOpen() {switchTab('shiftlog');$('shiftDiaryForm').scrollIntoView({behavior:'smooth',block:'start'});}
+    function quickAck() {const item = sorted().find(item => actorMayAck(item.record));if (item) act(item.kind,item.record.id,'ack');else showToast('Chưa có bàn giao đang chờ dành cho tài khoản này.','info');}
+    function history() {switchTab('shiftlog');$('shiftDiaryHistory').scrollIntoView({behavior:'smooth',block:'start'});}
+    function reset() {sessionKey = '';editorId = editorHash = viewed = null;dirty = busy = readOnly = false;$('shiftDiaryForm')?.reset();for (const id of ['shiftActionDialog','shiftRecordDialog']) if ($(id)?.open) $(id).close();}
+        const reportStyles = `
+      .sd-report{font-family:"Times New Roman",serif;font-size:11pt;line-height:1.4;color:#17202b;background:#fff;padding:24px;overflow-wrap:anywhere}
+      .sd-report h2{font-size:14pt;text-align:center;margin:8px 0 18px;font-weight:bold}.sd-report h3{font-size:12pt;text-align:center;margin:22px 0 10px;font-weight:bold}
+      #shiftRecordDialog .sd-report :is(h2,h3){color:#17202b!important}
+      .sd-report p{margin:6px 0}.sd-report table{border-collapse:collapse;width:100%;margin:12px 0 16px;table-layout:fixed;font-size:10pt}.sd-report th,.sd-report td{border:1px solid #7d8894;padding:7px 6px;vertical-align:top;white-space:pre-wrap;overflow-wrap:anywhere}.sd-report th{background:#dfebf2;color:#17202b;font-weight:bold;text-align:center}.sd-report thead{display:table-header-group}.sd-report tr{break-inside:avoid}.sd-report .report-meta{font-size:9pt;color:#475569}.sd-report .report-number{width:6%;text-align:center}.sd-report .report-time{width:13%}.sd-report .report-signatures{display:flex;justify-content:space-around;gap:20px;text-align:center;break-inside:avoid;margin:22px 0 12px}.sd-report .report-signatures>div{width:46%}.sd-report .report-sign-name{margin-top:30px;font-weight:bold}.sd-report .report-section{break-before:page}.sd-report .report-note{white-space:pre-wrap}.sd-report .report-status{border:1px solid #7d8894;padding:9px;margin-bottom:14px;font-weight:bold}
+      @page{size:A4 portrait;margin:16mm 13mm}@media print{.sd-report{padding:0}.sd-report .report-section{break-before:page}.sd-report th{print-color-adjust:exact;-webkit-print-color-adjust:exact}body{margin:0}.sd-print-toolbar{display:none!important}}
+    `;
+    function report(record) {
+        const cell = value => esc(value || '—');
+        const title = record.building === '1000G' ? 'Bệnh viện Đa khoa 1000 giường' : record.building === '500G' ? 'Viện Chấn thương Chỉnh hình' : buildingName();
+        const summary = record.status === 'ACKNOWLEDGED' ? `Đã xác nhận bởi ${record.acknowledgedBy || record.toUser} lúc ${fmt(record.acknowledgedAt || record.ackedAt)}` : record.status === 'CANCELLED' ? `Đã hủy bởi ${record.cancelledBy} lúc ${fmt(record.cancelledAt)}. Ca nhận chưa xác nhận tại thời điểm hủy.` : record.status === 'DRAFT' ? 'Nhật ký đang ghi — chưa gửi bàn giao.' : 'Đang chờ người nhận xác nhận.';
+        const signatures = `<div class="report-signatures"><div><strong>NGƯỜI PHỤ TRÁCH CA GIAO</strong><p class="report-meta">${record.submittedAt ? 'Đã gửi: ' + cell(fmt(record.submittedAt)) : 'Chưa ghi nhận giao ca'}</p><p class="report-sign-name">${cell(record.fromUser)}</p></div><div><strong>NGƯỜI PHỤ TRÁCH CA NHẬN</strong><p class="report-meta">${record.status === 'ACKNOWLEDGED' ? 'Đã xác nhận: ' + cell(fmt(record.acknowledgedAt || record.ackedAt)) : 'Chưa xác nhận nhận ca'}</p><p class="report-sign-name">${record.status === 'ACKNOWLEDGED' ? cell(record.acknowledgedBy || record.toUser) : '—'}</p></div></div>`;
+        let html = `<div class="sd-report"><p class="report-meta">${cell(title)} · ${cell(record.id)}</p><p class="report-status">${statusLabel(record.status)} · ${cell(summary)}</p><h2>PHẦN II. NHẬT KÝ TRỰC 24 GIỜ</h2><p><strong>Ngày trực:</strong> ${cell(record.dutyDate ? formatIsoToVnDate(record.dutyDate) : '')} &nbsp; <strong>Ca trực:</strong> ${cell(record.shift)}</p><p><strong>Từ:</strong> ${cell(fmtLocal(record.shiftStart))} &nbsp; <strong>Đến:</strong> ${cell(fmtLocal(record.shiftEnd))}</p><p><strong>Người phụ trách ca:</strong> ${cell(record.fromUser)}</p><p><strong>Nhân viên trực:</strong> ${cell(record.staff)}</p>`;
+        if (record.schemaVersion === 2) {
+            html += `<table><thead><tr><th class="report-time">Thời gian</th><th>Tòa nhà / Khu vực</th><th style="width:26%">Nội dung kiểm tra / Yêu cầu - Sự cố</th><th>Xử lý / Đơn vị thực hiện</th><th>Kết quả - Tình trạng</th><th>Người ghi</th></tr></thead><tbody>${(record.journalRows || []).map(row => `<tr><td>${cell(fmtLocal(row.at))}</td><td>${cell(row.area)}</td><td>${cell(row.content)}</td><td>${cell(row.action)}</td><td>${cell(row.result)}</td><td>${cell(row.recorder)}</td></tr>`).join('') || '<tr><td colspan="6">Chưa ghi nhật ký.</td></tr>'}</tbody></table>`;
+        } else html += `<p class="report-note"><strong>Thông số / Nội dung mẫu cũ:</strong>\n${cell(record.operationalParams || record.note)}</p><p class="report-note"><strong>Công việc tồn đọng:</strong>\n${cell(record.pendingTasks)}</p>`;
+        html += `<p class="report-note"><strong>Nội dung tồn tại / chuyển ca:</strong>\n${cell(record.openIncidents)}</p>${signatures}`;
+        if (record.schemaVersion === 2) {
+            const supervision = (record.building || BUILDING) === '1000G';
+            html += `<section class="report-section"><h3>${supervision ? 'PHẦN IV. CHECKLIST GIÁM SÁT BỆNH VIỆN ĐA KHOA 1000 GIƯỜNG' : 'PHẦN III. CHECKLIST CA TRỰC — VIỆN CHẤN THƯƠNG CHỈNH HÌNH'}</h3><p>${supervision ? 'Mục đích: kiểm tra, giám sát việc thực hiện của đơn vị vận hành thuê ngoài; không thay thế checklist vận hành của nhà thầu.' : 'Mục đích: phục vụ ca trực trực tiếp kiểm tra, vận hành và xử lý các nội dung thuộc khả năng tự thực hiện.'}</p><table><thead><tr><th class="report-number">STT</th><th style="width:21%">Hệ thống / Nội dung</th><th style="width:30%">Điểm kiểm tra chính</th><th style="width:7%">Đạt</th><th style="width:8%">Không đạt</th><th>Ghi chú / Xử lý</th></tr></thead><tbody>${(record.checklist || []).map((row,index) => `<tr><td class="report-number">${index+1}</td><td>${cell(row.title)}</td><td>${cell(row.point)}</td><td style="text-align:center">${row.result === 'PASS' ? '✓' : ''}</td><td style="text-align:center">${row.result === 'FAIL' ? '✓' : ''}</td><td>${cell([row.result === 'NA' ? 'Không áp dụng' : !row.result ? 'Chưa kiểm tra' : '',row.note].filter(Boolean).join('\n'))}</td></tr>`).join('')}</tbody></table>${supervision ? `<p class="report-note"><strong>Kết luận ca giám sát:</strong>\n${cell(record.supervisionConclusion)}</p><p class="report-note"><strong>Nội dung yêu cầu đơn vị vận hành thuê ngoài tiếp tục xử lý:</strong>\n${cell(record.supervisionFollowup)}</p>` : ''}</section>`;
+        }
+        html += `<section class="report-section"><h3>PHẦN V. PHIẾU BÀN GIAO CA TRỰC</h3><p><strong>Thời gian bàn giao dự kiến:</strong> ${cell(fmtLocal(record.transferAt))}</p><p><strong>Ca giao:</strong> ${cell(record.fromUser)}</p><p><strong>Ca nhận:</strong> ${cell(record.toUser)}</p><table><thead><tr><th class="report-number">STT</th><th>Nội dung bàn giao</th><th>Tình trạng / Việc đã thực hiện</th><th>Yêu cầu ca sau tiếp tục</th></tr></thead><tbody>${(record.handoverRows || []).map((row,index) => `<tr><td>${index+1}</td><td>${cell(row.title)}</td><td>${cell(row.state)}</td><td>${cell(row.next)}</td></tr>`).join('') || `<tr><td>1</td><td>Nội dung biên bản mẫu cũ</td><td>${cell(record.note || record.operationalParams)}</td><td>${cell(record.pendingTasks)}</td></tr>`}</tbody></table><p class="report-note"><strong>Ghi chú bàn giao / dụng cụ:</strong>\n${cell(record.note)}${record.items?.length ? '\n' + cell(record.items.join(', ')) : ''}</p>${signatures}</section></div>`;
+        return html;
+    }
+    function openView(kind,id) {
+        const record = find(kind,id);if (!record) return;
+        viewed = {kind,id};$('shiftRecordContent').innerHTML = report(record);$('shiftRecordDialog').showModal();
+    }
+    function printRecord() {
+        const record = viewed && find(viewed.kind,viewed.id);if (!record) return;
+        const printWindow = window.open('','_blank');
+        if (!printWindow) {showToast('Cho phép cửa sổ in cho website rồi thử lại.','info');return;}
+        printWindow.opener = null;
+        printWindow.document.write(`<!doctype html><html lang="vi"><head><meta charset="UTF-8"><title>Nhật ký ca ${esc(record.id)}</title><style>${reportStyles}</style></head><body>${report(record)}<\/body></html>`);
+        printWindow.document.close();printWindow.focus();setTimeout(() => printWindow.print(),150);
+    }
+    function exportCsv() {
+        const rows = [['Mã','Tòa nhà','Trạng thái','Ngày trực','Ca','Bắt đầu','Kết thúc','Người giao','Người nhận','Phần','Thời điểm / Mục','Khu vực / Nội dung','Kiểm tra / Xử lý','Kết quả / Tình trạng','Ghi chú / Ca sau tiếp tục','Người ghi','Thời điểm xác nhận','Người xác nhận','Thời điểm hủy','Người hủy']];
+        for (const {record} of sorted()) {
+            const base = [record.id,record.building || BUILDING,statusLabel(record.status),record.dutyDate,record.shift,fmtLocal(record.shiftStart),fmtLocal(record.shiftEnd),record.fromUser,record.toUser];
+            const tail = [fmt(record.acknowledgedAt || record.ackedAt),record.acknowledgedBy,fmt(record.cancelledAt),record.cancelledBy];
+            const push = values => rows.push([...base,...values,...tail]);
+            push(['Tổng hợp','',record.openIncidents,record.operationalParams || record.supervisionConclusion || '',record.pendingTasks || '',[record.note,record.supervisionFollowup].filter(Boolean).join('\n'),record.staff || '']);
+            for (const row of record.journalRows || []) push(['Nhật ký',fmtLocal(row.at),row.area,row.content,[row.action,row.result].filter(Boolean).join('\n'),'',row.recorder]);
+            for (const row of record.checklist || []) push(['Checklist',row.id,row.title,row.point,({PASS:'Đạt',FAIL:'Không đạt',NA:'Không áp dụng'}[row.result] || 'Chưa kiểm tra'),row.note,'']);
+            for (const row of record.handoverRows || []) push(['Bàn giao',row.id,row.title,'',row.state,row.next,'']);
+        }
+        const csv = '\ufeff' + rows.map(row => row.map(value => {let text = String(value ?? '');if (/^[\s]*[=+@-]/.test(text)) text = "'" + text;return '"' + text.replace(/"/g,'""') + '"';}).join(',')).join('\r\n');
+        const url = URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));
+        const link = document.createElement('a');link.href = url;link.download = `NhatKy_BanGiaoCa_${BUILDING}_${getTodayIsoDate()}.csv`;link.click();setTimeout(() => URL.revokeObjectURL(url),1000);
+    }
+
+    return {init,render,renderQuick,quickOpen,quickAck,history,reset,newDraft,edit,save,act,addJournalRow,removeJournalRow,markDirty,changeDate,updateProgress,fillOpenIncidents,openView,printRecord,exportCsv,validate,capture,report};
 })();
 
 </script>
