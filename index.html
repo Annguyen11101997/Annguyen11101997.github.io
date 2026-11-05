@@ -1,6 +1,80 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+<script id="appearance-navigation-script">
+/* Display preference is local to this browser and shared by both buildings. */
+(function () {
+    const key = 'bms-appearance-theme';
+    const root = document.documentElement;
+    root.dataset.building = new URLSearchParams(location.search).get('building') === '1000G' ? '1000G' : '500G';
+    function readTheme() {
+        try { return localStorage.getItem(key) === 'dark' ? 'dark' : 'light'; }
+        catch (_) { return 'light'; }
+    }
+    function applyTheme(theme, persist) {
+        const dark = theme === 'dark';
+        root.dataset.theme = dark ? 'dark' : 'light';
+        if (persist) {
+            try { localStorage.setItem(key, root.dataset.theme); } catch (_) {}
+        }
+        document.querySelectorAll('.appearance-toggle').forEach(button => {
+            const label = dark ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối';
+            button.setAttribute('aria-label', label);
+            button.title = label;
+            const text = button.querySelector('[data-appearance-label]');
+            const icon = button.querySelector('i');
+            if (text) text.textContent = dark ? 'Sáng' : 'Tối';
+            if (icon) icon.className = dark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        });
+    }
+    window.toggleAppearanceTheme = () => applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark', true);
+    applyTheme(readTheme(), false);
+    document.addEventListener('DOMContentLoaded', () => applyTheme(root.dataset.theme, false));
+    window.addEventListener('storage', event => {
+        if (event.key === key) applyTheme(event.newValue === 'dark' ? 'dark' : 'light', false);
+    });
+})();
+
+/* An in-app history: it never sends the user to another site or building. */
+window.AppNavigation = (() => {
+    let history = [];
+    let returning = false;
+    let skipFirst = true;
+    function activeTab() {
+        const node = document.querySelector('#appMain > .tab-content:not(.hidden)');
+        return node && node.id.startsWith('tab-') ? node.id.slice(4) : '';
+    }
+    function updateButton() {
+        const button = document.getElementById('appBackButton');
+        if (!button) return;
+        button.disabled = history.length === 0;
+        button.title = history.length ? 'Quay lại mục vừa xem' : 'Chưa có mục trước đó';
+    }
+    function reset() { history = []; skipFirst = true; returning = false; updateButton(); }
+    function record(next) {
+        const current = activeTab();
+        if (skipFirst) skipFirst = false;
+        else if (!returning && current && current !== next) {
+            history.push(current);
+            if (history.length > 50) history.shift();
+        }
+        updateButton();
+    }
+    function back() {
+        while (history.length) {
+            const previous = history.pop();
+            const before = activeTab();
+            if (!previous || previous === before) continue;
+            returning = true;
+            try { switchTab(previous); } finally { returning = false; }
+            if (activeTab() === previous) break;
+        }
+        updateButton();
+    }
+    return { reset, record, back };
+})();
+
+</script>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="connect-src 'self' https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://www.googleapis.com https://firebaseappcheck.googleapis.com https://recaptchaenterprise.googleapis.com https://www.google.com https://www.recaptcha.net; form-action 'none'; object-src 'none'; base-uri 'self'">
     <meta name="description" content="Cổng hỗ trợ và quản lý kỹ thuật tòa nhà 500G và 1000G. Dữ liệu và quyền truy cập riêng theo từng tòa nhà.">
@@ -3678,6 +3752,232 @@ input[type=file]::file-selector-button{background:var(--pastel-sky)!important;co
 @media(max-width:760px){.system-visibility-banner{padding:10px 15px;font-size:11px}#userViewSystemsCheckboxes{grid-template-columns:1fr}}
 @media print{.system-visibility-banner{display:none!important}}
 </style>
+<style id="bms-motion-design">
+/* Small, non-blocking movements; interface controls are usable immediately. */
+@keyframes bms-motion-page{from{opacity:.88}to{opacity:1}}
+@keyframes bms-motion-rise{from{opacity:.88;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@keyframes bms-motion-header{from{opacity:.9;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+@keyframes bms-motion-modal{from{opacity:.92;transform:translateY(9px) scale(.992)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes bms-motion-toast-in{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:translateX(0)}}
+@keyframes bms-motion-toast-out{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(8px)}}
+@keyframes bms-motion-pin{from{opacity:.75;transform:rotate(-45deg) scale(.88)}to{opacity:1;transform:rotate(-45deg) scale(1)}}
+@keyframes bms-motion-building{from{transform:translateY(0)}to{transform:translateY(-4px)}}
+
+@media (prefers-reduced-motion: no-preference){
+  #loginScreen:not(.hidden) .studio-portal-header{animation:bms-motion-header .42s cubic-bezier(.2,.7,.2,1) backwards}
+  #loginScreen:not(.hidden) .studio-portal-hero{animation:bms-motion-rise .46s cubic-bezier(.2,.7,.2,1) backwards}
+  #loginScreen:not(.hidden) .studio-staff-panel{animation:bms-motion-rise .46s cubic-bezier(.2,.7,.2,1) .06s backwards}
+  #loginScreen:not(.hidden) .studio-service-list{animation:none}
+  #loginScreen:not(.hidden) .studio-service-card{animation:bms-motion-rise .38s cubic-bezier(.2,.7,.2,1) backwards}
+  #loginScreen:not(.hidden) .studio-service-card:nth-child(1){animation-delay:.04s}
+  #loginScreen:not(.hidden) .studio-service-card:nth-child(2){animation-delay:.08s}
+  #loginScreen:not(.hidden) .studio-service-card:nth-child(3){animation-delay:.12s}
+  #loginScreen:not(.hidden) .studio-building-art{animation:bms-motion-building 8s ease-in-out infinite alternate}
+
+  #appMain .tab-content:not(.hidden){animation:bms-motion-page .24s ease-out backwards}
+  #tab-dashboard:not(.hidden) .dashboard-hero,
+  #tab-dashboard:not(.hidden) .dashboard-system-panel,
+  #tab-dashboard:not(.hidden) .dashboard-data-row>div{animation:bms-motion-rise .36s cubic-bezier(.2,.7,.2,1) backwards}
+  #tab-dashboard:not(.hidden) .dashboard-kpis>button{animation:bms-motion-rise .34s cubic-bezier(.2,.7,.2,1) backwards}
+  #tab-dashboard:not(.hidden) .dashboard-kpis>button:nth-child(1){animation-delay:.025s}
+  #tab-dashboard:not(.hidden) .dashboard-kpis>button:nth-child(2){animation-delay:.055s}
+  #tab-dashboard:not(.hidden) .dashboard-kpis>button:nth-child(3){animation-delay:.085s}
+  #tab-dashboard:not(.hidden) .dashboard-kpis>button:nth-child(4){animation-delay:.115s}
+
+  [id$="Modal"].fixed:not(.hidden){animation:bms-motion-page .19s ease-out backwards}
+  [id$="Modal"].fixed:not(.hidden)>div:first-child,
+  dialog[open]{animation:bms-motion-modal .27s cubic-bezier(.2,.7,.2,1) backwards}
+  #toastContainer>div{animation:bms-motion-toast-in .26s cubic-bezier(.2,.7,.2,1) backwards,bms-motion-toast-out .18s ease-in 4.82s forwards}
+  .map-pin.is-selected .map-pin-icon{animation:bms-motion-pin .3s cubic-bezier(.2,.7,.2,1) backwards}
+  #sidebar .nav-btn,#sidebar .nav-btn i,
+  .studio-service-card,.studio-service-arrow,.dashboard-kpis>button,
+  .app-action,.workflow-btn,.map-primary,.map-secondary,.asset-map-link,.map-asset-row{
+    transition:background-color .2s ease,border-color .2s ease,color .2s ease,box-shadow .2s ease,transform .2s cubic-bezier(.2,.7,.2,1)
+  }
+  #appMain table tbody tr{transition:background-color .16s ease}
+  @media (hover:hover){
+    #sidebar .nav-btn:hover i{transform:translateX(2px)}
+    .studio-service-card:hover{transform:translateY(-2px)}
+    .studio-service-card:hover .studio-service-arrow{transform:translate(2px,-2px)}
+    .dashboard-kpis>button:hover{transform:translateY(-2px)}
+    .map-asset-row:hover{transform:translateX(2px)}
+  }
+  :is(.app-action,.workflow-btn,.map-primary,.map-secondary,.asset-map-link):not(:disabled):active{transform:scale(.985)}
+  @media (max-width:1023px){
+    #sidebar{transition:transform .27s cubic-bezier(.2,.7,.2,1),translate .27s cubic-bezier(.2,.7,.2,1)!important}
+    #sidebarBackdrop:not(.hidden){animation:bms-motion-page .18s ease-out backwards}
+  }
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  dialog::backdrop{animation:none!important;transition:none!important}
+}
+@media print{
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+
+</style>
+<style id="appearance-navigation-style">
+/* Light palette: neutral workspace, blue primary actions, mint and lavender accents. */
+:root{--studio-blue:#365d7e;--studio-blue-ink:#365d7e}
+.appearance-toggle,.app-back-button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:37px;padding:8px 11px;border:1px solid #cddfe9;border-radius:10px;background:#fff;color:#365d7e;font-size:11px;font-weight:700;line-height:1;white-space:nowrap;cursor:pointer}
+.appearance-toggle:hover,.app-back-button:not(:disabled):hover{background:#e3effa;border-color:#accadd}
+.appearance-toggle:focus-visible,.app-back-button:focus-visible{outline:3px solid #77a8ce;outline-offset:2px}
+.app-back-button:disabled{opacity:.46;cursor:not-allowed}
+.studio-portal-header-right .appearance-toggle{flex-shrink:0}
+.app-topbar-main .app-back-button{flex-shrink:0}
+#loginScreen #loginSubmitButton,.record-submit,.map-primary,.map-detail-actions .map-save-position,
+:is(button,a).bg-blue-600:not(.nav-btn),:is(button,a).bg-indigo-600:not(.nav-btn){background:#365d7e!important;color:#fff!important;border-color:#365d7e!important}
+#loginScreen #loginSubmitButton:not(:disabled):hover,.record-submit:not(:disabled):hover,.map-primary:not(:disabled):hover,
+.map-detail-actions .map-save-position:not(:disabled):hover,:is(button,a).bg-blue-600:not(.nav-btn):not(:disabled):hover,
+:is(button,a).bg-indigo-600:not(.nav-btn):not(:disabled):hover{background:#294e6b!important;border-color:#294e6b!important}
+.studio-portal-header-right .building-picker a[data-building-link="500G"][aria-current=page]{background:#e3effa!important;color:#365d7e!important}
+.studio-portal-header-right .building-picker a[data-building-link="1000G"][aria-current=page]{background:#efebfa!important;color:#665386!important}
+.app-overline [data-building-text="building"]{display:inline-block;padding:3px 6px;border-radius:6px;background:#e3effa;color:#365d7e;font-weight:700}
+html[data-building="1000G"] .app-overline [data-building-text="building"]{background:#efebfa;color:#665386}
+
+@media(max-width:760px){
+  #loginScreen .studio-portal-header{flex-wrap:wrap}
+  .studio-portal-header-right{margin-left:auto;flex-wrap:wrap;justify-content:flex-end}
+  .appearance-toggle,.app-back-button{min-height:36px;padding:8px 9px}
+}
+@media(max-width:430px){
+  .app-back-button{width:36px;padding:8px}
+  .app-back-button span{display:none}
+  .app-toolbar .appearance-toggle{min-height:34px}
+  .studio-portal-header-right{gap:6px}
+}
+
+/* The original image of a floor plan is left untouched; surrounding controls change theme. */
+@media screen{
+  html[data-theme="dark"]{
+    color-scheme:dark;
+    --pastel-bg:#101c25;--pastel-card:#1b2b35;--pastel-ink:#e3edf2;--pastel-muted:#a8bbc6;
+    --pastel-line:#344b58;--pastel-sky:#254358;--pastel-sky-line:#40657b;--pastel-sky-ink:#d2e9f8;
+    --pastel-mint:#224239;--pastel-mint-ink:#b5e2ce;--pastel-lilac:#39334f;--pastel-lilac-ink:#ded3f5;
+    --pastel-peach:#51392f;--pastel-peach-ink:#ffd7b9;--pastel-rose:#512f38;--pastel-rose-ink:#ffd0d5;
+    --studio-blue:#9dc9e3;--studio-blue-ink:#d2e9f8;--studio-dark:#203c36;
+  }
+  html[data-theme="dark"] :is(body,#appMain,#loginScreen.studio-portal){background:#101c25!important;color:#e3edf2!important}
+  html[data-theme="dark"] :is(.bg-white,.bg-slate-50,.bg-slate-100,.bg-gray-50,.bg-gray-100,.bg-zinc-50){background-color:#1b2b35!important}
+  html[data-theme="dark"] :is([class~="bg-slate-50/70"],[class~="bg-slate-50/80"],[class~="bg-white/80"],[class~="bg-white/90"]){background-color:#263d48!important}
+  html[data-theme="dark"] :is([class~="bg-red-50/40"],[class~="bg-red-50/50"],[class~="bg-red-50/80"]){background-color:#4c3037!important}
+  html[data-theme="dark"] :is(.border-slate-100,.border-slate-200,.border-slate-300,.border-gray-100,.border-gray-200,.border-gray-300){border-color:#38505e!important}
+  html[data-theme="dark"] :is(.text-slate-950,.text-slate-900,.text-slate-800,.text-slate-700,.text-gray-900,.text-gray-800,.text-gray-700,.text-black){color:#e3edf2!important}
+  html[data-theme="dark"] :is(.text-slate-600,.text-slate-500,.text-slate-400,.text-gray-600,.text-gray-500,.text-gray-400){color:#b4c8d2!important}
+  html[data-theme="dark"] :is(input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),select,textarea){background-color:#12232d!important;color:#e7f0f4!important;border-color:#456171!important}
+  html[data-theme="dark"] :is(input,textarea)::placeholder{color:#9fb5c1!important;opacity:1}
+  html[data-theme="dark"] :is(input,select,textarea){accent-color:#83b9d2}
+  html[data-theme="dark"] :is(input,select,textarea,button,a,summary):focus-visible{outline-color:#9bcdec!important}
+  html[data-theme="dark"] ::selection{background:#365f78;color:#fff}
+  html[data-theme="dark"] ::-webkit-scrollbar-track{background:#14242d}
+  html[data-theme="dark"] ::-webkit-scrollbar-thumb{background:#45616d}
+
+  html[data-theme="dark"] :is(.bg-blue-50,.bg-blue-100,.bg-sky-50,.bg-sky-100,.bg-cyan-50,.bg-cyan-100){background-color:#213e50!important}
+  html[data-theme="dark"] :is(.bg-emerald-50,.bg-emerald-100,.bg-green-50,.bg-green-100,.bg-teal-50,.bg-teal-100){background-color:#23443a!important}
+  html[data-theme="dark"] :is(.bg-amber-50,.bg-amber-100,.bg-orange-50,.bg-orange-100,.bg-yellow-50,.bg-yellow-100){background-color:#4b3828!important}
+  html[data-theme="dark"] :is(.bg-red-50,.bg-red-100,.bg-rose-50,.bg-rose-100){background-color:#4c3037!important}
+  html[data-theme="dark"] :is(.bg-violet-50,.bg-violet-100,.bg-purple-50,.bg-purple-100,.bg-indigo-50,.bg-indigo-100,.bg-fuchsia-50){background-color:#38324a!important}
+  html[data-theme="dark"] :is(.text-blue-900,.text-blue-800,.text-blue-700,.text-blue-600,.text-sky-900,.text-sky-800,.text-sky-700,.text-cyan-900,.text-cyan-800,.text-cyan-700,.text-cyan-600,.text-indigo-900,.text-indigo-800,.text-indigo-700,.text-indigo-600){color:#c3e2f4!important}
+  html[data-theme="dark"] :is(.text-emerald-900,.text-emerald-800,.text-emerald-700,.text-emerald-600,.text-green-900,.text-green-800,.text-green-700,.text-green-600,.text-teal-900,.text-teal-800,.text-teal-700,.text-teal-600){color:#b8e8d0!important}
+  html[data-theme="dark"] :is(.text-amber-900,.text-amber-800,.text-amber-700,.text-orange-900,.text-orange-800,.text-orange-700,.text-yellow-800){color:#ffdbad!important}
+  html[data-theme="dark"] :is(.text-red-900,.text-red-800,.text-red-700,.text-red-600,.text-rose-900,.text-rose-800,.text-rose-700){color:#ffc4cc!important}
+  html[data-theme="dark"] :is(.text-purple-900,.text-purple-800,.text-purple-700,.text-violet-900,.text-violet-800,.text-violet-700){color:#dfd2f7!important}
+  html[data-theme="dark"] :is(.appearance-toggle,.app-back-button){background:#203540;color:#d5e9f2;border-color:#496477}
+  html[data-theme="dark"] :is(.appearance-toggle,.app-back-button):not(:disabled):hover{background:#294a59;border-color:#7aa5bb}
+  html[data-theme="dark"] :is(button.bg-blue-600:not(.nav-btn),a.bg-blue-600:not(.nav-btn),button.bg-indigo-600:not(.nav-btn),.record-submit,.map-primary,.map-detail-actions .map-save-position,#loginScreen #loginSubmitButton){background:#365d7e!important;color:#fff!important;border-color:#648eaa!important}
+  html[data-theme="dark"] :is(button.bg-amber-500,button.bg-amber-600,button.bg-orange-500,button.bg-orange-600){background:#855022!important;color:#fff!important;border-color:#ad7949!important}
+  html[data-theme="dark"] :is(button.bg-blue-600:not(.nav-btn),a.bg-blue-600:not(.nav-btn),button.bg-indigo-600:not(.nav-btn),.record-submit,.map-primary):not(:disabled):hover{background:#487797!important}
+
+  /* Public portal and account dialogs. */
+  html[data-theme="dark"] #loginScreen .studio-portal-header{background:transparent!important;border-color:#344b58!important}
+  html[data-theme="dark"] :is(.studio-brand strong,#loginScreen #staffLoginTitle,.studio-service-copy strong,.studio-service-copy h4){color:#e3edf2!important}
+  html[data-theme="dark"] :is(.studio-brand small,.studio-staff-jump,.studio-service-copy small,.studio-service-copy>span,.studio-service-note,.studio-portal-footer,#loginScreen label,#rememberLoginHelp){color:#b8cbd4!important}
+  html[data-theme="dark"] #loginScreen .auth-link{color:#acd9f2!important}
+  html[data-theme="dark"] :is(.studio-brand-mark,.studio-staff-badge){background:#23463b!important;color:#b6dfca!important;border-color:#436a59!important}
+  html[data-theme="dark"] .studio-portal-header-right .building-picker{background:#1b2b35!important;border-color:#3a5360!important}
+  html[data-theme="dark"] .studio-portal-header-right .building-picker a{color:#bfd1da!important}
+  html[data-theme="dark"] .studio-portal-header-right .building-picker a[data-building-link="500G"][aria-current=page]{background:#254b63!important;color:#d2e9f8!important}
+  html[data-theme="dark"] .studio-portal-header-right .building-picker a[data-building-link="1000G"][aria-current=page]{background:#463b60!important;color:#ede2ff!important}
+  html[data-theme="dark"] .studio-portal-hero{background:#203c4b!important;border-color:#365e70!important;color:#e3edf2!important}
+  html[data-theme="dark"] :is(.studio-portal-hero h1,.studio-portal-hero h1>span){color:#e2f0f5!important}
+  html[data-theme="dark"] :is(.studio-eyebrow,.studio-hero-copy>p:not(.studio-eyebrow),.studio-public-label){color:#bcd4dd!important}
+  html[data-theme="dark"] .studio-building-art{color:#83adbb}
+  html[data-theme="dark"] :is(.studio-service-card,#loginScreen section#staffPortal.studio-staff-panel){background:#1b2b35!important;border-color:#354f5d!important;box-shadow:none!important}
+  html[data-theme="dark"] :is(.studio-service-icon,.studio-service-card:nth-child(2) .studio-service-icon,.studio-service-card:nth-child(3) .studio-service-icon,.studio-service-arrow,.studio-key-actions button,.studio-key-actions button+button){background:#2c4654!important;color:#c6e2ee!important;border-color:#4d6776!important}
+  html[data-theme="dark"] #loginScreen :is(#loginEmailInput,#loginPasswordInput){background:#12232d!important;border-color:#456171!important;color:#edf5f8!important}
+  html[data-theme="dark"] :is(.remember-login-button,.remember-login-button.remember-login-active){background:#27443c!important;color:#d3eadf!important;border-color:#507365!important}
+  html[data-theme="dark"] :is(.auth-message,.studio-public-status){background:#233d4d!important;color:#d3e8f3!important;border-color:#3e5b6d!important}
+  html[data-theme="dark"] .auth-message[data-error=true]{background:#4c3037!important;color:#ffd3d8!important}
+  html[data-theme="dark"] :is(.studio-deployment,#appCheckSetupPanel,#authSetupPanel){background:#1b2b35!important;color:#d8e7ee!important;border-color:#3d5663!important}
+
+  /* Staff navigation and dashboard. */
+  html[data-theme="dark"] #sidebar{background:#172c2a!important;color:#d2e8dd!important;border-color:#34514b!important}
+  html[data-theme="dark"] #sidebar>div:first-child{border-color:#34514b!important}
+  html[data-theme="dark"] #sidebar>div:first-child :is(span,.font-bold.text-base){color:#d0e7dc!important}
+  html[data-theme="dark"] #sidebar>div:first-child .w-9{background:#29483d!important;color:#c8e8d5!important;border-color:#43685a!important}
+  html[data-theme="dark"] :is(.studio-nav-search,#sidebar>div:last-child){background:#1d3832!important;border-color:#3a584d!important;color:#d3e9df!important}
+  html[data-theme="dark"] .studio-nav-search input{background:transparent!important;color:#e2f0ea!important}
+  html[data-theme="dark"] :is(.studio-nav-search kbd,.studio-nav-search button,.studio-nav-result,#sidebar .nav-section-label){color:#aac9ba!important}
+  html[data-theme="dark"] #sidebar .nav-btn{color:#c8ded5!important}
+  html[data-theme="dark"] #sidebar .nav-btn i{color:#acd2c0!important}
+  html[data-theme="dark"] #sidebar .nav-btn:hover{background:#29483e!important;color:#fff!important}
+  html[data-theme="dark"] #sidebar .nav-btn.bg-blue-600{background:#31536a!important;border-color:#53788e!important;color:#ecf6fb!important}
+  html[data-theme="dark"] #sidebar .nav-btn.bg-blue-600 i{color:#d4eefa!important}
+  html[data-theme="dark"] #sidebar .nav-btn .rounded-full{background:#31564a!important;color:#d4eee0!important}
+  html[data-theme="dark"] #sidebar :is(#sidebarCentralDataWrapper>button,#currentUserAvatar,#sidebarCentralDataWrapper>button:hover),
+  html[data-theme="dark"] #sidebar>div:last-child button{background:#29483e!important;color:#d3eadf!important;border-color:#48685b!important}
+  html[data-theme="dark"] #sidebar :is(#currentUserName,#currentUserRoleBadge){color:#d3eadf!important}
+  html[data-theme="dark"] .app-topbar{background:#1b2b35!important;border-color:#344b58!important}
+  html[data-theme="dark"] :is(.app-page-heading h2,#pageHeaderTitle,.app-duty strong){color:#e3edf2!important}
+  html[data-theme="dark"] :is(.app-overline,.app-clock,.app-duty-label){color:#b3c6d0!important}
+  html[data-theme="dark"] .app-overline [data-building-text="building"]{background:#254b63;color:#d6edf9}
+  html[data-theme="dark"][data-building="1000G"] .app-overline [data-building-text="building"]{background:#463b60;color:#ede2ff}
+  html[data-theme="dark"] :is(.app-menu-toggle,.app-action-outline,.app-action-muted){background:#263e4b!important;color:#d9ebf2!important;border-color:#476474!important}
+  html[data-theme="dark"] .app-action-critical{background:#5a3b30!important;color:#ffdfc9!important;border-color:#8a5e4c!important}
+  html[data-theme="dark"] :is(.app-tools-popover,.shared-data-panel){background:#1d3440!important;color:#d3e8f2!important;border-color:#3c5968!important}
+  html[data-theme="dark"] .app-tools-popover button{color:#d3e8f2!important}
+  html[data-theme="dark"] .shared-data-panel button{background:#294652!important;color:#deeff6!important;border-color:#517181!important}
+  html[data-theme="dark"] .dashboard-hero{background:#203f35!important;border-color:#3a5c4e!important}
+  html[data-theme="dark"] .dashboard-hero-copy{background:#203f35!important;color:#d6efe1!important}
+  html[data-theme="dark"] :is(.dashboard-hero h1,.dashboard-hero-copy>p,.dashboard-hero-eyebrow,.dashboard-hero-meta,.dashboard-hero-meta i){color:#d1e9dd!important}
+  html[data-theme="dark"] .dashboard-hero-actions{background:#1b3032!important}
+  html[data-theme="dark"] .dashboard-hero-actions>button{border-color:#39544f!important;color:#d2e6dc!important}
+  html[data-theme="dark"] .dashboard-hero-actions>button:hover{background:#2b4842!important}
+  html[data-theme="dark"] .dashboard-hero-actions strong{background:#31564a!important;color:#e0f0e7!important}
+  html[data-theme="dark"] .dashboard-hero-actions small{color:#bacfc5!important}
+  html[data-theme="dark"] :is(.hero-action-alert,.hero-action-planning,.hero-action-shift){background:#314c50!important;color:#d0ece6!important}
+  html[data-theme="dark"] .dashboard-kpis>button{background:#234238!important;border-color:#426658!important;box-shadow:none!important;color:#e1f2e9!important}
+  html[data-theme="dark"] .dashboard-kpis>button:nth-child(2){background:#4a342e!important;border-color:#725249!important}
+  html[data-theme="dark"] .dashboard-kpis>button:nth-child(3){background:#253f53!important;border-color:#47677d!important}
+  html[data-theme="dark"] .dashboard-kpis>button:nth-child(4){background:#3a344c!important;border-color:#5c526d!important}
+  html[data-theme="dark"] :is(.dashboard-kpis .uppercase,.dashboard-kpis p,.dashboard-section-kicker){color:#c4d7de!important}
+  html[data-theme="dark"] .dashboard-section-heading h3{color:#e3edf2!important}
+  html[data-theme="dark"] :is(.dashboard-system-panel,.dashboard-data-row>div,.tab-content>div.bg-white,.tab-content>.record-history){background:#1b2b35!important;border-color:#344b58!important;box-shadow:none!important}
+
+  /* Tables, forms, dialogs, permissions and map controls. */
+  html[data-theme="dark"] #appMain table th{background:#203743!important;color:#d3e4eb!important}
+  html[data-theme="dark"] #appMain table td{color:#d8e8ee!important;border-color:#344b58!important}
+  html[data-theme="dark"] .tab-content table tbody tr:hover{background:#263e4b!important}
+  html[data-theme="dark"] #appMain span.bg-red-600{background:#63353d!important;color:#ffe1e3!important}
+  html[data-theme="dark"] :is(.workflow-controls,.workflow-note,.workflow-chip,.record-history,.map-status,.map-filters,.map-board,.map-device-panel,.map-asset-detail,.map-placement-help,.map-draft-note,.map-navigation-notice,.system-visibility-banner,#userViewSystemsWrapper,.view-system-option){background:#213944!important;color:#d7e9f0!important;border-color:#405d6a!important}
+  html[data-theme="dark"] :is(.view-system-option:has(input:checked),.view-system-option[data-inherited=true]){background:#2a4a40!important;border-color:#567a68!important}
+  html[data-theme="dark"] :is(.view-system-option strong,.view-system-option>span>span,.view-system-option small,.map-heading h2,.map-eyebrow,.record-heading){color:#d7e9f0!important}
+  html[data-theme="dark"] :is(.workflow-btn,.map-secondary,.map-management button,.map-view-tools button,.map-navigation-notice button,.map-detail-actions button,.asset-map-link,.asset-map-link[data-map-state=unplaced]){background:#2a4654!important;color:#d6eaf3!important;border-color:#4b6a7a!important}
+  html[data-theme="dark"] :is(.map-board-toolbar,.map-board-footer,.map-empty){background:#1d3440!important;color:#d3e7ee!important;border-color:#405d6a!important}
+  html[data-theme="dark"] .map-viewport{background-color:#24343d;background-image:none}
+  html[data-theme="dark"] :is(.map-asset-row:hover,.map-asset-row[aria-pressed=true]){background:#2d4b5a!important;color:#e3eff3!important}
+  html[data-theme="dark"] :is(.map-asset-row,.map-asset-detail) :is(h1,h2,h3,h4,p,strong,b,span,small,dt,dd){color:#d5e9f1!important}
+  html[data-theme="dark"] .map-detail-code{color:#b7dff3!important}
+  html[data-theme="dark"] :is(.map-source-note,.map-status[data-error=true]){background:#4b3828!important;color:#ffdfb8!important;border-color:#765c3f!important}
+  html[data-theme="dark"] :is(dialog,[id$="Modal"].fixed>div:first-child){background:#1b2b35!important;color:#e3edf2!important;border-color:#48606c!important}
+  html[data-theme="dark"] :is(dialog,[id$="Modal"].fixed>div:first-child) :is(h1,h2,h3,h4,label){color:#e3edf2!important}
+  html[data-theme="dark"] .auth-dialog::backdrop,html[data-theme="dark"] #maintenanceConfirm::backdrop{background:#081219bb}
+}
+
+@media print{.appearance-toggle,.app-back-button{display:none!important}}
+
+</style>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans antialiased selection:bg-blue-600 selection:text-white overflow-hidden">
 
@@ -3690,6 +3990,7 @@ input[type=file]::file-selector-button{background:var(--pastel-sky)!important;co
                 </div>
                 <div class="studio-portal-header-right">
                     <nav class="building-picker" aria-label="Chọn tòa nhà"><a href="?building=500G" data-building-link="500G">500G</a><a href="?building=1000G" data-building-link="1000G">1000G</a></nav>
+                    <button type="button" class="appearance-toggle" onclick="toggleAppearanceTheme()" aria-label="Chuyển sang giao diện tối" title="Chuyển sang giao diện tối"><i class="fa-solid fa-moon" aria-hidden="true"></i><span data-appearance-label>Tối</span></button>
                     <button type="button" class="studio-staff-jump" onclick="document.getElementById('staffPortal').focus()">Đăng nhập nhân sự <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
                 </div>
             </header>
@@ -3934,6 +4235,7 @@ input[type=file]::file-selector-button{background:var(--pastel-sky)!important;co
             <header class="app-topbar">
                 <div class="app-topbar-main">
                     <button type="button" onclick="toggleMobileSidebar()" class="app-menu-toggle lg:hidden" aria-label="Mở menu điều hướng" aria-controls="sidebar" aria-expanded="false" id="appMenuToggle"><i class="fa-solid fa-bars"></i></button>
+                    <button type="button" id="appBackButton" class="app-back-button" onclick="AppNavigation.back()" aria-label="Quay lại mục trước" title="Chưa có mục trước đó" disabled><i class="fa-solid fa-arrow-left" aria-hidden="true"></i><span>Quay lại</span></button>
                     <div class="app-page-heading">
                         <div class="app-overline"><span class="app-overline-dot"></span> VẬN HÀNH KỸ THUẬT <span class="app-overline-divider">/</span> <span data-building-text="building">500G</span></div>
                         <h2 id="pageHeaderTitle" tabindex="-1">Tổng quan vận hành</h2>
@@ -3943,6 +4245,7 @@ input[type=file]::file-selector-button{background:var(--pastel-sky)!important;co
                     </button>
                 </div>
                 <div class="app-toolbar">
+                    <button type="button" class="appearance-toggle" onclick="toggleAppearanceTheme()" aria-label="Chuyển sang giao diện tối" title="Chuyển sang giao diện tối"><i class="fa-solid fa-moon" aria-hidden="true"></i><span data-appearance-label>Tối</span></button>
                     <div class="app-clock"><i class="fa-regular fa-clock"></i><span id="liveHeaderClock">--/--/---- --:--:--</span></div>
                     <button type="button" onclick="openQrScannerModal()" class="app-action app-action-outline"><i class="fa-solid fa-qrcode"></i><span>Quét QR</span></button>
                     <button type="button" onclick="openTicketModal()" class="app-action app-action-critical"><i class="fa-solid fa-triangle-exclamation"></i><span>Báo sự cố</span></button>
@@ -6950,6 +7253,7 @@ input[type=file]::file-selector-button{background:var(--pastel-sky)!important;co
             if (!userObj) return;
             if (!hasAuthenticatedClientSession()) return;
             currentUser = normalizeUserObject(userObj);
+            window.AppNavigation.reset();
 
             // Hide Login Screen & Remove Background Blur
             document.getElementById('loginScreen').classList.add('hidden');
@@ -7639,7 +7943,7 @@ input[type=file]::file-selector-button{background:var(--pastel-sky)!important;co
         function openMaterialIssueHistory() {
             switchTab('inventory');
             renderMaterialIssueHistory();
-            document.getElementById('materialIssueHistoryPanel')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.getElementById('materialIssueHistoryPanel')?.scrollIntoView({ behavior:(window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ? 'auto' : 'smooth'), block: 'start' });
         }
 
         function exportMaterialIssueHistoryCsv() {
@@ -8384,7 +8688,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
 
         function showGuestKeyReturnConfirmation() {
             document.getElementById('guestKeyReturnConfirmation').classList.remove('hidden');
-            document.getElementById('guestKeyReturnConfirmation').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            document.getElementById('guestKeyReturnConfirmation').scrollIntoView({ behavior:(window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ? 'auto' : 'smooth'), block: 'nearest' });
         }
 
         function beginGuestKeyReturnConfirmation(loan) {
@@ -10672,6 +10976,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
                 showToast('Chỉ Quản Trị Viên hoặc Trưởng Ban mới được xem và duyệt hồ sơ nhà thầu.', 'error');
                 return;
             }
+            window.AppNavigation.record(tabId);
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             target.classList.remove('hidden');
             document.getElementById('appMain').scrollTop = 0;
@@ -12088,7 +12393,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
                     const reason = invalid.validationMessage || 'Giá trị chưa hợp lệ.';
                     showToast(`Vui lòng kiểm tra “${labelText}”. ${reason}`, 'error');
                     try { invalid.focus({ preventScroll: true }); } catch (_) { invalid.focus(); }
-                    invalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    invalid.scrollIntoView({ behavior:(window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ? 'auto' : 'smooth'), block: 'center' });
                 } else {
                     showToast('Biểu mẫu còn thiếu hoặc có thông tin chưa hợp lệ. Vui lòng kiểm tra lại.', 'error');
                 }
@@ -12817,7 +13122,7 @@ window.DeviceMap=(()=>{
     function focusSelectedPin(){
         if(!focusAsset||!isOpen()||loadedPlan!==selectedPlan||$('mapCanvas').hidden)return;
         const pin=[...$('mapPinLayer').querySelectorAll('[data-map-asset]')].find(node=>node.dataset.mapAsset===focusAsset);
-        if(!pin)return;focusAsset='';pin.scrollIntoView({behavior:'smooth',block:'center',inline:'center'});pin.focus({preventScroll:true});
+        if(!pin)return;focusAsset='';pin.scrollIntoView({behavior:(window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ? 'auto' : 'smooth'),block:'center',inline:'center'});pin.focus({preventScroll:true});
     }
     function changePlan(id){if(draft&&!confirm('Bỏ vị trí đang chờ lưu để đổi mặt bằng?')){$('mapPlanSelect').value=selectedPlan;return;}draft=null;pendingOpen=focusAsset='';navigationNotice('');selectedPlan=id;loadedPlan='';refresh();}
     function searchChanged(){if($('mapAssetSearch').value.trim())$('mapListScope').value='ALL';refresh();}
@@ -14142,7 +14447,7 @@ function openNotebookLmEditor(systemCode, id) {
     document.getElementById('nbEntryUrl').value = existing?.url || '';
     document.getElementById('nbEntryDescription').value = existing?.description || '';
     const panel=document.getElementById('nbEditorPanel');panel.classList.remove('hidden');
-    panel.scrollIntoView({block:'nearest',behavior:'smooth'});
+    panel.scrollIntoView({block:'nearest',behavior:(window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ? 'auto' : 'smooth')});
     document.getElementById('nbEntryTitle').focus();
 }
 function closeNotebookLmEditor() { notebookLmEditingId=null;document.getElementById('nbEditorPanel').classList.add('hidden'); }
