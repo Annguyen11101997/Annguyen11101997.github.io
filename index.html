@@ -3488,6 +3488,182 @@ button,input,textarea,select{font:inherit}button,a,input,textarea,select,summary
 .map-board.is-expanded{position:fixed;inset:0;z-index:170}
 
 </style>
+<style id="pastel-workspace-design">
+/* Pastel surfaces stay light; text, focus rings and operational states retain contrast. */
+:root{
+  --pastel-bg:#f6f9fc;--pastel-card:#fff;--pastel-ink:#2b4054;--pastel-muted:#60758a;
+  --pastel-line:#dce7ee;--pastel-sky:#e3effa;--pastel-sky-line:#c2d9ec;--pastel-sky-ink:#365d7e;
+  --pastel-mint:#e5f2ec;--pastel-mint-ink:#3b6d5c;--pastel-lilac:#efebfa;--pastel-lilac-ink:#665386;
+  --pastel-peach:#fff0e6;--pastel-peach-ink:#895d40;--pastel-rose:#fcebed;--pastel-rose-ink:#a34553;
+  --studio-blue:#5c84ac;--studio-blue-ink:#365d7e;--studio-dark:#e5f2ec;
+  --studio-bg:var(--pastel-bg);--studio-line:var(--pastel-line);--studio-ink:var(--pastel-ink);
+  --studio-muted:var(--pastel-muted);--studio-radius:16px;
+}
+body,#appMain,#loginScreen.studio-portal{background:var(--pastel-bg)!important;color:var(--pastel-ink)}
+button:focus-visible,a:focus-visible,summary:focus-visible{outline-color:#6e91b5}
+input,select,textarea{accent-color:#567fa5}
+input:focus-visible,select:focus-visible,textarea:focus-visible{outline-color:#b7d3eb}
+::selection{background:#d5e7f5;color:#2b4d69}
+::-webkit-scrollbar-track{background:#f3f7fa}::-webkit-scrollbar-thumb{background:#c7d7e2}
+.bg-slate-50{background-color:#f5f8fb!important}.bg-slate-100{background-color:#edf3f7!important}
+.border-slate-200{border-color:var(--pastel-line)!important}.border-slate-100{border-color:#e9eff4!important}
+:is(button,a).bg-blue-600,:is(button,a).bg-indigo-600,:is(button,a).bg-slate-900,
+.record-submit,.map-primary,.map-detail-actions .map-save-position{
+  background:var(--pastel-sky)!important;color:var(--pastel-sky-ink)!important;
+  border:1px solid var(--pastel-sky-line)!important;box-shadow:none!important;
+}
+:is(button,a).bg-blue-600:not(:disabled):hover,:is(button,a).bg-indigo-600:not(:disabled):hover,
+:is(button,a).bg-slate-900:not(:disabled):hover,.record-submit:hover,.map-primary:not(:disabled):hover,
+.map-detail-actions .map-save-position:not(:disabled):hover{background:#d5e7f5!important;border-color:#9dbfda!important}
+:is(button,a).bg-emerald-600,:is(button,a).bg-teal-600{background:var(--pastel-mint)!important;color:#305f50!important;border:1px solid #bedbce!important}
+:is(button,a).bg-emerald-600:not(:disabled):hover,:is(button,a).bg-teal-600:not(:disabled):hover{background:#d7eade!important}
+button.bg-red-600{background:var(--pastel-rose)!important;color:#923d4b!important;border:1px solid #e9bfc6!important}
+button.bg-red-600:not(:disabled):hover{background:#f5dce1!important}
+#assetPageIndicator,#ppmPageIndicator{background:var(--pastel-lilac)!important;color:var(--pastel-lilac-ink)!important;border:1px solid #ddd4f0}
+button:disabled{cursor:not-allowed}
+input[type=file]::file-selector-button{background:var(--pastel-sky)!important;color:var(--pastel-sky-ink)!important;border-radius:8px}
+
+/* Public portal and real-account sign-in. */
+.studio-brand-mark{background:#d8ebe3;color:#456e60;border:1px solid #c5ddd1;border-radius:12px}
+.studio-brand strong{color:var(--pastel-ink)}
+.studio-portal-header-right .building-picker{background:#fff;border-color:var(--pastel-line);border-radius:11px}
+.studio-portal-header-right .building-picker a{border-radius:8px}
+.studio-portal-header-right .building-picker a[aria-current=page]{background:var(--pastel-sky)!important;color:var(--pastel-sky-ink)!important}
+.studio-portal-hero{background:#e7f1f8;border-color:#d2e3ed;color:var(--pastel-ink);border-radius:18px}
+.studio-portal-hero:before{background-image:linear-gradient(#7094a90b 1px,transparent 1px),linear-gradient(90deg,#7094a90b 1px,transparent 1px)}
+.studio-eyebrow{color:#56778c}.studio-eyebrow>span:first-child{background:#719d8a;border-radius:50%}
+.studio-portal-hero h1{color:#2e4c60!important}.studio-portal-hero h1>span{color:#4d7c72}
+.studio-hero-copy>p:not(.studio-eyebrow){color:#597287}.studio-public-label{color:#476979}.studio-public-label i{color:#4b8170}
+.studio-building-art{color:#739da9;opacity:.75}
+.studio-public-status{background:#fff6e9!important;color:#7a5c2b!important;border-color:#ead9b9!important;border-radius:11px!important}
+.studio-service-card{border-radius:14px;border-color:var(--pastel-line);box-shadow:0 3px 10px #42607804}
+.studio-service-card:hover{border-color:#b5d2d0;box-shadow:0 4px 15px #42607809}
+.studio-service-launch{border-radius:14px}.studio-service-icon{border-radius:12px;border-color:#edd5ca;background:var(--pastel-peach);color:#8c614a}
+.studio-service-card:nth-child(2) .studio-service-icon{background:var(--pastel-mint);border-color:#cde2d8;color:#4c7866}
+.studio-service-card:nth-child(3) .studio-service-icon{background:var(--pastel-lilac);border-color:#ddd4ed;color:#74618d}
+.studio-service-arrow{background:var(--pastel-sky);color:var(--pastel-sky-ink);border-radius:9px}
+.studio-service-copy strong,.studio-service-copy h4{color:var(--pastel-ink)}
+.studio-key-actions button{background:var(--pastel-lilac);border-color:#ddd6ef;color:#655185;border-radius:8px}
+.studio-key-actions button+button{background:#f8f6fc;border-color:#e3ddef;color:#6e617f}
+#loginScreen section#staffPortal.studio-staff-panel{border-color:var(--pastel-line);border-radius:18px;box-shadow:0 5px 20px #46627b06}
+.studio-staff-badge{background:var(--pastel-mint);border-color:#cfe3d8;color:#4b7564;border-radius:8px}
+#loginScreen #loginEmailInput,#loginScreen #loginPasswordInput{border-color:#d1e1ea!important;border-radius:11px!important;background:#fbfdff!important}
+#loginScreen #loginSubmitButton{background:var(--pastel-sky)!important;color:#305575!important;border-color:#bdd6e9!important;border-radius:11px!important;box-shadow:none}
+#loginScreen #loginSubmitButton:not(:disabled):hover{background:#d5e7f5!important}
+.remember-login-button{border-radius:9px;background:#f9fbfd;color:#5b7184;border-color:#d7e3ec}
+.remember-login-button.remember-login-active{background:var(--pastel-mint);color:#426f5e;border-color:#bedbce}
+.studio-deployment{border-color:#e6edf3}.studio-portal-footer{color:#667e90}
+
+/* Light mint navigation with a blue current section. */
+#sidebar{background:#edf5f2!important;border-right-color:#d4e4dc!important;color:#405d63!important}
+#sidebar>div:first-child{border-color:#d7e6df!important}
+#sidebar>div:first-child .w-9{background:#d8eae1!important;border-color:#c2dbce!important;color:#426c5b!important;border-radius:10px!important}
+#sidebar>div:first-child .font-bold.text-base{color:#34594e!important}
+#sidebar>div:first-child span{color:#5e7c73!important}
+.studio-nav-search{background:#fff;border-color:#d4e2dc;color:#648478;border-radius:10px;min-height:39px}
+.studio-nav-search input{color:#405e64!important;font-size:12px!important}.studio-nav-search input::placeholder{color:#6c847c}
+.studio-nav-search kbd,.studio-nav-search button{color:#6c847c}.studio-nav-result{color:#5d7970}
+#sidebar nav{scrollbar-color:#bfD6ca transparent!important}
+#sidebar .nav-section-label{color:#668176;font-size:10px;letter-spacing:.045em}
+#sidebar .nav-btn{color:#4b686c!important;font-size:12px!important;border-radius:9px!important;min-height:39px}
+#sidebar .nav-btn i{color:#65877c!important}
+#sidebar .nav-btn:hover{background:#e0eee7!important;color:#294f44!important}
+#sidebar .nav-btn.bg-blue-600{background:#dcebf6!important;border-color:#c1d8e8!important;color:#345c7c!important}
+#sidebar .nav-btn.bg-blue-600 i{color:#527e9d!important}
+#sidebar .nav-btn .rounded-full{background:#dceae3!important;color:#4b6c5e!important;border-radius:6px}
+#sidebar .nav-utility-block,#sidebar #sidebarCentralDataWrapper{border-color:#d3e3da!important}
+#sidebar #sidebarCentralDataWrapper>button{background:#e0eee7!important;color:#466c5b!important;border-color:#c5ded0!important;border-radius:10px}
+#sidebar #sidebarCentralDataWrapper>button:hover{background:#d5e8dd!important}
+#sidebar>div:last-child{background:#e6f0eb!important;border-color:#cfE1d6!important}
+#sidebar #currentUserAvatar{background:#d6e7f3!important;color:#3d6380!important;border:1px solid #c1d8e8;border-radius:10px}
+#sidebar #currentUserName{color:#36594d!important;font-size:12px}
+#sidebar #currentUserRoleBadge{color:#5e786d!important}
+#sidebar>div:last-child button{background:#f8fcfa!important;border:1px solid #cbded2;color:#587369!important;border-radius:7px}
+#sidebar>div:last-child button:hover{background:#dcece2!important;color:#355c49!important}
+
+/* Workspace, overview, tables and forms. */
+.app-topbar{border-color:var(--pastel-line)!important}.app-page-heading h2,#pageHeaderTitle{color:var(--pastel-ink)!important}
+.app-overline{color:#637a8c!important}.app-overline-dot{background:#7ea591!important}
+.app-action{border-radius:10px!important}.app-action-outline{background:#f4f7fd!important;border-color:#d9e1f0!important;color:#586a88!important}
+.app-action-critical{background:var(--pastel-peach)!important;border-color:#efd4c1!important;color:#885d42!important}
+.app-action-muted{background:var(--pastel-mint)!important;border-color:#cfe2d8!important;color:#4d7160!important}
+.app-menu-toggle{background:#e9f1f7!important;color:#55798f!important;border-radius:9px!important}
+.shared-data-panel{background:#edf5f9;color:#526f84;border-color:#dae7ef}
+.shared-data-panel button{background:#f7fbff;color:#476d8c;border-color:#c5dbe9;border-radius:8px}
+.tab-content>div.bg-white,.tab-content>.record-history,.dashboard-system-panel,.dashboard-data-row>div{border-color:var(--pastel-line)!important;border-radius:15px!important;box-shadow:0 3px 14px #46627b04!important}
+.dashboard-hero{border-color:#d6e6dd!important;border-radius:17px!important}
+.dashboard-hero-copy{background:#e6f2eb;color:#36594b}
+.dashboard-hero-eyebrow{color:#557967!important;font-size:9px!important}.dashboard-live-dot{background:#6f9f86!important;border-radius:50%}
+.dashboard-hero h1{color:#2f5345!important}.studio-heading-dot{color:#779f86}
+.dashboard-hero-copy>p{color:#557365!important;font-size:12px!important}
+.dashboard-hero-meta{color:#5f7c6b!important}.dashboard-hero-meta i{color:#6c9079!important}
+.dashboard-hero-actions{background:#fbfdfc!important}.dashboard-hero-actions>button{border-color:#e6eee9!important;color:#47645b!important}
+.dashboard-hero-actions>button:hover{background:#f1f7f3!important}.dashboard-hero-actions strong{color:#496a59!important}
+.hero-action-alert{background:var(--pastel-peach)!important;color:#a06b4d!important}
+.hero-action-planning{background:var(--pastel-sky)!important;color:#557f9f!important}
+.hero-action-shift{background:var(--pastel-lilac)!important;color:#786292!important}
+.hero-action-icon{border-radius:9px!important}
+.dashboard-section-kicker{color:#6a7f91!important}.dashboard-section-heading h3{color:var(--pastel-ink)!important}
+.dashboard-kpis>button{border-color:#d4e6dc!important;border-radius:15px!important;background:#eaf5ef!important;box-shadow:0 3px 10px #42607803!important}
+.dashboard-kpis>button:nth-child(2){background:#fff0ec!important;border:1px solid #efd7d0!important}
+.dashboard-kpis>button:nth-child(3){background:#eaf3fc!important;border-color:#d1e2f2!important}
+.dashboard-kpis>button:nth-child(4){background:#f1edfa!important;border-color:#e1d8f0!important}
+.dashboard-kpis>button:hover{border-color:#a7c9b7!important;box-shadow:0 4px 14px #4260780a!important}
+.dashboard-kpis>button:nth-child(2):hover{border-color:#dca99d!important}
+.dashboard-kpis .uppercase{color:#526c7c!important;font-size:9px!important}.dashboard-kpis p{color:#657e8b!important}
+.dashboard-kpis .w-9{border-radius:10px!important}
+.dashboard-system-panel #dashboardSystemsMatrix>button{border-radius:10px!important}
+#appMain table th{background:#f0f5fa!important;color:#5e758b!important;font-size:11px!important}
+#appMain table td{font-size:12px}.tab-content table tbody tr:hover{background:#f3f8fc!important}
+#tab-assets table{min-width:1080px}
+#assetTableBody>tr>td:first-child{min-width:180px}
+#assetTableBody>tr>td:first-child>.flex>span:first-child{white-space:nowrap}
+#assetTableBody>tr>td:nth-child(3){min-width:170px}
+#assetTableBody>tr>td:nth-child(4),#assetTableBody>tr>td:nth-child(5){white-space:nowrap}
+#appMain span.bg-red-600{background:#f9e5e8!important;color:#993e4c!important}
+.workflow-controls{background:#eff5f9;border-color:#dce7ef;border-radius:12px}
+.workflow-field,.workflow-btn{border-radius:9px}.workflow-field{border-color:#d0dfe9;background:#fbfdff}
+.workflow-chip{background:var(--pastel-lilac);color:var(--pastel-lilac-ink);border-radius:7px}
+.workflow-note{background:#f3f8fb;border-color:#dae7ef;border-radius:11px;color:#5c768c}
+.record-heading{color:var(--pastel-ink)}
+.auth-dialog,#maintenanceConfirm,#quickRequestModal>div,#guestKeyModal>div,#contractorRegistrationModal>div{border-radius:17px!important}
+.auth-dialog::backdrop,#maintenanceConfirm::backdrop{background:#41596f70}
+.auth-message{background:#edf4fa;color:#4e708b;border-radius:9px}.auth-message[data-error=true]{background:#fceef0;color:#9c4753}
+
+/* Equipment directory links and the floor-plan workspace. */
+.asset-location-actions{margin-top:6px}
+.asset-map-link{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:5px 8px;border:1px solid #c5dbea;border-radius:8px;background:#eaf3fb;color:#3c6584;font-size:11px;font-weight:650;white-space:nowrap;line-height:1.5}
+.asset-map-link:hover{background:#dcecf8;border-color:#9fbed4}.asset-map-arrow{font-size:8px;color:#6689a3}
+.asset-map-link[data-map-state=unplaced]{background:#f7f4fc;border-color:#e1d9ef;color:#76658d}
+.asset-map-link[data-map-state=unplaced]:hover{background:#eee8f7;border-color:#cbbce0}
+.map-navigation-notice{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;margin:0 0 14px;border:1px solid #cde2d7;border-radius:11px;background:#eaf5ee;color:#456e59;font-size:12px;line-height:1.7}
+.map-navigation-notice>span{overflow-wrap:anywhere}.map-navigation-notice button{display:inline-flex;align-items:center;gap:6px;flex-shrink:0;min-height:33px;padding:6px 9px;border:1px solid #c8ddd0;border-radius:8px;background:#f7fcf9;color:#426a54;font-size:11px;font-weight:600}
+.map-heading h2{color:var(--pastel-ink)}.map-eyebrow{color:#5d7e8c}
+.map-status{background:#edf4fa;border-color:#d5e4ef;color:#54738d;border-radius:10px}
+.map-status[data-error=true]{background:#fceef0;border-color:#eed0d6;color:#9a4754}
+.map-filters,.map-board,.map-device-panel{border-color:var(--pastel-line);border-radius:14px}
+.map-filters :is(input,select),.map-device-panel select{background:#f7fafd;border-color:#d5e3ed;border-radius:9px}
+.map-management button{border-radius:9px;font-size:11px}.map-secondary{background:#f7f9fe;border-color:#dbe2ef;color:#60728f}
+.map-primary:hover{background:#d5e7f5!important}.map-board-toolbar{background:#f8fbfd;border-color:#e1ebf1}
+.map-view-tools button{background:#eaf1f7;color:#55768e;border-radius:8px;min-height:32px}
+.map-source-note{background:#fff6e8;border-color:#ebddc5;color:#846639}
+.map-board-footer{background:#fbfdfc;color:#647f88}.map-edit-toggle{background:var(--pastel-mint);border-color:#c8e0d1;color:#4d7862;border-radius:8px}
+.map-edit-toggle[aria-pressed=true]{background:#cde5d8;border-color:#90b99f;color:#315f46}
+.map-viewport{background-color:#eef4f7;background-image:linear-gradient(45deg,#e8eff3 25%,transparent 25%),linear-gradient(-45deg,#e8eff3 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e8eff3 75%),linear-gradient(-45deg,transparent 75%,#e8eff3 75%)}
+.map-asset-row:hover,.map-asset-row[aria-pressed=true]{background:#ecf4fb}
+.map-asset-row[aria-pressed=true]{box-shadow:inset 3px 0 #7da5c3}
+.map-asset-detail{background:#f8fbfd;border-color:#dce7ef}.map-placement-help{background:#eaf4ee;border-color:#d3e5d9;color:#50735e}
+.map-detail-actions button{border-color:#d3e1eb;border-radius:8px;color:#4c718d}
+.map-draft-note{background:#edf5fb;border-color:#cddfec;color:#527590;border-radius:8px}
+.map-pin.is-selected .map-pin-icon{outline-color:#5c8daf;outline-width:3px;box-shadow:0 0 0 6px #d7e9f388,0 2px 8px #26445e55}
+.map-pin.is-draft .map-pin-icon{background:#5d83a8}.map-empty{background:#f5f9fc}
+.map-plan-dialog input[type=file]{background:#f1f6fa;border-radius:9px}
+@media(max-width:760px){.map-navigation-notice{align-items:flex-start;flex-direction:column;gap:8px}.map-navigation-notice button{font-size:10px}.studio-building-art{opacity:.5}}
+@media(prefers-reduced-motion:reduce){.asset-map-link{transition:none}}
+@media print{.asset-location-actions,.map-navigation-notice{display:none!important}.dashboard-hero-copy{background:#fff!important}.dashboard-hero h1{color:#111!important}}
+
+</style>
+<style id="system-visibility-design">.system-visibility-banner{margin:0;padding:10px 24px;background:#efebfa;border-bottom:1px solid #ded6ed;color:#675582;font-size:12px;line-height:1.6}.system-visibility-banner[hidden],[data-all-systems-view][hidden]{display:none!important}#userViewOtherSystemsWrapper{padding:14px;border:1px solid #d9d4ed;border-radius:12px;background:#f7f4fc}#userViewOtherSystemsInput{width:17px;height:17px;flex-shrink:0}#userViewOtherSystemsInput:disabled{opacity:.65}@media(max-width:760px){.system-visibility-banner{padding:10px 15px;font-size:11px}}@media print{.system-visibility-banner{display:none!important}}</style>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans antialiased selection:bg-blue-600 selection:text-white overflow-hidden">
 
@@ -3778,6 +3954,7 @@ button,input,textarea,select{font:inherit}button,a,input,textarea,select,summary
                 <button type="button" id="loadIncomingData" class="hidden" onclick="SharedData.useRemote()">Tải cập nhật</button>
             </div>
             <!-- Scrollable Content Container -->
+            <p id="systemVisibilityBanner" class="system-visibility-banner" role="status" hidden></p>
             <main id="appMain" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
 
                 <section id="tab-dashboard" class="tab-content space-y-6">
@@ -3874,13 +4051,13 @@ button,input,textarea,select{font:inherit}button,a,input,textarea,select,summary
 
                     <!-- Charts & Shift Handover Row -->
                     <div class="dashboard-data-row grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
+                        <div data-all-systems-view class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
                             <div class="flex flex-wrap items-center justify-between gap-2">
                                 <div>
                                     <h3 class="text-sm font-bold text-slate-900">Giám Sát Điện (kWh), Nước Sinh Hoạt (m³) & Bồn Dầu DO</h3>
                                     <p class="text-xs text-slate-500">Biểu đồ hiển thị tối đa 10 bản ghi. Mở lịch sử để xem các kỳ trước.</p>
                                 </div>
-                                <button onclick="openEnergyLogModal()" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition">
+                                <button data-all-systems-view onclick="openEnergyLogModal()" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition">
                                     <i class="fa-solid fa-gauge-high text-amber-400 mr-1"></i>Ghi Chỉ Số Điện / Nước / Dầu
                                 </button>
                             </div>
@@ -4001,6 +4178,7 @@ button,input,textarea,select{font:inherit}button,a,input,textarea,select,summary
     <div class="map-heading"><div><p class="map-eyebrow">KHÔNG GIAN THIẾT BỊ · <span data-building-text="building">500G</span></p><h2 id="deviceMapTitle">Bản đồ thiết bị</h2><p>Chọn mặt bằng, tìm thiết bị và mở hồ sơ ngay tại vị trí lắp đặt.</p></div><div class="map-management" id="mapManagerActions" hidden><button type="button" class="map-secondary" onclick="DeviceMap.openPlanDialog()"><i class="fa-solid fa-plus" aria-hidden="true"></i> Thêm mặt bằng</button><button type="button" class="map-primary" onclick="document.getElementById('mapPackageInput').click()"><i class="fa-solid fa-file-import" aria-hidden="true"></i> Nhập gói mặt bằng</button><button type="button" class="map-secondary" onclick="DeviceMap.exportPackage()" id="mapExportButton" title="Tải bản sao mặt bằng và vị trí thiết bị"><i class="fa-solid fa-download" aria-hidden="true"></i> Sao lưu</button></div></div>
     <input type="file" id="mapPackageInput" accept="application/json,.json" hidden onchange="DeviceMap.importFile(event)">
     <p id="mapConnectionStatus" class="map-status" role="status">Đăng nhập để kết nối mặt bằng của tòa.</p>
+    <div id="mapNavigationNotice" class="map-navigation-notice" role="status" hidden><span id="mapNavigationText"></span><button type="button" onclick="switchTab('assets')"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Danh mục thiết bị</button></div>
     <div class="map-filters"><label class="map-floor-field">Mặt bằng / tầng<select id="mapPlanSelect" onchange="DeviceMap.changePlan(this.value)"><option value="">Chưa có mặt bằng</option></select></label><label class="map-search-field">Tìm thiết bị<input id="mapAssetSearch" type="search" placeholder="Mã, tên thiết bị hoặc vị trí…" oninput="DeviceMap.searchChanged()" autocomplete="off"></label><label>Hệ thống<select id="mapSystemFilter" onchange="DeviceMap.refresh()"><option value="ALL">Tất cả hệ thống</option></select></label><label>Trạng thái<select id="mapStatusFilter" onchange="DeviceMap.refresh()"><option value="ALL">Tất cả trạng thái</option><option value="ERROR">Có sự cố</option><option value="MAINTENANCE">Đang bảo trì</option><option value="OPERATIONAL">Hoạt động</option><option value="UNKNOWN">Chưa xác định</option></select></label></div>
     <div class="map-summary"><span id="mapCounts">Chưa tải mặt bằng.</span><div class="map-legend" aria-label="Chú thích trạng thái"><span><i class="map-dot is-ok"></i> Hoạt động</span><span><i class="map-dot is-error"></i> Có sự cố</span><span><i class="map-dot is-maint"></i> Bảo trì</span><span><i class="map-dot is-unknown"></i> Chưa xác định</span></div></div>
     <div class="map-workspace">
@@ -4021,7 +4199,7 @@ button,input,textarea,select{font:inherit}button,a,input,textarea,select,summary
                         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
                             <div>
                                 <h3 class="text-base font-bold text-slate-900">Danh Mục Thiết Bị & Hồ Sơ Bảo Hành</h3>
-                                <p class="text-xs text-slate-500">Mọi tài khoản đều xem được toàn bộ thiết bị, chỉ được sửa/xóa thiết bị thuộc hệ thống mình phụ trách</p>
+                                <p id="assetVisibilityDescription" class="text-xs text-slate-500">Mọi tài khoản đều xem được toàn bộ thiết bị, chỉ được sửa/xóa thiết bị thuộc hệ thống mình phụ trách</p>
                             </div>
                             <div class="flex flex-wrap items-center gap-2">
                                 <button onclick="openBulkWarrantyModal()" class="px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 text-xs font-semibold flex items-center space-x-1.5 transition">
@@ -5624,6 +5802,10 @@ button,input,textarea,select{font:inherit}button,a,input,textarea,select,summary
                         <label class="block font-bold text-slate-700">Chọn các hệ thống kỹ thuật được quyền chỉnh sửa:</label>
                         <div id="userSystemsCheckboxes" class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-40 overflow-y-auto"></div>
                     </div>
+                    <div id="userViewOtherSystemsWrapper" class="pt-3 border-t border-slate-200 space-y-2">
+                        <label class="flex items-start gap-2 font-bold text-slate-800"><input id="userViewOtherSystemsInput" type="checkbox" class="mt-0.5 rounded border-slate-300 text-blue-600"><span>Cho phép xem hệ thống khác</span></label>
+                        <p id="userViewOtherSystemsNote" class="text-[11px] text-slate-600"></p>
+                    </div>
                     <div id="userInventoryPermissionWrapper" class="pt-3 border-t border-slate-200 space-y-2">
                         <label class="flex items-start gap-2 font-bold text-slate-800"><input id="userInventoryManageInput" type="checkbox" class="mt-0.5 rounded border-slate-300 text-blue-600" onchange="this.dataset.userTouched='true'"><span>Quản lý kho vật tư &amp; phụ tùng</span></label>
                         <p id="userInventoryPermissionNote" class="text-[11px] text-slate-600">Cho phép thêm/sửa vật tư và nhập/xuất kho. Quyền này được cấp riêng theo từng tòa nhà.</p>
@@ -6336,6 +6518,7 @@ button,input,textarea,select{font:inherit}button,a,input,textarea,select,summary
                 systems:Array.isArray(user.systems) ? [...user.systems] : [],
                 furnitureManage:user.furnitureManage === true,
                 inventoryManage:user.inventoryManage === true,
+                viewOtherSystems:user.viewOtherSystems !== false,
                 createdAt:user.createdAt, updatedAt:user.updatedAt
             };
         }
@@ -6422,7 +6605,7 @@ button,input,textarea,select{font:inherit}button,a,input,textarea,select,summary
         function sanitizeDataCollections() {
             systems = Array.isArray(systems) && systems.length > 0
                 ? systems.map((s, i) => normalizeSystemObject(s, i))
-                : initialSystems.map((s, i) => normalizeSystemObject(s, i));
+                : (window.SystemVisibility && !SystemVisibility.full() ? [] : initialSystems.map((s, i) => normalizeSystemObject(s, i)));
             assets = Array.isArray(assets)
                 ? assets.map((a, i) => normalizeAssetObject(a, i))
                 : initialAssets.map((a, i) => normalizeAssetObject(a, i));
@@ -6773,6 +6956,7 @@ button,input,textarea,select{font:inherit}button,a,input,textarea,select,summary
         }
 
         function applyRolePermissionsUI() {
+            window.SystemVisibility?.refreshUI();
             if (!currentUser) return;
             const safeName = String(currentUser.name || currentUser.fullName || currentUser.email || 'NV').trim();
             const initials = safeName.split(/\s+/).filter(Boolean).slice(-2).map(w => w[0]).join('').toUpperCase() || 'NV';
@@ -8580,6 +8764,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
                     <td class="py-3 px-3">
                         <div class="font-medium text-slate-800">${advEscape(a.location || '--')}</div>
                         <div class="text-[11px] text-slate-400">${advEscape(a.brand || '--')}</div>
+                        <div class="asset-location-actions">${window.DeviceMap?.directoryLink(a.id) || ''}</div>
                     </td>
                     <td class="py-3 px-3">${statusBadge}</td>
                     <td class="py-3 px-3">
@@ -9509,6 +9694,9 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
             document.getElementById('userSystemsCheckboxes').innerHTML = systems.map(system =>
                 `<label class="flex items-center gap-2 p-2 bg-white border border-slate-200 rounded-lg"><input type="checkbox" name="userSysChk" value="${advEscape(system.code)}" ${user.systems.includes(system.code) ? 'checked' : ''}><span>${advEscape(system.code)} · ${advEscape(system.name)}</span></label>`
             ).join('');
+            const viewCheckbox=document.getElementById('userViewOtherSystemsInput');
+            viewCheckbox.disabled=false;viewCheckbox.checked=user.status!=='PENDING' && user.viewOtherSystems!==false;
+            SystemVisibility.updateControl();
             document.getElementById('userFurnitureManageInput').checked = user.furnitureManage;
             document.getElementById('userInventoryManageInput').checked = user.inventoryManage === true;
             document.getElementById('userInventoryManageInput').dataset.userTouched = 'false';
@@ -9555,6 +9743,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
             const inventoryCheckbox=document.getElementById('userInventoryManageInput');
             if(inventoryCheckbox.dataset.userTouched!=='true' && previousRole==='ADMIN' && role!=='ADMIN')inventoryCheckbox.checked=false;
             updateUserInventoryPermissionControl();
+            SystemVisibility.updateControl();
             select.dataset.previousRole = role;
             toggleUserSystemCheckboxes();
             updateUserFurniturePermissionControl();
@@ -10460,6 +10649,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
                 showToast('Vui lòng đăng nhập để xem danh mục nội thất và doanh cụ.', 'error');
                 return;
             }
+            if (tabId === 'audit' && !SystemVisibility.full()) {showToast('Nhật ký toàn tòa cần quyền xem các hệ thống.','info');return;}
             if (tabId === 'users' && !canManageUserAccounts()) {
                 showToast('Bạn chưa được cấp quyền truy cập mục Phân quyền tài khoản.', 'error');
                 return;
@@ -10554,7 +10744,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
                 if (el) el.innerHTML = formOptions;
             });
             const partSelector=document.getElementById('partSystemInput');
-            if(partSelector)partSelector.innerHTML=systems.map(system=>`<option value="${advEscape(system.code)}">${advEscape(system.code)} - ${advEscape(system.name)}</option>`).join('');
+            if(partSelector)partSelector.innerHTML=(window.SystemVisibility?SystemVisibility.inventorySystems():systems).map(system=>`<option value="${advEscape(system.code)}">${advEscape(system.code)} - ${advEscape(system.name)}</option>`).join('');
         }
 
         function openModal(id) {
@@ -10624,6 +10814,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
         }
 
         function refreshAllViews() {
+            window.SystemVisibility?.refreshUI();
             window.DeviceMap?.refresh();
             sanitizeDataCollections();
             ensureAssetsMaintenanceDates(false);
@@ -12323,11 +12514,84 @@ window.PublicGuard = (() => {
 })();
 
 </script>
+<script id="system-visibility-module">
+window.SystemVisibility=(()=>{
+    let catalog=[];
+    const commonKinds=['$order','workPermits','handoverLogs','dutyRoster','shiftLogs','guestKeyLoans','contractorApplications','furnitureItems','furnitureMovementLogs','notebookLmEntries'];
+    const full=(user=currentUser)=>!!user&&(['ADMIN','BUILDING_HEAD'].includes(user.role)||user.viewOtherSystems!==false);
+    const codes=(user=currentUser)=>[...new Set((user?.systems||[]).filter(code=>code!=='ALL'))].sort();
+    const signature=user=>JSON.stringify([user?.id,full(user),codes(user),user?.inventoryManage===true,user?.role]);
+    const chunks=(items,size=10)=>Array.from({length:Math.ceil(items.length/size)},(_,i)=>items.slice(i*size,(i+1)*size));
+    function recordQueries(sdk,collection){
+        if(full())return [collection];
+        const queries=chunks(commonKinds).map(kinds=>sdk.query(collection,sdk.where('kind','in',kinds)));
+        for(const group of chunks(codes())){
+            queries.push(sdk.query(collection,sdk.where('payload.system','in',group)));
+            queries.push(sdk.query(collection,sdk.where('system','in',group)));
+        }
+        for(const code of codes())queries.push(sdk.doc(collection,window.BmsSyncCore.keyFor('systems',code)));
+        queries.push(sdk.doc(collection,window.BmsSyncCore.keyFor('$settings','handoverNote')));
+        if(currentUser?.inventoryManage===true)queries.push(sdk.query(collection,sdk.where('kind','in',['inventory','materialIssueHistory','systems'])));
+        return queries;
+    }
+    function snapshotDocs(snapshot){return Array.isArray(snapshot.docs)?snapshot.docs:snapshot.exists()?[snapshot]:[];}
+    function canRecord(record){
+        if(full())return true;
+        if(commonKinds.includes(record.kind)||record.kind==='$settings'&&record.key==='handoverNote')return true;
+        if(['inventory','materialIssueHistory','systems'].includes(record.kind)&&currentUser?.inventoryManage===true)return true;
+        return codes().includes(record.payload?.system)||codes().includes(record.system)||record.kind==='systems'&&codes().includes(record.payload?.code);
+    }
+    async function flatten(snapshot,base){
+        const core=window.BmsSyncCore,flat=await core.flatten(snapshot);if(full())return flat;
+        for(const [id,record] of flat){
+            if(!canRecord(record)){flat.delete(id);continue;}
+            if(record.kind==='$order'){
+                const before=[...base.values()].filter(row=>row.kind===record.key&&!row.deleted).map(row=>row.key);
+                const remote=base.get(id)?.payload.ids||[];
+                record.payload={ids:core.mergeOrder(before,record.payload.ids,remote)};record.hash=await core.hash(record.payload);
+            }
+        }
+        for(const [id,record] of base)if(record.kind==='systems'&&!codes().includes(record.payload.code))flat.set(id,record);
+        return flat;
+    }
+    function prepareSnapshot(snapshot){
+        catalog=snapshot.systems||[];
+        if(!full())snapshot.systems=catalog.filter(system=>codes().includes(system.code));
+        return snapshot;
+    }
+    const inventorySystems=()=>currentUser?.inventoryManage===true&&catalog.length?catalog:systems;
+    function updateControl(){
+        const checkbox=document.getElementById('userViewOtherSystemsInput');if(!checkbox)return;
+        const manager=['ADMIN','BUILDING_HEAD'].includes(document.getElementById('userRoleInput').value);
+        if(manager){if(!checkbox.disabled)checkbox.dataset.technicalValue=String(checkbox.checked);checkbox.checked=true;checkbox.disabled=true;}
+        else{if(checkbox.disabled)checkbox.checked=checkbox.dataset.technicalValue!=='false';checkbox.disabled=false;}
+        document.getElementById('userViewOtherSystemsNote').textContent=manager
+            ?'Admin và Trưởng Ban xem toàn bộ hệ thống kỹ thuật trong tòa được cấp quyền.'
+            :'Bật để xem thêm hệ thống khác trong cùng tòa. Tắt để chỉ xem thiết bị, sự cố, checklist, thông số, bảo trì và điểm bản đồ của các hệ thống được giao. Quyền sửa chữa, nghiệm thu và quyền kho được cấp riêng.';
+    }
+    function refreshUI(){
+        const allowed=full(),banner=document.getElementById('systemVisibilityBanner');
+        if(banner){banner.hidden=allowed||!hasAuthenticatedClientSession();banner.textContent='Phạm vi xem kỹ thuật: '+(codes().join(', ')||'chưa được giao hệ thống')+'. Hồ sơ và bàn giao chung của tòa dùng chung; kho theo quyền riêng.';}
+        document.querySelectorAll('[data-all-systems-view]').forEach(node=>node.hidden=!allowed);
+        const audit=document.getElementById('nav-audit');if(audit)audit.classList.toggle('hidden',!allowed);
+        const description=document.getElementById('assetVisibilityDescription');
+        if(description)description.textContent=allowed?'Được xem toàn bộ thiết bị trong tòa. Chỉ được sửa/xóa thiết bị thuộc hệ thống mình phụ trách.':'Chỉ hiển thị thiết bị thuộc hệ thống được giao. Quyền thao tác theo vai trò tài khoản.';
+    }
+    function reset(){
+        catalog=[];
+        applyApplicationSnapshot(window.BmsSyncCore.unflatten(new Map()));
+        if(!full()){selectedQrAssetId=null;qrBulkSelectedIds.clear();}
+        persistLocalState();refreshUI();
+    }
+    return {full,codes,signature,chunks,recordQueries,snapshotDocs,canRecord,flatten,prepareSnapshot,inventorySystems,updateControl,refreshUI,reset};
+})();
+
+</script>
 <script id="device-map-module">
 /* Authenticated floor plans and positions have their own collections, independent of operational snapshots. */
 window.DeviceMap=(()=>{
-    let sdk,db,auth,offPlans,offPositions,session=0,planReady=false,positionReady=false,busy=false;
-    let plans=[],positions=new Map(),selectedPlan='',selectedAsset='',draft=null,editing=false,zoom=1,loadedPlan='',imageSequence=0,pan=null,editingPlan='',expanded=false;
+    let sdk,db,auth,offPlans,offPositions,session=0,planReady=false,positionReady=false,busy=false,positionSignature='',positionGeneration=0;
+    let plans=[],positions=new Map(),selectedPlan='',selectedAsset='',draft=null,editing=false,zoom=1,loadedPlan='',imageSequence=0,pan=null,editingPlan='',expanded=false,pendingOpen='',focusAsset='';
     const imageCache=new Map(),imagePartSize=100000;
     const $=id=>document.getElementById(id);
     const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -12348,8 +12612,8 @@ window.DeviceMap=(()=>{
     function setBusy(value){busy=value;refresh(true);}
     function configure(api,database,identity){stop();sdk=api;db=database;auth=identity;}
     function stop(){
-        session++;imageSequence++;offPlans?.();offPositions?.();offPlans=offPositions=null;planReady=positionReady=false;
-        plans=[];positions.clear();imageCache.clear();selectedPlan=selectedAsset=loadedPlan='';draft=null;editing=false;busy=false;
+        session++;imageSequence++;positionGeneration++;positionSignature='';offPlans?.();offPositions?.();offPlans=offPositions=null;planReady=positionReady=false;
+        plans=[];positions.clear();imageCache.clear();selectedPlan=selectedAsset=loadedPlan=pendingOpen=focusAsset='';draft=null;editing=false;busy=false;
         const image=$('mapFloorImage');if(image)image.removeAttribute('src');
         if($('mapCanvas'))$('mapCanvas').hidden=true;
         if($('mapPinLayer'))$('mapPinLayer').replaceChildren();
@@ -12364,6 +12628,8 @@ window.DeviceMap=(()=>{
         if($('mapSourceNote')){$('mapSourceNote').textContent='';$('mapSourceNote').hidden=true;}
         if($('mapManagerActions'))$('mapManagerActions').hidden=true;
         if($('mapEditToggle'))$('mapEditToggle').hidden=true;
+        navigationNotice('');
+        updateDirectoryLinks();
         status('Đăng nhập để kết nối mặt bằng của tòa.');
     }
     function start(){
@@ -12374,10 +12640,24 @@ window.DeviceMap=(()=>{
             plans=snapshot.docs.map(doc=>({...doc.data(),id:doc.id})).sort((a,b)=>(a.sortOrder-b.sortOrder)||a.name.localeCompare(b.name,'vi'));
             planReady=true;if(!planById(selectedPlan))selectedPlan=plans[0]?.id||'';refresh();
         },rejected);
-        offPositions=sdk.onSnapshot(sdk.collection(db,'buildings',BUILDING,'deviceLocations'),{includeMetadataChanges:true},snapshot=>{
+        if(!window.SystemVisibility||window.SystemVisibility.full())offPositions=sdk.onSnapshot(sdk.collection(db,'buildings',BUILDING,'deviceLocations'),{includeMetadataChanges:true},snapshot=>{
             if(token!==session||snapshot.metadata.fromCache||snapshot.metadata.hasPendingWrites)return;
             positions=new Map(snapshot.docs.map(doc=>{const row=doc.data();return [String(row.assetId),row];}));positionReady=true;refresh();
         },rejected);
+        else syncPositionSubscriptions();
+    }
+    function syncPositionSubscriptions(){
+        if(!sdk||!active()||!window.SystemVisibility||window.SystemVisibility.full()||!window.SharedData?.ready())return;
+        const ids=allAssets().map(asset=>window.BmsSyncCore.keyFor('assets',asset.id)).sort(),signature=JSON.stringify(ids);
+        if(signature===positionSignature)return;positionSignature=signature;offPositions?.();positions.clear();positionReady=false;
+        const token=session,sequence=++positionGeneration,groups=window.SystemVisibility.chunks(ids,5),parts=new Map();
+        if(!groups.length){positionReady=true;offPositions=null;return;}
+        const subscriptions=groups.map((group,index)=>sdk.onSnapshot(sdk.query(sdk.collection(db,'buildings',BUILDING,'deviceLocations'),sdk.where(sdk.documentId(),'in',group)),{includeMetadataChanges:true},snapshot=>{
+            if(token!==session||sequence!==positionGeneration||snapshot.metadata.fromCache||snapshot.metadata.hasPendingWrites)return;
+            parts.set(index,snapshot.docs);if(parts.size!==groups.length)return;
+            positions=new Map([...parts.values()].flat().map(doc=>{const row=doc.data();return [String(row.assetId),row];}));positionReady=true;refresh();
+        },error=>{if(token===session&&sequence===positionGeneration){positionReady=false;fail(error);}}));
+        offPositions=()=>subscriptions.forEach(off=>off());
     }
     function assetState(asset){
         if(asset.status==='ERROR'||(Array.isArray(tickets)&&tickets.some(ticket=>String(ticket.assetId)===String(asset.id)&&ticket.status!=='RESOLVED')))return 'ERROR';
@@ -12393,11 +12673,23 @@ window.DeviceMap=(()=>{
     }
     function refresh(keepStatus=false){
         if(!$('mapPlanSelect'))return;
+        syncPositionSubscriptions();
         if(!manager()){editing=false;draft=null;}
+        if(pendingOpen&&planReady&&positionReady&&window.SharedData?.ready()){
+            const id=pendingOpen;pendingOpen='';const position=placed(id),asset=assetById(id);
+            if(asset){
+                const nextPlan=position?.planId||selectedPlan||plans[0]?.id||'';
+                if(nextPlan!==selectedPlan)loadedPlan='';selectedPlan=nextPlan;
+                $('mapListScope').value=position?'CURRENT':'UNPLACED';focusAsset=position?id:'';
+                const message=position?'Vị trí '+id+' · '+planById(position.planId).name:('Thiết bị '+id+' chưa được gắn vị trí trên mặt bằng.'+(manager()&&plans.length?' Chọn đúng tầng rồi bật Gắn vị trí để bổ sung.':''));
+                navigationNotice(message);
+            }
+        }
+        updateDirectoryLinks();
         $('mapManagerActions').hidden=!manager();
         for(const button of $('mapManagerActions').querySelectorAll('button'))button.disabled=busy||!planReady||!positionReady;
         $('mapExportButton').disabled=busy||!planReady||!plans.length;
-        $('mapEditToggle').hidden=!manager();$('mapEditToggle').disabled=busy||!selectedPlan||!loadedPlan||!window.SharedData?.ready();
+        $('mapEditToggle').hidden=!manager();$('mapEditToggle').disabled=busy||!selectedPlan||loadedPlan!==selectedPlan||$('mapCanvas').hidden||!window.SharedData?.ready();
         $('mapEditToggle').setAttribute('aria-pressed',String(editing));$('mapViewport').dataset.edit=String(editing);
         $('mapPlacementHelp').hidden=!editing;$('mapRenameButton').hidden=!manager()||!selectedPlan;
         $('mapRenameButton').disabled=busy;
@@ -12434,7 +12726,7 @@ window.DeviceMap=(()=>{
         try{
             const data=await imageFor(plan);if(order!==imageSequence||token!==session||!active())return;
             $('mapFloorImage').src=data;$('mapFloorImage').alt=plan.name+' · Tòa '+BUILDING;$('mapCanvas').hidden=false;$('mapEmpty').hidden=true;
-            zoom=1;fit();renderPins();
+            zoom=1;fit();refresh(true);
         }catch(error){if(token!==session||order!==imageSequence)return;loadedPlan='';$('mapEmpty').innerHTML='<i class="fa-regular fa-map" aria-hidden="true"></i><strong>Chưa tải được mặt bằng</strong><p>'+escape(error.message)+'</p>';fail(error);}
     }
     function renderAssets(){
@@ -12452,6 +12744,7 @@ window.DeviceMap=(()=>{
             return ['<button type="button" class="map-pin '+(labels?'show-label ':'')+(selectedAsset===String(asset.id)?'is-selected':'')+'" style="left:'+(position.x*100)+'%;top:'+(position.y*100)+'%" data-map-asset="'+escape(asset.id)+'" title="'+escape(asset.id+' · '+asset.name+' · '+stateLabel(assetState(asset)))+'" aria-label="'+escape(asset.id+' · '+asset.name+' · '+stateLabel(assetState(asset)))+'"><span class="map-pin-label">'+escape(asset.id)+'</span><span class="map-pin-icon '+stateClass(assetState(asset))+'"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span></button>'];
         }).join('');
         if(draft&&draft.planId===selectedPlan)$('mapPinLayer').insertAdjacentHTML('beforeend','<span class="map-pin is-draft" style="left:'+(draft.x*100)+'%;top:'+(draft.y*100)+'%"><span class="map-pin-label">Vị trí chờ lưu</span><span class="map-pin-icon"><i class="fa-solid fa-crosshairs" aria-hidden="true"></i></span></span>');
+        focusSelectedPin();
     }
     function renderDetail(){
         const asset=assetById(selectedAsset),root=$('mapAssetDetail');root.hidden=!asset;if(!asset)return;
@@ -12465,11 +12758,36 @@ window.DeviceMap=(()=>{
         if(!assetById(id))return;if(draft&&!confirm('Bỏ vị trí đang chờ lưu để chọn thiết bị khác?'))return;
         selectedAsset=String(id);draft=null;const position=placed(id);
         if(position&&(!editing||fromPin)&&position.planId!==selectedPlan){selectedPlan=position.planId;loadedPlan='';}
-        refresh();if(position&&position.planId===selectedPlan&&!editing)setTimeout(()=>{
-            const pin=[...$('mapPinLayer').querySelectorAll('[data-map-asset]')].find(node=>node.dataset.mapAsset===String(id));pin?.scrollIntoView({behavior:'smooth',block:'center',inline:'center'});
-        },80);
+        focusAsset=position&&!editing?String(id):'';pendingOpen='';navigationNotice('');refresh();
     }
-    function changePlan(id){if(draft&&!confirm('Bỏ vị trí đang chờ lưu để đổi mặt bằng?')){$('mapPlanSelect').value=selectedPlan;return;}draft=null;selectedPlan=id;loadedPlan='';refresh();}
+    function navigationNotice(message){const notice=$('mapNavigationNotice');if(!notice)return;notice.hidden=!message;const text=$('mapNavigationText');if(text)text.textContent=message;}
+    function directoryState(id){return !active()||!planReady||!positionReady?'loading':placed(id)?'placed':'unplaced';}
+    function directoryLink(id){
+        const state=directoryState(id),label=state==='unplaced'?'Chưa gắn vị trí':'Xem vị trí';
+        return '<button type="button" class="asset-map-link" data-open-device-map="'+escape(id)+'" data-map-state="'+state+'" aria-label="'+escape(label+' thiết bị '+id)+'"><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i><span data-map-link-label>'+label+'</span><i class="fa-solid fa-arrow-up-right-from-square asset-map-arrow" aria-hidden="true"></i></button>';
+    }
+    function updateDirectoryLinks(){
+        for(const button of document.querySelectorAll?.('[data-open-device-map]')||[]){
+            const id=button.dataset.openDeviceMap,state=directoryState(id),label=state==='unplaced'?'Chưa gắn vị trí':'Xem vị trí';
+            button.dataset.mapState=state;button.querySelector('[data-map-link-label]').textContent=label;
+            button.setAttribute('aria-label',label+' thiết bị '+id);
+            button.title=state==='placed'?'Mở '+planById(placed(id).planId).name+' và làm nổi bật thiết bị '+id:state==='unplaced'?'Thiết bị chưa có điểm trên mặt bằng. Mở bản đồ để xem thông tin.':'Mở bản đồ và chờ tải vị trí thiết bị.';
+        }
+    }
+    function openAsset(id){
+        if(!active()){showToast('Đăng nhập để xem vị trí thiết bị.','info');return;}
+        if(!assetById(id)){showToast('Chờ tải dữ liệu thiết bị của tòa trước khi mở vị trí.','info');return;}
+        if(draft&&!confirm('Bỏ vị trí đang chờ lưu để mở thiết bị từ danh mục?'))return;
+        draft=null;editing=false;selectedAsset=String(id);pendingOpen=String(id);focusAsset='';
+        $('mapAssetSearch').value='';$('mapSystemFilter').value='ALL';$('mapStatusFilter').value='ALL';
+        navigationNotice('Đang tải vị trí thiết bị '+id+'…');switchTab('devicemap');
+    }
+    function focusSelectedPin(){
+        if(!focusAsset||!isOpen()||loadedPlan!==selectedPlan||$('mapCanvas').hidden)return;
+        const pin=[...$('mapPinLayer').querySelectorAll('[data-map-asset]')].find(node=>node.dataset.mapAsset===focusAsset);
+        if(!pin)return;focusAsset='';pin.scrollIntoView({behavior:'smooth',block:'center',inline:'center'});pin.focus({preventScroll:true});
+    }
+    function changePlan(id){if(draft&&!confirm('Bỏ vị trí đang chờ lưu để đổi mặt bằng?')){$('mapPlanSelect').value=selectedPlan;return;}draft=null;pendingOpen=focusAsset='';navigationNotice('');selectedPlan=id;loadedPlan='';refresh();}
     function searchChanged(){if($('mapAssetSearch').value.trim())$('mapListScope').value='ALL';refresh();}
     function toggleEdit(){try{requireManager();if(!window.SharedData?.ready())throw new Error('Chờ tải dữ liệu thiết bị trước khi gắn vị trí.');editing=!editing;draft=null;if(editing)$('mapListScope').value='UNPLACED';refresh();}catch(error){fail(error);}}
     function pickPoint(event){
@@ -12588,7 +12906,7 @@ window.DeviceMap=(()=>{
             showToast('Đã tạo bản sao mặt bằng và vị trí thiết bị.','success');
         }catch(error){fail(error);}finally{setBusy(false);}
     }
-    document.addEventListener('click',event=>{const button=event.target.closest?.('#mapAssetList [data-map-asset],#mapPinLayer [data-map-asset]');if(button){event.stopPropagation();selectAsset(button.dataset.mapAsset,!!button.closest('#mapPinLayer'));}});
+    document.addEventListener('click',event=>{const link=event.target.closest?.('[data-open-device-map]');if(link){event.preventDefault();openAsset(link.dataset.openDeviceMap);return;}const button=event.target.closest?.('#mapAssetList [data-map-asset],#mapPinLayer [data-map-asset]');if(button){event.stopPropagation();selectAsset(button.dataset.mapAsset,!!button.closest('#mapPinLayer'));}});
     window.addEventListener('resize',()=>{if(isOpen())scaleCanvas();});
     document.addEventListener('keydown',event=>{
         if(!expanded)return;if(event.key==='Escape'){event.preventDefault();fullscreen();return;}
@@ -12597,7 +12915,7 @@ window.DeviceMap=(()=>{
             const first=items[0],last=items.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last?.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first?.focus();}
         }
     });
-    return {configure,start,stop,refresh,show:refresh,changePlan,searchChanged,selectAsset,toggleEdit,pickPoint,coordinateDraft,savePosition,removePosition,cancelDraft,openProfile,fit,zoomBy,wheel,fullscreen,panStart,panMove,panEnd,importFile,openPlanDialog,submitPlan,exportPackage};
+    return {configure,start,stop,refresh,show:refresh,changePlan,searchChanged,selectAsset,openAsset,directoryLink,toggleEdit,pickPoint,coordinateDraft,savePosition,removePosition,cancelDraft,openProfile,fit,zoomBy,wheel,fullscreen,panStart,panMove,panEnd,importFile,openPlanDialog,submitPlan,exportPackage};
 })();
 
 </script>
@@ -12702,7 +13020,8 @@ window.SharedData = (() => {
     let serverEntries=new Map(),viewEntries=new Map();
     let queue=Promise.resolve(),pending=0,recoveryBase=null,latestDesired=null;
     let latestRemote=null,remoteDeferred=false,recordsSequence=0;
-    const recoverKey=storageKey('bms_shared_recovery_v1');
+    const fullView=()=>!window.SystemVisibility||window.SystemVisibility.full();
+    const recoverKey=()=>storageKey('bms_shared_recovery_v1'+(fullView()?'':'_'+uid()+'_'+window.SystemVisibility.signature(currentUser)));
     const ref=(...parts)=>sdk.doc(db,'buildings',BUILDING,...parts);
     const collection=(...parts)=>sdk.collection(db,'buildings',BUILDING,...parts);
     const recordRef=id=>ref('datasets',dataset,'records',id);
@@ -12732,6 +13051,7 @@ window.SharedData = (() => {
     function stop(){
         ++generation;stopMeta?.();stopRecords?.();stopIntake?.();stopKeys?.();
         stopMeta=stopRecords=stopIntake=stopKeys=null;ready=false;dataset=null;
+        pending=0;queue=Promise.resolve();blocked=false;recoveryBase=null;latestDesired=null;latestRemote=null;
         publicKeyCache.clear();
         guestKeyLoans=guestKeyLoans.filter(loan=>loan.storageMode!=='firebase-public');
         if(typeof guestKeyHistoryCache!=='undefined')guestKeyHistoryCache=[];
@@ -12745,16 +13065,17 @@ window.SharedData = (() => {
     function preserveRecovery(){
         if(!latestDesired)return;
         const payload={building:BUILDING,dataset,at:new Date().toISOString(),base:[...(recoveryBase||viewEntries)],desired:latestDesired};
-        try{localStorage.setItem(recoverKey,JSON.stringify(payload));}
+        try{localStorage.setItem(recoverKey(),JSON.stringify(payload));}
         catch(_){status('Bộ nhớ máy đầy. Giữ trang mở đến khi Firebase xác nhận; nếu chưa gửi được, tải bản sao trước khi thoát.',true);}
     }
-    function clearRecovery(){localStorage.removeItem(recoverKey);recoveryBase=null;latestDesired=null;}
+    function clearRecovery(){localStorage.removeItem(recoverKey());recoveryBase=null;latestDesired=null;}
     function applyRemote(force=false){
         if(!hasAuthenticatedClientSession() || !latestRemote || pending || blocked || applying || migrating)return;
         if(!force && editing()){remoteDeferred=true;status('Có dữ liệu mới. Bấm Tải cập nhật sau khi lưu biểu mẫu.');return;}
         applying=true;
         try{
             const snapshot=core.unflatten(latestRemote);
+            window.SystemVisibility?.prepareSnapshot(snapshot);
             snapshot.guestKeyLoans=[...snapshot.guestKeyLoans,...publicKeyCache.values()];
             const checkpoint=storageKey('bms_before_shared_v1');
             try{if(!localStorage.getItem(checkpoint))localStorage.setItem(checkpoint,JSON.stringify(collectApplicationSnapshot()));}catch(_){/* Cloud loading must remain available when the local cache is full. */}
@@ -12806,28 +13127,41 @@ window.SharedData = (() => {
         await writeBatches([...attachments].map(([id,data])=>[ref('attachments',id),data]));
         return output;
     }
+    const recordQueries=id=>window.SystemVisibility?window.SystemVisibility.recordQueries(sdk,collection('datasets',id,'records')):[collection('datasets',id,'records')];
+    const documentsOf=snapshot=>window.SystemVisibility?window.SystemVisibility.snapshotDocs(snapshot):snapshot.docs;
+    async function entriesFrom(snapshots){
+        const documents=new Map();
+        for(const snapshot of snapshots)for(const doc of documentsOf(snapshot)){
+            const previous=documents.get(doc.id),row=doc.data(),stamp=data=>data.updatedAt?.toMillis?.()||Date.parse(data.updatedAt)||0;
+            if(!previous||stamp(row)>=stamp(previous.data()))documents.set(doc.id,doc);
+        }
+        const pairs=await Promise.all([...documents.values()].filter(doc=>!doc.data().deleted).map(async doc=>[doc.id,{...doc.data(),payload:await unpack(doc.data().payload)}]));
+        return new Map(pairs);
+    }
     function beginRecords(id,session){
         stopRecords?.();recordsSequence++;dataset=id;ready=false;status('Đang tải dữ liệu chung từ Firebase…');
-        stopRecords=sdk.onSnapshot(collection('datasets',id,'records'),{includeMetadataChanges:true},async snapshot=>{
+        const queries=recordQueries(id),parts=new Map();
+        const receive=index=>async snapshot=>{
             if(session!==generation || snapshot.metadata.fromCache || snapshot.metadata.hasPendingWrites)return;
+            parts.set(index,snapshot);if(parts.size!==queries.length)return;
             const sequence=++recordsSequence;
             try{
-                const pairs=await Promise.all(snapshot.docs.filter(doc=>!doc.data().deleted).map(async doc=>{
-                    const value=doc.data();return [doc.id,{...value,payload:await unpack(value.payload)}];
-                }));
+                const entries=await entriesFrom([...parts.values()]);
                 if(session!==generation || dataset!==id || sequence!==recordsSequence)return;
-                serverEntries=new Map(pairs);latestRemote=new Map(serverEntries);ready=true;
+                serverEntries=entries;latestRemote=new Map(serverEntries);ready=true;
                 if(!blocked&&!pending)applyRemote();
                 if(!stopIntake)listenIntake(session);
                 if(!stopKeys)listenKeys(session);
             }catch(error){blocked=true;status(errorText(error),true);}
-        },error=>{if(session===generation){ready=false;status(errorText(error),true);}});
+        };
+        const subscriptions=queries.map((query,index)=>sdk.onSnapshot(query,{includeMetadataChanges:true},receive(index),error=>{if(session===generation){ready=false;status(errorText(error),true);}}));
+        stopRecords=()=>subscriptions.forEach(off=>off());
     }
     function start(){
         if(!sdk||!hasAuthenticatedClientSession())return;
         stop();const session=generation;
         blocked=false;serverEntries=new Map();viewEntries=new Map();latestRemote=null;
-        const recovered=localStorage.getItem(recoverKey);
+        const recovered=localStorage.getItem(recoverKey());
         if(recovered){
             try{const data=JSON.parse(recovered);if(data.building===BUILDING){recoveryBase=new Map(data.base);latestDesired=data.desired;blocked=true;}}catch(_){blocked=true;}
         }
@@ -12849,9 +13183,9 @@ window.SharedData = (() => {
     async function commit(changes,expectedDataset,beforeEntries=viewEntries){
         if(!changes.length)return;
         if(changes.length>350)throw new Error('Có nhiều thay đổi. Quản trị viên dùng Nhập bộ dữ liệu để cập nhật theo phiên bản.');
+        const owner=uid(),session=generation;
         const packed=await prepared(changes);
         let attemptedRevision=0;
-        const owner=uid(),session=generation;
         const run=()=>sdk.runTransaction(db,async transaction=>{
             if(owner!==uid()||session!==generation||!hasAuthenticatedClientSession())throw new Error('Phiên làm việc đã đổi. Thay đổi được giữ trên máy.');
             const meta=await transaction.get(ref('state','current'));
@@ -12900,6 +13234,7 @@ window.SharedData = (() => {
                 const existingIndex=writes.findIndex(([target])=>target.path===recordRef(faultAssets[i]).path);
                 if(existingIndex<0)writes.push([recordRef(faultAssets[i]),value]);else writes[existingIndex]=[recordRef(faultAssets[i]),value];
             }
+            if(owner!==uid()||session!==generation||!hasAuthenticatedClientSession())throw new Error('Phiên làm việc hoặc quyền xem đã đổi.');
             for(const [target,value] of writes)transaction.set(target,value);
             transaction.update(ref('state','current'),{revision:sdk.increment(1),updatedBy:uid(),updatedAt:sdk.serverTimestamp()});
         });
@@ -12914,19 +13249,23 @@ window.SharedData = (() => {
     }
     async function refreshRecords(){
         if(!dataset)return;
-        const snapshot=await sdk.getDocsFromServer(collection('datasets',dataset,'records'));
-        const entries=await Promise.all(snapshot.docs.filter(doc=>!doc.data().deleted).map(async doc=>[doc.id,{...doc.data(),payload:await unpack(doc.data().payload)}]));
-        serverEntries=new Map(entries);latestRemote=new Map(entries);
+        const expectedDataset=dataset,session=generation;
+        const snapshots=await Promise.all(recordQueries(expectedDataset).map(query=>query.type==='document'?sdk.getDocFromServer(query):sdk.getDocsFromServer(query)));
+        const entries=await entriesFrom(snapshots);
+        if(session!==generation||dataset!==expectedDataset)return;
+        serverEntries=entries;latestRemote=new Map(entries);
     }
     async function save(snapshot){
         if(applying)return true;
         if(!hasAuthenticatedClientSession()||!ready||!dataset){lastCloudWriteError='Dữ liệu chung chưa sẵn sàng. Dữ liệu hiện tại được giữ trên máy.';status(lastCloudWriteError,true);return false;}
         const captured=core.clean(core.identify(snapshot));
+        const jobSession=generation;
         latestDesired=captured;pending++;
         const expectedDataset=dataset;
         const task=queue.then(async()=>{
             try{
-                const desired=await core.flatten(captured);
+                if(jobSession!==generation)return false;
+                const desired=window.SystemVisibility?await window.SystemVisibility.flatten(captured,viewEntries):await core.flatten(captured);
                 const changes=core.diff(viewEntries,desired);
                 if(!recoveryBase)recoveryBase=new Map(viewEntries);
                 const beforeEntries=new Map(viewEntries);
@@ -12934,12 +13273,14 @@ window.SharedData = (() => {
                 if(blocked)return false;
                 if(changes.length){status('Đang gửi thay đổi lên Firebase…');await commit(changes,expectedDataset,beforeEntries);}
                 return true;
-            }catch(error){blocked=true;lastCloudWriteError=errorText(error);status(lastCloudWriteError,true);return false;}
+            }catch(error){if(jobSession===generation){blocked=true;lastCloudWriteError=errorText(error);status(lastCloudWriteError,true);}return false;}
             finally{
+                if(jobSession===generation){
                 pending--;
                 if(!pending&&!blocked){
                     try{await refreshRecords();clearRecovery();applyRemote();status('Đã đồng bộ Firebase · Tòa '+BUILDING);drainIntake().catch(error=>status(errorText(error),true));}
                     catch(error){blocked=true;status(errorText(error),true);}
+                }
                 }
             }
         });
@@ -12986,7 +13327,7 @@ window.SharedData = (() => {
         if(!latestDesired||!recoveryBase){await useRemote();return;}
         try{
             status('Đang gửi lại thay đổi trên máy…');
-            const desired=await core.flatten(latestDesired);
+            const desired=window.SystemVisibility?await window.SystemVisibility.flatten(latestDesired,recoveryBase):await core.flatten(latestDesired);
             await commit(core.diff(recoveryBase,desired),dataset,recoveryBase);
             await refreshRecords();blocked=false;clearRecovery();viewEntries=desired;applyRemote(true);
             status('Đã đồng bộ Firebase · Tòa '+BUILDING);
@@ -13014,10 +13355,11 @@ window.SharedData = (() => {
     const inFlightIntake=new Set();
     async function drainIntake(snapshot){
         if(!ready||blocked||pending||!hasAuthenticatedClientSession())return;
-        const items=snapshot || await sdk.getDocsFromServer(sdk.query(collection('publicIntake'),sdk.where('status','==','NEW')));
+        const items=snapshot || {docs:(await Promise.all(intakeQueries().map(query=>sdk.getDocsFromServer(query)))).flatMap(snapshot=>snapshot.docs)};
         for(const item of items.docs){
             if(inFlightIntake.has(item.id))continue;
             const request=item.data();
+            if(request.status!=='NEW')continue;
             if(request.kind==='contractor'?!canReviewContractorApplications():!canManageSystem(request.payload.system))continue;
             inFlightIntake.add(item.id);
             try{await ingestIntake(item.id);}
@@ -13027,10 +13369,12 @@ window.SharedData = (() => {
             }finally{inFlightIntake.delete(item.id);}
         }
     }
+    const intakeQueries=()=>fullView()?[sdk.query(collection('publicIntake'),sdk.where('status','==','NEW'))]:window.SystemVisibility.chunks(window.SystemVisibility.codes()).map(codes=>sdk.query(collection('publicIntake'),sdk.where('payload.system','in',codes)));
     function listenIntake(session){
-        stopIntake=sdk.onSnapshot(sdk.query(collection('publicIntake'),sdk.where('status','==','NEW')),snapshot=>{
+        const subscriptions=intakeQueries().map(query=>sdk.onSnapshot(query,snapshot=>{
             if(session===generation)drainIntake(snapshot).catch(error=>status(errorText(error),true));
-        },error=>status(errorText(error),true));
+        },error=>status(errorText(error),true)));
+        stopIntake=()=>subscriptions.forEach(off=>off());
     }
     async function ingestIntake(id){
         const requestRef=ref('publicIntake',id);
@@ -13332,11 +13676,14 @@ window.RealAuth = (() => {
                 showGate(user, data);
                 return;
             }
+            const scopeChanged=!!memberProfile&&window.SystemVisibility&&window.SystemVisibility.signature(memberProfile)!==window.SystemVisibility.signature(profile);
+            if(scopeChanged)lock();
             const entering = !memberProfile;
             memberProfile = profile;
             authSessionVerified = true;
             currentUser = profile;
             if (entering) {
+                window.SystemVisibility?.reset();
                 users = [profile];
                 completeUserLogin(profile);
                 window.SharedData.start();
@@ -13442,7 +13789,7 @@ window.RealAuth = (() => {
             if (existing.exists()) return;
             transaction.set(ref, {
                 uid:user.uid, email:user.email, name:fullName, title:'', role:'PENDING', status:'PENDING',
-                systems:[], furnitureManage:false, inventoryManage:false, createdAt:sdk.serverTimestamp(), updatedAt:sdk.serverTimestamp()
+                systems:[], furnitureManage:false, inventoryManage:false, viewOtherSystems:false, createdAt:sdk.serverTimestamp(), updatedAt:sdk.serverTimestamp()
             });
         });
     }
@@ -13592,7 +13939,8 @@ window.RealAuth = (() => {
             name:el('userNameInput').value.trim(), title:el('userTitleInput').value.trim(),
             role, systems, status:el('userStatusInput').value,
             furnitureManage:role === 'ADMIN' || el('userFurnitureManageInput').checked,
-            inventoryManage
+            inventoryManage,
+            viewOtherSystems:['ADMIN','BUILDING_HEAD'].includes(role)||el('userViewOtherSystemsInput').checked===true
         };
         button.disabled = true;
         try {
@@ -13626,7 +13974,7 @@ window.RealAuth = (() => {
             return `<tr><td class="py-3 px-3"><b>${advEscape(user.name)}</b><div>${advEscape(user.title)}</div></td>
                 <td class="py-3 px-3 break-words">${advEscape(user.email)}</td><td class="py-3 px-3">${statusName[user.status] || 'Chưa xác nhận'}</td>
                 <td class="py-3 px-3">${roleLabel(user.role)}</td><td class="py-3 px-3"><div class="flex flex-wrap gap-1">${user.systems.map(system => system === 'ALL' ? 'Toàn bộ hệ thống' : renderSystemBadge(system)).join(' ')}</div>${user.furnitureManage ? '<div class="mt-1">Được quản lý nội thất/doanh cụ</div>' : ''}<div class="mt-1">${user.role === 'ADMIN' || user.inventoryManage ? 'Kho vật tư: Được quản lý' : 'Kho vật tư: Chỉ xem'}</div></td>
-                <td class="py-3 px-3 text-right">${action}</td></tr>`;
+                <td class="py-3 px-3 text-right"><div class="mb-2 text-[11px] text-slate-600">${['ADMIN','BUILDING_HEAD'].includes(user.role)||user.viewOtherSystems!==false?'Được xem hệ thống khác':'Chỉ xem hệ thống được giao'}</div>${action}</td></tr>`;
         }).join('') || '<tr><td colspan="6" class="p-4">Chưa có hồ sơ trong danh sách.</td></tr>';
     }
 
