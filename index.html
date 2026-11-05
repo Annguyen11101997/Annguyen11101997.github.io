@@ -3663,7 +3663,21 @@ input[type=file]::file-selector-button{background:var(--pastel-sky)!important;co
 @media print{.asset-location-actions,.map-navigation-notice{display:none!important}.dashboard-hero-copy{background:#fff!important}.dashboard-hero h1{color:#111!important}}
 
 </style>
-<style id="system-visibility-design">.system-visibility-banner{margin:0;padding:10px 24px;background:#efebfa;border-bottom:1px solid #ded6ed;color:#675582;font-size:12px;line-height:1.6}.system-visibility-banner[hidden],[data-all-systems-view][hidden]{display:none!important}#userViewOtherSystemsWrapper{padding:14px;border:1px solid #d9d4ed;border-radius:12px;background:#f7f4fc}#userViewOtherSystemsInput{width:17px;height:17px;flex-shrink:0}#userViewOtherSystemsInput:disabled{opacity:.65}@media(max-width:760px){.system-visibility-banner{padding:10px 15px;font-size:11px}}@media print{.system-visibility-banner{display:none!important}}</style>
+<style id="system-visibility-design">.system-visibility-banner{margin:0;padding:10px 24px;background:#efebfa;border-bottom:1px solid #ded6ed;color:#675582;font-size:12px;line-height:1.6}
+.system-visibility-banner[hidden],[data-all-systems-view][hidden]{display:none!important}
+#userViewSystemsWrapper{padding:14px;border:1px solid #d9d4ed;border-radius:12px;background:#f7f4fc}
+#userViewSystemsCheckboxes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.view-system-option{display:flex;align-items:flex-start;gap:9px;padding:11px;border:1px solid #e1d9ef;border-radius:10px;background:#fff;cursor:pointer}
+.view-system-option:has(input:checked){border-color:#bdcedf;background:#eff6fc}
+.view-system-option[data-inherited=true]{border-color:#cde2d4;background:#edf6f0;cursor:default}
+.view-system-option input{width:17px;height:17px;flex-shrink:0;margin-top:2px}
+.view-system-option>span{display:grid;gap:4px;min-width:0;line-height:1.5}
+.view-system-option strong{font-size:12px;color:#4f5a76}.view-system-option>span>span{font-size:11px;font-weight:450;color:#5b6e82;overflow-wrap:anywhere}
+.view-system-option small{font-size:10px;color:#718194;font-weight:450}
+.view-system-option[data-inherited=true] small{color:#527c62}
+@media(max-width:760px){.system-visibility-banner{padding:10px 15px;font-size:11px}#userViewSystemsCheckboxes{grid-template-columns:1fr}}
+@media print{.system-visibility-banner{display:none!important}}
+</style>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans antialiased selection:bg-blue-600 selection:text-white overflow-hidden">
 
@@ -5799,12 +5813,13 @@ input[type=file]::file-selector-button{background:var(--pastel-sky)!important;co
                 </div>
                 <div id="userPermissionsWrapper" class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
                     <div id="userTechnicalSystemsPermissionBlock" class="space-y-2">
-                        <label class="block font-bold text-slate-700">Chọn các hệ thống kỹ thuật được quyền chỉnh sửa:</label>
+                        <label class="block font-bold text-slate-700">Hệ thống phụ trách (quyền thao tác theo vai trò):</label>
                         <div id="userSystemsCheckboxes" class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-40 overflow-y-auto"></div>
                     </div>
-                    <div id="userViewOtherSystemsWrapper" class="pt-3 border-t border-slate-200 space-y-2">
-                        <label class="flex items-start gap-2 font-bold text-slate-800"><input id="userViewOtherSystemsInput" type="checkbox" class="mt-0.5 rounded border-slate-300 text-blue-600"><span>Cho phép xem hệ thống khác</span></label>
-                        <p id="userViewOtherSystemsNote" class="text-[11px] text-slate-600"></p>
+                    <div id="userViewSystemsWrapper" class="pt-3 border-t border-slate-200 space-y-2">
+                        <h4 class="font-bold text-slate-800">Hệ thống được phép xem</h4>
+                        <p id="userViewSystemsNote" class="text-[11px] text-slate-600"></p>
+                        <div id="userViewSystemsCheckboxes" role="group" aria-label="Hệ thống được phép xem"></div>
                     </div>
                     <div id="userInventoryPermissionWrapper" class="pt-3 border-t border-slate-200 space-y-2">
                         <label class="flex items-start gap-2 font-bold text-slate-800"><input id="userInventoryManageInput" type="checkbox" class="mt-0.5 rounded border-slate-300 text-blue-600" onchange="this.dataset.userTouched='true'"><span>Quản lý kho vật tư &amp; phụ tùng</span></label>
@@ -6518,7 +6533,8 @@ input[type=file]::file-selector-button{background:var(--pastel-sky)!important;co
                 systems:Array.isArray(user.systems) ? [...user.systems] : [],
                 furnitureManage:user.furnitureManage === true,
                 inventoryManage:user.inventoryManage === true,
-                viewOtherSystems:user.viewOtherSystems !== false,
+                viewOtherSystems:user.viewOtherSystems === undefined || user.viewOtherSystems === true,
+                viewSystems:Array.isArray(user.viewSystems) ? [...user.viewSystems] : user.viewSystems === undefined ? undefined : [],
                 createdAt:user.createdAt, updatedAt:user.updatedAt
             };
         }
@@ -6965,7 +6981,7 @@ input[type=file]::file-selector-button{background:var(--pastel-sky)!important;co
             const sysList = Array.isArray(currentUser.systems) ? currentUser.systems : [];
             document.getElementById('currentUserRoleBadge').textContent = currentUser.role === 'ADMIN'
                 ? 'Quản Trị Viên (Toàn quyền hệ thống)'
-                : (currentUser.role === 'BUILDING_HEAD' ? 'Trưởng Ban (Quản lý kỹ thuật, duyệt hồ sơ thi công)' : `${currentUser.role === 'TEAM_LEAD' ? 'Tổ trưởng' : 'Kỹ thuật viên'} · ${sysList.join(', ')}`);
+                : (currentUser.role === 'BUILDING_HEAD' ? 'Trưởng Ban (Quản lý kỹ thuật, duyệt hồ sơ thi công)' : `${currentUser.role === 'TEAM_LEAD' ? 'Tổ trưởng' : 'Kỹ thuật viên'} · ${sysList.length?sysList.join(', '):'Chỉ xem'}`);
 
             // Nhân sự được quản lý tài khoản theo cấp quyền; dữ liệu tập trung vẫn dành riêng cho Admin.
             const navUsers = document.getElementById('nav-users');
@@ -9694,9 +9710,7 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
             document.getElementById('userSystemsCheckboxes').innerHTML = systems.map(system =>
                 `<label class="flex items-center gap-2 p-2 bg-white border border-slate-200 rounded-lg"><input type="checkbox" name="userSysChk" value="${advEscape(system.code)}" ${user.systems.includes(system.code) ? 'checked' : ''}><span>${advEscape(system.code)} · ${advEscape(system.name)}</span></label>`
             ).join('');
-            const viewCheckbox=document.getElementById('userViewOtherSystemsInput');
-            viewCheckbox.disabled=false;viewCheckbox.checked=user.status!=='PENDING' && user.viewOtherSystems!==false;
-            SystemVisibility.updateControl();
+            SystemVisibility.openControl(user);
             document.getElementById('userFurnitureManageInput').checked = user.furnitureManage;
             document.getElementById('userInventoryManageInput').checked = user.inventoryManage === true;
             document.getElementById('userInventoryManageInput').dataset.userTouched = 'false';
@@ -12518,9 +12532,10 @@ window.PublicGuard = (() => {
 window.SystemVisibility=(()=>{
     let catalog=[];
     const commonKinds=['$order','workPermits','handoverLogs','dutyRoster','shiftLogs','guestKeyLoans','contractorApplications','furnitureItems','furnitureMovementLogs','notebookLmEntries'];
-    const full=(user=currentUser)=>!!user&&(['ADMIN','BUILDING_HEAD'].includes(user.role)||user.viewOtherSystems!==false);
-    const codes=(user=currentUser)=>[...new Set((user?.systems||[]).filter(code=>code!=='ALL'))].sort();
-    const signature=user=>JSON.stringify([user?.id,full(user),codes(user),user?.inventoryManage===true,user?.role]);
+    const full=(user=currentUser)=>!!user&&(['ADMIN','BUILDING_HEAD'].includes(user.role)||(user.viewSystems===undefined&&user.viewOtherSystems!==false));
+    const assigned=(user=currentUser)=>[...new Set((user?.systems||[]).filter(code=>code!=='ALL'))].sort();
+    const codes=(user=currentUser)=>[...new Set([...assigned(user),...(Array.isArray(user?.viewSystems)?user.viewSystems:[])].filter(code=>typeof code==='string'&&code!=='ALL'))].sort();
+    const signature=user=>JSON.stringify([user?.id,full(user),assigned(user),codes(user),user?.inventoryManage===true,user?.role]);
     const chunks=(items,size=10)=>Array.from({length:Math.ceil(items.length/size)},(_,i)=>items.slice(i*size,(i+1)*size));
     function recordQueries(sdk,collection){
         if(full())return [collection];
@@ -12560,22 +12575,35 @@ window.SystemVisibility=(()=>{
         return snapshot;
     }
     const inventorySystems=()=>currentUser?.inventoryManage===true&&catalog.length?catalog:systems;
+    let viewSelection=new Set();
+    const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    function openControl(user){
+        viewSelection=new Set(Array.isArray(user.viewSystems)?user.viewSystems.filter(code=>code!=='ALL'):
+            user.status!=='PENDING'&&full(user)?systems.map(system=>system.code):[]);
+        const root=document.getElementById('userViewSystemsCheckboxes');
+        root.innerHTML=systems.map(system=>'<label class="view-system-option"><input type="checkbox" name="userViewSysChk" value="'+escape(system.code)+'"><span><strong>'+escape(system.code)+'</strong><span>'+escape(system.name)+'</span><small data-view-system-reason></small></span></label>').join('');
+        updateControl();
+    }
     function updateControl(){
-        const checkbox=document.getElementById('userViewOtherSystemsInput');if(!checkbox)return;
+        const root=document.getElementById('userViewSystemsCheckboxes');if(!root)return;
         const manager=['ADMIN','BUILDING_HEAD'].includes(document.getElementById('userRoleInput').value);
-        if(manager){if(!checkbox.disabled)checkbox.dataset.technicalValue=String(checkbox.checked);checkbox.checked=true;checkbox.disabled=true;}
-        else{if(checkbox.disabled)checkbox.checked=checkbox.dataset.technicalValue!=='false';checkbox.disabled=false;}
-        document.getElementById('userViewOtherSystemsNote').textContent=manager
+        const responsible=new Set([...document.querySelectorAll('input[name="userSysChk"]:checked')].map(input=>input.value));
+        for(const input of root.querySelectorAll('input[name="userViewSysChk"]')){
+            const inherited=manager||responsible.has(input.value);input.disabled=inherited;input.checked=inherited||viewSelection.has(input.value);
+            input.closest('label').dataset.inherited=String(inherited);
+            input.closest('label').querySelector('[data-view-system-reason]').textContent=manager?'Theo vai trò quản lý':responsible.has(input.value)?'Được giao phụ trách · luôn được xem':'Chỉ cấp quyền xem';
+        }
+        document.getElementById('userViewSystemsNote').textContent=manager
             ?'Admin và Trưởng Ban xem toàn bộ hệ thống kỹ thuật trong tòa được cấp quyền.'
-            :'Bật để xem thêm hệ thống khác trong cùng tòa. Tắt để chỉ xem thiết bị, sự cố, checklist, thông số, bảo trì và điểm bản đồ của các hệ thống được giao. Quyền sửa chữa, nghiệm thu và quyền kho được cấp riêng.';
+            :'Hệ thống phụ trách luôn được xem. Chọn thêm từng hệ thống chỉ được xem; quyền sửa chữa và nghiệm thu vẫn theo phân công. Có thể để trống hệ thống phụ trách để cấp tài khoản chỉ xem.';
     }
     function refreshUI(){
         const allowed=full(),banner=document.getElementById('systemVisibilityBanner');
-        if(banner){banner.hidden=allowed||!hasAuthenticatedClientSession();banner.textContent='Phạm vi xem kỹ thuật: '+(codes().join(', ')||'chưa được giao hệ thống')+'. Hồ sơ và bàn giao chung của tòa dùng chung; kho theo quyền riêng.';}
+        if(banner){banner.hidden=allowed||!hasAuthenticatedClientSession();banner.textContent='Hệ thống được xem: '+(codes().join(', ')||'chưa được cấp quyền xem kỹ thuật')+'. Quyền thao tác theo hệ thống phụ trách; kho và hồ sơ chung theo quyền riêng.';}
         document.querySelectorAll('[data-all-systems-view]').forEach(node=>node.hidden=!allowed);
         const audit=document.getElementById('nav-audit');if(audit)audit.classList.toggle('hidden',!allowed);
         const description=document.getElementById('assetVisibilityDescription');
-        if(description)description.textContent=allowed?'Được xem toàn bộ thiết bị trong tòa. Chỉ được sửa/xóa thiết bị thuộc hệ thống mình phụ trách.':'Chỉ hiển thị thiết bị thuộc hệ thống được giao. Quyền thao tác theo vai trò tài khoản.';
+        if(description)description.textContent=allowed?'Được xem toàn bộ thiết bị trong tòa. Chỉ được sửa/xóa thiết bị thuộc hệ thống mình phụ trách.':'Chỉ hiển thị thiết bị thuộc các hệ thống được cấp quyền xem. Quyền thao tác theo hệ thống phụ trách và vai trò tài khoản.';
     }
     function reset(){
         catalog=[];
@@ -12583,7 +12611,11 @@ window.SystemVisibility=(()=>{
         if(!full()){selectedQrAssetId=null;qrBulkSelectedIds.clear();}
         persistLocalState();refreshUI();
     }
-    return {full,codes,signature,chunks,recordQueries,snapshotDocs,canRecord,flatten,prepareSnapshot,inventorySystems,updateControl,refreshUI,reset};
+    document.addEventListener('change',event=>{
+        if(event.target.name==='userSysChk')updateControl();
+        if(event.target.name==='userViewSysChk')event.target.checked?viewSelection.add(event.target.value):viewSelection.delete(event.target.value);
+    });
+    return {full,assigned,codes,signature,chunks,recordQueries,snapshotDocs,canRecord,flatten,prepareSnapshot,inventorySystems,openControl,updateControl,refreshUI,reset};
 })();
 
 </script>
@@ -13604,7 +13636,7 @@ window.RealAuth = (() => {
     function profileFromSnapshot(snapshot) {
         const data = snapshot.data();
         if (!data || data.uid !== snapshot.id || !activeRoles.includes(data.role) || data.status !== 'ACTIVE') return null;
-        if (!Array.isArray(data.systems) || (!data.systems.length && data.inventoryManage !== true)) return null;
+        if (!Array.isArray(data.systems) || (!data.systems.length && data.inventoryManage !== true && !(Array.isArray(data.viewSystems)&&data.viewSystems.length))) return null;
         return normalizeUserObject({...data, id:snapshot.id});
     }
 
@@ -13789,7 +13821,7 @@ window.RealAuth = (() => {
             if (existing.exists()) return;
             transaction.set(ref, {
                 uid:user.uid, email:user.email, name:fullName, title:'', role:'PENDING', status:'PENDING',
-                systems:[], furnitureManage:false, inventoryManage:false, viewOtherSystems:false, createdAt:sdk.serverTimestamp(), updatedAt:sdk.serverTimestamp()
+                systems:[], furnitureManage:false, inventoryManage:false, viewOtherSystems:false, viewSystems:[], createdAt:sdk.serverTimestamp(), updatedAt:sdk.serverTimestamp()
             });
         });
     }
@@ -13930,8 +13962,9 @@ window.RealAuth = (() => {
         const systems = ['ADMIN', 'BUILDING_HEAD'].includes(role) ? ['ALL'] :
             [...document.querySelectorAll('input[name="userSysChk"]:checked')].map(input => input.value);
         const inventoryManage = role === 'ADMIN' || el('userInventoryManageInput').checked === true;
-        if ((!systems.length && !inventoryManage && el('userStatusInput').value !== 'DISABLED') || !activeRoles.includes(role)) {
-            showToast('Chọn hệ thống kỹ thuật hoặc cấp quyền quản lý kho. Nếu thu hồi toàn bộ quyền, chọn Tạm ngừng truy cập.', 'warning');
+        const viewSystems=['ADMIN','BUILDING_HEAD'].includes(role)?['ALL']:[...new Set([...document.querySelectorAll('input[name="userViewSysChk"]:checked')].map(input=>input.value).filter(code=>!systems.includes(code)))];
+        if ((!systems.length && !viewSystems.length && !inventoryManage && el('userStatusInput').value !== 'DISABLED') || !activeRoles.includes(role)) {
+            showToast('Chọn hệ thống phụ trách, hệ thống được xem hoặc quyền kho. Nếu thu hồi toàn bộ quyền, chọn Tạm ngừng truy cập.', 'warning');
             return;
         }
         const button = event.target.querySelector('[type=submit]');
@@ -13940,7 +13973,8 @@ window.RealAuth = (() => {
             role, systems, status:el('userStatusInput').value,
             furnitureManage:role === 'ADMIN' || el('userFurnitureManageInput').checked,
             inventoryManage,
-            viewOtherSystems:['ADMIN','BUILDING_HEAD'].includes(role)||el('userViewOtherSystemsInput').checked===true
+            viewSystems,
+            viewOtherSystems:['ADMIN','BUILDING_HEAD'].includes(role)
         };
         button.disabled = true;
         try {
@@ -13973,8 +14007,8 @@ window.RealAuth = (() => {
                 `<span class="text-slate-500">${user.id === currentUser.id ? 'Đang đăng nhập' : 'Quản trị viên'}</span>`;
             return `<tr><td class="py-3 px-3"><b>${advEscape(user.name)}</b><div>${advEscape(user.title)}</div></td>
                 <td class="py-3 px-3 break-words">${advEscape(user.email)}</td><td class="py-3 px-3">${statusName[user.status] || 'Chưa xác nhận'}</td>
-                <td class="py-3 px-3">${roleLabel(user.role)}</td><td class="py-3 px-3"><div class="flex flex-wrap gap-1">${user.systems.map(system => system === 'ALL' ? 'Toàn bộ hệ thống' : renderSystemBadge(system)).join(' ')}</div>${user.furnitureManage ? '<div class="mt-1">Được quản lý nội thất/doanh cụ</div>' : ''}<div class="mt-1">${user.role === 'ADMIN' || user.inventoryManage ? 'Kho vật tư: Được quản lý' : 'Kho vật tư: Chỉ xem'}</div></td>
-                <td class="py-3 px-3 text-right"><div class="mb-2 text-[11px] text-slate-600">${['ADMIN','BUILDING_HEAD'].includes(user.role)||user.viewOtherSystems!==false?'Được xem hệ thống khác':'Chỉ xem hệ thống được giao'}</div>${action}</td></tr>`;
+                <td class="py-3 px-3">${roleLabel(user.role)}</td><td class="py-3 px-3"><p class="text-[11px] text-slate-500 mb-1">Phụ trách</p><div class="flex flex-wrap gap-1">${user.systems.map(system => system === 'ALL' ? 'Toàn bộ hệ thống' : renderSystemBadge(system)).join(' ')||'Không phụ trách hệ thống kỹ thuật'}</div><p class="text-[11px] text-slate-500 mt-2 mb-1">Được xem</p><div class="flex flex-wrap gap-1">${window.SystemVisibility.full(user)?'Toàn bộ hệ thống':window.SystemVisibility.codes(user).map(renderSystemBadge).join(' ')||'Chưa cấp quyền xem kỹ thuật'}</div>${user.furnitureManage ? '<div class="mt-1">Được quản lý nội thất/doanh cụ</div>' : ''}<div class="mt-1">${user.role === 'ADMIN' || user.inventoryManage ? 'Kho vật tư: Được quản lý' : 'Kho vật tư: Chỉ xem'}</div></td>
+                <td class="py-3 px-3 text-right">${action}</td></tr>`;
         }).join('') || '<tr><td colspan="6" class="p-4">Chưa có hồ sơ trong danh sách.</td></tr>';
     }
 
