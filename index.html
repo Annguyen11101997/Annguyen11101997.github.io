@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="connect-src 'self' https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://www.googleapis.com; form-action 'none'; object-src 'none'; base-uri 'self'">
+    <meta http-equiv="Content-Security-Policy" content="connect-src 'self' https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://www.googleapis.com https://firebaseappcheck.googleapis.com https://recaptchaenterprise.googleapis.com https://www.google.com https://www.recaptcha.net; form-action 'none'; object-src 'none'; base-uri 'self'">
     <meta name="description" content="Cổng hỗ trợ và quản lý kỹ thuật tòa nhà 500G và 1000G. Dữ liệu và quyền truy cập riêng theo từng tòa nhà.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>V.CTCH 500G | Quản lý vận hành</title>
@@ -3460,7 +3460,7 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
                 <section class="border-b border-slate-200 bg-slate-50 p-5 sm:p-7 lg:border-b-0 lg:border-r lg:p-9" aria-labelledby="guestServicesTitle">
                     <div class="mb-5">
                         <p class="mb-2 text-[10px] font-extrabold uppercase tracking-[0.2em] text-blue-700">KHOA / PHÒNG / BAN &amp; NHÀ THẦU</p>
-                        <h2 id="guestServicesTitle" class="text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl">Yêu cầu hỗ trợ</h2>
+                        <h2 id="guestServicesTitle" class="text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl">Yêu cầu hỗ trợ</h2><p id="publicFormProtectionStatus" class="hidden mt-2 rounded-lg bg-amber-50 p-3 text-xs text-amber-900" role="status"></p>
                         <p class="mt-1.5 max-w-md text-sm leading-relaxed text-slate-600">Gửi yêu cầu cho tòa đang chọn. Các tiện ích dưới đây mở cho khách.</p>
                     </div>
 
@@ -3525,6 +3525,17 @@ button,summary{cursor:pointer}button:disabled{cursor:not-allowed}
                             </form>
                         </details>
                     </div>
+                    <details id="appCheckSetupPanel" class="mb-4 rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-700">
+                        <summary class="cursor-pointer font-semibold">Thiết lập bảo vệ biểu mẫu (IT)</summary>
+                        <p id="appCheckSetupStatus" class="mt-2" role="status">Đang kiểm tra cấu hình bảo vệ.</p>
+                        <form onsubmit="PublicGuard.downloadConfig(event)" class="mt-3 space-y-2">
+                            <label for="appCheckSiteKeyInput" class="block font-semibold">Site key reCAPTCHA Enterprise đã đăng ký trong Firebase App Check</label>
+                            <input id="appCheckSiteKeyInput" type="text" maxlength="200" spellcheck="false" class="workflow-field w-full font-mono" placeholder="Site key của ứng dụng Web">
+                            <button type="submit" class="workflow-btn bg-white border border-slate-300">Tải app-check-config.json</button>
+                            <p id="appCheckConfigFeedback" role="status"></p>
+                            <p>Bật Anonymous trong Firebase Authentication cho phiên khách. Kiểm tra App Check ở chế độ theo dõi rồi mới bật Enforce.</p>
+                        </form>
+                    </details>
                     <div id="loginCredentialsPanel">
                         <div class="mb-6">
                             <p class="mb-2 text-[10px] font-extrabold uppercase tracking-[0.2em] text-blue-700">KHU VỰC NHÂN SỰ</p>
@@ -12162,6 +12173,115 @@ Nội dung: ${meta.repairNote || t.resolutionNote || '—'}
         });
         document.addEventListener('change', function contractorBadgeMode(event) { const t = event.target; if (t && t.id === 'contractorBadgeCount') t.dataset.auto = '0'; });
         </script>
+<script id="public-abuse-protection">
+/* Public writes use an isolated guest identity and server-validated budgets. */
+window.PublicGuard = (() => {
+    let sdk,config,siteKey='',guestPromise,guestCheck;
+    const pending=new Set();
+    const policies={ticket:{limit:5,gap:30000},contractor:{limit:5,gap:30000},keyBorrow:{limit:5,gap:30000},keyReturn:{limit:100,gap:0}};
+    const windowMs=600000,duplicateMs=300000;
+    const lower=value=>String(value||'').toLowerCase();
+    function fingerprint(kind,payload){
+        if(kind==='ticket')return payload.system+'|'+lower(payload.zone)+'|'+lower(payload.description);
+        if(kind==='contractor')return [payload.organizationName,payload.contactEmail,payload.workLocation,payload.proposalShort,payload.workStart,payload.workEnd].map(lower).join('|');
+        return '';
+    }
+    function error(message,code='public-limit'){const result=new Error(message);result.code=code;return result;}
+    function updateStatus(){
+        const setup=document.getElementById('appCheckSetupStatus');
+        if(setup)setup.textContent=siteKey?'Đã cấu hình App Check. Kiểm tra số liệu xác minh trong Firebase trước khi bật Enforce.':'Chưa có app-check-config.json hợp lệ. Thêm khóa reCAPTCHA Enterprise để bật tiếp nhận công khai.';
+        const publicStatus=document.getElementById('publicFormProtectionStatus');
+        if(publicStatus){publicStatus.textContent=siteKey?'':'Biểu mẫu công khai đang tạm ngừng tiếp nhận. Vui lòng liên hệ Ban quản lý.';publicStatus.classList.toggle('hidden',!!siteKey);}
+    }
+    async function initialize(api,app,firebaseConfig){
+        sdk=api;config=firebaseConfig;siteKey='';guestPromise=null;
+        try{
+            const response=await fetch(new URL('app-check-config.json',location.href),{cache:'no-store'});
+            if(!response.ok){updateStatus();return;}
+            const input=await response.json();
+            if(typeof input.siteKey!=='string'||!/^[A-Za-z0-9_-]{20,200}$/.test(input.siteKey)||/PASTE|YOUR_|COPY_/i.test(input.siteKey))throw new Error('Khóa App Check chưa hợp lệ.');
+            const key=input.siteKey;
+            sdk.initializeAppCheck(app,{provider:new sdk.ReCaptchaEnterpriseProvider(key),isTokenAutoRefreshEnabled:true});
+            siteKey=key;
+        }catch(_){siteKey='';}
+        updateStatus();
+    }
+    async function context(){
+        if(!sdk||!siteKey)throw error('Chức năng gửi yêu cầu đang được cấu hình. Vui lòng liên hệ Ban quản lý.','public-setup');
+        if(!guestPromise)guestPromise=(async()=>{
+            const name='bms-public-'+config.projectId;
+            const app=sdk.getApps().find(item=>item.name===name)||sdk.initializeApp(config,name);
+            const check=guestCheck||(guestCheck=sdk.initializeAppCheck(app,{provider:new sdk.ReCaptchaEnterpriseProvider(siteKey),isTokenAutoRefreshEnabled:true}));
+            const auth=sdk.getAuth(app);
+            await sdk.setPersistence(auth,sdk.browserLocalPersistence);
+            await auth.authStateReady();
+            if(!auth.currentUser)await sdk.signInAnonymously(auth);
+            return {db:sdk.getFirestore(app),auth,check,uid:auth.currentUser.uid};
+        })().catch(cause=>{guestPromise=null;throw cause;});
+        const result=await guestPromise;
+        if(!result.auth.currentUser||result.auth.currentUser.uid!==result.uid){guestPromise=null;return context();}
+        try{await sdk.getToken(result.check,false);}catch(_){throw error('Chưa xác minh được yêu cầu. Kiểm tra kết nối rồi thử lại.','public-verification');}
+        return result;
+    }
+    const ref=(ctx,...parts)=>sdk.doc(ctx.db,'buildings',BUILDING,...parts);
+    async function readBudget(transaction,ctx,kind){
+        const target=ref(ctx,'publicLimits',ctx.uid+'_'+kind),snapshot=await transaction.get(target);
+        return {target,before:snapshot.exists()?snapshot.data():null};
+    }
+    function budgetData(ctx,kind,eventId,payload,before){
+        const policy=policies[kind];if(!policy)throw error('Loại yêu cầu không hợp lệ.');
+        const now=Date.now(),start=before?.windowStart?.toMillis?.()||0,last=before?.lastAt?.toMillis?.()||0;
+        const fp=fingerprint(kind,payload||{}),reset=!before||now-start>=windowMs;
+        if(before&&now-last<policy.gap)throw error('Vui lòng chờ '+Math.max(1,Math.ceil((policy.gap-now+last)/1000))+' giây trước khi gửi tiếp.');
+        if(!reset&&before.count>=policy.limit)throw error('Đã đạt giới hạn gửi. Thử lại sau '+Math.max(1,Math.ceil((windowMs-now+start)/60000))+' phút.');
+        if(fp&&before)for(let i=0;i<5;i++)if(before['f'+i]===fp&&now-(before['t'+i]?.toMillis?.()||0)<duplicateMs)throw error('Nội dung này vừa được gửi. Vui lòng chờ xử lý thay vì gửi lại.','public-duplicate');
+        const value={kind,ownerUid:ctx.uid,eventId,windowStart:reset?sdk.serverTimestamp():before.windowStart,count:reset?1:before.count+1,lastAt:sdk.serverTimestamp()};
+        for(let i=0;i<5;i++){value['f'+i]=i===0?fp:(before?.['f'+(i-1)]||'');value['t'+i]=i===0?sdk.serverTimestamp():(before?.['t'+(i-1)]||sdk.serverTimestamp());}
+        return value;
+    }
+    function writeBudget(transaction,ctx,budget,kind,eventId,payload){transaction.set(budget.target,budgetData(ctx,kind,eventId,payload,budget.before));}
+    async function submitIntake(kind,payload){
+        if(pending.has(kind))throw error('Yêu cầu đang được gửi. Vui lòng chờ xác nhận.');
+        pending.add(kind);
+        try{
+            const ctx=await context(),id=crypto.randomUUID();
+            const clean=JSON.parse(JSON.stringify(payload));
+            if(new TextEncoder().encode(JSON.stringify(clean)).length>650000)throw error('Ảnh hoặc hồ sơ quá lớn. Hãy dùng dữ liệu nhỏ hơn.');
+            await sdk.runTransaction(ctx.db,async transaction=>{
+                const budget=await readBudget(transaction,ctx,kind);
+                writeBudget(transaction,ctx,budget,kind,id,clean);
+                transaction.set(ref(ctx,'publicIntake',id),{kind,payload:clean,ownerUid:ctx.uid,status:'NEW',createdAt:sdk.serverTimestamp()});
+            });
+            return id;
+        }catch(cause){
+            if(cause.code==='permission-denied')throw error('Firebase chưa chấp nhận yêu cầu. Có thể đang vượt giới hạn gửi hoặc cấu hình bảo vệ chưa hoàn tất. Hãy thử lại sau.');
+            if(cause.code==='auth/operation-not-allowed')throw error('Chức năng tiếp nhận chưa sẵn sàng. Vui lòng liên hệ Ban quản lý.','public-setup');
+            throw cause;
+        }finally{pending.delete(kind);}
+    }
+    function checkAuthAttempt(kind){
+        const key='vctch_auth_attempt_'+kind,now=Date.now();
+        try{
+            const times=JSON.parse(localStorage.getItem(key)||'[]').filter(time=>Number.isFinite(time)&&now-time<600000);
+            if(times.length&&(now-times.at(-1)<30000||times.length>=5))throw error('Vui lòng chờ trước khi gửi lại yêu cầu tài khoản.');
+            localStorage.setItem(key,JSON.stringify([...times,now]));
+        }catch(cause){if(cause.code==='public-limit')throw cause;}
+    }
+    function downloadConfig(event){
+        event.preventDefault();
+        const key=document.getElementById('appCheckSiteKeyInput').value.trim();
+        const feedback=document.getElementById('appCheckConfigFeedback');
+        if(!/^[A-Za-z0-9_-]{20,200}$/.test(key)||/PASTE|YOUR_|COPY_/i.test(key)){feedback.textContent='Nhập site key reCAPTCHA Enterprise của đúng ứng dụng Web.';return;}
+        const url=URL.createObjectURL(new Blob([JSON.stringify({siteKey:key},null,2)],{type:'application/json'}));
+        const link=document.createElement('a');link.href=url;link.download='app-check-config.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+        feedback.textContent='Tải app-check-config.json lên cùng thư mục với index.html rồi tải lại website.';
+    }
+    updateStatus();
+    document.addEventListener('DOMContentLoaded',updateStatus,{once:true});
+    return {initialize,context,ref,readBudget,writeBudget,submitIntake,checkAuthAttempt,downloadConfig,ready:()=>!!siteKey,fingerprint,budgetData};
+})();
+
+</script>
 <script id="shared-data-sync">
 window.BmsSyncCore = (() => {
     const lists = ['systems','assets','tickets','checklists','inventory','energyLogs','workPermits','handoverLogs','paramLogs','emailLogs','auditLogs','shiftLogs','maintenanceHistory','materialIssueHistory','guestKeyLoans','contractorApplications','furnitureItems','furnitureMovementLogs','notebookLmEntries'];
@@ -12570,12 +12690,7 @@ window.SharedData = (() => {
         a.href=url;a.download=BUILDING+'-'+name+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
     }
     async function submitIntake(kind,payload){
-        if(!sdk)throw new Error('Chưa kết nối Firebase. Hãy tải lại trang và kiểm tra cấu hình.');
-        const id=crypto.randomUUID();
-        const request={kind,payload:core.clean(payload),status:'NEW',createdAt:sdk.serverTimestamp()};
-        if(new TextEncoder().encode(JSON.stringify(payload)).length>650000)throw new Error('Ảnh hoặc hồ sơ quá lớn. Hãy dùng ảnh nhỏ hơn rồi gửi lại.');
-        await sdk.setDoc(ref('publicIntake',id),request);
-        return id;
+        return window.PublicGuard.submitIntake(kind,payload);
     }
     const inFlightIntake=new Set();
     async function drainIntake(snapshot){
@@ -12632,53 +12747,56 @@ window.SharedData = (() => {
     }
     async function keyRequest(request){
         if(!sdk)throw new Error('Chưa kết nối dịch vụ chìa khóa trên Firebase.');
+        if(!['borrow','return'].includes(request.action)&&hasAuthenticatedClientSession()){
+            const result=await sdk.getDocsFromServer(collection('publicKeyLoans'));
+            return {items:[...result.docs.map(keyLoanObject),...guestKeyLoans.filter(loan=>loan.storageMode!=='firebase-public')]};
+        }
+        const guard=window.PublicGuard,ctx=await guard.context();
+        const publicRef=(...parts)=>guard.ref(ctx,...parts);
         if(request.action==='borrow'){
             const id='KEYLOAN-'+crypto.randomUUID(),groupId=request.borrowGroupId||id;
-            const keyCode=String(request.keyCode).trim().replace(/\s+/g,'').toUpperCase();
-            const keyRef=await core.hash(keyCode);
-            const loan=ref('publicKeyLoans',id),lock=ref('keyLocks',keyRef),binding=ref('keyBindings',keyRef),group=ref('keyLoanGroups',groupId);
-            await sdk.runTransaction(db,async transaction=>{
+            const keyCode=String(request.keyCode).trim().replace(/\s+/g,'').toUpperCase(),keyRef=await core.hash(keyCode);
+            const loan=publicRef('publicKeyLoans',id),lock=publicRef('keyLocks',keyRef),binding=publicRef('keyBindings',keyRef),group=publicRef('keyLoanGroups',groupId);
+            await sdk.runTransaction(ctx.db,async transaction=>{
                 const current=await transaction.get(lock),groupNow=await transaction.get(group);
                 if(current.exists()&&current.data().active)throw new Error('Chìa '+keyCode+' đang được mượn chưa trả.');
+                if(groupNow.exists()&&groupNow.data().ownerUid!==ctx.uid)throw new Error('Phiếu mượn này không thể thêm chìa. Hãy tạo phiếu mới.');
                 const ids=groupNow.exists()?groupNow.data().loans:[];
                 if(ids.length>=50)throw new Error('Mỗi phiếu chỉ được mượn tối đa 50 chìa.');
-                transaction.set(loan,{id,borrowGroupId:groupId,fullName:String(request.fullName).trim(),phone:String(request.phone).trim(),keyCode,keyRef,borrowedAt:sdk.serverTimestamp(),status:'BORROWED',returnedAt:null});
+                const budget=groupNow.exists()?null:await guard.readBudget(transaction,ctx,'keyBorrow');
+                if(budget)guard.writeBudget(transaction,ctx,budget,'keyBorrow',groupId,{});
+                transaction.set(loan,{id,borrowGroupId:groupId,ownerUid:ctx.uid,fullName:String(request.fullName).trim(),phone:String(request.phone).trim(),keyCode,keyRef,borrowedAt:sdk.serverTimestamp(),status:'BORROWED',returnedAt:null});
                 transaction.set(binding,{loanId:id});
                 transaction.set(lock,{active:true,keyCode});
-                transaction.set(group,{loans:[...ids,id]});
+                transaction.set(group,{loans:[...ids,id],ownerUid:ctx.uid,createdAt:groupNow.exists()?groupNow.data().createdAt:sdk.serverTimestamp(),updatedAt:sdk.serverTimestamp(),lastLoanId:id});
             });
-            const receipts=JSON.parse(localStorage.getItem(receiptKey)||'[]');
+            let receipts=[];try{receipts=JSON.parse(localStorage.getItem(receiptKey)||'[]');}catch(_){}
             if(!receipts.includes(groupId))receipts.push(groupId);
-            try{localStorage.setItem(receiptKey,JSON.stringify(receipts));}catch(_){/* The displayed receipt remains usable from any device. */}
+            try{localStorage.setItem(receiptKey,JSON.stringify(receipts));}catch(_){}
             return {loan:keyLoanObject(await sdk.getDocFromServer(loan))};
         }
         if(request.action==='return'){
-            const loan=ref('publicKeyLoans',String(request.loanId));
-            await sdk.runTransaction(db,async transaction=>{
+            const loan=publicRef('publicKeyLoans',String(request.loanId));
+            await sdk.runTransaction(ctx.db,async transaction=>{
                 const current=await transaction.get(loan);
                 if(!current.exists())throw new Error('Không tìm thấy phiếu mượn.');
                 if(current.data().status==='RETURNED')return;
+                const budget=await guard.readBudget(transaction,ctx,'keyReturn');
+                guard.writeBudget(transaction,ctx,budget,'keyReturn',String(request.loanId),{});
                 transaction.update(loan,{status:'RETURNED',returnedAt:sdk.serverTimestamp()});
-                transaction.update(ref('keyLocks',current.data().keyRef),{active:false});
+                transaction.update(publicRef('keyLocks',current.data().keyRef),{active:false});
             });
             return {loan:keyLoanObject(await sdk.getDocFromServer(loan))};
         }
-        let receipts=JSON.parse(localStorage.getItem(receiptKey)||'[]');
-        if(request.query&&/^KEYLOAN-[a-f0-9-]{30,80}$/i.test(request.query.trim()))receipts=[request.query.trim()];
+        let receipts=[];try{receipts=JSON.parse(localStorage.getItem(receiptKey)||'[]');}catch(_){}
+        if(request.query&&/^KEYLOAN-[a-f0-9-]{30,80}$/i.test(request.query.trim()))receipts=['KEYLOAN-'+request.query.trim().slice(8).toLowerCase()];
         const items=[];
-        if(hasAuthenticatedClientSession()){
-            const result=await sdk.getDocsFromServer(collection('publicKeyLoans'));
-            items.push(...result.docs.map(keyLoanObject));
-            items.push(...guestKeyLoans.filter(loan=>loan.storageMode!=='firebase-public'));
-        }else{
-            for(const receipt of receipts){
-                const group=await sdk.getDocFromServer(ref('keyLoanGroups',receipt));
-                const ids=group.exists()?group.data().loans:[receipt];
-                for(const id of ids){const loan=await sdk.getDocFromServer(ref('publicKeyLoans',id));if(loan.exists())items.push(keyLoanObject(loan));}
-            }
+        for(const receipt of receipts.filter(item=>typeof item==='string'&&/^KEYLOAN-[a-f0-9-]{30,80}$/.test(item))){
+            const group=await sdk.getDocFromServer(publicRef('keyLoanGroups',receipt));
+            const ids=group.exists()?group.data().loans:[receipt];
+            for(const id of ids){const loan=await sdk.getDocFromServer(publicRef('publicKeyLoans',id));if(loan.exists())items.push(keyLoanObject(loan));}
         }
-        const unique=[...new Map(items.map(loan=>[loan.id,loan])).values()];
-        return {items:unique};
+        return {items:[...new Map(items.map(loan=>[loan.id,loan])).values()]};
     }
     function listenKeys(session){
         stopKeys?.();
@@ -12692,12 +12810,12 @@ window.SharedData = (() => {
 
     window.addEventListener('online',()=>{if(blocked&&hasAuthenticatedClientSession())retry();});
     window.addEventListener('beforeunload',event=>{if(pending||blocked&&latestDesired){event.preventDefault();event.returnValue='';}});
-    return {configure,start,stop,save,initialize,initializeFromLocal,retry,useRemote,downloadLocalCheckpoint,submitIntake,keyRequest,configured:()=>!!sdk,ready:()=>ready&&!blocked&&!migrating,dirty:()=>pending>0||blocked,applyRemote};
+    return {configure,start,stop,save,initialize,initializeFromLocal,retry,useRemote,downloadLocalCheckpoint,submitIntake,keyRequest,configured:()=>!!sdk&&window.PublicGuard?.ready(),ready:()=>ready&&!blocked&&!migrating,dirty:()=>pending>0||blocked,applyRemote};
 })();
 
 </script>
 <script id="real-account-auth">
-/* Real identities and building memberships live in Firebase. Operational records remain browser-local. */
+/* Firebase Authentication verifies identities; Firestore stores memberships and shared operations. */
 window.RealAuth = (() => {
     'use strict';
     const sdkVersion = '13.1.0';
@@ -12950,10 +13068,12 @@ window.RealAuth = (() => {
             const modules = await Promise.all([
                 import(`https://www.gstatic.com/firebasejs/${sdkVersion}/firebase-app.js`),
                 import(`https://www.gstatic.com/firebasejs/${sdkVersion}/firebase-auth.js`),
-                import(`https://www.gstatic.com/firebasejs/${sdkVersion}/firebase-firestore.js`)
+                import(`https://www.gstatic.com/firebasejs/${sdkVersion}/firebase-firestore.js`),
+                import(`https://www.gstatic.com/firebasejs/${sdkVersion}/firebase-app-check.js`)
             ]);
             sdk = Object.assign({}, ...modules);
             const app = sdk.initializeApp(config, 'bms-' + config.projectId);
+            await window.PublicGuard.initialize(sdk,app,config);
             auth = sdk.getAuth(app);
             auth.languageCode = 'vi';
             await applyLoginPersistence();
@@ -13021,6 +13141,8 @@ window.RealAuth = (() => {
         setBusy(true);
         let identityCreated = false;
         try {
+            if(!window.PublicGuard.ready())throw new Error('Chức năng đăng ký đang được cấu hình bảo vệ. Vui lòng liên hệ người quản lý.');
+            window.PublicGuard.checkAuthAttempt('register');
             await applyLoginPersistence();
             const result = await sdk.createUserWithEmailAndPassword(auth, el('registerEmail').value.trim(), password);
             identityCreated = true;
@@ -13088,6 +13210,7 @@ window.RealAuth = (() => {
         if (!initialized || busy) return;
         setBusy(true);
         try {
+            window.PublicGuard.checkAuthAttempt('reset');
             await sdk.sendPasswordResetEmail(auth, el('forgotEmail').value.trim());
             message('forgotFeedback', 'Nếu email đã có tài khoản, thư đặt lại mật khẩu sẽ được gửi đến hộp thư đó.');
         } catch (error) {
