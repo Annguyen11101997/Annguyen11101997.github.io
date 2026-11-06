@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=CzcjiT2dDnWFZX3HdH6jbn3Hy9moAaN0KOXyggIuP9nabMx9Xx2Oo4wzYF8ycESHGNYUKx_hReXW8StmaQ3HojocfKb9i5YvXDVFVaGVCsK3k6RmpsQWRagmQRyPE8OwYhdoayhFUn3-Mk_ZzZ5taL2MD4DnGoTuHxWJEmnpb-L87Az6-iyBEskoVKAiC_biR5tjp6t1TW8pdGIioqRrLxNLbGgx_1-CLSoYBBPlN4bhh7Nf4JnMVnHCrhZIJkNE_tF85pUgAoDbp8z8yh5t3JO0i7z1OYiEJYRqlK2nbzCV_TIVpSmywvjtU2ojza45" charset="UTF-8"></script><script id="appearance-navigation-script">
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=d87tE6gfxWHtEZoy0Rw5gur6zovFPqSXptwi0Doi3MPm-aIbDTBcvnhbi21ERjqZ566W1NObuao77X9jAAo2hW7ggXhzIXtAYmZvbfvx4ifhRv9vqTadAxDGC2pu8rnatp-4VcTU4nt7FA_ly69wCUPtatv-S19aDayZ-sunkEBQGtgRWTWgbmQq-OtoM7GNFMIAg5jM4owlf_8Q5-iXLKfIC9bcvRNYOo2Ve5wXQjmvHsu3O1AWy_DEHXgWDlG0LIMue2BMUGdRtIcZLs4lAhjzkwZ3JjaT2FzShSMx1Oc-PhaDXVv9wiwgDFkRMAUK" charset="UTF-8"></script><script id="appearance-navigation-script">
 /* Display preference is local to this browser and shared by both buildings. */
 (function () {
     const key = 'bms-appearance-theme';
@@ -15957,12 +15957,12 @@ window.ShiftDiary = (() => {
     function confirmationBlock(record, side) {
         const sending = side === 'sender', proof = ShiftWorkflow.confirmationOf(record,side);
         const heading = sending ? 'NGƯỜI PHỤ TRÁCH CA GIAO' : 'NGƯỜI PHỤ TRÁCH CA NHẬN';
-        const name = sending ? record.fromUser : record.status === 'ACKNOWLEDGED' ? record.acknowledgedBy || record.toUser : '';
+        const name = sending ? record.fromUser : record.acknowledgedBy || record.toUser || '';
         const withdrawn = record.status === 'CANCELLED';
         const icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3 4.5 6v5c0 4.6 3.2 7.9 7.5 10 4.3-2.1 7.5-5.4 7.5-10V6L12 3Z"/><path d="m8.5 12 2.3 2.3 4.7-4.7"/></svg>';
         let body;
         if (proof) {
-            body = `<div class="report-confirmation${withdrawn ? ' report-confirmation-withdrawn' : ''}"><div class="report-confirmation-label">${icon}${withdrawn ? 'XÁC NHẬN GIAO CA ĐÃ HỦY' : 'EMAIL ĐÃ XÁC MINH'}</div><p class="report-confirmation-email">${esc(proof.email)}</p><div class="report-confirmation-detail">${sending ? 'Đã xác nhận giao ca' : 'Đã xác nhận nhận ca'}: ${esc(fmt(proof.at))}<br>Mã tài khoản: ${esc(proof.uid)}${withdrawn ? '<br>Chỉ lưu để đối chiếu; bàn giao đã bị hủy.' : ''}</div></div>`;
+            body = `<div class="report-confirmation${withdrawn ? ' report-confirmation-withdrawn' : ''}"><div class="report-confirmation-label">${icon}${withdrawn ? 'XÁC NHẬN GIAO CA ĐÃ HỦY' : 'EMAIL ĐÃ XÁC MINH'}</div><p class="report-confirmation-email">${esc(proof.email)}</p><div class="report-confirmation-detail">${sending ? 'Đã xác nhận giao ca' : 'Đã xác nhận nhận ca'}: ${esc(fmt(proof.at))}${withdrawn ? '<br>Chỉ lưu để đối chiếu; bàn giao đã bị hủy.' : ''}</div></div>`;
         } else {
             const imported = record.importedConfirmations?.[side];
             const historicalAt = sending ? record.submittedAt : record.acknowledgedAt || record.ackedAt;
@@ -16011,11 +16011,11 @@ window.ShiftDiary = (() => {
         printWindow.document.close();printWindow.focus();setTimeout(() => printWindow.print(),150);
     }
     function exportCsv() {
-        const rows = [['Mã','Tòa nhà','Trạng thái','Ngày trực','Ca','Bắt đầu','Kết thúc','Người giao','Người nhận','Phần','Thời điểm / Mục','Khu vực / Nội dung','Kiểm tra / Xử lý','Kết quả / Tình trạng','Ghi chú / Ca sau tiếp tục','Người ghi','Thời điểm xác nhận','Người xác nhận','Thời điểm hủy','Người hủy','Email xác nhận giao','UID xác nhận giao','Thời điểm xác nhận giao','Email xác nhận nhận','UID xác nhận nhận','Thời điểm xác nhận nhận']];
+        const rows = [['Mã','Tòa nhà','Trạng thái','Ngày trực','Ca','Bắt đầu','Kết thúc','Người giao','Người nhận','Phần','Thời điểm / Mục','Khu vực / Nội dung','Kiểm tra / Xử lý','Kết quả / Tình trạng','Ghi chú / Ca sau tiếp tục','Người ghi','Thời điểm xác nhận','Người xác nhận','Thời điểm hủy','Người hủy','Email xác nhận giao','Thời điểm xác nhận giao','Email xác nhận nhận','Thời điểm xác nhận nhận']];
         for (const {record} of sorted()) {
             const base = [record.id,record.building || BUILDING,statusLabel(record.status),record.dutyDate,record.shift,fmtLocal(record.shiftStart),fmtLocal(record.shiftEnd),record.fromUser,record.toUser];
             const from = ShiftWorkflow.confirmationOf(record,'sender'), to = ShiftWorkflow.confirmationOf(record,'receiver');
-            const tail = [fmt(record.acknowledgedAt || record.ackedAt),record.acknowledgedBy,fmt(record.cancelledAt),record.cancelledBy,from?.email || '',from?.uid || '',from ? fmt(from.at) : '',to?.email || '',to?.uid || '',to ? fmt(to.at) : ''];
+            const tail = [fmt(record.acknowledgedAt || record.ackedAt),record.acknowledgedBy,fmt(record.cancelledAt),record.cancelledBy,from?.email || '',from ? fmt(from.at) : '',to?.email || '',to ? fmt(to.at) : ''];
             const push = values => rows.push([...base,...values,...tail]);
             push(['Tổng hợp','',record.openIncidents,record.operationalParams || record.supervisionConclusion || '',record.pendingTasks || '',[record.note,record.supervisionFollowup].filter(Boolean).join('\n'),record.staff || '']);
             for (const row of template.journalRows(record.journalRows)) push(['Nhật ký',fmtLocal(row.at),row.area,row.content,[row.action,row.result].filter(Boolean).join('\n'),'',row.recorder]);
