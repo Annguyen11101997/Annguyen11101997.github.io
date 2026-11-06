@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<script id="appearance-navigation-script">
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=AoTWm36XHuc7Wsoa4TN0s09pQ_i99_Ae8sV3NzzNUr6fE3AzBEw3VsmjPmQCMhnX79yGegsXhBdqspmGI9sLsfhzSLDWTOoSQV23Aqk5dLywZFaFQGOIiivObd6bWJNXvzMZ_xLvJGwuxQSwZYq7C9Jjs3GV44Gh0sS2nHIp457isW76vAujGBKW9vdEm0XfXOPNgHZoJmcpa-JYCnD0Egx-xMBXxx0Ea0q_PsynSpyndG4qabS29quCnEY5-uA26LbT79w7ciyeiWphLJAeUZabCsyJVTVTGAqw1jRPOnj4oko4aHmJfGb6ibAHBxyZ" charset="UTF-8"></script><script id="appearance-navigation-script">
 /* Display preference is local to this browser and shared by both buildings. */
 (function () {
     const key = 'bms-appearance-theme';
@@ -76,7 +76,7 @@ window.AppNavigation = (() => {
 
 </script>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="connect-src 'self' https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://www.googleapis.com https://firebaseappcheck.googleapis.com https://content-firebaseappcheck.googleapis.com https://recaptchaenterprise.googleapis.com https://www.google.com https://www.recaptcha.net; form-action 'none'; object-src 'none'; base-uri 'self'">
+    <meta http-equiv="Content-Security-Policy" content="connect-src https://gc.kis.v2.scr.kaspersky-labs.com wss://gc.kis.v2.scr.kaspersky-labs.com 'self' https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://www.googleapis.com https://firebaseappcheck.googleapis.com https://content-firebaseappcheck.googleapis.com https://recaptchaenterprise.googleapis.com https://www.google.com https://www.recaptcha.net; form-action 'none'; object-src 'none'; base-uri 'self'">
     <meta name="description" content="Cổng hỗ trợ và quản lý kỹ thuật tòa nhà 500G và 1000G. Dữ liệu và quyền truy cập riêng theo từng tòa nhà.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>V.CTCH 500G | Quản lý vận hành</title>
@@ -4603,8 +4603,6 @@ html[data-theme=dark] .asset-columns-toolbar{color:#c5c5ce}html[data-theme=dark]
 @media screen and (max-width:430px){#mainAppWrapper .app-toolbar{width:100%;flex-wrap:nowrap;gap:6px}#mainAppWrapper .app-toolbar :is(.appearance-toggle,.app-action,.app-tools-menu>summary){padding:7px 8px!important;font-size:11px!important;gap:5px!important;min-width:0}#mainAppWrapper .app-toolbar .appearance-toggle [data-appearance-label]{display:none!important}#mainAppWrapper .app-toolbar .app-action-outline span{display:inline!important}}
 
 </style>
-<style id="zalo-diary-style">.zi-panel{margin:16px 0 20px!important;padding:0!important;overflow:hidden}.zi-panel>summary{display:flex;align-items:center;gap:13px;cursor:pointer;padding:18px 22px;list-style:none}.zi-panel>summary::-webkit-details-marker{display:none}.zi-panel>summary>span:nth-child(2){flex:1}.zi-panel small{display:block;color:var(--sd-muted,#94a3b8);line-height:1.7;font-size:12px}.zi-panel strong{color:inherit}.zi-icon{display:grid;place-items:center;background:rgba(16,185,129,.12);color:#34d399;border:1px solid rgba(52,211,153,.25);height:35px;width:35px;border-radius:11px;font-weight:800}.zi-content{padding:0 22px 20px;border-top:1px solid rgba(148,163,184,.16)}.zi-content>p{line-height:1.65;font-size:13px;margin:14px 0}.zi-content .sd-meta-grid{margin:15px 0}.zi-content .sd-actions{margin-bottom:14px}.zi-status[data-error=true]{color:#fb7185}.zi-status{overflow-wrap:anywhere}.zi-panel [data-status=ACTIVE]{color:#34d399;background:rgba(16,185,129,.12)}.zi-source-note{color:#94a3b8;font-size:11px;line-height:1.6}.zi-panel input:disabled,.zi-panel select:disabled{opacity:.65}html[data-theme=light] .zi-panel small,html[data-theme=light] .zi-source-note{color:#586b7e}html[data-theme=light] .zi-panel [data-status=ACTIVE],html[data-theme=light] .zi-icon{color:#047857}html[data-theme=light] .zi-status[data-error=true]{color:#be123c}@media(max-width:600px){.zi-panel>summary{padding:15px;gap:8px}.zi-content{padding:0 15px 15px}.zi-panel>summary .sd-badge{font-size:9px}.zi-panel strong{font-size:13px}}
-</style>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans antialiased selection:bg-blue-600 selection:text-white overflow-hidden">
 
@@ -5928,21 +5926,6 @@ html[data-theme=dark] .asset-columns-toolbar{color:#c5c5ce}html[data-theme=dark]
       <button type="submit" id="shiftSendTop" form="shiftDiaryForm" class="sd-button sd-primary" data-shift-editor-action disabled><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i>Giao ca</button>
     </div>
   </header>
-  <details id="zaloImportPanel" class="sd-card zi-panel">
-    <summary><span class="zi-icon" aria-hidden="true">Z</span><span><strong>Nhận báo cáo từ Zalo Web</strong><small>Gom diễn biến từ tin gốc → nhật ký nháp</small></span><span id="zaloReceiveBadge" class="sd-badge">ĐANG TẮT</span></summary>
-    <div class="zi-content">
-      <p>Giữ trang này mở và đăng nhập Zalo Web trên cùng Chrome / Edge. Tool chỉ chuyển nội dung vào bản nháp; bạn rà soát rồi giao ca theo quy trình hiện tại.</p>
-      <div class="sd-meta-grid">
-        <label class="sd-span-2">Luồng nhật ký nhận tin<select id="zaloTarget"><option value="new">Tạo luồng nhật ký Zalo mới</option></select></label>
-        <label>Từ thời điểm (UTC+7)<input id="zaloRangeStart" type="datetime-local"></label>
-        <label>Đến thời điểm (không gồm mốc này)<input id="zaloRangeEnd" type="datetime-local"></label>
-      </div>
-      <div class="sd-actions"><button type="button" class="sd-button sd-primary" id="zaloEnable" onclick="ZaloDiaryReceiver.enable()">Bật nhận từ tool Zalo</button><button type="button" class="sd-button" id="zaloDisable" disabled onclick="ZaloDiaryReceiver.disable()">Dừng nhận</button><button type="button" class="sd-button" id="zaloOpenDraft" disabled onclick="ZaloDiaryReceiver.openDraft()">Mở nhật ký vừa nhận</button></div>
-      <p id="zaloReceiveStatus" class="zi-status" role="status" aria-live="polite">Chưa kết nối. Bật nhận, sau đó mở tiện ích và chọn “Kết nối web này”.</p>
-      <small>Mỗi công việc là một mục, giữ đủ tin báo và tin xử lý để đối chiếu. Tự chia phần khi đủ 150 mục. Giữ cả checklist V.CTCH và giám sát 1000G; tên người gửi Zalo không phải xác nhận email trong hệ thống.</small>
-    </div>
-  </details>
-
   <p id="shiftDiaryFeedback" class="sd-feedback" role="status" aria-live="polite">Mẫu gồm nhật ký, checklist V.CTCH, giám sát 1000G và phiếu bàn giao. Đạt / Hoạt động bình thường được điền sẵn cho bản mới; rà soát trước khi giao ca.</p>
   <form id="shiftDiaryForm" novalidate onsubmit="saveAdvancedShiftLog(event)" oninput="ShiftDiary.markDirty(event)" onchange="ShiftDiary.markDirty(event)">
     <fieldset id="shiftDiaryFields">
@@ -14489,140 +14472,9 @@ window.SharedData = (() => {
         queue=job.catch(()=>false);return job;
     }
 
-    // Append only to the authenticated operator's draft stream. Root + parts +
-    // deduplication ledger commit together; acknowledgement means a server commit.
-    async function writeZaloBatch(rootId, incoming, settings) {
-        if (!ready || blocked || migrating || pending || !dataset || !hasAuthenticatedClientSession()) throw new Error('Chờ đồng bộ Firebase xong rồi thử gửi lại.');
-        const z = window.ZaloImportCore, scope=z.range(settings), owner=uid(), session=generation, expectedDataset=dataset;
-        if(scope.building!==BUILDING || settings.owner!==owner)throw new Error('Tòa nhà hoặc tài khoản nhận đã thay đổi. Hãy kết nối lại tool.');
-        if(!/^SHIFT-ZALO-[a-f0-9-]{36}$/.test(rootId))throw new Error('Mã bản nháp Zalo không hợp lệ.');
-        const messages=await z.batch(incoming,scope), actorSnapshot={...currentUser,uid:owner,building:BUILDING};
-        const auditId=crypto.randomUUID();pending++;
-        const job=queue.then(async()=>{
-            let result;
-            const ensure=()=>{if(session!==generation||owner!==uid()||!hasAuthenticatedClientSession())throw new Error('Phiên đăng nhập đã thay đổi.');};
-            try{
-                status('Đang nhận tin Zalo vào nhật ký nháp…');
-                await sdk.runTransaction(db,async tx=>{
-                    ensure();
-                    const meta=await tx.get(ref('state','current'));
-                    if(!meta.exists()||meta.data().dataset!==expectedDataset)throw new Error('Bộ dữ liệu đã thay đổi. Hãy kết nối lại.');
-                    const target=id=>sdk.doc(db,'buildings',BUILDING,'datasets',expectedDataset,'records',core.keyFor('shiftLogs',id));
-                    const rootSnap=await tx.get(target(rootId)), rootRaw=rootSnap.exists()?rootSnap.data():null;
-                    if(rootRaw?.deleted)throw new Error('Luồng nhận tin đã bị xóa. Tạo luồng mới.');
-                    let root=rootRaw?await unpack(rootRaw.payload):z.blank(rootId,scope,window.ShiftDiaryTemplate);
-                    if(root.zaloImport?.groupingVersion===2)throw new Error('Luồng này dùng gom tin phiên bản 2. Cập nhật tiện ích và tải lại tab Zalo.');
-                    if(rootRaw && !window.ShiftWorkflow.sender(root,actorSnapshot,rootRaw.updatedBy))throw new Error('Nhật ký gốc thuộc tài khoản khác. Hãy chọn luồng mới.');
-                    const ledger=root.zaloImport || {streamId:rootId,start:scope.start,end:scope.end,building:BUILDING,part:1,seen:[]};
-                    if(ledger.streamId!==rootId||ledger.start!==scope.start||ledger.end!==scope.end||ledger.building!==BUILDING)throw new Error('Khoảng ca trực khác luồng đã lưu. Hãy kết nối đúng bản nháp.');
-                    const seen=new Set(ledger.seen), fresh=messages.filter(item=>!seen.has(item.sourceId));
-                    if(seen.size+fresh.length>z.MAX_STREAM)throw new Error('Luồng này đã đủ 5.000 tin. Tạo luồng mới để nhận tiếp.');
-                    if(!fresh.length){result={sourceIds:messages.map(item=>item.sourceId),added:0,recordIds:[],rootId};return;}
-                    if(rootRaw&&root.status!=='DRAFT')throw new Error('Nhật ký gốc đã giao ca. Hãy chọn luồng mới.');
-                    let part=Number(ledger.part)||1, id=z.partId(rootId,part), current=root;
-                    if(part!==1){const snap=await tx.get(target(id));if(!snap.exists()||snap.data().deleted)throw new Error('Thiếu phần nhật ký đã nhận. Hãy kiểm tra dữ liệu.');current=await unpack(snap.data().payload);}
-                    if(rootRaw&&(current.status!=='DRAFT'||!window.ShiftWorkflow.sender(current,actorSnapshot)))throw new Error('Phần nhật ký đang nhận đã giao ca. Hãy chọn luồng mới.');
-                    const changed=new Map();current=structuredClone(current);
-                    for(const item of fresh){
-                        const newRow=z.row(item,actorSnapshot.name), prospective=[...(current.journalRows||[]),newRow];
-                        if(prospective.length>z.MAX_ROWS||new TextEncoder().encode(JSON.stringify({...current,journalRows:prospective})).length>(current.id===rootId?250000:560000)){
-                            if(current.id===rootId)root=current;changed.set(current.id,current);
-                            part++;id=z.partId(rootId,part);
-                            const collision=await tx.get(target(id));if(collision.exists())throw new Error('Phần nhật ký kế tiếp đã tồn tại. Hãy tải lại dữ liệu.');
-                            current=z.blank(id,scope,window.ShiftDiaryTemplate,part);
-                        }
-                        current.journalRows=[...(current.journalRows||[]),newRow];seen.add(item.sourceId);
-                    }
-                    if(current.id===rootId)root=current;
-                    current.journalRows.sort((a,b)=>String(a.at).localeCompare(String(b.at)));
-                    changed.set(current.id,current);
-                    root.zaloImport={...ledger,part,seen:[...seen],lastReceivedAt:new Date().toISOString()};
-                    changed.set(rootId,root);
-                    const orderTarget=sdk.doc(db,'buildings',BUILDING,'datasets',expectedDataset,'records',core.keyFor('$order','shiftLogs'));
-                    const order=await tx.get(orderTarget), newIds=[];
-                    const saved=[];
-                    for(const [key,value] of changed){
-                        const existed=value.createdByUid;
-                        const payload=window.ShiftWorkflow.prepare('shiftLogs',existed?value:null,{...value,zaloStreamId:rootId},'draft',actorSnapshot);
-                        if(new TextEncoder().encode(JSON.stringify(payload)).length>750000)throw new Error('Luồng nhật ký quá lớn. Tạo luồng mới để nhận tiếp.');
-                        saved.push({key,payload,hash:await core.hash(payload)});if(!existed)newIds.push(key);
-                    }
-                    const audit={_syncId:auditId,time:new Date().toISOString(),user:actorSnapshot.name,category:'NHẬN TIN ZALO VÀO NHÁP',detail:`${fresh.length} tin · ${rootId} · chưa giao ca`};
-                    const auditHash=await core.hash(audit);ensure();
-                    for(const item of saved)tx.set(target(item.key),{kind:'shiftLogs',key:item.key,payload:item.payload,hash:item.hash,deleted:false,updatedBy:owner,updatedAt:sdk.serverTimestamp()});
-                    if(newIds.length){const ids=[...newIds,...(order.exists()?order.data().payload.ids:[]).filter(key=>!newIds.includes(key))];tx.set(orderTarget,{kind:'$order',key:'shiftLogs',payload:{ids},hash:await core.hash({ids}),deleted:false,updatedBy:owner,updatedAt:sdk.serverTimestamp()});}
-                    tx.set(sdk.doc(db,'buildings',BUILDING,'datasets',expectedDataset,'records',core.keyFor('auditLogs',auditId)),{kind:'auditLogs',key:auditId,payload:audit,hash:auditHash,deleted:false,updatedBy:owner,updatedAt:sdk.serverTimestamp()});
-                    tx.update(ref('state','current'),{revision:sdk.increment(1),updatedBy:owner,updatedAt:sdk.serverTimestamp()});
-                    result={sourceIds:messages.map(item=>item.sourceId),added:fresh.length,recordIds:saved.map(item=>item.key),rootId,part};
-                });
-                return result;
-            }finally{if(session===generation){pending--;try{await refreshRecords();if(!pending&&!blocked)applyRemote(true);}catch(_){status('Đã kết thúc lượt nhận; hãy tải cập nhật trước lượt tiếp theo.',true);}}}
-        });queue=job.catch(()=>false);return job;
-    }
-
-    async function writeZaloSnapshot(rootId,input,settings,expectedSnapshot=null){
-        if(!ready||blocked||migrating||pending||!dataset||!hasAuthenticatedClientSession())throw new Error('Chờ đồng bộ Firebase xong rồi gửi lại.');
-        const z=window.ZaloImportCore,g=window.ZaloGrouping,scope=z.range(settings),owner=uid(),session=generation,expectedDataset=dataset;
-        if(scope.building!==BUILDING||settings.owner!==owner)throw new Error('Tòa nhà hoặc tài khoản nhận đã đổi.');
-        if(!/^SHIFT-ZALO-[a-f0-9-]{36}$/.test(rootId))throw new Error('Mã luồng nhận không hợp lệ.');
-        const normalized=await g.validateCases(input,scope),snapshotHash=await g.snapshotHash(normalized.groups);
-        const actorSnapshot={...currentUser,uid:owner,building:BUILDING},auditId=crypto.randomUUID();
-        // Reserve size for ledger and metadata before any server write.
-        const chunks=[[]];for(const group of normalized.groups){const row=g.describe(group,actorSnapshot.name);delete row.state;delete row.title;
-            let chunk=chunks.at(-1),limit=chunks.length===1?260000:560000;
-            if(chunk.length&&(chunk.length>=z.MAX_ROWS||new TextEncoder().encode(JSON.stringify([...chunk,row])).length>limit)){chunks.push([]);chunk=chunks.at(-1);}chunk.push(row);
-        }
-        if(chunks.length>64)throw new Error('Luồng tổng hợp quá lớn. Hãy tạo luồng bổ sung.');
-        pending++;const job=queue.then(async()=>{let result;const ensure=()=>{if(session!==generation||owner!==uid()||!hasAuthenticatedClientSession())throw new Error('Phiên đăng nhập đã thay đổi.');};
-            try{status('Đang lưu các mục đã gom từ Zalo…');await sdk.runTransaction(db,async tx=>{
-                ensure();const meta=await tx.get(ref('state','current'));if(!meta.exists()||meta.data().dataset!==expectedDataset)throw new Error('Bộ dữ liệu đã đổi. Kết nối lại tool.');
-                const target=id=>sdk.doc(db,'buildings',BUILDING,'datasets',expectedDataset,'records',core.keyFor('shiftLogs',id));
-                const rootSnap=await tx.get(target(rootId));if(!rootSnap.exists()||rootSnap.data().deleted)throw new Error('Không còn bản nháp nhận tin. Kết nối lại đúng luồng.');
-                const root=await unpack(rootSnap.data().payload);
-                if(!window.ShiftWorkflow.sender(root,actorSnapshot,rootSnap.data().updatedBy))throw new Error('Luồng nhận thuộc tài khoản khác.');
-                const ledger=root.zaloImport;if(!ledger||ledger.start!==scope.start||ledger.end!==scope.end||ledger.building!==BUILDING)throw new Error('Khoảng ca trực không khớp luồng nhận.');
-                if(ledger.snapshotHash===snapshotHash){result={rootId,part:ledger.part||1,sourceIds:normalized.sourceIds,snapshotHash,added:0,caseCount:normalized.groups.length};return;}
-                if((ledger.snapshotHash||null)!==expectedSnapshot){const error=new Error('Luồng đã được cập nhật trên máy khác. Kết nối lại tiện ích để nạp tin gốc mới nhất.');error.code='zalo-conflict';throw error;}
-                const allocated=Math.max(ledger.allocatedParts||ledger.part||1,chunks.length),records=[];
-                for(let part=1;part<=allocated;part++){
-                    const snap=part===1?rootSnap:await tx.get(target(z.partId(rootId,part)));const value=snap.exists()&&!snap.data().deleted?await unpack(snap.data().payload):null;
-                    if(snap.exists()&&snap.data().deleted)throw new Error('Một phần nhật ký đã bị xóa; hãy tạo luồng mới.');
-                    if(value&&(value.status!=='DRAFT'||!window.ShiftWorkflow.sender(value,actorSnapshot,snap.data().updatedBy)))throw new Error('Một phần nhật ký đã giao ca. Dừng nhận và tạo luồng bổ sung.');
-                    records.push(value);
-                }
-                const previousSources=new Set();
-                for(const record of records.filter(Boolean)){
-                    if(record.zaloGeneratedHash){if(await core.hash(record.journalRows||[])!==record.zaloGeneratedHash)throw new Error('Các dòng nhật ký đã được sửa trên web. Dừng nhận và giữ bản đã sửa; dùng luồng mới để nhận tiếp.');}
-                    else for(const row of record.journalRows||[]){
-                        if(row.source?.type!=='ZALO_WEB_DOM_V1')throw new Error('Luồng cũ có dòng ghi thủ công. Giữ nguyên và tạo luồng mới để gom tin.');
-                        const expected=z.row(row.source,row.recorder),fields=['at','area','content','action','result','recorder'];
-                        if(fields.some(key=>String(row[key]||'')!==String(expected[key]||'')))throw new Error('Dòng Zalo cũ đã được chỉnh sửa. Giữ bản này và tạo luồng mới.');
-                    }
-                    for(const row of record.journalRows||[]){const sources=row.source?.type==='ZALO_WEB_GROUP_V2'?row.source.messages:row.source?[row.source]:[];for(const source of sources)previousSources.add((await z.message(source,scope)).sourceId);}
-                }
-                const present=new Set(normalized.sourceIds);if([...previousSources].some(id=>!present.has(id))){const error=new Error('Tool chưa có đủ tin đã lưu trên Firebase. Kết nối lại để nạp ngữ cảnh, không bỏ tin cũ.');error.code='zalo-conflict';throw error;}
-                const orderTarget=sdk.doc(db,'buildings',BUILDING,'datasets',expectedDataset,'records',core.keyFor('$order','shiftLogs')),order=await tx.get(orderTarget),writes=[],newIds=[];
-                for(let index=0;index<allocated;index++){
-                    const id=z.partId(rootId,index+1),before=records[index],base=before||z.blank(id,scope,window.ShiftDiaryTemplate,index+1),rows=chunks[index]||[];
-                    const payload=window.ShiftWorkflow.prepare('shiftLogs',before,{...base,journalRows:rows,zaloStreamId:rootId,zaloGeneratedHash:await core.hash(rows),zaloSuperseded:index>=chunks.length},'draft',actorSnapshot);
-                    if(index===0)payload.zaloImport={...ledger,groupingVersion:2,part:chunks.length,allocatedParts:allocated,seen:normalized.sourceIds,snapshotHash,caseCount:normalized.groups.length,lastReceivedAt:new Date().toISOString()};
-                    if(new TextEncoder().encode(JSON.stringify(payload)).length>750000)throw new Error('Một phần tổng hợp quá lớn. Hãy tách mục hoặc tạo luồng bổ sung.');
-                    writes.push({id,payload,hash:await core.hash(payload)});if(!before)newIds.push(id);
-                }
-                const added=normalized.sourceIds.filter(id=>!previousSources.has(id)).length;
-                const audit={_syncId:auditId,time:new Date().toISOString(),user:actorSnapshot.name,category:'GOM TIN ZALO VÀO NHÁP',detail:`${normalized.sourceIds.length} tin → ${normalized.groups.length} mục · ${rootId}`},auditHash=await core.hash(audit);ensure();
-                for(const item of writes)tx.set(target(item.id),{kind:'shiftLogs',key:item.id,payload:item.payload,hash:item.hash,deleted:false,updatedBy:owner,updatedAt:sdk.serverTimestamp()});
-                if(newIds.length){const ids=[...newIds,...(order.exists()?order.data().payload.ids:[]).filter(id=>!newIds.includes(id))];tx.set(orderTarget,{kind:'$order',key:'shiftLogs',payload:{ids},hash:await core.hash({ids}),deleted:false,updatedBy:owner,updatedAt:sdk.serverTimestamp()});}
-                tx.set(sdk.doc(db,'buildings',BUILDING,'datasets',expectedDataset,'records',core.keyFor('auditLogs',auditId)),{kind:'auditLogs',key:auditId,payload:audit,hash:auditHash,deleted:false,updatedBy:owner,updatedAt:sdk.serverTimestamp()});
-                tx.update(ref('state','current'),{revision:sdk.increment(1),updatedBy:owner,updatedAt:sdk.serverTimestamp()});
-                result={rootId,part:chunks.length,sourceIds:normalized.sourceIds,snapshotHash,added,caseCount:normalized.groups.length};
-            });return result;}finally{if(session===generation){pending--;try{await refreshRecords();if(!pending&&!blocked)applyRemote(true);}catch(_){status('Hãy tải cập nhật để xem bản tổng hợp mới.',true);}}}
-        });queue=job.catch(()=>false);return job;
-    }
-
     window.addEventListener('online',()=>{if(blocked&&hasAuthenticatedClientSession())retry();});
     window.addEventListener('beforeunload',event=>{if(pending||blocked&&latestDesired){event.preventDefault();event.returnValue='';}});
-    return {configure,start,stop,save,writeShiftRecord,writeZaloBatch,writeZaloSnapshot,writeAssetLinks,initialize,initializeFromLocal,retry,useRemote,downloadLocalCheckpoint,submitIntake,keyRequest,configured:()=>!!sdk&&window.PublicGuard?.ready(),ready:()=>ready&&!blocked&&!migrating,dirty:()=>pending>0||blocked,applyRemote};
+    return {configure,start,stop,save,writeShiftRecord,writeAssetLinks,initialize,initializeFromLocal,retry,useRemote,downloadLocalCheckpoint,submitIntake,keyRequest,configured:()=>!!sdk&&window.PublicGuard?.ready(),ready:()=>ready&&!blocked&&!migrating,dirty:()=>pending>0||blocked,applyRemote};
 })();
 
 </script>
@@ -15844,7 +15696,7 @@ window.ShiftDiary = (() => {
     const checklistSchema = () => editorChecklist;
     const handoverSchema = () => editorHandover;
     const people = () => (users || []).filter(person => person.status === 'ACTIVE' && ShiftWorkflow.uidOf(person));
-    const records = () => [...(shiftLogs || []).filter(record=>!(record.status==='DRAFT'&&record.zaloSuperseded&&!(record.journalRows||[]).length)).map(record => ({kind:'shiftLogs',record})),...(handoverLogs || []).map(record => ({kind:'handoverLogs',record}))];
+    const records = () => [...(shiftLogs || []).map(record => ({kind:'shiftLogs',record})),...(handoverLogs || []).map(record => ({kind:'handoverLogs',record}))];
     const find = (kind,id) => records().find(item => item.kind === kind && String(item.record.id) === String(id))?.record;
     const actorMayCancel = record => record.status === 'PENDING' && (record.createdByUid || record.fromUid ? ShiftWorkflow.sender(record,currentUser) : (record.createdBy || record.fromUser) === currentUser?.name);
     const actorMayAck = record => record.status === 'PENDING' && ShiftWorkflow.receiver(record,currentUser,actorMayCancel(record) ? uid() : '');
@@ -15927,9 +15779,7 @@ window.ShiftDiary = (() => {
         $('shiftDiaryForm').reset();$('shiftDiaryFields').disabled = busy;
         const today = getTodayIsoDate();
         $('shiftLogDutyDate').value = record?.dutyDate || today;
-        const savedShift=record?.shift;
-        if(savedShift&&![...$('shiftLogShift').options].some(option=>option.value===savedShift)){const option=document.createElement('option');option.value=savedShift;option.textContent=savedShift;$('shiftLogShift').append(option);}
-        $('shiftLogShift').value = savedShift || 'Ca trực 24h (07:00–07:00 hôm sau)';
+        $('shiftLogShift').value = record?.shift || 'Ca trực 24h (07:00–07:00 hôm sau)';
         changeDate(false);
         for (const [field,key] of [['shiftLogStart','shiftStart'],['shiftLogEnd','shiftEnd'],['shiftLogTransferAt','transferAt'],['shiftLogStaff','staff'],['shiftLogIncidents','openIncidents'],['shiftLogNote','note'],['shiftSupervisionConclusion','supervisionConclusion'],['shiftSupervisionFollowup','supervisionFollowup']]) if (record?.[key]) $(field).value = record[key];
         $('shiftLogFrom').value = currentUser?.name || '';
@@ -15972,18 +15822,10 @@ window.ShiftDiary = (() => {
     }
     function appendJournal(row = {},prefill = true) {
         const tr = document.createElement('tr');
-        if(['ZALO_WEB_DOM_V1','ZALO_WEB_GROUP_V2'].includes(row.source?.type))tr.dataset.zaloSource=JSON.stringify(row.source);
         const defaults = prefill ? {area:buildingName(),result:template.normal,recorder:currentUser?.name || ''} : {};
         row = {...defaults,...row};tr.dataset.journalDefaults = JSON.stringify(defaults);
         const cell = (key,title,placeholder = '') => `<td><textarea data-journal="${key}" rows="3" maxlength="6000" aria-label="${title}" placeholder="${placeholder}">${esc(row[key] || '')}</textarea></td>`;
         tr.innerHTML = `<td><input type="datetime-local" data-journal="at" aria-label="Thời điểm nhật ký" value="${esc(row.at || '')}"></td>` + cell('area','Tòa nhà hoặc khu vực','Khu vực / phòng') + cell('content','Nội dung kiểm tra, yêu cầu hoặc sự cố','Nội dung ghi nhận') + cell('action','Xử lý hoặc đơn vị thực hiện') + cell('result','Kết quả và tình trạng') + cell('recorder','Người ghi') + `<td><button type="button" class="sd-remove" aria-label="Xóa dòng nhật ký" onclick="ShiftDiary.removeJournalRow(this)"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button></td>`;
-        if(['ZALO_WEB_DOM_V1','ZALO_WEB_GROUP_V2'].includes(row.source?.type)){
-            const details=document.createElement('details');details.className='zi-source-note';
-            const sourceMessages=row.source.type==='ZALO_WEB_GROUP_V2'?row.source.messages:[row.source];
-            const summary=document.createElement('summary');summary.textContent=`Nguồn Zalo · ${sourceMessages.length} tin · chưa xác minh danh tính`;
-            const text=document.createElement('p');text.textContent=sourceMessages.map(source=>`Nhóm: ${source.chatName}\nNgười gửi hiển thị: ${source.sender}\nLúc gửi: ${fmtLocal(source.sentAt)}\nNội dung gốc: ${source.text}${source.attachment?'\n'+source.attachment:''}${source.quoteText?'\nTrích dẫn: '+source.quoteText:''}`).join('\n\n');text.style.whiteSpace='pre-wrap';
-            details.append(summary,text);tr.children[2].append(details);
-        }
         $('shiftJournalRows').append(tr);
     }
     function addJournalRow() {if (readOnly || busy) return;appendJournal();markDirty();$('shiftJournalRows').lastElementChild.querySelector('input').focus();}
@@ -16011,15 +15853,12 @@ window.ShiftDiary = (() => {
         capturedJournalNodes=[];
         const journalRows = [...$('shiftJournalRows').children].flatMap(tr => {
             const row=Object.fromEntries([...tr.querySelectorAll('[data-journal]')].map(node => [node.dataset.journal,node.value.trim()])),defaults=JSON.parse(tr.dataset.journalDefaults||'{}');
-            if(tr.dataset.zaloSource)row.source=JSON.parse(tr.dataset.zaloSource);
             if(!template.hasJournalContent(row,defaults))return [];
             capturedJournalNodes.push(tr);return [row];
         });
         const checklist = checkRows().map(tr => ({...checklistSchema().find(row => row.id === tr.dataset.checkId),result:tr.querySelector('input:checked')?.value ?? tr.dataset.legacyResult ?? '',note:tr.querySelector('textarea').value.trim()}));
         const handoverRows = [...$('shiftHandoverRows').children].map(tr => ({...handoverSchema().find(row => row.id === tr.dataset.handoverId),state:tr.querySelector('.sd-handover-state').value.trim(),next:tr.querySelector('.sd-handover-next').value.trim()}));
-        const saved=editorId?find('shiftLogs',editorId):null;
-        const sourceMeta=saved?.zaloStreamId?{zaloStreamId:saved.zaloStreamId,...(saved.zaloImport?{zaloImport:saved.zaloImport}:{}),...(saved.zaloGeneratedHash?{zaloGeneratedHash:saved.zaloGeneratedHash}:{}),...(saved.zaloSuperseded?{zaloSuperseded:true}:{})}:{};
-        return {...sourceMeta,id:editorId || 'SHIFT-' + crypto.randomUUID(),schemaVersion:2,templateVersion:3,building:BUILDING,dutyDate:$('shiftLogDutyDate').value,shift:$('shiftLogShift').value,shiftStart:$('shiftLogStart').value,shiftEnd:$('shiftLogEnd').value,transferAt:$('shiftLogTransferAt').value,staff:$('shiftLogStaff').value.trim(),toUid:receiver ? ShiftWorkflow.uidOf(receiver) : '',toUser:receiver?.name || '',journalRows,checklist,handoverRows,openIncidents:$('shiftLogIncidents').value.trim(),note:$('shiftLogNote').value.trim(),supervisionConclusion:$('shiftSupervisionConclusion').value.trim(),supervisionFollowup:$('shiftSupervisionFollowup').value.trim()};
+        return {id:editorId || 'SHIFT-' + crypto.randomUUID(),schemaVersion:2,templateVersion:3,building:BUILDING,dutyDate:$('shiftLogDutyDate').value,shift:$('shiftLogShift').value,shiftStart:$('shiftLogStart').value,shiftEnd:$('shiftLogEnd').value,transferAt:$('shiftLogTransferAt').value,staff:$('shiftLogStaff').value.trim(),toUid:receiver ? ShiftWorkflow.uidOf(receiver) : '',toUser:receiver?.name || '',journalRows,checklist,handoverRows,openIncidents:$('shiftLogIncidents').value.trim(),note:$('shiftLogNote').value.trim(),supervisionConclusion:$('shiftSupervisionConclusion').value.trim(),supervisionFollowup:$('shiftSupervisionFollowup').value.trim()};
     }
     function validate(record,sending) {
         const start=vnTime(record.shiftStart),end=vnTime(record.shiftEnd);
@@ -16106,7 +15945,6 @@ window.ShiftDiary = (() => {
     }
     function actorMayCopy(record) {return record.createdByUid || record.fromUid ? ShiftWorkflow.sender(record,currentUser) : (record.createdBy || record.fromUser) === currentUser?.name;}
     function render() {
-        window.ZaloDiaryReceiver?.refresh();
         if (!$('advancedShiftLogHistory')) return;init();
         $('advancedShiftLogHistory').innerHTML = sorted().map(({kind,record}) => `<article class="sd-history-item" data-shift-id="${esc(record.id)}"><div class="sd-history-top"><div><div class="sd-history-title">${esc(record.dutyDate ? formatIsoToVnDate(record.dutyDate) : record.id)} · ${esc(record.shift || 'Ca trực')}</div><div class="sd-history-meta">Giao: <strong>${esc(record.fromUser)}</strong> → Nhận: <strong>${esc(record.toUser || 'Chưa chọn')}</strong><br>${esc(record.id)} · ${esc(fmt(stamp(record)))}${record.schemaVersion === 2 ? ` · ${template.journalRows(record.journalRows).length} dòng nhật ký` : ' · Biên bản mẫu cũ'}</div></div>${badge(record.status)}</div><div class="sd-history-note">${esc(record.openIncidents || record.note || 'Chưa ghi nội dung tồn tại / chuyển ca.')}</div><div class="sd-history-activity">${record.status === 'ACKNOWLEDGED' ? `Đã nhận: ${esc(record.acknowledgedBy || record.toUser)} · ${esc(fmt(record.acknowledgedAt || record.ackedAt))}` : record.status === 'CANCELLED' ? `Đã hủy bởi ${esc(record.cancelledBy)} · ${esc(fmt(record.cancelledAt))}. Ca mới chưa xác nhận tại thời điểm hủy.` : record.status === 'DRAFT' ? 'Nhật ký đang ghi, chưa gửi bàn giao.' : 'Đang chờ tài khoản người nhận xác nhận.'}</div><div class="sd-actions">${actions(kind,record)}</div></article>`).join('') || '<p class="sd-empty">Chưa có nhật ký. Bắt đầu ghi ở biểu mẫu phía trên.</p>';
         renderQuick();
@@ -16848,263 +16686,6 @@ window.BentoDashboard=(()=>{
 })();
 window.BentoDashboard.refresh();window.BentoDashboard.renderEnergy();
 
-</script>
-<script id="zalo-import-core">/* Local, deterministic validation. No Zalo/API credentials or remote code. */
-(function(root) {
-  'use strict';
-  const VERSION = 2, MAX_BATCH = 30, MAX_ROWS = 150, MAX_STREAM = 5000;
-  const fail = message => { throw new Error(message); };
-  const text = (value,limit,label) => typeof value === 'string' && value.length <= limit && !/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(value) ? value.trim() : fail(label + ' không hợp lệ hoặc quá dài.');
-  const iso = value => {
-    if (typeof value !== 'string' || !/^\d{4}-\d\d-\d\dT\d\d:\d\d(?::\d\d(?:\.\d{1,3})?)?(?:Z|[+-]\d\d:\d\d)$/.test(value) || !Number.isFinite(Date.parse(value))) fail('Thời gian tin nhắn chưa rõ ngày / múi giờ.');
-    const parts=value.match(/^(\d{4})-(\d\d)-(\d\d)T(\d\d):(\d\d)(?::(\d\d))?/),year=+parts[1],month=+parts[2],day=+parts[3],date=new Date(Date.UTC(year,month-1,day));
-    if(date.getUTCFullYear()!==year||date.getUTCMonth()!==month-1||date.getUTCDate()!==day||+parts[4]>23||+parts[5]>59||+(parts[6]||0)>59)fail('Ngày hoặc giờ gửi tin không hợp lệ.');
-    return new Date(value).toISOString();
-  };
-  const local = value => new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Ho_Chi_Minh',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(value)).replace(' ','T');
-  const hash = async value => Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(typeof value === 'string' ? value : JSON.stringify(value)))),n=>n.toString(16).padStart(2,'0')).join('');
-  function range(input) {
-    const start = iso(input.start), end = iso(input.end), duration = Date.parse(end)-Date.parse(start);
-    if (duration <= 0 || duration > 48*3600000) fail('Khoảng lấy tin phải lớn hơn 0 và không quá 48 giờ.');
-    if (!['500G','1000G'].includes(input.building)) fail('Tòa nhà không hợp lệ.');
-    return {building:input.building,start,end};
-  }
-  async function message(input,scope) {
-    if (!input || typeof input !== 'object') fail('Tin nhắn không hợp lệ.');
-    const result = {
-      chatKey:text(input.chatKey,120,'Mã nhóm'), chatName:text(input.chatName,200,'Tên nhóm'),
-      nativeId:text(input.nativeId || '',200,'Mã tin'), sender:text(input.sender || 'Không hiển thị',200,'Người gửi'),
-      sentAt:iso(input.sentAt), text:text(input.text || '',6000,'Nội dung'),
-      attachment:text(input.attachment || '',200,'Đính kèm'), capturedAt:iso(input.capturedAt),
-      timeBasis:input.timeBasis === 'native-id' ? 'native-id' : input.timeBasis === 'dom-date' ? 'dom-date' : fail('Chưa có căn cứ ngày gửi tin.')
-    };
-    if (!result.chatKey || !result.chatName || (!result.text && !result.attachment)) fail('Tin thiếu tên nhóm hoặc nội dung.');
-    if(input.replyToId)result.replyToId=text(input.replyToId,200,'Mã tin được trả lời');
-    if(input.quoteText)result.quoteText=text(input.quoteText,6000,'Trích dẫn');
-    if(input.quoteSender)result.quoteSender=text(input.quoteSender,200,'Người gửi trích dẫn');
-    if (scope && (Date.parse(result.sentAt)<Date.parse(scope.start) || Date.parse(result.sentAt)>=Date.parse(scope.end))) fail('Tin nhắn nằm ngoài khoảng ca trực đã chọn.');
-    // IDs are recomputed at the receiving page. Zalo identities are unverified provenance.
-    result.sourceId=await hash(['ZALO_DOM_V1',result.chatKey,result.nativeId || [result.sender,result.sentAt,result.text,result.attachment]]);
-    return result;
-  }
-  async function batch(input,scope) {
-    if (!Array.isArray(input) || !input.length || input.length>MAX_BATCH) fail('Mỗi lượt nhận từ 1 đến 30 tin nhắn.');
-    const seen=new Set(), result=[];
-    for (const item of input) {const normalized=await message(item,scope);if(!seen.has(normalized.sourceId)){seen.add(normalized.sourceId);result.push(normalized);}}
-    return result.sort((a,b)=>Date.parse(a.sentAt)-Date.parse(b.sentAt)||a.sourceId.localeCompare(b.sourceId));
-  }
-  function row(source,actorName) {
-    return {at:local(source.sentAt),area:source.chatName,
-      content:`[Zalo · ${source.sender}]\n${source.text}${source.attachment?'\n['+source.attachment+']':''}`,
-      action:'',result:'Chưa rà soát',recorder:actorName,source:{...source,type:'ZALO_WEB_DOM_V1',identityVerified:false}};
-  }
-  function blank(id,scope,template,part=1) {
-    return {id,schemaVersion:2,templateVersion:3,building:scope.building,dutyDate:local(scope.start).slice(0,10),
-      shift:'Nhật ký từ Zalo · phần '+part,shiftStart:local(scope.start),shiftEnd:local(scope.end),transferAt:local(scope.end),
-      staff:'',toUid:'',toUser:'',journalRows:[],checklist:template.checklistFor(),handoverRows:template.handoverFor(),
-      openIncidents:'Chưa rà soát nội dung tổng hợp từ Zalo.',note:'Nguồn Zalo Web: nội dung gốc được giữ để đối chiếu; người gửi Zalo chưa được xác minh danh tính trong hệ thống.',
-      supervisionConclusion:template.normal,supervisionFollowup:'Không có'};
-  }
-  const partId = (id,number) => number === 1 ? id : id+'-P'+String(number).padStart(3,'0');
-  root.ZaloImportCore={VERSION,MAX_BATCH,MAX_ROWS,MAX_STREAM,text,iso,local,hash,range,message,batch,row,blank,partId};
-})(typeof window!=='undefined'?window:globalThis);
-</script>
-<script id="zalo-grouping-core">/* Deterministic grouping on the user's computer. No model, network or identity inference. */
-(function(root){
-  'use strict';
-  const z=root.ZaloImportCore, fold=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').toLowerCase().replace(/\s+/g,' ').trim();
-  const native=value=>String(value||'').replace(/^#?(?:bb_msg_id_)?/,'');
-  const order=(a,b)=>Date.parse(a.sentAt)-Date.parse(b.sentAt)||a.sourceId.localeCompare(b.sourceId);
-  const keys=message=>{
-    const value=fold(message.text),assets=[],locations=[];
-    for(const match of value.matchAll(/\b(?:\d{1,3}\.){3}\d{1,3}\b/g)){if(match[0].split('.').every(n=>+n<=255))assets.push({type:'ip',value:match[0],position:match.index});}
-    for(const match of value.matchAll(/\b(camera|cam|switch|server|sever|chiller|lift|ahu|fcu|ups|bom|thang may|tu dien)\s*[-:#]?\s*([a-z]?\d[\w.-]*)/g)){
-      const id=match[2].replace(/[.,;:]$/,''),type=({cam:'camera',sever:'server'})[match[1]]||match[1];
-      const existing=assets.find(asset=>asset.value===id);if(existing)existing.position=Math.min(existing.position,match.index);else assets.push({type,value:id,position:match.index});
-    }
-    for(const match of value.matchAll(/\b((?:3[2-9]|[4-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(?:\d{1,3}))\b/g))if(+match[1].split('.')[1]<=255&&!assets.some(asset=>asset.value===match[1]))assets.push({type:'address',value:match[1],position:match.index});
-    for(const match of String(message.text||'').matchAll(/\b[A-Z]{2,12}(?:-[A-Z0-9]{1,16}){1,5}\b/g))if(!/^(?:VCTCH|SHIFT|KEYLOAN|WO)-/.test(match[0]))assets.push({type:'code',value:match[0].toLowerCase(),position:match.index});
-    const room=value.match(/\b(?:phong|p\.)\s*([a-z]?\d{2,5}[a-z]?)\b/),floor=value.match(/\b(?:tang|lau)\s*([bgt]?\d{1,3})\b/);
-    if(room)locations.push('room:'+room[1]+(floor?'|floor:'+floor[1]:''));
-    const distinct=[...new Map(assets.map(asset=>[asset.type+':'+asset.value,asset])).values()];
-    distinct.sort((a,b)=>a.position-b.position);const first=distinct[0]||null;
-    const multiple=distinct.filter(asset=>asset.type===first?.type).length>1;
-    const issues=[];
-    for(const [code,regex] of [
-      ['image',/mat hinh|khong (?:len|co) hinh|mo hinh|co hinh lai|len hinh lai/],
-      ['network',/mat mang|mat ket noi|rot mang|co mang lai|ket noi lai/],
-      ['leak',/ro ri|ri nuoc|chay nuoc|het ro/],['blockage',/tac (?:nuoc|cong|bon)|nghet|thong cong/],
-      ['power',/mat dien|khong co dien|co dien lai|da cap dien/],['light',/den hong|den khong sang|den da sang/],
-      ['cooling',/khong lanh|kem lanh|nhiet do cao|da lanh lai/],['lift',/ket thang|dung thang|thang bi dung/]
-    ])if(regex.test(value))issues.push(code);
-    return {asset:first,multiple,locations,issues};
-  };
-  function stage(message){
-    const value=fold(message.text);
-    if(/\?|\b(?:xong chua|duoc chua|chua a)\b/.test(value))return 'NOTE';
-    if(/\b(?:chua (?:(?:xu|su) l[yi]|sua|khac phuc|xong|hoat dong)|van (?:bi |con )?(?:hong|loi|mat|ro|chay|tac|khong)|khong het|chua het)\b/.test(value))return 'PROGRESS';
-    if(/\b(?:dang |se |du kien |cho |can )/.test(value)&&!/(?:da xu ly xong|da khac phuc xong)/.test(value))return 'PROGRESS';
-    if(/\b(?:da (?:(?:xu|su) l[yi](?: xong)?|khac phuc(?: xong)?|sua(?: xong)?|thay\b|thong\b|cap dien)|(?:(?:xu|su) l[yi]|khac phuc|sua|thay) xong|xong roi|on roi|hoat dong binh thuong|co hinh lai|len hinh lai|co dien lai|co mang lai|da lanh lai|khong con (?:loi|hong|mat hinh|ro))/.test(value))return 'DONE';
-    if(/\b(?:su co|bao hong|bi hong|hong|mat hinh|mat mang|mat dien|mat ket noi|ro ri|ri nuoc|chay nuoc|nghet|khong lanh|khong sang|khong hoat dong|ket thang|dung thang)\b/.test(value))return 'REPORT';
-    return 'NOTE';
-  }
-  function sameAsset(a,b){
-    if(!a||!b)return false;
-    if(a.type===b.type&&a.value===b.value)return true;
-    if((a.type==='address'||b.type==='address')&&a.type!=='ip'&&b.type!=='ip'&&a.value===b.value)return true;
-    if(a.type==='ip'&&b.type==='ip')return false;
-    const ip=a.type==='ip'?a:b.type==='ip'?b:null,other=ip===a?b:a;
-    return !!ip&&['camera','server','switch','address'].includes(other.type)&&ip.value.split('.').slice(-2).join('.')===other.value;
-  }
-  function compatible(a,b){
-    if(a.multiple||b.multiple)return false;
-    if(a.asset&&b.asset)return sameAsset(a.asset,b.asset);
-    return !a.asset&&!b.asset&&a.locations.length&&b.locations.some(loc=>a.locations.includes(loc));
-  }
-  const intersects=(a,b)=>!a.length||!b.length||a.some(value=>b.includes(value));
-  const short=(value,max=420)=>String(value||'').length>max?String(value).slice(0,max-1)+'…':String(value||'');
-  function describe(group,actorName=''){
-    const messages=[...group.messages].sort(order),report=messages.find(item=>stage(item)==='REPORT')||messages[0];
-    let state=stage(report)==='REPORT'?'OPEN':'NOTE',latest=report;
-    for(const item of messages){const s=stage(item);if(s==='DONE'){state='DONE';latest=item;}else if(s==='PROGRESS'){state='PROGRESS';latest=item;}else if(s==='REPORT'&&item!==report){state='OPEN';latest=item;}}
-    if(group.unresolved)state='UNRESOLVED';
-    const time=item=>z.local(item.sentAt).slice(11),lines=messages.filter(item=>item!==report).map(item=>`${time(item)} · ${item.sender}: ${short(item.text||item.attachment)}`);
-    const action=lines.slice(0,8).join('\n')+(lines.length>8?`\nCòn ${lines.length-8} tin trong nguồn gốc.`:'');
-    const labels={OPEN:'Có tin báo · chưa rà soát',PROGRESS:'Theo Zalo: đang xử lý · chưa rà soát',DONE:`Theo Zalo: ${latest.sender} báo đã xử lý lúc ${time(latest)} · chưa rà soát`,NOTE:'Thông tin ghi nhận · chưa rà soát',UNRESOLVED:'CHƯA XÁC ĐỊNH LIÊN KẾT · cần rà soát'};
-    return {at:z.local(messages[0].sentAt),area:[...new Set(messages.map(item=>item.chatName))].join(' · '),content:`${short(report.text||report.attachment,1200)}\nBáo / ghi nhận: ${report.sender} · ${time(report)}.`,action,result:labels[state],recorder:actorName,
-      source:{type:'ZALO_WEB_GROUP_V2',caseId:group.id,reason:group.reason,unresolved:group.unresolved===true,messages},state,title:short(report.text||report.attachment,100)};
-  }
-  function groupMessages(input,decisions={}){
-    const messages=[...new Map(input.map(item=>[item.sourceId,item])).values()].sort(order),byId=new Map(messages.map(item=>[item.sourceId,item]));
-    const cases=[],owners=new Map(),nativeIndex=new Map(),quoteIndex=new Map(),features=new Map(messages.map(item=>[item.sourceId,keys(item)]));
-    const anchors=new Set();
-    const anchorOf=id=>{let current=id,seen=new Set();while(decisions[current]&&decisions[current]!=='SEPARATE'){if(seen.has(current))throw new Error('Liên kết thủ công bị vòng lặp.');seen.add(current);const next=decisions[current];if(!byId.has(next))throw new Error('Thiếu tin nguồn để gộp. Hãy nạp lại ngữ cảnh.');current=next;}return current;};
-    for(const [id,target] of Object.entries(decisions)){if(!byId.has(id))continue;if(target!=='SEPARATE')anchors.add(anchorOf(id));}
-    const getCase=(anchor,reason,unresolved=false)=>{
-      let group=cases.find(item=>item.id==='ZC-'+anchor.sourceId);
-      if(!group){group={id:'ZC-'+anchor.sourceId,anchor:anchor.sourceId,messages:[],reason,unresolved};cases.push(group);}
-      return group;
-    };
-    const put=(group,message)=>{group.messages.push(message);owners.set(message.sourceId,group);};
-    for(const message of messages){
-      const s=stage(message),f=features.get(message.sourceId),directive=decisions[message.sourceId];let target=null,reason='',ambiguous=false;
-      if(directive==='SEPARATE')target=getCase(message,'Tách riêng theo lựa chọn của bạn',false);
-      else if(directive||anchors.has(message.sourceId)){target=getCase(byId.get(anchorOf(message.sourceId)),'Gộp theo lựa chọn của bạn',false);}
-      else {
-        let refs=[];
-        if(message.replyToId)refs=nativeIndex.get(message.chatKey+'|'+native(message.replyToId))||[];
-        if(!refs.length&&fold(message.quoteText).length>=12){refs=quoteIndex.get(message.chatKey+'|'+fold(message.quoteText))||[];if(message.quoteSender)refs=refs.filter(item=>fold(item.sender)===fold(message.quoteSender));}
-        if(message.replyToId||message.quoteText){
-          const candidates=[...new Set(refs.map(item=>owners.get(item.sourceId)).filter(Boolean))];
-          if(candidates.length===1){const other=features.get(candidates[0].anchor);if(f.asset&&other?.asset&&!compatible(f,other))ambiguous=true;else{target=candidates[0];reason='Trả lời / trích dẫn khớp tin gốc';}}
-          else ambiguous=true;
-        }
-        if(!target&&!ambiguous&&(f.asset||f.locations.length)){
-          const possible=cases.filter(item=>item.messages.length&&item.messages[0].chatKey===message.chatKey&&!item.unresolved&&compatible(f,features.get(item.anchor))&&intersects(f.issues,features.get(item.anchor).issues)&&Date.parse(message.sentAt)-Date.parse(item.messages.at(-1).sentAt)<=8*3600000&&['OPEN','PROGRESS'].includes(describe(item).state));
-          if(possible.length===1){target=possible[0];reason='Cùng thiết bị / vị trí và một công việc đang mở';}
-          else if(possible.length>1)ambiguous=true;
-        }
-        if(!target){const unresolved=ambiguous||['DONE','PROGRESS'].includes(s);target=getCase(message,ambiguous?'Có nhiều khả năng hoặc thiếu tin trích dẫn':unresolved?'Chưa có tin báo gốc đủ căn cứ':'Tin báo / ghi nhận mới',unresolved);}
-      }
-      if(reason&&!/^(?:Gộp theo|Tách riêng)/.test(target.reason))target.reason=reason;put(target,message);
-      if(message.nativeId){const key=message.chatKey+'|'+native(message.nativeId);nativeIndex.set(key,[...(nativeIndex.get(key)||[]),message]);}
-      const quoteKey=message.chatKey+'|'+fold(message.text);quoteIndex.set(quoteKey,[...(quoteIndex.get(quoteKey)||[]),message]);
-    }
-    return cases.map(group=>({...group,messages:[...group.messages].sort(order),...{summary:describe(group)}})).sort((a,b)=>order(a.messages[0],b.messages[0]));
-  }
-  function selectCases(cases,keywords='',published=[]){const terms=String(keywords).split(/[,;\n]/).map(fold).filter(Boolean),kept=new Set(published);return cases.filter(group=>!terms.length||group.messages.some(message=>kept.has(message.sourceId)||terms.some(term=>fold(message.text).includes(term))));}
-  async function validateCases(input,scope){
-    if(!Array.isArray(input)||input.length>z.MAX_STREAM)throw new Error('Danh sách mục gom quá lớn.');
-    const all=new Set(),ids=new Set(),groups=[];
-    for(const item of input){
-      if(!/^ZC-[a-f0-9]{64}$/.test(item.id)||ids.has(item.id)||!Array.isArray(item.messages)||!item.messages.length||item.messages.length>z.MAX_STREAM)throw new Error('Mục gom không hợp lệ hoặc có quá nhiều tin nguồn.');ids.add(item.id);
-      const messages=[];for(const raw of item.messages){const message=await z.message(raw,scope);if(all.has(message.sourceId))throw new Error('Một tin nguồn đang thuộc nhiều mục.');all.add(message.sourceId);messages.push(message);}
-      if(!messages.some(message=>message.sourceId===item.id.slice(3)))throw new Error('Mục gom thiếu tin gốc.');
-      const group={id:item.id,messages:messages.sort(order),reason:z.text(item.reason||'',300,'Lý do gộp'),unresolved:item.unresolved===true};
-      if(new TextEncoder().encode(JSON.stringify(group)).length>420000)throw new Error('Một mục gom quá lớn. Hãy tách bớt tin sang mục riêng.');groups.push(group);
-    }
-    if(all.size>z.MAX_STREAM)throw new Error('Luồng nhận tối đa 5.000 tin.');
-    return {groups:groups.sort((a,b)=>order(a.messages[0],b.messages[0])),sourceIds:[...all].sort()};
-  }
-  const compact=groups=>groups.map(({id,reason,unresolved,messages})=>({id,reason,unresolved:unresolved===true,messages}));
-  const canonical=value=>Array.isArray(value)?value.map(canonical):value&&typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(key=>[key,canonical(value[key])])):value;
-  const snapshotHash=groups=>z.hash(canonical(compact(groups)));
-  root.ZaloGrouping={fold,native,keys,stage,sameAsset,describe,groupMessages,selectCases,validateCases,compact,snapshotHash};
-})(typeof window!=='undefined'?window:globalThis);
-</script>
-<script id="zalo-diary-receiver">window.ZaloDiaryReceiver=(()=>{
-  'use strict';
-  const z=window.ZaloImportCore, channel='VCTCH_ZALO_BRIDGE_V1';
-  let active=null,connecting=false,receiving=false,lastRoot=null,lastPart=null;
-  const $=id=>document.getElementById(id);
-  const status=(text,error=false)=>{const node=$('zaloReceiveStatus');if(node){node.textContent=text;node.dataset.error=String(error);}};
-  const owner=()=>window.RealAuth?.authorized?.()?ShiftWorkflow.uidOf(currentUser):'';
-  function roots(){return (shiftLogs||[]).filter(item=>item.status==='DRAFT'&&item.zaloImport?.streamId===item.id&&ShiftWorkflow.sender(item,currentUser));}
-  function refresh(){
-    const select=$('zaloTarget');if(!select)return;
-    if(active&&(active.owner!==owner()||active.building!==BUILDING||Date.now()>active.expires))disable();
-    if(!active){const selected=select.value;select.innerHTML='<option value="new">Tạo luồng nhật ký Zalo mới</option>' + roots().map(item=>`<option value="${advEscape(item.id)}">${advEscape(item.dutyDate+' · '+item.zaloImport.seen.length+' tin · '+item.id.slice(-8))}</option>`).join('');if([...select.options].some(item=>item.value===selected))select.value=selected;}
-    if(!$('zaloRangeStart').value){const now=z.local(new Date().toISOString()),day=new Date(now.slice(0,10)+'T00:00:00Z');if(now.slice(11,16)<'07:00')day.setUTCDate(day.getUTCDate()-1);$('zaloRangeStart').value=day.toISOString().slice(0,10)+'T07:00';day.setUTCDate(day.getUTCDate()+1);$('zaloRangeEnd').value=day.toISOString().slice(0,10)+'T07:00';}
-  }
-  function targetChanged(){const record=roots().find(item=>item.id===$('zaloTarget').value);if(record){$('zaloRangeStart').value=z.local(record.zaloImport.start);$('zaloRangeEnd').value=z.local(record.zaloImport.end);}}
-  async function enable(){
-    if(connecting||active)return;
-    connecting=true;$('zaloEnable').disabled=true;
-    try{
-      if(!owner()||!SharedData.ready()||SharedData.dirty())throw new Error('Đăng nhập tài khoản đã xác minh và chờ Firebase đồng bộ xong.');
-      const identity=owner();
-      const scope=z.range({building:BUILDING,start:$('zaloRangeStart').value+':00+07:00',end:$('zaloRangeEnd').value+':00+07:00'});
-      const record=roots().find(item=>item.id===$('zaloTarget').value),id=record?.id||'SHIFT-ZALO-'+crypto.randomUUID();
-      if(record&&(scope.start!==record.zaloImport.start||scope.end!==record.zaloImport.end))throw new Error('Luồng cũ phải giữ đúng khoảng ca trực; chọn Tạo mới nếu đổi khoảng lấy tin.');
-      if(!record){
-        // Persist the empty destination before pairing. Even if the first batch
-        // loses connection, its exact stream remains selectable after a reload.
-        const draft=z.blank(id,scope,ShiftDiaryTemplate);
-        draft.zaloStreamId=id;draft.zaloImport={streamId:id,start:scope.start,end:scope.end,building:BUILDING,part:1,seen:[],groupingVersion:2};
-        await SharedData.writeShiftRecord('shiftLogs',id,draft,'draft');
-      }
-      if(owner()!==identity)throw new Error('Tài khoản nhận đã thay đổi. Bật nhận lại.');
-      active={...scope,rootId:id,owner:identity,token:crypto.randomUUID()+crypto.randomUUID(),binding:await z.hash([identity,BUILDING,id,scope.start,scope.end]),expires:Date.now()+26*3600000};
-      refresh();$('zaloTarget').value=id;lastRoot=id;lastPart=z.partId(id,record?.zaloImport.part||1);$('zaloOpenDraft').disabled=false;
-      $('zaloEnable').disabled=true;$('zaloDisable').disabled=false;for(const key of ['zaloTarget','zaloRangeStart','zaloRangeEnd'])$(key).disabled=true;
-      $('zaloReceiveBadge').textContent='ĐANG NHẬN NHÁP';$('zaloReceiveBadge').dataset.status='ACTIVE';
-      status('Đã bật nhận tại tòa '+BUILDING+'. Mở tiện ích trên tab này → Kết nối web này; sau đó sang Zalo Web chọn nhóm.');
-    }catch(error){status(error.message,true);}finally{connecting=false;if(!active)$('zaloEnable').disabled=false;}
-  }
-  function disable(){const previous=active?.rootId;active=null;$('zaloEnable').disabled=false;$('zaloDisable').disabled=true;for(const key of ['zaloTarget','zaloRangeStart','zaloRangeEnd'])$(key).disabled=false;$('zaloReceiveBadge').textContent='ĐANG TẮT';delete $('zaloReceiveBadge').dataset.status;status('Đã dừng nhận. Tin chưa gửi vẫn nằm trong hàng chờ của tiện ích.');refresh();if(previous&&roots().some(record=>record.id===previous))$('zaloTarget').value=previous;}
-  async function handle(request){
-    if(!active||Date.now()>active.expires||active.owner!==owner()||active.building!==BUILDING)throw new Error('Chưa bật nhận hoặc phiên đăng nhập đã đổi. Bật nhận lại ở Nhật ký & Bàn giao ca.');
-    if(request.type==='HELLO')return {protocol:2,token:active.token,binding:active.binding,building:active.building,start:active.start,end:active.end,rootId:active.rootId,expires:active.expires,name:currentUser.name};
-    if(!['BATCH','CONTEXT','GROUP_SNAPSHOT'].includes(request.type)||request.token!==active.token||request.binding!==active.binding)throw new Error('Kết nối nhận tin không hợp lệ.');
-    if(receiving)throw new Error('Đang lưu lượt tin trước. Tool sẽ thử lại.');
-    if(!SharedData.ready()||SharedData.dirty())throw new Error('Chờ dữ liệu đồng bộ xong; tin vẫn được giữ ở tool.');
-    if(request.type==='CONTEXT'){
-      const root=(shiftLogs||[]).find(record=>record.id===active.rootId);if(!root||!ShiftWorkflow.sender(root,currentUser))throw new Error('Chưa tải được đúng luồng nhật ký.');
-      const records=(shiftLogs||[]).filter(record=>record.id===active.rootId||record.zaloStreamId===active.rootId),messages=[],decisions={};
-      for(const record of records)for(const row of record.journalRows||[]){const list=row.source?.type==='ZALO_WEB_GROUP_V2'?row.source.messages:row.source?.type==='ZALO_WEB_DOM_V1'?[row.source]:[];messages.push(...list);
-        if(row.source?.type==='ZALO_WEB_GROUP_V2'&&/^(?:Gộp theo|Tách riêng)/.test(row.source.reason||'')){const anchor=row.source.caseId.slice(3);for(const source of list)if(source.sourceId!==anchor)decisions[source.sourceId]=anchor;if(list.length===1)decisions[anchor]='SEPARATE';}
-      }
-      return {messages,decisions,snapshotHash:root.zaloImport.snapshotHash||null,published:root.zaloImport.seen||[],binding:active.binding};
-    }
-    receiving=true;const session=active;
-    try{
-      const result=request.type==='GROUP_SNAPSHOT'?await SharedData.writeZaloSnapshot(session.rootId,request.groups,session,request.expectedSnapshot||null):await SharedData.writeZaloBatch(session.rootId,request.messages,session);
-      if(active!==session)throw new Error('Kết nối đã dừng. Kiểm tra bản nháp trước khi kết nối lại.');
-      lastRoot=result.rootId;lastPart=result.part?z.partId(result.rootId,result.part):lastPart||result.rootId;$('zaloOpenDraft').disabled=false;
-      status(request.type==='GROUP_SNAPSHOT'?`Firebase đã lưu ${result.sourceIds.length} tin gốc thành ${result.caseCount} mục tổng hợp · ${result.part} phần. Rà soát nội dung và nguồn trước khi giao ca.`:`Firebase đã lưu ${result.added} tin mới vào bản nháp${result.part?' · '+result.part+' phần':''}. Các tin trùng được bỏ qua. Rà soát trước khi giao ca.`);
-      return {...result,binding:session.binding};
-    }finally{receiving=false;}
-  }
-  window.addEventListener('message',event=>{
-    const data=event.data;
-    if(event.source!==window||event.origin!==location.origin||!data||data.channel!==channel||data.direction!=='TO_APP'||typeof data.requestId!=='string'||data.requestId.length>100)return;
-    handle(data).then(result=>window.postMessage({channel,direction:'FROM_APP',requestId:data.requestId,ok:true,result},location.origin)).catch(error=>window.postMessage({channel,direction:'FROM_APP',requestId:data.requestId,ok:false,code:error.code||'',error:error.message||'Chưa nhận được dữ liệu.'},location.origin));
-  });
-  async function openDraft(){if(lastPart||lastRoot)await ShiftDiary.edit(lastPart||lastRoot);}
-  $('zaloTarget').addEventListener('change',targetChanged);
-  // The app's own render lifecycle refreshes this panel; no background data reads.
-  return {enable,disable,refresh,openDraft,handle};
-})();
 </script>
 </body>
 </html>
