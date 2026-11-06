@@ -8,8 +8,8 @@
     const root = document.documentElement;
     root.dataset.building = new URLSearchParams(location.search).get('building') === '1000G' ? '1000G' : '500G';
     function readTheme() {
-        try { return localStorage.getItem(key) === 'dark' ? 'dark' : 'light'; }
-        catch (_) { return 'light'; }
+        try { return localStorage.getItem(key) === 'light' ? 'light' : 'dark'; }
+        catch (_) { return 'dark'; }
     }
     function applyTheme(theme, persist) {
         const dark = theme === 'dark';
@@ -31,7 +31,7 @@
     applyTheme(readTheme(), false);
     document.addEventListener('DOMContentLoaded', () => applyTheme(root.dataset.theme, false));
     window.addEventListener('storage', event => {
-        if (event.key === key) applyTheme(event.newValue === 'dark' ? 'dark' : 'light', false);
+        if (event.key === key) applyTheme(event.newValue === 'light' ? 'light' : 'dark', false);
     });
 })();
 
@@ -177,7 +177,7 @@ window.AppNavigation = (() => {
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
     <script>
         if (typeof tailwind !== "undefined") tailwind.config = {
@@ -4381,6 +4381,170 @@ html[data-theme=dark] .asset-columns-toolbar{color:#c5c5ce}html[data-theme=dark]
 @media screen and (max-width:560px){html[data-theme=dark] .dashboard-hero{padding-bottom:16px!important}html[data-theme=dark] .dashboard-hero h1{font-size:29px}}
 
 </style>
+<style id="obsidian-bento-style">
+@media screen{
+  :root{--bms-bg:#f3f7f7;--bms-glass:rgba(255,255,255,.82);--bms-raised:rgba(241,247,245,.88);--bms-line:rgba(15,55,43,.13);--bms-ink:#122d25;--bms-muted:#425e56;--bms-soft:#526b64;--bms-green:#047857;--bms-accent:#10b981;--bms-shadow:0 12px 30px rgba(13,46,36,.05);--bms-input:rgba(255,255,255,.7)}
+  html[data-theme=dark]{--bms-bg:#07090e;--bms-glass:rgba(15,20,28,.72);--bms-raised:rgba(22,30,41,.76);--bms-line:rgba(255,255,255,.08);--bms-ink:#fff;--bms-muted:#cbd5e1;--bms-soft:#94a3b8;--bms-green:#34d399;--bms-accent:#10b981;--bms-shadow:0 18px 48px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.025);--bms-input:rgba(7,11,17,.52);--studio-bg:#07090e;--studio-line:rgba(255,255,255,.08);--studio-ink:#fff;--studio-muted:#cbd5e1;--pastel-bg:#07090e;--pastel-card:rgba(15,20,28,.72);--pastel-ink:#fff;--pastel-muted:#cbd5e1;--pastel-line:rgba(255,255,255,.08);--dark-canvas:#07090e;--dark-surface:rgba(15,20,28,.72);--dark-ink:#fff;--dark-muted:#cbd5e1;--dark-border:rgba(255,255,255,.08)}
+  body{font-family:Inter,ui-sans-serif,system-ui,sans-serif!important}
+  html[data-theme=dark] :is(body,#loginScreen.studio-portal){background:var(--bms-bg)!important;color:var(--bms-ink)!important}
+  #mainAppWrapper{position:relative;isolation:isolate;background:var(--bms-bg)!important;color:var(--bms-ink)}
+  #mainAppWrapper>div.flex-1.flex-col{background:transparent!important}
+  #mainAppWrapper:before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 8% 0%,rgba(16,185,129,.08),transparent 40%),radial-gradient(ellipse at 100% 75%,rgba(100,116,139,.08),transparent 42%)}
+  html[data-theme=dark] #mainAppWrapper:before{background:radial-gradient(ellipse at 2% 0%,rgba(16,185,129,.12),transparent 38%),radial-gradient(ellipse at 100% 100%,rgba(16,185,129,.055),transparent 39%),radial-gradient(ellipse at 85% 0%,rgba(100,116,139,.09),transparent 40%)}
+  #mainAppWrapper #appMain{background:transparent!important;padding:25px 28px 36px!important;scrollbar-color:#64748b55 transparent;color:var(--bms-ink)!important}
+  #mainAppWrapper #sidebar{width:264px!important;min-width:264px;background:var(--bms-glass)!important;border-right:1px solid var(--bms-line)!important;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:var(--bms-ink)!important}
+  #mainAppWrapper #sidebar>div:first-child{height:80px!important;background:transparent!important;border-color:var(--bms-line)!important;padding:0 20px!important}
+  #sidebar>div:first-child .w-9{background:rgba(16,185,129,.10)!important;border:1px solid rgba(52,211,153,.22)!important;border-radius:11px!important;box-shadow:0 0 25px rgba(16,185,129,.09)!important;color:var(--bms-green)!important}
+  #sidebar>div:first-child .bms-lucide{width:22px;height:22px;filter:drop-shadow(0 0 6px #10b98155)}
+  #mainAppWrapper #sidebar>div:last-child{background:rgba(100,116,139,.045)!important;border-color:var(--bms-line)!important;padding:16px!important}
+  #sidebar #currentUserAvatar{border:1px solid #10b98140!important;border-radius:12px!important;background:#10b98116!important;color:var(--bms-green)!important}
+  #mainAppWrapper #sidebar :is(#currentUserName,#currentUserRoleBadge){color:var(--bms-ink)!important}
+  #mainAppWrapper #sidebar .nav-btn{min-height:41px!important;padding:10px 12px!important;border-radius:9px!important;border:1px solid transparent!important;background:transparent!important;color:var(--bms-muted)!important;font-size:13px!important;font-weight:450!important;gap:10px!important;box-shadow:none!important}
+  #mainAppWrapper #sidebar .nav-btn i{color:var(--bms-soft)!important}
+  #mainAppWrapper #sidebar .nav-btn:hover{background:rgba(100,116,139,.085)!important;color:var(--bms-ink)!important}
+  #mainAppWrapper #sidebar .nav-btn.bg-blue-600{background:linear-gradient(90deg,rgba(16,185,129,.13),rgba(16,185,129,.025))!important;border-color:rgba(52,211,153,.14)!important;color:var(--bms-ink)!important}
+  #mainAppWrapper #sidebar .nav-btn.bg-blue-600 i{color:var(--bms-green)!important}
+  #mainAppWrapper #sidebar .nav-btn.bg-blue-600:before{content:'';display:block!important;position:absolute;left:0;top:22%;bottom:22%;width:3px;background:#34d399;border-radius:2px;box-shadow:0 0 13px #10b98188}
+  #mainAppWrapper #sidebar .nav-section-label{font-size:10px!important;font-weight:550!important;letter-spacing:.13em!important;color:var(--bms-soft)!important;margin:21px 12px 9px!important}
+  #sidebar .nav-section[data-nav-section=settings]>.nav-section-label{display:none}
+  #mainAppWrapper #sidebar .studio-nav-search{background:var(--bms-input)!important;border:1px solid var(--bms-line)!important;border-radius:9px!important;margin:18px 16px 2px!important;box-shadow:inset 0 1px #ffffff02!important}
+  #mainAppWrapper #sidebar .studio-nav-search input{background:transparent!important;border:0!important;font-size:12px!important;color:var(--bms-ink)!important}
+  #mainAppWrapper #sidebar .studio-nav-search kbd{font:9px 'JetBrains Mono',monospace!important;background:rgba(100,116,139,.08)!important;color:var(--bms-soft)!important;border:1px solid var(--bms-line)!important;padding:1px 4px!important}
+  #mainAppWrapper .app-topbar{height:64px!important;min-height:64px!important;background:var(--bms-glass)!important;border-color:var(--bms-line)!important;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:10px 24px!important;gap:14px!important}
+  #mainAppWrapper .app-topbar h2{font-size:18px!important;line-height:1.35;letter-spacing:-.035em!important;font-weight:600!important;color:var(--bms-ink)!important}
+  #pageHeaderTitle:focus{outline-color:#34d399!important}
+  #mainAppWrapper .app-overline{font-size:8px!important;letter-spacing:.12em;color:var(--bms-soft)!important}
+  #mainAppWrapper .app-overline [data-building-text=building]{font-family:'JetBrains Mono',monospace!important;color:var(--bms-green)!important;background:rgba(16,185,129,.09)!important;border:1px solid rgba(16,185,129,.15);font-size:9px}
+  #mainAppWrapper :is(.appearance-toggle,.app-back-button,.app-action,.app-tools-menu>summary){min-height:34px!important;font-size:12px!important;border-radius:8px!important;padding:7px 10px!important;gap:7px!important;background:var(--bms-raised)!important;border:1px solid var(--bms-line)!important;box-shadow:inset 0 1px #ffffff03!important;color:var(--bms-muted)!important}
+  #mainAppWrapper .app-toolbar .app-action-critical{background:rgba(244,63,94,.095)!important;border-color:rgba(244,63,94,.25)!important;color:#f43f5e!important}
+  #mainAppWrapper :is(.shared-data-panel,.system-visibility-banner){background:transparent!important;border-color:var(--bms-line)!important;color:var(--bms-soft)!important;font-size:10px!important;padding:7px 28px!important}
+  #mainAppWrapper .app-duty{border-color:var(--bms-line)!important;color:var(--bms-soft)!important;padding-left:15px!important}
+  #mainAppWrapper .app-duty strong{color:var(--bms-ink)!important}
+  #mainAppWrapper #appMain :is(.tab-content>div.bg-white,.dashboard-system-panel,.dashboard-data-row>div,.record-history,.map-filters,.map-board,.map-device-panel,.map-asset-detail,.dl-board,.dl-filters,.dl-link-card,.nb-main-panel){background:var(--bms-glass)!important;border:1px solid var(--bms-line)!important;box-shadow:var(--bms-shadow)!important;border-radius:16px!important;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+  #mainAppWrapper #appMain .dashboard-hero{display:grid!important;grid-template-columns:minmax(0,1fr) 335px!important;gap:24px!important;background:transparent!important;border:0!important;border-radius:0!important;padding:0!important;margin-bottom:20px!important;box-shadow:none!important;align-items:center}
+  #mainAppWrapper #appMain .dashboard-hero:before,#mainAppWrapper #appMain .dashboard-hero:after{display:none!important}
+  #mainAppWrapper #appMain .dashboard-hero-copy{padding:16px 0!important;background:transparent!important;color:var(--bms-ink)!important}
+  #mainAppWrapper #appMain .dashboard-hero h1{font-size:34px!important;font-weight:550!important;letter-spacing:-.05em!important;color:var(--bms-ink)!important;line-height:1.25}
+  #mainAppWrapper #appMain .dashboard-hero-copy>p{font-size:13px!important;line-height:1.8!important;margin-top:10px;color:var(--bms-muted)!important}
+  #mainAppWrapper #appMain .dashboard-hero-eyebrow{font-size:9px!important;color:var(--bms-soft)!important;letter-spacing:.13em!important}
+  #mainAppWrapper #appMain .dashboard-hero-meta{margin-top:18px!important;font-size:10px!important;color:var(--bms-soft)!important}
+  #mainAppWrapper #appMain .dashboard-hero-actions{padding:16px!important;border:1px solid var(--bms-line)!important;border-radius:15px!important;background:var(--bms-glass)!important;backdrop-filter:blur(20px);box-shadow:var(--bms-shadow)!important}
+  #mainAppWrapper #appMain .dashboard-hero-quick-label{font-size:9px!important;letter-spacing:.12em!important;color:var(--bms-soft)!important;margin:0 0 8px!important}
+  #mainAppWrapper #appMain .dashboard-hero-actions>button{background:transparent!important;color:var(--bms-ink)!important;border:0!important;border-bottom:1px solid var(--bms-line)!important;border-radius:0!important;box-shadow:none!important;padding:9px 0!important;min-height:42px!important}
+  #mainAppWrapper #appMain .dashboard-hero-actions>button:last-child{border-bottom:0!important}
+  #mainAppWrapper #appMain .dashboard-hero-actions>button>span:nth-child(2){font-size:12px!important;font-weight:500!important}
+  #mainAppWrapper #appMain .dashboard-hero-actions>button small{font-size:10px!important;color:var(--bms-soft)!important}
+  #mainAppWrapper .hero-action-icon{background:rgba(100,116,139,.08)!important;color:var(--bms-soft)!important;border-radius:8px!important;width:29px!important;height:29px!important}
+  #mainAppWrapper .hero-action-alert{color:#f43f5e!important;background:rgba(244,63,94,.07)!important}
+  #mainAppWrapper .hero-action-shift{color:var(--bms-green)!important}
+  #mainAppWrapper #appMain .dashboard-section-heading{margin:0 0 12px!important}
+  #mainAppWrapper #appMain :is(.dashboard-section-heading h3,.dashboard-system-panel h3,.dashboard-data-row h3){font-size:14px!important;font-weight:550!important;letter-spacing:-.025em!important;color:var(--bms-ink)!important}
+  #mainAppWrapper #appMain :is(.dashboard-section-kicker,.dashboard-section-hint){color:var(--bms-soft)!important;font-size:9px!important}
+  #mainAppWrapper #appMain .dashboard-kpis{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:15px!important}
+  #mainAppWrapper #appMain .dashboard-kpis>.bento-kpi{position:relative;isolation:isolate;overflow:hidden;min-height:176px!important;padding:18px 18px 10px!important;text-align:left;background:var(--bms-glass)!important;border:1px solid var(--bms-line)!important;border-radius:16px!important;box-shadow:var(--bms-shadow)!important;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);transition:border-color .2s,transform .2s!important}
+  #mainAppWrapper #appMain .dashboard-kpis>.bento-kpi:before{display:none!important}
+  #mainAppWrapper #appMain .dashboard-kpis>.bento-kpi:after{content:'';position:absolute;z-index:-1;right:-38px;top:-42px;width:180px;height:150px;pointer-events:none;background:radial-gradient(ellipse at top right,rgba(148,163,184,.11),transparent 65%)}
+  #mainAppWrapper #appMain .dashboard-kpis>.bento-kpi:first-child:after{background:radial-gradient(ellipse at top right,rgba(16,185,129,.19),transparent 68%)}
+  #mainAppWrapper #appMain .dashboard-kpis>.bento-kpi:hover{border-color:rgba(52,211,153,.3)!important;transform:translateY(-2px)}
+  #mainAppWrapper #appMain .bento-kpi>div:first-child>span{font-size:12px!important;font-weight:500!important;text-transform:none!important;letter-spacing:0!important;color:var(--bms-muted)!important;max-width:78%}
+  #mainAppWrapper #appMain .bento-kpi>div:first-child>div{width:30px!important;height:30px!important;background:rgba(100,116,139,.09)!important;border:1px solid var(--bms-line);border-radius:9px!important;color:var(--bms-soft)!important}
+  #mainAppWrapper #appMain .bento-kpi:first-child>div:first-child>div{background:rgba(16,185,129,.10)!important;color:var(--bms-green)!important;border-color:rgba(52,211,153,.12)}
+  #mainAppWrapper #appMain .bento-kpi:nth-child(2)>div:first-child>div{color:#f43f5e!important}
+  #mainAppWrapper #appMain .bento-kpi:nth-child(3)>div:first-child>div{color:#f59e0b!important}
+  #mainAppWrapper #appMain .bento-kpi :is(#kpiTotalAssets,#kpiOpenTickets,#kpiMaintenanceDue,#kpiLowStockCount){font-size:30px!important;line-height:1.25!important;font-weight:500!important;color:var(--bms-ink)!important;letter-spacing:-.06em!important}
+  #mainAppWrapper #appMain .bento-kpi .mt-3{margin-top:10px!important}
+  #mainAppWrapper #appMain .bento-kpi>p{font-size:11px!important;color:var(--bms-soft)!important;margin-top:4px!important;line-height:1.5}
+  .bento-kpi-spark{height:39px;margin:3px -2px 0;color:var(--bms-soft)}.bento-kpi-spark>svg{display:block;width:100%;height:100%;overflow:visible}.bento-kpi-caption{display:block;text-align:right;font-size:9px;color:var(--bms-soft);padding-top:2px}.bento-spark-empty{font-size:9px;display:block;padding-top:13px}
+  #mainAppWrapper #appMain .dashboard-system-panel{padding:20px!important;margin-top:20px!important}
+  #mainAppWrapper #appMain .dashboard-system-panel p{color:var(--bms-soft)!important;font-size:10px!important}
+  .bento-system-tools{display:flex;align-items:center;gap:8px;margin:12px 0 14px;font-size:10px;color:var(--bms-soft)}.bento-system-tools label{display:flex;align-items:center;gap:6px}.bento-system-tools select{padding:6px 26px 6px 8px!important;min-height:31px!important;width:auto!important;font-size:10px!important;border-radius:7px!important}.bento-system-tools>span{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:9px}
+  #mainAppWrapper #appMain #dashboardSystemsMatrix{grid-template-columns:repeat(auto-fit,minmax(175px,1fr))!important;gap:10px!important}
+  #mainAppWrapper #appMain #dashboardSystemsMatrix>button{padding:12px!important;background:rgba(100,116,139,.035)!important;border:1px solid var(--bms-line)!important;border-radius:10px!important;min-height:98px;box-shadow:inset 0 1px #ffffff02!important}
+  #mainAppWrapper #appMain #dashboardSystemsMatrix>button[hidden]{display:none!important}
+  #mainAppWrapper #appMain #dashboardSystemsMatrix>button:hover{background:rgba(100,116,139,.085)!important;border-color:rgba(52,211,153,.22)!important}
+  #mainAppWrapper #appMain #dashboardSystemsMatrix>button>div:first-child{display:grid!important;grid-template-columns:6px minmax(0,1fr) auto;gap:7px;align-items:center}
+  #mainAppWrapper #appMain #dashboardSystemsMatrix>button :is(.text-xs,.text-\[11px\]){font-size:10px!important;line-height:1.6!important}
+  #mainAppWrapper #appMain #dashboardSystemsMatrix>button>div:first-child>span:nth-child(2){font:9px 'JetBrains Mono',monospace!important;color:var(--bms-muted)!important;background:rgba(100,116,139,.09)!important;border-color:var(--bms-line)!important;justify-self:start}
+  #mainAppWrapper #appMain #dashboardSystemsMatrix>button .mt-2>div:first-child{color:var(--bms-ink)!important;font-weight:500!important;font-size:12px!important}
+  #mainAppWrapper #appMain #dashboardSystemsMatrix>button .mt-2>div:last-child{color:var(--bms-soft)!important;font-size:9px!important}
+  .bento-system-led{display:inline-block;width:5px;height:5px;border-radius:50%;background:#64748b;box-shadow:0 0 6px #64748b33}#dashboardSystemsMatrix [data-bms-status=OK] .bento-system-led{background:#34d399;box-shadow:0 0 9px #10b98188}#dashboardSystemsMatrix [data-bms-status=ALERT] .bento-system-led{background:#f43f5e;box-shadow:0 0 9px #f43f5e66}#dashboardSystemsMatrix [data-bms-status=MAINTENANCE] .bento-system-led{background:#f59e0b;box-shadow:0 0 9px #f59e0b66}
+  #mainAppWrapper #appMain .dashboard-data-row{display:grid!important;grid-template-columns:minmax(0,8fr) minmax(0,4fr)!important;gap:18px!important;margin-top:20px!important}
+  #mainAppWrapper #appMain .dashboard-data-row>div{grid-column:auto!important;padding:20px!important;min-width:0;position:relative;isolation:isolate;overflow:hidden}
+  #mainAppWrapper #appMain .dashboard-data-row>div>div>div>p{color:var(--bms-soft)!important;font-size:10px!important}
+  #mainAppWrapper #appMain :is(#utilityElecCard,#utilityWaterCard,#utilityDieselCard){padding:10px!important;background:rgba(100,116,139,.04)!important;border-color:var(--bms-line)!important;border-radius:9px!important}
+  #mainAppWrapper #appMain :is(#utilityElecCard,#utilityWaterCard,#utilityDieselCard)>div:first-child{font-size:8px!important;font-weight:500!important;line-height:1.5;color:var(--bms-soft)!important}
+  #mainAppWrapper #appMain :is(#utilityElecValue,#utilityWaterValue,#utilityDieselValue){font-size:13px!important;font-weight:500!important;color:var(--bms-ink)!important}
+  #mainAppWrapper #appMain :is(#utilityElecStatus,#utilityWaterStatus,#utilityDieselStatus){font-size:9px!important;font-weight:400!important;line-height:1.6}
+  .bento-ribbon{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.5;overflow:hidden;mask-image:linear-gradient(180deg,transparent 12%,#000 60%,transparent)}.bento-ribbon svg{position:absolute;width:160%;height:100%;left:-28%;top:18%;transform:rotate(-10deg)}
+  #bentoHandoverCard:after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,transparent 30%,rgba(7,9,14,.25))}
+  #mainAppWrapper #appMain #latestShiftBanner{background:rgba(16,185,129,.055)!important;border-color:rgba(52,211,153,.15)!important;border-radius:9px!important;color:var(--bms-muted)!important}
+  #mainAppWrapper #appMain #bentoHandoverCard>div:not(.bento-ribbon){position:relative}
+  #mainAppWrapper #appMain .bento-energy{margin-top:16px}.bento-chart-header{display:flex;justify-content:space-between;gap:10px;font-size:8px;color:var(--bms-soft);margin-bottom:4px}.bento-chart-header>span:last-child{font-family:'JetBrains Mono',monospace;font-size:8px}
+  #bentoEnergySvg{overflow-x:auto;scrollbar-width:thin}#bentoEnergySvg>svg{width:100%;min-width:570px;display:block;height:auto}.bento-chart-grid{stroke:var(--bms-soft);stroke-opacity:.1;stroke-dasharray:3 5}.bento-chart-tick{font:10px 'JetBrains Mono',monospace;fill:var(--bms-soft)}.bento-chart-crosshair{stroke:var(--bms-muted);opacity:0;stroke-width:.8;stroke-dasharray:3 3}.bento-chart-point{outline:none;cursor:crosshair}.bento-chart-point:is(:hover,:focus) .bento-chart-crosshair{opacity:.6}.bento-chart-point:focus-visible rect{stroke:#10b981;stroke-width:1}
+  .bento-energy-legend{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 16px;margin-top:8px}.bento-energy-legend>button{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--bms-muted);background:none;border:0;padding:4px}.bento-energy-legend>button>span{width:12px;height:3px;border-radius:2px}.bento-energy-legend>button[aria-pressed=false]{opacity:.45}.bento-energy-legend small{font:8px 'JetBrains Mono',monospace;color:var(--bms-soft)}.bento-energy-readout{font-size:11px;line-height:1.8;color:var(--bms-soft);min-height:32px;margin:8px 0 0}.bento-chart-empty{height:200px;display:grid;place-items:center;font-size:12px;color:var(--bms-muted);text-align:center}
+  .bms-lucide{display:inline-flex!important;align-items:center;justify-content:center;width:1em;height:1em;line-height:1!important;vertical-align:-.12em;flex-shrink:0}.bms-lucide:before,.bms-lucide:after{content:none!important;display:none!important}.bms-lucide>svg{width:100%;height:100%;display:block;overflow:visible;pointer-events:none}.nav-btn .bms-lucide{width:16px;height:16px;font-size:16px}.app-action .bms-lucide{width:14px;height:14px}
+  :is([id^=kpi],#dashboardUrgentCount,#dashboardAcceptanceCount,#dashboardTodayText,.app-clock,#headerClock,#currentShiftClock,#liveHeaderClock,#utilityElecValue,#utilityWaterValue,#utilityDieselValue,#sidebarAssetCount,#sidebarPpmDueBadge,#sidebarLowStockBadge,.asset-access-value,.font-mono,.map-detail-code,.bento-system-tools>span,input[type=time],input[type=date],input[type=datetime-local],input[type=number]){font-family:'JetBrains Mono',ui-monospace,monospace!important;font-variant-numeric:tabular-nums}
+  #assetTableBody .asset-directory-title>span:first-child,#qrAssetList .font-bold{font-family:'JetBrains Mono',ui-monospace,monospace!important;letter-spacing:-.04em}
+  #mainAppWrapper :is(.app-tools-popover,.auth-dialog,.record-history){background:var(--bms-glass)!important;color:var(--bms-ink)!important;border-color:var(--bms-line)!important;backdrop-filter:blur(20px)}
+  html[data-theme=dark] :is(dialog,[id$=Modal].fixed>div:first-child){background:rgba(15,20,28,.94)!important;backdrop-filter:blur(20px);color:#fff!important;border:1px solid var(--bms-line)!important;box-shadow:0 30px 100px #00000080!important}
+  html[data-theme=dark] #mainAppWrapper #appMain :is(input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]),select,textarea),html[data-theme=dark] :is(dialog,[id$=Modal]) :is(input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]),select,textarea){background:var(--bms-input)!important;border-color:rgba(148,163,184,.24)!important;color:#fff!important;border-radius:8px!important}
+  html[data-theme=dark] :is(input,textarea)::placeholder{color:#94a3b8!important}
+  #mainAppWrapper :is(button,a,input,select,textarea,summary):focus-visible{outline:2px solid #34d399!important;outline-offset:3px}
+  html[data-theme=dark] #mainAppWrapper #appMain table th{background:rgba(100,116,139,.075)!important;color:#cbd5e1!important;border-color:var(--bms-line)!important;font-size:10px}
+  html[data-theme=dark] #mainAppWrapper #appMain table tbody tr{background:rgba(15,20,28,.6)!important;color:#fff!important}
+  html[data-theme=dark] #mainAppWrapper #appMain table tbody tr:nth-child(even){background:rgba(22,30,41,.6)!important}
+  html[data-theme=dark] #mainAppWrapper #appMain table tbody tr>td{border-color:var(--bms-line)!important;color:#fff!important}
+  html[data-theme=dark] #mainAppWrapper #appMain table tbody tr:is(:hover,:focus-within),html[data-theme=dark] #mainAppWrapper #appMain table tbody tr:is(:hover,:focus-within)>td{background:rgba(16,185,129,.075)!important;color:#fff!important}
+  html[data-theme=dark] #mainAppWrapper :is([class*="text-purple-"],[class*="text-violet-"],[class*="text-fuchsia-"],[class*="text-indigo-"],[class*="text-blue-"],[class*="text-cyan-"],[class*="text-sky-"]){color:#cbd5e1!important}
+  html[data-theme=dark] #mainAppWrapper :is([class*="bg-purple-"],[class*="bg-violet-"],[class*="bg-fuchsia-"],[class*="bg-indigo-"],[class*="bg-blue-"],[class*="bg-cyan-"],[class*="bg-sky-"]):not(.nav-btn){background-color:rgba(100,116,139,.08)!important;border-color:rgba(148,163,184,.15)!important}
+  html[data-theme=dark] #mainAppWrapper :is([class*="text-emerald-"],[class*="text-green-"],[class*="text-teal-"]){color:#34d399!important}
+  html[data-theme=dark] #mainAppWrapper :is([class*="text-red-"],[class*="text-rose-"]){color:#f43f5e!important}
+  html[data-theme=dark] #mainAppWrapper :is([class*="text-amber-"],[class*="text-orange-"],[class*="text-yellow-"]){color:#f59e0b!important}
+  html[data-theme=dark] #mainAppWrapper :is([class*="bg-red-50"],[class*="bg-red-100"],[class*="bg-rose-"]){background-color:rgba(244,63,94,.09)!important;border-color:rgba(244,63,94,.22)!important}
+  html[data-theme=dark] #mainAppWrapper :is([class*="bg-amber-"],[class*="bg-orange-50"],[class*="bg-yellow-"]){background-color:rgba(245,158,11,.075)!important;border-color:rgba(245,158,11,.2)!important}
+  html[data-theme=dark] #mainAppWrapper :is([class*="bg-emerald-50"],[class*="bg-emerald-100"],[class*="bg-green-"],[class*="bg-teal-"]){background-color:rgba(16,185,129,.07)!important;border-color:rgba(52,211,153,.16)!important}
+  html[data-theme=dark] #mainAppWrapper #appMain :is(.text-slate-900,.text-slate-800,.text-slate-700){color:#fff!important}
+  html[data-theme=dark] #mainAppWrapper #appMain :is(.text-slate-600,.text-slate-500,.text-slate-400){color:#cbd5e1!important}
+  html[data-theme=dark] :is(#loginScreen,.auth-dialog) :is([class*="text-indigo"],[class*="text-purple"],[class*="text-violet"]){color:#cbd5e1!important}
+  html[data-theme=dark] :is(.studio-service-card,.studio-staff-panel,.studio-portal-hero){background:var(--bms-glass)!important;border-color:var(--bms-line)!important;backdrop-filter:blur(20px);box-shadow:var(--bms-shadow)!important}
+  html[data-theme=dark] #loginScreen .studio-portal-hero{background:radial-gradient(ellipse at 90% 0%,#10b98112,transparent 65%),var(--bms-glass)!important}
+  html[data-theme=dark] #loginScreen .studio-portal-hero h1>span{color:#34d399!important}
+  html[data-theme=dark] #mainAppWrapper :is(.dl-board-tools,.map-board-toolbar,.map-device-panel-heading,.map-board-footer){background:rgba(100,116,139,.04)!important;border-color:var(--bms-line)!important;color:#cbd5e1!important}
+  html[data-theme=dark] #mainAppWrapper .dl-viewport{background-color:rgba(7,9,14,.45)!important;background-image:radial-gradient(#94a3b824 1px,transparent 1px)}
+  html[data-theme=dark] #mainAppWrapper .dl-node rect{fill:#0f141c;stroke:#64748b;stroke-width:1}
+  html[data-theme=dark] #mainAppWrapper .dl-node:is(:hover,:focus) rect{fill:#0d251e;stroke:#34d399}
+  html[data-theme=dark] .dl-legend [data-type=NETWORK]:before{background:#10b981}html[data-theme=dark] .dl-legend [data-type=POWER]:before{background:#64748b}html[data-theme=dark] .dl-legend [data-type=RECORDING]:before{background:#cbd5e1}html[data-theme=dark] .dl-legend [data-type=VIEWING]:before{background:#34d399}
+  html[data-theme=dark] #mainAppWrapper #tab-devicemap .map-asset-row{background:var(--bms-glass)!important;border-color:var(--bms-line)!important;color:#fff!important}
+  html[data-theme=dark] #mainAppWrapper #tab-devicemap .map-asset-row[aria-pressed=true]{background:rgba(16,185,129,.1)!important;box-shadow:inset 3px 0 #10b981!important}
+  html[data-theme=dark] #mainAppWrapper :is(button:disabled,input:disabled,select:disabled){color:#94a3b8!important;opacity:.65}
+  html[data-theme=dark] :is(#loginSubmitButton:disabled,.record-submit:disabled,.dl-primary:disabled){background:#17212e!important;color:#94a3b8!important;border-color:#64748b44!important;opacity:1}
+  html[data-theme=dark] :is(#loginSubmitButton,.record-submit,.map-primary,.dl-primary,#btnSignHandover,#btnAckHandover:not(:disabled)),html[data-theme=dark] #mainAppWrapper :is(button.bg-blue-600:not(.nav-btn),button.bg-indigo-600:not(.nav-btn)){background:#10b981!important;color:#03150e!important;border-color:#34d39966!important;box-shadow:0 0 18px #10b98112!important;font-weight:600!important}
+  html[data-theme=dark] :is(#loginSubmitButton,.record-submit,.map-primary,.dl-primary,#btnSignHandover,#btnAckHandover) :is(i,svg){color:inherit!important}
+  html[data-theme=dark] :is(.record-submit,.map-primary,.dl-primary,#loginSubmitButton):not(:disabled):hover{background:#34d399!important;color:#03150e!important}
+  html[data-theme=dark] #mainAppWrapper #sidebar .nav-btn.bg-blue-600{background:linear-gradient(90deg,#10b9811e,#10b98103)!important;border-color:#10b98128!important;color:#fff!important}
+  html[data-theme=dark] #mainAppWrapper #sidebar .nav-btn.bg-blue-600 i{color:#34d399!important}
+  html[data-theme=dark] #mainAppWrapper #dashboardSystemsMatrix button{background:rgba(100,116,139,.035)!important;border-color:var(--bms-line)!important}
+  html[data-theme=dark] #mainAppWrapper #dashboardSystemsMatrix button[data-bms-status=ALERT]{border-color:rgba(244,63,94,.26)!important}
+  html[data-theme=dark] #mainAppWrapper #dashboardSystemsMatrix button[data-bms-status=MAINTENANCE]{border-color:rgba(245,158,11,.24)!important}
+  html[data-theme=dark] #mainAppWrapper #dashboardSystemsMatrix button>div:first-child>span:nth-child(2){background:rgba(100,116,139,.08)!important;color:#cbd5e1!important;border-color:var(--bms-line)!important}
+  html[data-theme=dark] #mainAppWrapper #appMain :is(button.bg-blue-600:not(.nav-btn),button.bg-indigo-600:not(.nav-btn),.record-submit,.map-primary,.dl-primary){background:#10b981!important;color:#03150e!important;border-color:#34d39966!important}
+  html[data-theme=dark] #loginScreen #loginSubmitButton{background:#10b981!important;color:#03150e!important;border-color:#34d39966!important}
+  html[data-theme=dark] #mainAppWrapper #appMain :is(button.bg-blue-600:not(.nav-btn),button.bg-indigo-600:not(.nav-btn),.record-submit,.map-primary,.dl-primary):not(:disabled):hover{background:#34d399!important;color:#03150e!important}
+  html[data-theme=dark] #mainAppWrapper #appMain :is(button.bg-blue-600,button.bg-indigo-600,.record-submit,.map-primary,.dl-primary):disabled,html[data-theme=dark] #loginScreen #loginSubmitButton:disabled{background:#17212e!important;color:#94a3b8!important;border-color:#64748b44!important}
+  html[data-theme=dark] #mainAppWrapper #assetTableBody td:nth-child(2)>span{color:#cbd5e1!important;background:rgba(100,116,139,.08)!important;border-color:var(--bms-line)!important;white-space:nowrap}
+  #bentoHandoverCard #btnSignHandover{min-height:36px;border-radius:9px!important;font-size:11px!important}
+  .bento-ribbon{animation:bento-ribbon-drift 18s ease-in-out infinite alternate}
+  @keyframes bento-ribbon-drift{from{transform:translateY(-4px)}to{transform:translateY(5px)}}
+}
+@media screen and (min-width:1024px) and (max-width:1260px){#mainAppWrapper .app-duty{display:none!important}#mainAppWrapper .app-topbar{padding:10px 20px!important}#mainAppWrapper #appMain .dashboard-hero{grid-template-columns:minmax(0,1fr) 300px!important}#mainAppWrapper #appMain .dashboard-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media screen and (max-width:1023px){#mainAppWrapper .app-topbar{height:auto!important;min-height:64px!important}#mainAppWrapper #appMain .dashboard-hero{grid-template-columns:minmax(0,1fr) 315px!important}#mainAppWrapper #appMain .dashboard-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media screen and (max-width:760px){#mainAppWrapper #appMain{padding:20px 16px 30px!important}#mainAppWrapper .app-topbar{padding:12px 16px!important;gap:10px!important}#mainAppWrapper .app-topbar h2{font-size:16px!important}#mainAppWrapper #appMain .dashboard-hero{grid-template-columns:1fr!important;gap:14px!important}#mainAppWrapper #appMain .dashboard-hero-copy{padding:8px 0!important}#mainAppWrapper #appMain .dashboard-hero h1{font-size:29px!important}#mainAppWrapper #appMain .dashboard-data-row{grid-template-columns:1fr!important}#mainAppWrapper #appMain .dashboard-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}#mainAppWrapper #appMain .dashboard-kpis>.bento-kpi{padding:14px 13px 10px!important;min-height:174px!important}.bento-kpi-caption{font-size:9px}.bento-system-tools{flex-wrap:wrap}#mainAppWrapper #appMain .dashboard-system-panel,#mainAppWrapper #appMain .dashboard-data-row>div{padding:16px!important}}
+@media screen and (max-width:430px){#mainAppWrapper #appMain .dashboard-kpis{grid-template-columns:1fr!important}#mainAppWrapper #appMain .dashboard-kpis>.bento-kpi{min-height:155px!important}#mainAppWrapper #appMain .dashboard-kpis>.bento-kpi .bento-kpi-spark{position:absolute;width:46%;right:13px;bottom:30px;height:45px;opacity:.8}#mainAppWrapper #appMain .bento-kpi-caption{position:absolute;right:13px;bottom:13px}#mainAppWrapper #appMain #dashboardSystemsMatrix{grid-template-columns:repeat(2,minmax(0,1fr))!important}#mainAppWrapper #appMain #dashboardSystemsMatrix>button{min-height:120px}#mainAppWrapper #appMain #dashboardSystemsMatrix>button>div:first-child{grid-template-columns:5px 1fr!important}#mainAppWrapper #appMain #dashboardSystemsMatrix>button>div:first-child>span:last-child{grid-column:1/-1}.bento-chart-header{flex-wrap:wrap;gap:4px}}
+@media(prefers-reduced-motion:reduce){.bento-ribbon{animation:none!important}#mainAppWrapper #appMain .dashboard-kpis>.bento-kpi{transition:none!important;transform:none!important}}
+@supports not (backdrop-filter:blur(20px)){html[data-theme=dark] #mainAppWrapper :is(#sidebar,.app-topbar,.dashboard-kpis>.bento-kpi,.dashboard-system-panel,.dashboard-data-row>div){background:#0f141c!important}}
+@media print{.bento-ribbon,.bento-kpi-spark,.bento-kpi-caption,.bento-system-tools{display:none!important}#bentoEnergySvg{overflow:visible!important}#bentoEnergySvg>svg{min-width:0;width:100%}.bento-chart-tick{fill:#334155}.bento-chart-grid{stroke:#64748b;stroke-opacity:.2}.bento-energy-readout,.bento-energy-legend{color:#334155}.bms-lucide{display:inline-block}.bms-lucide>svg{width:1em;height:1em}}
+
+</style>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans antialiased selection:bg-blue-600 selection:text-white overflow-hidden">
 
@@ -4508,7 +4672,7 @@ html[data-theme=dark] .asset-columns-toolbar{color:#c5c5ce}html[data-theme=dark]
                 </button>
             </div>
 
-            <div class="studio-nav-search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><label class="sr-only" for="studioNavSearch">Tìm phân hệ</label><input id="studioNavSearch" type="search" placeholder="Tìm phân hệ…" autocomplete="off" oninput="StudioNavigation.filter()"><kbd aria-hidden="true">Ctrl K</kbd><button id="studioNavClear" type="button" hidden onclick="StudioNavigation.clear()" aria-label="Xóa tìm kiếm"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div><p id="studioNavResult" class="studio-nav-result" hidden role="status"></p>
+            <div class="studio-nav-search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><label class="sr-only" for="studioNavSearch">Tìm phân hệ</label><input id="studioNavSearch" type="search" placeholder="Tìm phân hệ…" autocomplete="off" oninput="StudioNavigation.filter()"><kbd aria-hidden="true" title="Ctrl K hoặc ⌘K">⌘K</kbd><button id="studioNavClear" type="button" hidden onclick="StudioNavigation.clear()" aria-label="Xóa tìm kiếm"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div><p id="studioNavResult" class="studio-nav-result" hidden role="status"></p>
             <!-- Navigation Links -->
             <nav aria-label="Phân hệ nội bộ" class="flex-1 px-3 py-4 space-y-1 overflow-y-auto text-sm"><div class="nav-section" data-nav-section="ops"><div class="nav-section-label">Trực vận hành</div><button class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium transition bg-blue-600 text-white" id="nav-dashboard" onclick="switchTab('dashboard')">
 <i class="fa-solid fa-chart-pie w-5 text-center"></i>
@@ -4674,7 +4838,7 @@ html[data-theme=dark] .asset-columns-toolbar{color:#c5c5ce}html[data-theme=dark]
                     <div class="dashboard-kpis grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
                         <button type="button" onclick="switchTab('assets')" class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-blue-400 cursor-pointer transition">
                             <div class="flex items-center justify-between">
-                                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Tổng Thiết Bị Kỹ Thuật</span>
+                                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Tổng thiết bị</span>
                                 <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
                                     <i class="fa-solid fa-server"></i>
                                 </div>
@@ -4704,7 +4868,7 @@ html[data-theme=dark] .asset-columns-toolbar{color:#c5c5ce}html[data-theme=dark]
                         <!-- Maintenance Countdown KPI -->
                         <button type="button" onclick="switchTab('ppm')" class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-amber-400 cursor-pointer transition">
                             <div class="flex items-center justify-between">
-                                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Bảo trì trong 3 ngày / quá hạn</span>
+                                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Bảo trì đến hạn</span>
                                 <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
                                     <i class="fa-solid fa-calendar-day"></i>
                                 </div>
@@ -4713,13 +4877,13 @@ html[data-theme=dark] .asset-columns-toolbar{color:#c5c5ce}html[data-theme=dark]
                                 <span id="kpiMaintenanceDue" class="text-2xl font-bold text-slate-900">0</span>
                                 <span id="kpiPpmProgress" class="text-xs font-semibold text-slate-500">0% checklist</span>
                             </div>
-                            <p class="mt-1 text-xs text-slate-400">Xem lịch và kết quả bảo trì</p>
+                            <p class="mt-1 text-xs text-slate-400">Trong 3 ngày tới và đã quá hạn</p>
                         </button>
 
                         <!-- Inventory & Warranty Alerts KPI -->
                         <button type="button" onclick="switchTab('inventory')" class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-purple-400 cursor-pointer transition">
                             <div class="flex items-center justify-between">
-                                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Vật Tư Sắp Hết & Bảo Hành</span>
+                                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Vật tư sắp hết</span>
                                 <div class="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
                                     <i class="fa-solid fa-boxes-stacked"></i>
                                 </div>
@@ -4743,6 +4907,7 @@ html[data-theme=dark] .asset-columns-toolbar{color:#c5c5ce}html[data-theme=dark]
                                 Quản lý cấu hình hệ thống <i class="fa-solid fa-arrow-right ml-1"></i>
                             </button>
                         </div>
+                        <div class="bento-system-tools"><label for="bentoSystemStatus"><span data-bms-icon="sliders-horizontal" aria-hidden="true"></span> Trạng thái</label><select id="bentoSystemStatus" onchange="BentoDashboard.filterSystems()"><option value="ALL">Tất cả hệ thống</option><option value="OK">Hoạt động</option><option value="ALERT">Có sự cố</option><option value="MAINTENANCE">Bảo trì</option><option value="EMPTY">Chưa có thiết bị</option></select><span id="bentoSystemSummary" role="status"></span></div>
                         <div id="dashboardSystemsMatrix" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3"></div>
                     </div>
 
@@ -4751,7 +4916,7 @@ html[data-theme=dark] .asset-columns-toolbar{color:#c5c5ce}html[data-theme=dark]
                         <div data-all-systems-view class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
                             <div class="flex flex-wrap items-center justify-between gap-2">
                                 <div>
-                                    <h3 class="text-sm font-bold text-slate-900">Giám Sát Điện (kWh), Nước Sinh Hoạt (m³) & Bồn Dầu DO</h3>
+                                    <h3 class="text-sm font-bold text-slate-900">Giám sát điện và nước</h3>
                                     <p class="text-xs text-slate-500">Biểu đồ hiển thị tối đa 10 bản ghi. Mở lịch sử để xem các kỳ trước.</p>
                                 </div>
                                 <button data-all-systems-view onclick="openEnergyLogModal()" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition">
@@ -4789,9 +4954,8 @@ html[data-theme=dark] .asset-columns-toolbar{color:#c5c5ce}html[data-theme=dark]
                                 </div>
                             </div>
 
-                            <div class="h-56">
-                                <canvas id="energyChartCanvas" role="img" aria-label="Biểu đồ 10 bản ghi điện và nước gần nhất"></canvas>
-                            </div>
+                            <div class="bento-energy" id="bentoEnergy"><div class="bento-chart-header"><span>10 bản ghi gần nhất</span><span>Điện: kWh · Nước: m³ ×10</span></div><div id="bentoEnergySvg"></div><div id="bentoEnergyLegend" class="bento-energy-legend" aria-label="Chuỗi dữ liệu"></div><p id="bentoEnergyReadout" class="bento-energy-readout" aria-live="polite">Rê chuột hoặc dùng Tab trên biểu đồ để xem chỉ số.</p></div>
+                            <div class="h-56" hidden><canvas id="energyChartCanvas" role="img" aria-label="Biểu đồ 10 bản ghi điện và nước gần nhất"></canvas></div>
                             <details id="utilityHistoryPanel" class="record-history" ontoggle="if(this.open)renderUtilityHistory()">
                                 <summary>Lịch sử điện, nước và dầu</summary>
                                 <div class="workflow-controls">
@@ -4809,11 +4973,11 @@ html[data-theme=dark] .asset-columns-toolbar{color:#c5c5ce}html[data-theme=dark]
                         </div>
 
                         <!-- Two-Way Shift Handover Logbook Pro -->
-                        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex flex-col justify-between space-y-3">
+                        <div id="bentoHandoverCard" class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex flex-col justify-between space-y-3">
                             <div class="space-y-2.5">
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <h3 class="text-sm font-bold text-slate-900">Sổ Giao Nhận Ca 2 Chiều</h3>
+                                        <h3 class="text-sm font-bold text-slate-900">Nhật ký &amp; bàn giao ca</h3>
                                         <p class="text-[11px] text-slate-500">Ký bàn giao & Xác nhận tiếp quản ca</p>
                                     </div>
                                     <button onclick="openHandoverHistoryModal()" class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold transition">
@@ -7824,7 +7988,7 @@ html[data-theme=dark] .asset-columns-toolbar{color:#c5c5ce}html[data-theme=dark]
 
                 const leadText = sys.lead && sys.lead !== 'undefined' ? sys.lead : 'Tổ Kỹ Thuật V.CTCH';
                 return `
-                <button type="button" onclick="handleSystemMatrixClick(${advJsQuote(sys.code)}, ${errCount}, ${openWo})" class="p-3.5 rounded-xl ${cardCls} cursor-pointer transition flex flex-col justify-between">
+                <button type="button" onclick="handleSystemMatrixClick(${advJsQuote(sys.code)}, ${errCount}, ${openWo})" data-bms-system="${advEscape(sys.code)}" data-bms-status="${errCount>0||openWo>0?'ALERT':maintCount>0?'MAINTENANCE':sysAssets.length?'OK':'EMPTY'}" class="p-3.5 rounded-xl ${cardCls} cursor-pointer transition flex flex-col justify-between">
                     <div class="flex items-center justify-between gap-1">
                         ${renderSystemBadge(sys.code)}
                         ${rightStatusHtml}
@@ -7842,6 +8006,7 @@ html[data-theme=dark] .asset-columns-toolbar{color:#c5c5ce}html[data-theme=dark]
             }
             updateUtilityCardsAndAlerts();
             renderHandoverBanner();
+            window.BentoDashboard?.refresh();
             renderEnergyChart();
         }
 
@@ -7958,6 +8123,7 @@ html[data-theme=dark] .asset-columns-toolbar{color:#c5c5ce}html[data-theme=dark]
         }
 
         function renderEnergyChart() {
+            if(window.BentoDashboard){window.BentoDashboard.renderEnergy();return;}
             if (typeof Chart === "undefined") return;
             const ctx = document.getElementById('energyChartCanvas');
             if (!ctx) return;
@@ -14351,6 +14517,7 @@ window.RealAuth = (() => {
     }
 
     function lock(messageText = '') {
+        window.BentoDashboard?.reset();
         window.AssetColumns?.close();
         window.DeviceLinks?.reset();
         window.AssetDirectory?.cancelDelete(false);
@@ -15854,7 +16021,7 @@ window.DeviceLinkModel = (() => {
 window.DeviceLinks = (() => {
     const $=id=>document.getElementById(id),esc=value=>advEscape(String(value??''));
     const model=window.DeviceLinkModel;
-    const colors={NETWORK:'#5788b4',POWER:'#bf8d39',RECORDING:'#8b72b5',VIEWING:'#4d997d'};
+    const colors={NETWORK:'#10b981',POWER:'#64748b',RECORDING:'#cbd5e1',VIEWING:'#34d399'};
     const active=()=>hasAuthenticatedClientSession()&&!!currentUser;
     const catalog=()=>active()?(assets||[]):[];
     const rows=()=>active()?(assetLinks||[]).filter(row=>catalog().some(a=>a.id===row.fromId)&&catalog().some(a=>a.id===row.toId)):[];
@@ -16139,7 +16306,7 @@ window.AssetColumns=(()=>{
             if(scale.border)scale.border.color=grid;
         }
         const canvas=chart.canvas?.id;
-        const palette=canvas==='energyChartCanvas'?['#9cc5ef','#b6a4e6','#8ed3bc']:canvas==='advancedIncidentTrendChart'?['#9cc5ef']:canvas==='advancedWorkOrderStatusChart'?['#e6b888','#9cc5ef','#8ed3bc']:null;
+        const palette=canvas==='energyChartCanvas'?['#34d399','#cbd5e1','#64748b']:canvas==='advancedIncidentTrendChart'?['#10b981']:canvas==='advancedWorkOrderStatusChart'?['#f43f5e','#64748b','#10b981']:null;
         if(palette)chart.data.datasets.forEach((dataset,i)=>{
             if(!original.has(dataset))original.set(dataset,dataset.backgroundColor);
             dataset.backgroundColor=dark?(canvas==='advancedWorkOrderStatusChart'?palette:palette[i%palette.length]):original.get(dataset);
@@ -16151,6 +16318,115 @@ window.AssetColumns=(()=>{
     window.addEventListener('afterprint',()=>{printing=false;update();});
     update();
 })();
+
+</script>
+<script id="obsidian-bento-script">
+/* Lucide Static 0.468.0, embedded subset.
+ISC License
+
+Copyright (c) for portions of Lucide are held by Cole Bemis 2013-2022 as part of Feather (MIT). All other copyright (c) for Lucide are held by Lucide Contributors 2022.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+*/
+window.BmsLucideData={"aliases":{"fa-arrow-left":"arrow-left","fa-arrow-right":"arrow-right","fa-arrow-right-arrow-left":"arrow-left-right","fa-arrow-rotate-left":"undo-2","fa-arrow-turn-down":"corner-down-right","fa-arrow-up-right-from-square":"external-link","fa-bars":"menu","fa-bell":"bell","fa-bell-concierge":"bell-ring","fa-bolt":"bolt","fa-book-open":"book-open","fa-book-open-reader":"book-open","fa-box-open":"package-open","fa-boxes-stacked":"boxes","fa-building":"building","fa-building-shield":"building-2","fa-burst":"siren","fa-calendar":"calendar","fa-calendar-check":"calendar-check","fa-calendar-day":"calendar-clock","fa-calendar-days":"calendar-days","fa-camera":"camera","fa-camera-rotate":"switch-camera","fa-chart-pie":"chart-pie","fa-check":"check","fa-check-double":"check-check","fa-check-shield":"shield-check","fa-chevron-down":"chevron-down","fa-chevron-left":"chevron-left","fa-chevron-right":"chevron-right","fa-circle-check":"circle-check","fa-circle-exclamation":"circle-alert","fa-circle-info":"info","fa-circle-question":"circle-help","fa-clipboard-check":"clipboard-check","fa-clipboard-list":"clipboard-list","fa-clock":"clock","fa-clock-rotate-left":"history","fa-cloud-arrow-up":"cloud-upload","fa-couch":"sofa","fa-crosshairs":"crosshair","fa-diagram-project":"network","fa-dolly":"truck","fa-download":"download","fa-droplet":"droplet","fa-envelope-circle-check":"mail-check","fa-eye":"eye","fa-eye-slash":"eye-off","fa-file-arrow-down":"file-down","fa-file-csv":"file-spreadsheet","fa-file-excel":"file-spreadsheet","fa-file-import":"import","fa-file-invoice":"file-text","fa-file-signature":"file-pen","fa-filter-circle-xmark":"filter-x","fa-floppy-disk":"save","fa-folder-open":"folder-open","fa-gas-pump":"fuel","fa-gauge":"gauge","fa-gauge-":"gauge","fa-gauge-high":"gauge","fa-gears":"settings","fa-grid-2":"layout-grid","fa-helmet-safety":"hard-hat","fa-images":"images","fa-key":"key-round","fa-layer-group":"layers","fa-list-check":"list-checks","fa-location-dot":"map-pin","fa-lock":"lock","fa-magnifying-glass":"search","fa-map":"map","fa-map-location-dot":"map-pinned","fa-minus":"minus","fa-moon":"moon","fa-paper-plane":"send","fa-pen":"pencil","fa-pen-to-square":"square-pen","fa-phone":"phone","fa-plus":"plus","fa-print":"printer","fa-qrcode":"qr-code","fa-right-from-bracket":"log-out","fa-rotate":"refresh-cw","fa-rotate-left":"rotate-ccw","fa-screwdriver-wrench":"wrench","fa-server":"server","fa-shield-halved":"shield-check","fa-signature":"pen-line","fa-sliders":"sliders-horizontal","fa-sun":"sun","fa-table-cells-large":"layout-grid","fa-trash":"trash","fa-trash-can":"trash-2","fa-triangle-exclamation":"triangle-alert","fa-upload":"upload","fa-user-check":"user-check","fa-user-shield":"shield-check","fa-volume-high":"volume-2","fa-volume-xmark":"volume-x","fa-wrench":"wrench","fa-xmark":"x"},"icons":{"arrow-left":"<path d=\"m12 19-7-7 7-7\" />\n  <path d=\"M19 12H5\" />","arrow-right":"<path d=\"M5 12h14\" />\n  <path d=\"m12 5 7 7-7 7\" />","circle-help":"<circle cx=\"12\" cy=\"12\" r=\"10\" />\n  <path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\" />\n  <path d=\"M12 17h.01\" />","undo-2":"<path d=\"M9 14 4 9l5-5\" />\n  <path d=\"M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11\" />","external-link":"<path d=\"M15 3h6v6\" />\n  <path d=\"M10 14 21 3\" />\n  <path d=\"M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6\" />","bell":"<path d=\"M10.268 21a2 2 0 0 0 3.464 0\" />\n  <path d=\"M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326\" />","bell-ring":"<path d=\"M10.268 21a2 2 0 0 0 3.464 0\" />\n  <path d=\"M22 8c0-2.3-.8-4.3-2-6\" />\n  <path d=\"M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326\" />\n  <path d=\"M4 2C2.8 3.7 2 5.7 2 8\" />","bolt":"<path d=\"M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z\" />\n  <circle cx=\"12\" cy=\"12\" r=\"4\" />","book-open":"<path d=\"M12 7v14\" />\n  <path d=\"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z\" />","boxes":"<path d=\"M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z\" />\n  <path d=\"m7 16.5-4.74-2.85\" />\n  <path d=\"m7 16.5 5-3\" />\n  <path d=\"M7 16.5v5.17\" />\n  <path d=\"M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z\" />\n  <path d=\"m17 16.5-5-3\" />\n  <path d=\"m17 16.5 4.74-2.85\" />\n  <path d=\"M17 16.5v5.17\" />\n  <path d=\"M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z\" />\n  <path d=\"M12 8 7.26 5.15\" />\n  <path d=\"m12 8 4.74-2.85\" />\n  <path d=\"M12 13.5V8\" />","building":"<rect width=\"16\" height=\"20\" x=\"4\" y=\"2\" rx=\"2\" ry=\"2\" />\n  <path d=\"M9 22v-4h6v4\" />\n  <path d=\"M8 6h.01\" />\n  <path d=\"M16 6h.01\" />\n  <path d=\"M12 6h.01\" />\n  <path d=\"M12 10h.01\" />\n  <path d=\"M12 14h.01\" />\n  <path d=\"M16 10h.01\" />\n  <path d=\"M16 14h.01\" />\n  <path d=\"M8 10h.01\" />\n  <path d=\"M8 14h.01\" />","building-2":"<path d=\"M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z\" />\n  <path d=\"M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2\" />\n  <path d=\"M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2\" />\n  <path d=\"M10 6h4\" />\n  <path d=\"M10 10h4\" />\n  <path d=\"M10 14h4\" />\n  <path d=\"M10 18h4\" />","calendar":"<path d=\"M8 2v4\" />\n  <path d=\"M16 2v4\" />\n  <rect width=\"18\" height=\"18\" x=\"3\" y=\"4\" rx=\"2\" />\n  <path d=\"M3 10h18\" />","calendar-check":"<path d=\"M8 2v4\" />\n  <path d=\"M16 2v4\" />\n  <rect width=\"18\" height=\"18\" x=\"3\" y=\"4\" rx=\"2\" />\n  <path d=\"M3 10h18\" />\n  <path d=\"m9 16 2 2 4-4\" />","calendar-days":"<path d=\"M8 2v4\" />\n  <path d=\"M16 2v4\" />\n  <rect width=\"18\" height=\"18\" x=\"3\" y=\"4\" rx=\"2\" />\n  <path d=\"M3 10h18\" />\n  <path d=\"M8 14h.01\" />\n  <path d=\"M12 14h.01\" />\n  <path d=\"M16 14h.01\" />\n  <path d=\"M8 18h.01\" />\n  <path d=\"M12 18h.01\" />\n  <path d=\"M16 18h.01\" />","camera":"<path d=\"M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z\" />\n  <circle cx=\"12\" cy=\"13\" r=\"3\" />","chart-pie":"<path d=\"M21 12c.552 0 1.005-.449.95-.998a10 10 0 0 0-8.953-8.951c-.55-.055-.998.398-.998.95v8a1 1 0 0 0 1 1z\" />\n  <path d=\"M21.21 15.89A10 10 0 1 1 8 2.83\" />","check":"<path d=\"M20 6 9 17l-5-5\" />","check-check":"<path d=\"M18 6 7 17l-5-5\" />\n  <path d=\"m22 10-7.5 7.5L13 16\" />","chevron-down":"<path d=\"m6 9 6 6 6-6\" />","chevron-left":"<path d=\"m15 18-6-6 6-6\" />","chevron-right":"<path d=\"m9 18 6-6-6-6\" />","circle-check":"<circle cx=\"12\" cy=\"12\" r=\"10\" />\n  <path d=\"m9 12 2 2 4-4\" />","circle-alert":"<circle cx=\"12\" cy=\"12\" r=\"10\" />\n  <line x1=\"12\" x2=\"12\" y1=\"8\" y2=\"12\" />\n  <line x1=\"12\" x2=\"12.01\" y1=\"16\" y2=\"16\" />","info":"<circle cx=\"12\" cy=\"12\" r=\"10\" />\n  <path d=\"M12 16v-4\" />\n  <path d=\"M12 8h.01\" />","clipboard-check":"<rect width=\"8\" height=\"4\" x=\"8\" y=\"2\" rx=\"1\" ry=\"1\" />\n  <path d=\"M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2\" />\n  <path d=\"m9 14 2 2 4-4\" />","clipboard-list":"<rect width=\"8\" height=\"4\" x=\"8\" y=\"2\" rx=\"1\" ry=\"1\" />\n  <path d=\"M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2\" />\n  <path d=\"M12 11h4\" />\n  <path d=\"M12 16h4\" />\n  <path d=\"M8 11h.01\" />\n  <path d=\"M8 16h.01\" />","clock":"<circle cx=\"12\" cy=\"12\" r=\"10\" />\n  <polyline points=\"12 6 12 12 16 14\" />","history":"<path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\" />\n  <path d=\"M3 3v5h5\" />\n  <path d=\"M12 7v5l4 2\" />","cloud-upload":"<path d=\"M12 13v8\" />\n  <path d=\"M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242\" />\n  <path d=\"m8 17 4-4 4 4\" />","sofa":"<path d=\"M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3\" />\n  <path d=\"M2 16a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z\" />\n  <path d=\"M4 18v2\" />\n  <path d=\"M20 18v2\" />\n  <path d=\"M12 4v9\" />","network":"<rect x=\"16\" y=\"16\" width=\"6\" height=\"6\" rx=\"1\" />\n  <rect x=\"2\" y=\"16\" width=\"6\" height=\"6\" rx=\"1\" />\n  <rect x=\"9\" y=\"2\" width=\"6\" height=\"6\" rx=\"1\" />\n  <path d=\"M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3\" />\n  <path d=\"M12 12V8\" />","download":"<path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n  <polyline points=\"7 10 12 15 17 10\" />\n  <line x1=\"12\" x2=\"12\" y1=\"15\" y2=\"3\" />","droplet":"<path d=\"M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z\" />","eye":"<path d=\"M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0\" />\n  <circle cx=\"12\" cy=\"12\" r=\"3\" />","eye-off":"<path d=\"M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49\" />\n  <path d=\"M14.084 14.158a3 3 0 0 1-4.242-4.242\" />\n  <path d=\"M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143\" />\n  <path d=\"m2 2 20 20\" />","file-down":"<path d=\"M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z\" />\n  <path d=\"M14 2v4a2 2 0 0 0 2 2h4\" />\n  <path d=\"M12 18v-6\" />\n  <path d=\"m9 15 3 3 3-3\" />","file-spreadsheet":"<path d=\"M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z\" />\n  <path d=\"M14 2v4a2 2 0 0 0 2 2h4\" />\n  <path d=\"M8 13h2\" />\n  <path d=\"M14 13h2\" />\n  <path d=\"M8 17h2\" />\n  <path d=\"M14 17h2\" />","import":"<path d=\"M12 3v12\" />\n  <path d=\"m8 11 4 4 4-4\" />\n  <path d=\"M8 5H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-4\" />","file-text":"<path d=\"M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z\" />\n  <path d=\"M14 2v4a2 2 0 0 0 2 2h4\" />\n  <path d=\"M10 9H8\" />\n  <path d=\"M16 13H8\" />\n  <path d=\"M16 17H8\" />","save":"<path d=\"M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z\" />\n  <path d=\"M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7\" />\n  <path d=\"M7 3v4a1 1 0 0 0 1 1h7\" />","folder-open":"<path d=\"m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2\" />","fuel":"<line x1=\"3\" x2=\"15\" y1=\"22\" y2=\"22\" />\n  <line x1=\"4\" x2=\"14\" y1=\"9\" y2=\"9\" />\n  <path d=\"M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18\" />\n  <path d=\"M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2a2 2 0 0 0 2-2V9.83a2 2 0 0 0-.59-1.42L18 5\" />","gauge":"<path d=\"m12 14 4-4\" />\n  <path d=\"M3.34 19a10 10 0 1 1 17.32 0\" />","layout-grid":"<rect width=\"7\" height=\"7\" x=\"3\" y=\"3\" rx=\"1\" />\n  <rect width=\"7\" height=\"7\" x=\"14\" y=\"3\" rx=\"1\" />\n  <rect width=\"7\" height=\"7\" x=\"14\" y=\"14\" rx=\"1\" />\n  <rect width=\"7\" height=\"7\" x=\"3\" y=\"14\" rx=\"1\" />","hard-hat":"<path d=\"M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5\" />\n  <path d=\"M14 6a6 6 0 0 1 6 6v3\" />\n  <path d=\"M4 15v-3a6 6 0 0 1 6-6\" />\n  <rect x=\"2\" y=\"15\" width=\"20\" height=\"4\" rx=\"1\" />","images":"<path d=\"M18 22H4a2 2 0 0 1-2-2V6\" />\n  <path d=\"m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18\" />\n  <circle cx=\"12\" cy=\"8\" r=\"2\" />\n  <rect width=\"16\" height=\"16\" x=\"6\" y=\"2\" rx=\"2\" />","key-round":"<path d=\"M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z\" />\n  <circle cx=\"16.5\" cy=\"7.5\" r=\".5\" fill=\"currentColor\" />","layers":"<path d=\"M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z\" />\n  <path d=\"M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12\" />\n  <path d=\"M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17\" />","list-checks":"<path d=\"m3 17 2 2 4-4\" />\n  <path d=\"m3 7 2 2 4-4\" />\n  <path d=\"M13 6h8\" />\n  <path d=\"M13 12h8\" />\n  <path d=\"M13 18h8\" />","map-pin":"<path d=\"M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0\" />\n  <circle cx=\"12\" cy=\"10\" r=\"3\" />","lock":"<rect width=\"18\" height=\"11\" x=\"3\" y=\"11\" rx=\"2\" ry=\"2\" />\n  <path d=\"M7 11V7a5 5 0 0 1 10 0v4\" />","search":"<circle cx=\"11\" cy=\"11\" r=\"8\" />\n  <path d=\"m21 21-4.3-4.3\" />","map":"<path d=\"M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z\" />\n  <path d=\"M15 5.764v15\" />\n  <path d=\"M9 3.236v15\" />","map-pinned":"<path d=\"M18 8c0 3.613-3.869 7.429-5.393 8.795a1 1 0 0 1-1.214 0C9.87 15.429 6 11.613 6 8a6 6 0 0 1 12 0\" />\n  <circle cx=\"12\" cy=\"8\" r=\"2\" />\n  <path d=\"M8.714 14h-3.71a1 1 0 0 0-.948.683l-2.004 6A1 1 0 0 0 3 22h18a1 1 0 0 0 .948-1.316l-2-6a1 1 0 0 0-.949-.684h-3.712\" />","minus":"<path d=\"M5 12h14\" />","moon":"<path d=\"M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z\" />","pencil":"<path d=\"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z\" />\n  <path d=\"m15 5 4 4\" />","square-pen":"<path d=\"M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7\" />\n  <path d=\"M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z\" />","phone":"<path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z\" />","plus":"<path d=\"M5 12h14\" />\n  <path d=\"M12 5v14\" />","printer":"<path d=\"M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2\" />\n  <path d=\"M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6\" />\n  <rect x=\"6\" y=\"14\" width=\"12\" height=\"8\" rx=\"1\" />","qr-code":"<rect width=\"5\" height=\"5\" x=\"3\" y=\"3\" rx=\"1\" />\n  <rect width=\"5\" height=\"5\" x=\"16\" y=\"3\" rx=\"1\" />\n  <rect width=\"5\" height=\"5\" x=\"3\" y=\"16\" rx=\"1\" />\n  <path d=\"M21 16h-3a2 2 0 0 0-2 2v3\" />\n  <path d=\"M21 21v.01\" />\n  <path d=\"M12 7v3a2 2 0 0 1-2 2H7\" />\n  <path d=\"M3 12h.01\" />\n  <path d=\"M12 3h.01\" />\n  <path d=\"M12 16v.01\" />\n  <path d=\"M16 12h1\" />\n  <path d=\"M21 12v.01\" />\n  <path d=\"M12 21v-1\" />","log-out":"<path d=\"M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4\" />\n  <polyline points=\"16 17 21 12 16 7\" />\n  <line x1=\"21\" x2=\"9\" y1=\"12\" y2=\"12\" />","refresh-cw":"<path d=\"M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8\" />\n  <path d=\"M21 3v5h-5\" />\n  <path d=\"M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16\" />\n  <path d=\"M8 16H3v5\" />","rotate-ccw":"<path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\" />\n  <path d=\"M3 3v5h5\" />","wrench":"<path d=\"M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z\" />","server":"<rect width=\"20\" height=\"8\" x=\"2\" y=\"2\" rx=\"2\" ry=\"2\" />\n  <rect width=\"20\" height=\"8\" x=\"2\" y=\"14\" rx=\"2\" ry=\"2\" />\n  <line x1=\"6\" x2=\"6.01\" y1=\"6\" y2=\"6\" />\n  <line x1=\"6\" x2=\"6.01\" y1=\"18\" y2=\"18\" />","shield-check":"<path d=\"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z\" />\n  <path d=\"m9 12 2 2 4-4\" />","pen-line":"<path d=\"M12 20h9\" />\n  <path d=\"M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z\" />","sun":"<circle cx=\"12\" cy=\"12\" r=\"4\" />\n  <path d=\"M12 2v2\" />\n  <path d=\"M12 20v2\" />\n  <path d=\"m4.93 4.93 1.41 1.41\" />\n  <path d=\"m17.66 17.66 1.41 1.41\" />\n  <path d=\"M2 12h2\" />\n  <path d=\"M20 12h2\" />\n  <path d=\"m6.34 17.66-1.41 1.41\" />\n  <path d=\"m19.07 4.93-1.41 1.41\" />","trash":"<path d=\"M3 6h18\" />\n  <path d=\"M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6\" />\n  <path d=\"M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2\" />","triangle-alert":"<path d=\"m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3\" />\n  <path d=\"M12 9v4\" />\n  <path d=\"M12 17h.01\" />","upload":"<path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n  <polyline points=\"17 8 12 3 7 8\" />\n  <line x1=\"12\" x2=\"12\" y1=\"3\" y2=\"15\" />","user-check":"<path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\" />\n  <circle cx=\"9\" cy=\"7\" r=\"4\" />\n  <polyline points=\"16 11 18 13 22 9\" />","volume-2":"<path d=\"M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z\" />\n  <path d=\"M16 9a5 5 0 0 1 0 6\" />\n  <path d=\"M19.364 18.364a9 9 0 0 0 0-12.728\" />","volume-x":"<path d=\"M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z\" />\n  <line x1=\"22\" x2=\"16\" y1=\"9\" y2=\"15\" />\n  <line x1=\"16\" x2=\"22\" y1=\"9\" y2=\"15\" />","activity":"<path d=\"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2\" />","arrow-up-right":"<path d=\"M7 7h10v10\" />\n  <path d=\"M7 17 17 7\" />","arrow-down-right":"<path d=\"m7 7 10 10\" />\n  <path d=\"M17 7v10H7\" />","settings-2":"<path d=\"M20 7h-9\" />\n  <path d=\"M14 17H5\" />\n  <circle cx=\"17\" cy=\"17\" r=\"3\" />\n  <circle cx=\"7\" cy=\"7\" r=\"3\" />","sliders-horizontal":"<line x1=\"21\" x2=\"14\" y1=\"4\" y2=\"4\" />\n  <line x1=\"10\" x2=\"3\" y1=\"4\" y2=\"4\" />\n  <line x1=\"21\" x2=\"12\" y1=\"12\" y2=\"12\" />\n  <line x1=\"8\" x2=\"3\" y1=\"12\" y2=\"12\" />\n  <line x1=\"21\" x2=\"16\" y1=\"20\" y2=\"20\" />\n  <line x1=\"12\" x2=\"3\" y1=\"20\" y2=\"20\" />\n  <line x1=\"14\" x2=\"14\" y1=\"2\" y2=\"6\" />\n  <line x1=\"8\" x2=\"8\" y1=\"10\" y2=\"14\" />\n  <line x1=\"16\" x2=\"16\" y1=\"18\" y2=\"22\" />","filter":"<polygon points=\"22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3\" />","command":"<path d=\"M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3\" />","log-in":"<path d=\"M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4\" />\n  <polyline points=\"10 17 15 12 10 7\" />\n  <line x1=\"15\" x2=\"3\" y1=\"12\" y2=\"12\" />","x":"<path d=\"M18 6 6 18\" />\n  <path d=\"m6 6 12 12\" />","sparkles":"<path d=\"M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z\" />\n  <path d=\"M20 3v4\" />\n  <path d=\"M22 5h-4\" />\n  <path d=\"M4 17v2\" />\n  <path d=\"M5 18H3\" />","zap":"<path d=\"M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z\" />","calendar-clock":"<path d=\"M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5\" />\n  <path d=\"M16 2v4\" />\n  <path d=\"M8 2v4\" />\n  <path d=\"M3 10h5\" />\n  <path d=\"M17.5 17.5 16 16.3V14\" />\n  <circle cx=\"16\" cy=\"16\" r=\"6\" />","crosshair":"<circle cx=\"12\" cy=\"12\" r=\"10\" />\n  <line x1=\"22\" x2=\"18\" y1=\"12\" y2=\"12\" />\n  <line x1=\"6\" x2=\"2\" y1=\"12\" y2=\"12\" />\n  <line x1=\"12\" x2=\"12\" y1=\"6\" y2=\"2\" />\n  <line x1=\"12\" x2=\"12\" y1=\"22\" y2=\"18\" />","mail-check":"<path d=\"M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8\" />\n  <path d=\"m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7\" />\n  <path d=\"m16 19 2 2 4-4\" />","file-pen":"<path d=\"M12.5 22H18a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v9.5\" />\n  <path d=\"M14 2v4a2 2 0 0 0 2 2h4\" />\n  <path d=\"M13.378 15.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z\" />","package-open":"<path d=\"M12 22v-9\" />\n  <path d=\"M15.17 2.21a1.67 1.67 0 0 1 1.63 0L21 4.57a1.93 1.93 0 0 1 0 3.36L8.82 14.79a1.655 1.655 0 0 1-1.64 0L3 12.43a1.93 1.93 0 0 1 0-3.36z\" />\n  <path d=\"M20 13v3.87a2.06 2.06 0 0 1-1.11 1.83l-6 3.08a1.93 1.93 0 0 1-1.78 0l-6-3.08A2.06 2.06 0 0 1 4 16.87V13\" />\n  <path d=\"M21 12.43a1.93 1.93 0 0 0 0-3.36L8.83 2.2a1.64 1.64 0 0 0-1.63 0L3 4.57a1.93 1.93 0 0 0 0 3.36l12.18 6.86a1.636 1.636 0 0 0 1.63 0z\" />","corner-down-right":"<polyline points=\"15 10 20 15 15 20\" />\n  <path d=\"M4 4v7a4 4 0 0 0 4 4h12\" />","menu":"<line x1=\"4\" x2=\"20\" y1=\"12\" y2=\"12\" />\n  <line x1=\"4\" x2=\"20\" y1=\"6\" y2=\"6\" />\n  <line x1=\"4\" x2=\"20\" y1=\"18\" y2=\"18\" />","send":"<path d=\"M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z\" />\n  <path d=\"m21.854 2.147-10.94 10.939\" />","trash-2":"<path d=\"M3 6h18\" />\n  <path d=\"M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6\" />\n  <path d=\"M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2\" />\n  <line x1=\"10\" x2=\"10\" y1=\"11\" y2=\"17\" />\n  <line x1=\"14\" x2=\"14\" y1=\"11\" y2=\"17\" />","switch-camera":"<path d=\"M11 19H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5\" />\n  <path d=\"M13 5h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-5\" />\n  <circle cx=\"12\" cy=\"12\" r=\"3\" />\n  <path d=\"m18 22-3-3 3-3\" />\n  <path d=\"m6 2 3 3-3 3\" />","arrow-left-right":"<path d=\"M8 3 4 7l4 4\" />\n  <path d=\"M4 7h16\" />\n  <path d=\"m16 21 4-4-4-4\" />\n  <path d=\"M20 17H4\" />","settings":"<path d=\"M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z\" />\n  <circle cx=\"12\" cy=\"12\" r=\"3\" />","filter-x":"<path d=\"M13.013 3H2l8 9.46V19l4 2v-8.54l.9-1.055\" />\n  <path d=\"m22 3-5 5\" />\n  <path d=\"m17 3 5 5\" />","truck":"<path d=\"M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2\" />\n  <path d=\"M15 18H9\" />\n  <path d=\"M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14\" />\n  <circle cx=\"17\" cy=\"18\" r=\"2\" />\n  <circle cx=\"7\" cy=\"18\" r=\"2\" />","siren":"<path d=\"M7 18v-6a5 5 0 1 1 10 0v6\" />\n  <path d=\"M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z\" />\n  <path d=\"M21 12h1\" />\n  <path d=\"M18.5 4.5 18 5\" />\n  <path d=\"M2 12h1\" />\n  <path d=\"M12 2v1\" />\n  <path d=\"m4.929 4.929.707.707\" />\n  <path d=\"M12 12v6\" />"}};
+/* Preserve the original icon wrappers/IDs so existing button handlers keep working. */
+window.BmsIcons=(()=>{
+    const {icons,aliases}=window.BmsLucideData;
+    const svg=name=>`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${icons[name]||icons['circle-help']}</svg>`;
+    function render(el){
+        const name=el.getAttribute('data-bms-icon')||[...el.classList].map(c=>aliases[c]).find(Boolean);
+        if(!name||el.dataset.bmsLucide===name&&el.querySelector('svg'))return;
+        el.innerHTML=svg(name);el.dataset.bmsLucide=name;el.classList.add('bms-lucide');el.setAttribute('aria-hidden','true');
+    }
+    function scan(root){if(root.nodeType!==1)return;if(root.matches('i,[data-bms-icon]'))render(root);root.querySelectorAll('i,[data-bms-icon]').forEach(render);}
+    scan(document.body);
+    new MutationObserver(records=>{
+        for(const record of records){if(record.type==='attributes'){if(record.target.matches('i,[data-bms-icon]'))render(record.target);}else record.addedNodes.forEach(scan);}
+    }).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
+    return {svg,scan};
+})();
+
+window.BentoDashboard=(()=>{
+    const $=id=>document.getElementById(id),esc=value=>advEscape(String(value??''));
+    const kpis=['kpiTotalAssets','kpiOpenTickets','kpiMaintenanceDue','kpiLowStockCount'];
+    const labels=['Tổng thiết bị','Sự cố chưa đóng','Bảo trì đến hạn','Vật tư sắp hết'];
+    let samples=[],owner='',visibleSeries=[true,true,true];
+    const active=()=>hasAuthenticatedClientSession()&&!!currentUser;
+    const key=()=>BUILDING+'|'+String(currentUser?.uid||currentUser?.id||'');
+    function curve(points){
+        if(!points.length)return '';
+        return `M${points[0][0]},${points[0][1]}`+points.slice(1).map((point,i)=>{const before=points[i],mid=(before[0]+point[0])/2;return ` C${mid},${before[1]} ${mid},${point[1]} ${point[0]},${point[1]}`;}).join('');
+    }
+    function spark(index){
+        const values=samples.map(row=>row.values[index]),w=220,h=45,min=Math.min(...values,0),max=Math.max(...values,1),span=max-min||1;
+        const points=values.map((value,i)=>[values.length===1?w-8:8+i*(w-16)/(values.length-1),h-7-(value-min)/span*(h-16)]);
+        const path=curve(points),color=index===0?'#34d399':index===1&&values.at(-1)>0?'#f43f5e':index===2&&values.at(-1)>0?'#f59e0b':'#94a3b8';
+        const last=points.at(-1)||[w-8,h-7],fill=points.length>1?`<path d="${path} L${last[0]},${h} L${points[0][0]},${h} Z" fill="url(#bento-spark-fill-${index})"/>`:`<path d="M8,${last[1]} H${last[0]} V${h} H8 Z" fill="url(#bento-spark-fill-${index})" opacity=".3"/><path d="M8,${last[1]} H${last[0]}" stroke="${color}" stroke-opacity=".25" stroke-dasharray="2 5"/>`;
+        return `<svg viewBox="0 0 ${w} ${h}" aria-hidden="true"><defs><linearGradient id="bento-spark-fill-${index}" x1="0" y1="0" x2="0" y2="1"><stop stop-color="${color}" stop-opacity=".22"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></linearGradient><filter id="bento-spark-glow-${index}" x="-25%" y="-100%" width="150%" height="300%"><feGaussianBlur stdDeviation="2.3"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><path d="M0,${h-2} H${w}" stroke="currentColor" opacity=".1"/>${fill}${points.length>1?`<path d="${path}" stroke="${color}" fill="none" stroke-width="1.7" filter="url(#bento-spark-glow-${index})"/>`:''}<circle cx="${last[0]}" cy="${last[1]}" r="2.5" fill="${color}" filter="url(#bento-spark-glow-${index})"/></svg>`;
+    }
+    function filterSystems(){
+        const choice=$('bentoSystemStatus').value,rows=[...$('dashboardSystemsMatrix').querySelectorAll('[data-bms-system]')];let shown=0;
+        rows.forEach(row=>{row.hidden=choice!=='ALL'&&choice!==row.dataset.bmsStatus;if(!row.hidden)shown++;});
+        $('bentoSystemSummary').textContent=`${shown}/${rows.length} hệ thống`;
+    }
+    function refresh(){
+        if(!active())return;
+        if(owner!==key()){owner=key();samples=[];visibleSeries=[true,true,true];}
+        const values=kpis.map(id=>Number(String($(id).textContent).replace(/[^0-9.-]/g,''))||0),previous=samples.at(-1),now=Date.now();
+        if(window.SharedData?.ready()&&(!previous||values.some((value,i)=>value!==previous.values[i])||now-previous.time>60000)){
+            samples.push({time:now,values});if(samples.length>40)samples.shift();
+        }
+        document.querySelectorAll('.dashboard-kpis>button').forEach((card,index)=>{
+            card.classList.add('bento-kpi');card.dataset.bentoKpi=String(index);
+            let plot=card.querySelector('.bento-kpi-spark');if(!plot){plot=document.createElement('div');plot.className='bento-kpi-spark';card.appendChild(plot);}
+            plot.innerHTML=samples.length?spark(index):'<span class="bento-spark-empty">Chờ dữ liệu đồng bộ</span>';
+            plot.title=`${labels[index]}: ${values[index]}. ${samples.length} mốc trong phiên làm việc này.`;
+            let caption=card.querySelector('.bento-kpi-caption');if(!caption){caption=document.createElement('span');caption.className='bento-kpi-caption';card.appendChild(caption);}
+            caption.textContent=samples.length>1?'Xu hướng trong phiên':'1 mốc · đang ghi nhận xu hướng';
+        });
+        $('dashboardSystemsMatrix').querySelectorAll('[data-bms-system]').forEach(row=>{
+            if(!row.querySelector('.bento-system-led')){const dot=document.createElement('span');dot.className='bento-system-led';dot.setAttribute('aria-hidden','true');row.firstElementChild.prepend(dot);}
+        });filterSystems();
+    }
+    function renderEnergy(){
+        const root=$('bentoEnergySvg');if(!root||!active())return;
+        const records=VCTCHRules.chartEnergyLogs(utilityEntriesByDate(),10),series=[{name:'HVAC & Chiller',unit:'kWh',field:'hvac',color:'#34d399',factor:1},{name:'Chiếu sáng & động lực',unit:'kWh',field:'light',color:'#cbd5e1',factor:1},{name:'Nước sinh hoạt',unit:'m³',field:'water',color:'#64748b',factor:10}];
+        $('bentoEnergyLegend').innerHTML=series.map((item,i)=>`<button type="button" data-bento-series="${i}" aria-pressed="${visibleSeries[i]}"><span style="background:${item.color}" aria-hidden="true"></span>${esc(item.name)} <small>${item.unit}${item.factor===10?' ×10':''}</small></button>`).join('');
+        if(!records.length){root.innerHTML='<div class="bento-chart-empty">Chưa có chỉ số điện/nước trong phạm vi được xem.</div>';$('bentoEnergyReadout').textContent='Ghi chỉ số để bắt đầu theo dõi.';return;}
+        const w=760,h=255,pad={left:52,right:18,top:20,bottom:35},plotW=w-pad.left-pad.right,plotH=h-pad.top-pad.bottom;
+        const values=series.flatMap((item,i)=>visibleSeries[i]?records.map(row=>Math.max(0,Number(row[item.field])||0)*item.factor):[]),peak=Math.max(1,...values),step=Math.pow(10,Math.floor(Math.log10(peak))),ceiling=Math.ceil(peak/step)*step;
+        const x=i=>pad.left+(records.length===1?plotW/2:i*plotW/(records.length-1)),y=value=>pad.top+plotH-(value/ceiling)*plotH;
+        const grid=Array.from({length:5},(_,i)=>{const value=ceiling*i/4,py=y(value);return `<g><line x1="${pad.left}" x2="${w-pad.right}" y1="${py}" y2="${py}" class="bento-chart-grid"/><text x="${pad.left-10}" y="${py+4}" text-anchor="end" class="bento-chart-tick">${esc(new Intl.NumberFormat('vi-VN',{maximumFractionDigits:0}).format(value))}</text></g>`;}).join('');
+        const dates=records.map((row,i)=>i%Math.ceil(records.length/5)===0||i===records.length-1?`<text x="${x(i)}" y="${h-9}" text-anchor="${i===0?'start':i===records.length-1?'end':'middle'}" class="bento-chart-tick">${esc(formatIsoToVnDate(row.date))}</text>`:'').join('');
+        const plots=series.map((item,index)=>{
+            if(!visibleSeries[index])return '';
+            const points=records.map((row,i)=>[x(i),y(Math.max(0,Number(row[item.field])||0)*item.factor)]),path=curve(points),last=points.at(-1),first=points[0];
+            return `<g><defs><linearGradient id="bento-energy-fill-${index}" x1="0" y1="0" x2="0" y2="1"><stop stop-color="${item.color}" stop-opacity="${index===0?'.18':'.07'}"/><stop offset="1" stop-color="${item.color}" stop-opacity="0"/></linearGradient></defs>${points.length>1?`<path d="${path} L${last[0]},${h-pad.bottom} L${first[0]},${h-pad.bottom} Z" fill="url(#bento-energy-fill-${index})"/><path d="${path}" fill="none" stroke="${item.color}" stroke-width="${index===0?'2.4':'1.7'}"/>`:''}${points.map(([cx,cy])=>`<circle cx="${cx}" cy="${cy}" r="2.8" fill="${item.color}"/>`).join('')}</g>`;
+        }).join('');
+        const targets=records.map((row,i)=>{const text=formatIsoToVnDate(row.date)+' · '+series.map(item=>item.name+': '+new Intl.NumberFormat('vi-VN').format(Number(row[item.field])||0)+' '+item.unit).join(' · ');return `<g tabindex="0" class="bento-chart-point" data-readout="${esc(text)}" role="img" aria-label="${esc(text)}"><title>${esc(text)}</title><rect x="${x(i)-12}" y="${pad.top}" width="24" height="${plotH}" fill="transparent"/><line x1="${x(i)}" x2="${x(i)}" y1="${pad.top}" y2="${h-pad.bottom}" class="bento-chart-crosshair"/></g>`;}).join('');
+        root.innerHTML=`<svg viewBox="0 0 ${w} ${h}" role="group" aria-label="Biểu đồ ${records.length} bản ghi điện và nước gần nhất; nước được nhân 10 để hiển thị chung. Dùng Tab để xem từng mốc.">${grid}${dates}${plots}${targets}</svg>`;
+        root.querySelectorAll('[data-readout]').forEach(node=>{const show=()=>{$('bentoEnergyReadout').textContent=node.dataset.readout;};node.addEventListener('mouseenter',show);node.addEventListener('focus',show);});
+    }
+    $('bentoEnergyLegend').addEventListener('click',event=>{const button=event.target.closest('[data-bento-series]');if(!button)return;const index=Number(button.dataset.bentoSeries);visibleSeries[index]=!visibleSeries[index];renderEnergy();$('bentoEnergyLegend').querySelector(`[data-bento-series="${index}"]`)?.focus();});
+    function reset(){samples=[];owner='';visibleSeries=[true,true,true];$('bentoEnergySvg').innerHTML='';$('bentoEnergyLegend').innerHTML='';document.querySelectorAll('.bento-kpi-spark,.bento-kpi-caption').forEach(node=>node.remove());}
+    const ribbon=document.createElement('div');ribbon.className='bento-ribbon';ribbon.setAttribute('aria-hidden','true');
+    const threads=Array.from({length:26},(_,i)=>`<path d="M-60,${215+i*4} C110,${-25+i*6} 220,${420-i*2} 640,${30+i*7}"/>`).join('');
+    ribbon.innerHTML=`<svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="bento-ribbon-ink" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#10b981" stop-opacity="0"/><stop offset=".4" stop-color="#34d399" stop-opacity=".45"/><stop offset=".65" stop-color="#cbd5e1" stop-opacity=".5"/><stop offset="1" stop-color="#64748b" stop-opacity="0"/></linearGradient></defs><g fill="none" stroke="url(#bento-ribbon-ink)" stroke-width=".7">${threads}</g></svg>`;
+    $('bentoHandoverCard').prepend(ribbon);
+    return {refresh,filterSystems,renderEnergy,reset};
+})();
+window.BentoDashboard.refresh();window.BentoDashboard.renderEnergy();
 
 </script>
 </body>
