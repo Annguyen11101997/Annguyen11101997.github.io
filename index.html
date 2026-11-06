@@ -4182,6 +4182,24 @@ html[data-theme=dark] .shift-diary{--sd-bg:#1e1e21;--sd-soft:#171719;--sd-ink:#f
 #latestShiftBanner{--sd-bg:#fff;--sd-soft:#f5f8fb;--sd-ink:#243c4b;--sd-muted:#586c7c;--sd-line:#cddce5;--sd-accent:#355f7a;--sd-tint:#e8f2f7}html[data-theme=dark] #latestShiftBanner{--sd-bg:#1e1e21;--sd-soft:#171719;--sd-ink:#f4f4f5;--sd-muted:#c5c5ce;--sd-line:#52657b;--sd-accent:#9cc9e6;--sd-tint:#28282c}
 .sd-history-top>div{min-width:0;flex:1}.sd-history-meta,.sd-history-title,.sd-history-activity{overflow-wrap:anywhere}
 
+/* The Word template has independent Đạt / Không đạt columns in both checklists. */
+#mainAppWrapper #tab-shiftlog .sd-checklist{min-width:980px}
+#mainAppWrapper #tab-shiftlog .sd-checklist th:nth-child(1){width:48px}
+#mainAppWrapper #tab-shiftlog .sd-checklist th:nth-child(2){width:21%}
+#mainAppWrapper #tab-shiftlog .sd-checklist th:nth-child(3){width:32%}
+#mainAppWrapper #tab-shiftlog .sd-checklist th:nth-child(4),#mainAppWrapper #tab-shiftlog .sd-checklist th:nth-child(5){width:66px;text-align:center}
+#mainAppWrapper #tab-shiftlog .sd-check-choice{vertical-align:middle;text-align:center}
+#mainAppWrapper #tab-shiftlog .sd-check-choice label{display:flex;align-items:center;justify-content:center;min-height:44px;cursor:pointer}
+#mainAppWrapper #tab-shiftlog .sd-check-choice input[type=radio]{width:18px!important;height:18px!important;min-width:18px!important;min-height:18px!important;margin:0;padding:0;accent-color:#10b981;cursor:pointer;box-shadow:none!important}
+#mainAppWrapper #tab-shiftlog .sd-check-choice input[value=FAIL]{accent-color:#f43f5e}
+#mainAppWrapper #tab-shiftlog .sd-section-heading h4{font-size:15px;font-weight:650;line-height:1.6}
+#mainAppWrapper #tab-shiftlog .sd-section-heading p{font-size:12px;line-height:1.7}
+.sd-journal-heading{margin-top:22px}.sd-extra{margin:16px 0}.sd-extra summary{font-size:12px;cursor:pointer;margin-bottom:12px}
+html[data-theme=dark] #mainAppWrapper #tab-shiftlog{--sd-bg:rgba(15,20,28,.72);--sd-soft:rgba(7,11,17,.52);--sd-ink:#f4f4f5;--sd-muted:#c5c5ce;--sd-line:rgba(255,255,255,.12);--sd-accent:#34d399;--sd-tint:rgba(16,185,129,.07)}
+html[data-theme=dark] #mainAppWrapper #tab-shiftlog .sd-card{background:rgba(15,20,28,.72)!important;border-color:rgba(255,255,255,.08)!important;backdrop-filter:blur(20px);box-shadow:0 18px 48px #11111338}
+html[data-theme=dark] #mainAppWrapper #tab-shiftlog .sd-button.sd-primary{background:#10b981!important;color:#03150e!important;border-color:#34d39966!important}
+#shiftRecordDialog .sd-report :is(p,table,td,th){color:#17202b!important}
+
 </style>
 <style id="shift-diary-report-style">
 
@@ -5870,11 +5888,11 @@ html[data-theme=dark] .asset-columns-toolbar{color:#c5c5ce}html[data-theme=dark]
     <div><p class="sd-eyebrow">SỔ TRỰC KỸ THUẬT · <span data-building-text="building">500G</span></p><h3>Nhật Ký Vận Hành &amp; Bàn Giao Ca</h3><p>Nhật ký 24 giờ, checklist kiểm tra và phiếu bàn giao theo mẫu.</p></div>
     <button type="button" class="sd-button" onclick="ShiftDiary.newDraft()"><i class="fa-solid fa-plus" aria-hidden="true"></i>Lập nhật ký mới</button>
   </header>
-  <p id="shiftDiaryFeedback" class="sd-feedback" role="status" aria-live="polite">Lưu nhật ký trong ca; chỉ bấm Giao ca khi đã rà soát đủ nội dung.</p>
+  <p id="shiftDiaryFeedback" class="sd-feedback" role="status" aria-live="polite">Mẫu gồm nhật ký, checklist V.CTCH, giám sát 1000G và phiếu bàn giao. Đạt / Hoạt động bình thường được điền sẵn cho bản mới; rà soát trước khi giao ca.</p>
   <form id="shiftDiaryForm" onsubmit="saveAdvancedShiftLog(event)" oninput="ShiftDiary.markDirty()" onchange="ShiftDiary.markDirty()">
     <fieldset id="shiftDiaryFields">
       <section class="sd-card">
-        <div class="sd-section-heading"><span class="sd-number">01</span><div><h4>Thông tin ca trực</h4><p id="shiftDiaryScope"></p></div><span id="shiftDiaryDraftBadge" class="sd-badge">BẢN MỚI</span></div>
+        <div class="sd-section-heading"><span class="sd-number">I</span><div><h4>PHẦN I. MẪU NHẬT KÝ TRỰC 24 GIỜ</h4><p id="shiftDiaryScope"></p></div><span id="shiftDiaryDraftBadge" class="sd-badge">BẢN MỚI</span></div>
         <div class="sd-meta-grid">
           <label>Ngày trực<input id="shiftLogDutyDate" type="date" required onchange="ShiftDiary.changeDate()"></label>
           <label>Ca trực<select id="shiftLogShift"><option value="Ca trực 24h (07:00–07:00 hôm sau)">Ca trực 24h (07:00–07:00 hôm sau)</option><option value="Ca sáng">Ca sáng</option><option value="Ca chiều">Ca chiều</option><option value="Ca đêm">Ca đêm</option><option value="Ca khác">Ca khác</option></select></label>
@@ -5884,29 +5902,31 @@ html[data-theme=dark] .asset-columns-toolbar{color:#c5c5ce}html[data-theme=dark]
           <label>Người nhận ca<select id="shiftLogTo"><option value="">Chọn nhân sự nhận ca</option></select></label>
           <label class="sd-span-2">Nhân viên trực<textarea id="shiftLogStaff" rows="2" maxlength="2000" placeholder="Họ tên các nhân viên cùng ca trực"></textarea></label>
         </div>
-      </section>
-      <section class="sd-card">
-        <div class="sd-section-heading"><span class="sd-number">02</span><div><h4>Nhật ký trực 24 giờ</h4><p>Ghi theo thời điểm kiểm tra, tiếp nhận yêu cầu hoặc xử lý sự cố.</p></div><button type="button" class="sd-button sd-small" onclick="ShiftDiary.addJournalRow()"><i class="fa-solid fa-plus" aria-hidden="true"></i>Thêm dòng</button></div>
+        <div class="sd-section-heading sd-journal-heading"><div><h4>Nhật ký trực 24 giờ</h4><p>Ghi theo thời điểm kiểm tra, tiếp nhận yêu cầu hoặc xử lý sự cố.</p></div><button type="button" class="sd-button sd-small" onclick="ShiftDiary.addJournalRow()"><i class="fa-solid fa-plus" aria-hidden="true"></i>Thêm dòng</button></div>
         <div class="sd-table-scroll"><table class="sd-table sd-journal"><thead><tr><th scope="col">Thời gian</th><th scope="col">Tòa nhà / Khu vực</th><th scope="col">Nội dung kiểm tra / Yêu cầu - Sự cố</th><th scope="col">Xử lý / Đơn vị thực hiện</th><th scope="col">Kết quả - Tình trạng</th><th scope="col">Người ghi</th><th scope="col"><span class="sr-only">Thao tác</span></th></tr></thead><tbody id="shiftJournalRows"></tbody></table></div>
         <label class="sd-field">Nội dung tồn tại / chuyển ca<textarea id="shiftLogIncidents" rows="3" maxlength="12000" placeholder="Sự cố, công việc chưa hoàn thành hoặc nội dung cần chuyển tiếp"></textarea></label>
         <button type="button" class="sd-link" onclick="fillOpenIncidentsIntoShiftLog()">Lấy danh sách sự cố đang mở được phép xem</button>
       </section>
-      <section class="sd-card">
-        <div class="sd-section-heading"><span class="sd-number">03</span><div><h4 id="shiftChecklistTitle">Checklist ca trực</h4><p id="shiftChecklistPurpose"></p></div><span id="shiftChecklistProgress" class="sd-badge">0 mục đã kiểm tra</span></div>
-        <div class="sd-table-scroll"><table class="sd-table sd-checklist"><thead><tr><th scope="col">STT</th><th scope="col">Hệ thống / Nội dung</th><th scope="col">Điểm kiểm tra chính</th><th scope="col">Kết quả</th><th scope="col">Ghi chú / Xử lý</th></tr></thead><tbody id="shiftChecklistRows"></tbody></table></div>
-        <div id="shiftSupervisionFields" class="sd-meta-grid" hidden><label class="sd-span-2">Kết luận ca giám sát<textarea id="shiftSupervisionConclusion" rows="3" maxlength="6000"></textarea></label><label class="sd-span-2">Nội dung yêu cầu đơn vị vận hành thuê ngoài tiếp tục xử lý<textarea id="shiftSupervisionFollowup" rows="3" maxlength="6000"></textarea></label></div>
+      <section class="sd-card sd-check-section" data-shift-check-section="direct">
+        <div class="sd-section-heading"><span class="sd-number">II</span><div><h4>PHẦN II. CHECKLIST CA TRỰC - VIỆN CHẤN THƯƠNG CHỈNH HÌNH</h4><p>Mục đích: phục vụ ca trực trực tiếp kiểm tra, vận hành và xử lý các nội dung thuộc khả năng tự thực hiện.</p></div><span id="shiftChecklistProgress" class="sd-badge"></span></div>
+        <div class="sd-table-scroll"><table class="sd-table sd-checklist"><thead><tr><th scope="col">Số TT</th><th scope="col">Hệ thống/Nội dung</th><th scope="col">Điểm kiểm tra chính</th><th scope="col">Đạt</th><th scope="col">Không đạt</th><th scope="col">Ghi chú/Xử lý</th></tr></thead><tbody id="shiftChecklistRows"></tbody></table></div>
+      </section>
+      <section class="sd-card sd-check-section" data-shift-check-section="supervision">
+        <div class="sd-section-heading"><span class="sd-number">IV</span><div><h4>PHẦN IV. CHECKLIST GIÁM SÁT BỆNH VIỆN ĐA KHOA 1000 GIƯỜNG</h4><p>Mục đích: kiểm tra, giám sát việc thực hiện của Đơn vị vận hành thuê ngoài; không thay thế checklist vận hành của nhà thầu.</p></div><span id="shiftSupervisionProgress" class="sd-badge"></span></div>
+        <div class="sd-table-scroll"><table class="sd-table sd-checklist"><thead><tr><th scope="col">Số TT</th><th scope="col">Hệ thống/Nội dung</th><th scope="col">Điểm kiểm tra chính</th><th scope="col">Đạt</th><th scope="col">Không đạt</th><th scope="col">Ghi chú/Xử lý</th></tr></thead><tbody id="shiftSupervisionRows"></tbody></table></div>
       </section>
       <section class="sd-card">
-        <div class="sd-section-heading"><span class="sd-number">04</span><div><h4>Phiếu bàn giao ca trực</h4><p>Ghi rõ tình trạng đã thực hiện và việc ca sau cần tiếp tục.</p></div></div>
+        <div class="sd-section-heading"><span class="sd-number">V</span><div><h4>PHẦN V. PHIẾU BÀN GIAO CA TRỰC</h4><p>Ghi rõ tình trạng đã thực hiện và việc ca sau cần tiếp tục.</p></div></div>
         <div class="sd-meta-grid"><label>Thời gian bàn giao dự kiến<input id="shiftLogTransferAt" type="datetime-local" required></label><div class="sd-help">Người giao và người nhận được lấy từ thông tin ca trực ở trên. Thời điểm gửi và xác nhận được ghi riêng trong lịch sử.</div></div>
         <div class="sd-table-scroll"><table class="sd-table sd-handover"><thead><tr><th scope="col">STT</th><th scope="col">Nội dung bàn giao</th><th scope="col">Tình trạng / Việc đã thực hiện</th><th scope="col">Yêu cầu ca sau tiếp tục</th></tr></thead><tbody id="shiftHandoverRows"></tbody></table></div>
+        <details class="sd-extra"><summary>Thông tin giám sát bổ sung</summary><div id="shiftSupervisionFields" class="sd-meta-grid"><label class="sd-span-2">Kết luận ca giám sát<textarea id="shiftSupervisionConclusion" rows="2" maxlength="6000"></textarea></label><label class="sd-span-2">Nội dung yêu cầu đơn vị vận hành thuê ngoài tiếp tục xử lý<textarea id="shiftSupervisionFollowup" rows="2" maxlength="6000"></textarea></label></div></details>
         <label class="sd-field">Ghi chú bàn giao / vật tư, dụng cụ<textarea id="shiftLogNote" rows="2" maxlength="6000" placeholder="Bộ đàm, chìa khóa, dụng cụ hoặc lưu ý khác"></textarea></label>
       </section>
       <div class="sd-submitbar"><label class="sd-confirm"><input id="shiftLogConfirm" type="checkbox"><span>Tôi đã rà soát nhật ký, checklist và các nội dung cần bàn giao.</span></label><div class="sd-actions"><button type="button" class="sd-button" onclick="ShiftDiary.save('draft')"><i class="fa-regular fa-floppy-disk" aria-hidden="true"></i>Lưu nhật ký</button><button type="submit" class="sd-button sd-primary"><i class="fa-solid fa-arrow-right-arrow-left" aria-hidden="true"></i>Giao ca</button></div></div>
     </fieldset>
   </form>
   <section id="shiftDiaryHistory" class="sd-card sd-history">
-    <div class="sd-section-heading"><span class="sd-number">05</span><div><h4>Lịch sử nhật ký &amp; bàn giao</h4><p>Biên bản đã hủy vẫn được giữ để đối chiếu. Ca đã xác nhận sẽ khóa hủy.</p></div><button type="button" class="sd-button sd-small" onclick="exportShiftLogsCsv()"><i class="fa-solid fa-file-csv" aria-hidden="true"></i>Xuất CSV</button></div>
+    <div class="sd-section-heading"><span class="sd-number"><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i></span><div><h4>Lịch sử nhật ký &amp; bàn giao</h4><p>Biên bản đã hủy vẫn được giữ để đối chiếu. Ca đã xác nhận sẽ khóa hủy.</p></div><button type="button" class="sd-button sd-small" onclick="exportShiftLogsCsv()"><i class="fa-solid fa-file-csv" aria-hidden="true"></i>Xuất CSV</button></div>
     <div id="advancedShiftLogHistory"></div>
   </section>
 </section>
@@ -15372,7 +15392,8 @@ window.ShiftWorkflow = (() => {
     return {uidOf,sender,receiver,prepare};
 })();
 
-window.ShiftDiary = (() => {
+/* Both checklists belong to the same shift report. Storage remains building-scoped. */
+window.ShiftDiaryTemplate = (() => {
     const schema = {
   "direct": [
     {
@@ -15459,7 +15480,7 @@ window.ShiftDiary = (() => {
     },
     {
       "id": "6",
-      "title": "Thang máy",
+      "title": "Thang máy, thang cuốn",
       "point": "Tình trạng hoạt động, cảnh báo, sự cố và phản ứng của nhân sự vận hành"
     },
     {
@@ -15544,14 +15565,47 @@ window.ShiftDiary = (() => {
     }
   ]
 };
+    const normal = 'Hoạt động bình thường';
+    const groups = [
+        {id:'direct',name:'V.CTCH 500G',title:'PHẦN II. CHECKLIST CA TRỰC - VIỆN CHẤN THƯƠNG CHỈNH HÌNH',purpose:'Mục đích: phục vụ ca trực trực tiếp kiểm tra, vận hành và xử lý các nội dung thuộc khả năng tự thực hiện.'},
+        {id:'supervision',name:'Giám sát 1000G',title:'PHẦN IV. CHECKLIST GIÁM SÁT BỆNH VIỆN ĐA KHOA 1000 GIƯỜNG',purpose:'Mục đích: kiểm tra, giám sát việc thực hiện của Đơn vị vận hành thuê ngoài; không thay thế checklist vận hành của nhà thầu.'}
+    ];
+    const rows = groups.flatMap(group => schema[group.id].map(row => ({...row,id:group.id+'-'+row.id,number:Number(row.id),section:group.id})));
+    const sectionOf = (row,record) => groups.some(group=>group.id===row.section) ? row.section : String(row.id).startsWith('direct-') ? 'direct' : String(row.id).startsWith('supervision-') ? 'supervision' : record.building==='1000G' ? 'supervision' : 'direct';
+    function checklistFor(record = null) {
+        const source = Array.isArray(record?.checklist) ? record.checklist : [],used=new Set();
+        const result=rows.map(row=>{
+            const index=source.findIndex((item,i)=>!used.has(i)&&sectionOf(item,record)===row.section&&(String(item.id)===row.id||String(item.id)===String(row.number)));
+            const saved=index<0?null:source[index];if(index>=0)used.add(index);
+            return {...row,...saved,id:row.id,section:row.section,number:row.number,title:row.title,point:row.point,result:saved?.result??(record?'':'PASS'),note:saved?.note??(record?'':normal)};
+        });
+        source.forEach((row,i)=>{if(!used.has(i))result.push({...row,section:sectionOf(row,record),number:row.number||row.id});});
+        return result;
+    }
+    function handoverFor(record = null) {
+        const source=Array.isArray(record?.handoverRows)?record.handoverRows:[],used=new Set();
+        const result=schema.handover.map(row=>{
+            const index=source.findIndex((item,i)=>!used.has(i)&&String(item.id)===row.id),saved=index<0?null:source[index];if(index>=0)used.add(index);
+            return {...row,...saved,id:row.id,title:row.title,state:saved?.state??(record?'':['1','2','4'].includes(row.id)?normal:'Không có'),next:saved?.next??(record?'':'Không có')};
+        });
+        source.forEach((row,i)=>{if(!used.has(i))result.push({...row});});return result;
+    }
+    return {schema,normal,groups,rows,sectionOf,checklistFor,handoverFor};
+})();
+
+window.ShiftDiary = (() => {
+    const template = window.ShiftDiaryTemplate;
+    const schema = template.schema;
+    let editorChecklist = [], editorHandover = [];
+    const checkRows = () => [...document.querySelectorAll("#shiftChecklistRows > tr, #shiftSupervisionRows > tr")];
     const $ = id => document.getElementById(id);
     const esc = value => advEscape(String(value ?? ''));
     const quote = value => advJsQuote(String(value));
     const uid = () => ShiftWorkflow.uidOf(currentUser);
     let sessionKey = '', editorId = null, editorHash = null, dirty = false, busy = false, readOnly = false, viewed = null;
     const buildingName = () => BUILDING === '1000G' ? 'BVĐK 1000 giường' : 'Viện Chấn thương Chỉnh hình';
-    const checklistSchema = () => BUILDING === '1000G' ? schema.supervision : schema.direct;
-    const handoverSchema = () => schema.handover.filter(row => BUILDING === '1000G' ? row.id !== '1' : row.id !== '2');
+    const checklistSchema = () => editorChecklist;
+    const handoverSchema = () => editorHandover;
     const people = () => (users || []).filter(person => person.status === 'ACTIVE' && ShiftWorkflow.uidOf(person));
     const records = () => [...(shiftLogs || []).map(record => ({kind:'shiftLogs',record})),...(handoverLogs || []).map(record => ({kind:'handoverLogs',record}))];
     const find = (kind,id) => records().find(item => item.kind === kind && String(item.record.id) === String(id))?.record;
@@ -15608,19 +15662,26 @@ window.ShiftDiary = (() => {
         for (const [field,key] of [['shiftLogStart','shiftStart'],['shiftLogEnd','shiftEnd'],['shiftLogTransferAt','transferAt'],['shiftLogStaff','staff'],['shiftLogIncidents','openIncidents'],['shiftLogNote','note'],['shiftSupervisionConclusion','supervisionConclusion'],['shiftSupervisionFollowup','supervisionFollowup']]) if (record?.[key]) $(field).value = record[key];
         $('shiftLogFrom').value = currentUser?.name || '';
         updateReceivers(record?.toUid || '');
-        $('shiftDiaryScope').textContent = `${buildingName()} · Tòa ${BUILDING} · Giờ Việt Nam (UTC+7)`;
-        $('shiftChecklistTitle').textContent = BUILDING === '1000G' ? 'Checklist giám sát Bệnh viện Đa khoa 1000 giường' : 'Checklist ca trực — Viện Chấn thương Chỉnh hình';
-        $('shiftChecklistPurpose').textContent = BUILDING === '1000G' ? 'Giám sát đơn vị vận hành thuê ngoài; không thay thế checklist vận hành của nhà thầu.' : 'Kiểm tra, vận hành và xử lý các nội dung ca trực có thể tự thực hiện.';
-        $('shiftSupervisionFields').hidden = BUILDING !== '1000G';
+        $('shiftDiaryScope').textContent = `V.CTCH và giám sát 1000G · Lưu tại tòa ${BUILDING} · Giờ Việt Nam (UTC+7)`;
+        if (!record) {
+            $('shiftSupervisionConclusion').value = template.normal;
+            $('shiftSupervisionFollowup').value = 'Không có';
+            $('shiftLogIncidents').value = 'Không có';
+        }
         $('shiftJournalRows').innerHTML = '';
-        for (const row of record?.journalRows?.length ? record.journalRows : [{}]) appendJournal(row);
-        $('shiftChecklistRows').innerHTML = checklistSchema().map(row => {
-            const saved = record?.checklist?.find(item => item.id === row.id) || {};
-            return `<tr data-check-id="${esc(row.id)}"><td>${esc(row.id)}</td><td class="sd-check-title">${esc(row.title)}</td><td class="sd-check-point">${esc(row.point)}</td><td><select class="sd-check-result" aria-label="Kết quả: ${esc(row.title)}" onchange="ShiftDiary.updateProgress()">${[['','Chưa kiểm tra'],['PASS','Đạt'],['FAIL','Không đạt'],['NA','Không áp dụng']].map(([value,title]) => `<option value="${value}"${saved.result === value ? ' selected' : ''}>${title}</option>`).join('')}</select></td><td><textarea class="sd-check-note" rows="3" maxlength="4000" aria-label="Ghi chú: ${esc(row.title)}">${esc(saved.note || '')}</textarea></td></tr>`;
-        }).join('');
-        $('shiftHandoverRows').innerHTML = handoverSchema().map((row,index) => {
-            const saved = record?.handoverRows?.find(item => item.id === row.id) || {};
-            return `<tr data-handover-id="${esc(row.id)}"><td>${index+1}</td><td>${esc(row.title)}</td><td><textarea class="sd-handover-state" rows="3" maxlength="6000" aria-label="Tình trạng: ${esc(row.title)}" placeholder="Ghi tình trạng hoặc Không có">${esc(saved.state || '')}</textarea></td><td><textarea class="sd-handover-next" rows="3" maxlength="6000" aria-label="Ca sau tiếp tục: ${esc(row.title)}">${esc(saved.next || '')}</textarea></td></tr>`;
+        for (const row of record?.journalRows?.length ? record.journalRows : [{}]) appendJournal(row,!record);
+        editorChecklist = template.checklistFor(record);
+        for (const group of template.groups) {
+            const target = group.id === 'direct' ? 'shiftChecklistRows' : 'shiftSupervisionRows';
+            $(target).innerHTML = editorChecklist.filter(row=>row.section===group.id).map(row => {
+                const choice = (value,label) => `<td class="sd-check-choice"><label><input type="radio" class="sd-check-result" name="shift-check-${esc(row.id)}" value="${value}" aria-label="${label} · ${esc(group.name)} · ${esc(row.title)}"${row.result===value?' checked':''} onchange="ShiftDiary.changeCheckResult(this)"><span class="sr-only">${label}</span></label></td>`;
+                return `<tr data-check-id="${esc(row.id)}" data-legacy-result="${esc(row.result)}"><td>${esc(row.number)}</td><td class="sd-check-title">${esc(row.title)}</td><td class="sd-check-point">${esc(row.point)}</td>${choice('PASS','Đạt')}${choice('FAIL','Không đạt')}<td><textarea class="sd-check-note" rows="2" maxlength="4000" aria-label="Ghi chú · ${esc(group.name)} · ${esc(row.title)}">${esc(row.note)}</textarea>${row.result==='NA'?'<small>Không áp dụng (biên bản đã lưu)</small>':''}</td></tr>`;
+            }).join('');
+        }
+        editorHandover = template.handoverFor(record);
+        $('shiftHandoverRows').innerHTML = editorHandover.map((row,index) => {
+            const saved = row;
+            return `<tr data-handover-id="${esc(row.id)}"><td>${index+1}</td><td>${esc(row.title)}</td><td><textarea class="sd-handover-state" rows="3" maxlength="6000" aria-label="Tình trạng: ${esc(row.title)}" placeholder="Ghi tình trạng hoặc Không có">${esc(saved.state ?? '')}</textarea></td><td><textarea class="sd-handover-next" rows="3" maxlength="6000" aria-label="Ca sau tiếp tục: ${esc(row.title)}">${esc(saved.next ?? '')}</textarea></td></tr>`;
         }).join('');
         $('shiftDiaryDraftBadge').textContent = 'BẢN MỚI';$('shiftDiaryDraftBadge').dataset.status = 'DRAFT';
         if (record?.schemaVersion !== 2 && record) {
@@ -15636,8 +15697,10 @@ window.ShiftDiary = (() => {
         $('shiftLogStart').value = start;$('shiftLogEnd').value = end;$('shiftLogTransferAt').value = end;
         if (mark) markDirty();
     }
-    function appendJournal(row = {}) {
+    function appendJournal(row = {},prefill = true) {
         const tr = document.createElement('tr');
+        const defaults = prefill ? {area:buildingName(),result:template.normal,recorder:currentUser?.name || ''} : {};
+        row = {...defaults,...row};tr.dataset.journalDefaults = JSON.stringify(defaults);
         const cell = (key,title,placeholder = '') => `<td><textarea data-journal="${key}" rows="3" maxlength="6000" aria-label="${title}" placeholder="${placeholder}">${esc(row[key] || '')}</textarea></td>`;
         tr.innerHTML = `<td><input type="datetime-local" data-journal="at" aria-label="Thời điểm nhật ký" value="${esc(row.at || '')}"></td>` + cell('area','Tòa nhà hoặc khu vực','Khu vực / phòng') + cell('content','Nội dung kiểm tra, yêu cầu hoặc sự cố','Nội dung ghi nhận') + cell('action','Xử lý hoặc đơn vị thực hiện') + cell('result','Kết quả và tình trạng') + cell('recorder','Người ghi') + `<td><button type="button" class="sd-remove" aria-label="Xóa dòng nhật ký" onclick="ShiftDiary.removeJournalRow(this)"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button></td>`;
         $('shiftJournalRows').append(tr);
@@ -15645,13 +15708,25 @@ window.ShiftDiary = (() => {
     function addJournalRow() {if (readOnly || busy) return;appendJournal();markDirty();$('shiftJournalRows').lastElementChild.querySelector('input').focus();}
     function removeJournalRow(button) {if (readOnly || busy) return;button.closest('tr').remove();if (!$('shiftJournalRows').children.length) appendJournal();markDirty();}
     function markDirty() {if (!readOnly && !busy) {dirty = true;$('shiftDiaryDraftBadge').textContent = 'CHƯA LƯU THAY ĐỔI';}}
-    function updateProgress() {const values = [...$('shiftChecklistRows').querySelectorAll('select')];$('shiftChecklistProgress').textContent = `${values.filter(node => node.value).length}/${values.length} mục đã kiểm tra`;}
+    function changeCheckResult(input) {
+        const row=input.closest('tr'),note=row.querySelector('.sd-check-note');row.dataset.legacyResult='';
+        if(input.value==='FAIL'&&note.value.trim()===template.normal)note.value='';
+        if(input.value==='PASS'&&!note.value.trim())note.value=template.normal;
+        note.placeholder=input.value==='FAIL'?'Ghi bất thường và hướng xử lý':'';
+        updateProgress();markDirty();
+    }
+    function updateProgress() {
+        for(const [body,badgeId] of [['shiftChecklistRows','shiftChecklistProgress'],['shiftSupervisionRows','shiftSupervisionProgress']]) {
+            const rows=[...$(body).children],pass=rows.filter(row=>row.querySelector('input:checked')?.value==='PASS').length,fail=rows.filter(row=>row.querySelector('input:checked')?.value==='FAIL').length;
+            $(badgeId).textContent=`${pass}/${rows.length} Đạt · ${fail} Không đạt`;
+        }
+    }
     function capture() {
         const receiver = people().find(person => ShiftWorkflow.uidOf(person) === $('shiftLogTo').value);
-        const journalRows = [...$('shiftJournalRows').children].map(tr => Object.fromEntries([...tr.querySelectorAll('[data-journal]')].map(node => [node.dataset.journal,node.value.trim()]))).filter(row => Object.values(row).some(Boolean));
-        const checklist = [...$('shiftChecklistRows').children].map(tr => ({...checklistSchema().find(row => row.id === tr.dataset.checkId),result:tr.querySelector('select').value,note:tr.querySelector('textarea').value.trim()}));
+        const journalRows = [...$('shiftJournalRows').children].map(tr => {const row=Object.fromEntries([...tr.querySelectorAll('[data-journal]')].map(node => [node.dataset.journal,node.value.trim()])),defaults=JSON.parse(tr.dataset.journalDefaults||'{}');return Object.entries(row).some(([key,value])=>value&&value!==(defaults[key]??''))?row:null;}).filter(Boolean);
+        const checklist = checkRows().map(tr => ({...checklistSchema().find(row => row.id === tr.dataset.checkId),result:tr.querySelector('input:checked')?.value ?? tr.dataset.legacyResult ?? '',note:tr.querySelector('textarea').value.trim()}));
         const handoverRows = [...$('shiftHandoverRows').children].map(tr => ({...handoverSchema().find(row => row.id === tr.dataset.handoverId),state:tr.querySelector('.sd-handover-state').value.trim(),next:tr.querySelector('.sd-handover-next').value.trim()}));
-        return {id:editorId || 'SHIFT-' + crypto.randomUUID(),schemaVersion:2,building:BUILDING,dutyDate:$('shiftLogDutyDate').value,shift:$('shiftLogShift').value,shiftStart:$('shiftLogStart').value,shiftEnd:$('shiftLogEnd').value,transferAt:$('shiftLogTransferAt').value,staff:$('shiftLogStaff').value.trim(),toUid:receiver ? ShiftWorkflow.uidOf(receiver) : '',toUser:receiver?.name || '',journalRows,checklist,handoverRows,openIncidents:$('shiftLogIncidents').value.trim(),note:$('shiftLogNote').value.trim(),supervisionConclusion:BUILDING === '1000G' ? $('shiftSupervisionConclusion').value.trim() : '',supervisionFollowup:BUILDING === '1000G' ? $('shiftSupervisionFollowup').value.trim() : ''};
+        return {id:editorId || 'SHIFT-' + crypto.randomUUID(),schemaVersion:2,templateVersion:3,building:BUILDING,dutyDate:$('shiftLogDutyDate').value,shift:$('shiftLogShift').value,shiftStart:$('shiftLogStart').value,shiftEnd:$('shiftLogEnd').value,transferAt:$('shiftLogTransferAt').value,staff:$('shiftLogStaff').value.trim(),toUid:receiver ? ShiftWorkflow.uidOf(receiver) : '',toUser:receiver?.name || '',journalRows,checklist,handoverRows,openIncidents:$('shiftLogIncidents').value.trim(),note:$('shiftLogNote').value.trim(),supervisionConclusion:$('shiftSupervisionConclusion').value.trim(),supervisionFollowup:$('shiftSupervisionFollowup').value.trim()};
     }
     function validate(record,sending) {
         const start = vnTime(record.shiftStart), end = vnTime(record.shiftEnd);
@@ -15665,7 +15740,9 @@ window.ShiftDiary = (() => {
             const row = record.journalRows[i], at = vnTime(row.at);
             if (!at || isNaN(at) || at < start || at > end || !row.area || !row.content || !row.recorder) throw new Error(`Dòng nhật ký ${i+1}: nhập thời điểm trong ca, khu vực, nội dung và người ghi.`);
         }
-        const incomplete = record.checklist.find(row => !row.result || row.result === 'FAIL' && !row.note);
+        if (template.rows.some(item=>!record.checklist.some(row=>row.id===item.id&&row.section===item.section))) throw new Error('Biên bản phải có đủ checklist V.CTCH và giám sát 1000G.');
+        if (template.schema.handover.some(item=>!record.handoverRows.some(row=>row.id===item.id))) throw new Error('Phiếu bàn giao phải có đủ 7 nội dung theo mẫu.');
+        const incomplete = record.checklist.find(row => !row.result || row.result === 'FAIL' && (!row.note || row.note === template.normal));
         if (incomplete) throw new Error(`Checklist “${incomplete.title}”: chọn kết quả; mục Không đạt cần ghi chú xử lý.`);
         const missing = record.handoverRows.find(row => !row.state);
         if (missing) throw new Error(`Bàn giao “${missing.title}”: ghi tình trạng hoặc “Không có”.`);
@@ -15690,7 +15767,7 @@ window.ShiftDiary = (() => {
         if (busy) return;
         if (dirty && !await ask('Lập nhật ký khác','Nhật ký đang có thay đổi chưa lưu. Bỏ những thay đổi này để mở nhật ký khác?','Bỏ thay đổi')) return;
         const record = copyId ? find(copyKind,copyId) : null;fresh(record);
-        dirty = !!record;feedback(record ? 'Đã sao chép nội dung sang bản mới chưa lưu. Rà soát lại ngày, giờ, checklist và người nhận trước khi giao.' : 'Nhật ký mới. Các mục checklist chưa được đánh dấu kiểm tra.');
+        dirty = !!record;feedback(record ? 'Đã sao chép nội dung sang bản mới chưa lưu. Rà soát lại ngày, giờ, checklist và người nhận trước khi giao.' : 'Nhật ký mới có đủ checklist V.CTCH và giám sát 1000G. Đã điền sẵn Đạt / Hoạt động bình thường; rà soát trước khi giao ca.');
         $('shiftDiaryForm').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',block:'start'});
     }
     async function edit(id) {
@@ -15763,18 +15840,28 @@ window.ShiftDiary = (() => {
         const cell = value => esc(value || '—');
         const title = record.building === '1000G' ? 'Bệnh viện Đa khoa 1000 giường' : record.building === '500G' ? 'Viện Chấn thương Chỉnh hình' : buildingName();
         const summary = record.status === 'ACKNOWLEDGED' ? `Đã xác nhận bởi ${record.acknowledgedBy || record.toUser} lúc ${fmt(record.acknowledgedAt || record.ackedAt)}` : record.status === 'CANCELLED' ? `Đã hủy bởi ${record.cancelledBy} lúc ${fmt(record.cancelledAt)}. Ca nhận chưa xác nhận tại thời điểm hủy.` : record.status === 'DRAFT' ? 'Nhật ký đang ghi — chưa gửi bàn giao.' : 'Đang chờ người nhận xác nhận.';
-        const signatures = `<div class="report-signatures"><div><strong>NGƯỜI PHỤ TRÁCH CA GIAO</strong><p class="report-meta">${record.submittedAt ? 'Đã gửi: ' + cell(fmt(record.submittedAt)) : 'Chưa ghi nhận giao ca'}</p><p class="report-sign-name">${cell(record.fromUser)}</p></div><div><strong>NGƯỜI PHỤ TRÁCH CA NHẬN</strong><p class="report-meta">${record.status === 'ACKNOWLEDGED' ? 'Đã xác nhận: ' + cell(fmt(record.acknowledgedAt || record.ackedAt)) : 'Chưa xác nhận nhận ca'}</p><p class="report-sign-name">${record.status === 'ACKNOWLEDGED' ? cell(record.acknowledgedBy || record.toUser) : '—'}</p></div></div>`;
-        let html = `<div class="sd-report"><p class="report-meta">${cell(title)} · ${cell(record.id)}</p><p class="report-status">${statusLabel(record.status)} · ${cell(summary)}</p><h2>PHẦN II. NHẬT KÝ TRỰC 24 GIỜ</h2><p><strong>Ngày trực:</strong> ${cell(record.dutyDate ? formatIsoToVnDate(record.dutyDate) : '')} &nbsp; <strong>Ca trực:</strong> ${cell(record.shift)}</p><p><strong>Từ:</strong> ${cell(fmtLocal(record.shiftStart))} &nbsp; <strong>Đến:</strong> ${cell(fmtLocal(record.shiftEnd))}</p><p><strong>Người phụ trách ca:</strong> ${cell(record.fromUser)}</p><p><strong>Nhân viên trực:</strong> ${cell(record.staff)}</p>`;
+        const signatures = `<div class="report-signatures"><div><strong>NGƯỜI PHỤ TRÁCH CA GIAO</strong><p><em>(Ký, ghi rõ họ tên)</em></p><p class="report-meta">${record.submittedAt ? 'Đã gửi: ' + cell(fmt(record.submittedAt)) : 'Chưa ghi nhận giao ca'}</p><p class="report-sign-name">${cell(record.fromUser)}</p></div><div><strong>NGƯỜI PHỤ TRÁCH CA NHẬN</strong><p><em>(Ký, ghi rõ họ tên)</em></p><p class="report-meta">${record.status === 'ACKNOWLEDGED' ? 'Đã xác nhận: ' + cell(fmt(record.acknowledgedAt || record.ackedAt)) : 'Chưa xác nhận nhận ca'}</p><p class="report-sign-name">${record.status === 'ACKNOWLEDGED' ? cell(record.acknowledgedBy || record.toUser) : '—'}</p></div></div>`;
+        let html = `<div class="sd-report"><p class="report-meta">${cell(title)} · ${cell(record.id)}</p><p class="report-status">${statusLabel(record.status)} · ${cell(summary)}</p><h2>PHẦN I. MẪU NHẬT KÝ TRỰC 24 GIỜ</h2><p><strong>Ngày trực:</strong> ${cell(record.dutyDate ? formatIsoToVnDate(record.dutyDate) : '')} &nbsp; <strong>Ca trực:</strong> ${cell(record.shift)}</p><p><strong>Từ:</strong> ${cell(fmtLocal(record.shiftStart))} &nbsp; <strong>Đến:</strong> ${cell(fmtLocal(record.shiftEnd))}</p><p><strong>Người phụ trách ca:</strong> ${cell(record.fromUser)}</p><p><strong>Nhân viên trực:</strong> ${cell(record.staff)}</p>`;
         if (record.schemaVersion === 2) {
-            html += `<table><thead><tr><th class="report-time">Thời gian</th><th>Tòa nhà / Khu vực</th><th style="width:26%">Nội dung kiểm tra / Yêu cầu - Sự cố</th><th>Xử lý / Đơn vị thực hiện</th><th>Kết quả - Tình trạng</th><th>Người ghi</th></tr></thead><tbody>${(record.journalRows || []).map(row => `<tr><td>${cell(fmtLocal(row.at))}</td><td>${cell(row.area)}</td><td>${cell(row.content)}</td><td>${cell(row.action)}</td><td>${cell(row.result)}</td><td>${cell(row.recorder)}</td></tr>`).join('') || '<tr><td colspan="6">Chưa ghi nhật ký.</td></tr>'}</tbody></table>`;
+            const journal = record.journalRows || [];
+            const journalTime = value => {const date=vnTime(value);if(!date||isNaN(date))return '—';const time=date.toLocaleTimeString('vi-VN',{timeZone:'Asia/Ho_Chi_Minh',hour:'2-digit',minute:'2-digit'});return esc(time)+(localValue(date).slice(0,10)!==record.dutyDate?'<br><span class="report-meta">'+esc(formatIsoToVnDate(localValue(date).slice(0,10)))+'</span>':'');};
+            const blank = '<tr class="report-blank"><td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td></tr>';
+            html += `<table><thead><tr><th class="report-time">Thời gian</th><th>Tòa nhà/Khu vực</th><th style="width:25%">Nội dung kiểm tra/Yêu cầu - Sự cố</th><th>Xử lý/Đơn vị thực hiện</th><th>Kết quả - Tình trạng</th><th>Người ghi</th></tr></thead><tbody>${journal.map(row => `<tr><td>${journalTime(row.at)}</td><td>${cell(row.area)}</td><td>${cell(row.content)}</td><td>${cell(row.action)}</td><td>${cell(row.result)}</td><td>${cell(row.recorder)}</td></tr>`).join('')}${blank.repeat(Math.max(0,10-journal.length))}</tbody></table>`;
         } else html += `<p class="report-note"><strong>Thông số / Nội dung mẫu cũ:</strong>\n${cell(record.operationalParams || record.note)}</p><p class="report-note"><strong>Công việc tồn đọng:</strong>\n${cell(record.pendingTasks)}</p>`;
-        html += `<p class="report-note"><strong>Nội dung tồn tại / chuyển ca:</strong>\n${cell(record.openIncidents)}</p>${signatures}`;
+        if (record.openIncidents && record.openIncidents !== 'Không có') html += `<p class="report-note"><strong>Nội dung tồn tại / chuyển ca:</strong>\n${cell(record.openIncidents)}</p>`;
+        html += signatures;
         if (record.schemaVersion === 2) {
-            const supervision = (record.building || BUILDING) === '1000G';
-            html += `<section class="report-section"><h3>${supervision ? 'PHẦN IV. CHECKLIST GIÁM SÁT BỆNH VIỆN ĐA KHOA 1000 GIƯỜNG' : 'PHẦN III. CHECKLIST CA TRỰC — VIỆN CHẤN THƯƠNG CHỈNH HÌNH'}</h3><p>${supervision ? 'Mục đích: kiểm tra, giám sát việc thực hiện của đơn vị vận hành thuê ngoài; không thay thế checklist vận hành của nhà thầu.' : 'Mục đích: phục vụ ca trực trực tiếp kiểm tra, vận hành và xử lý các nội dung thuộc khả năng tự thực hiện.'}</p><table><thead><tr><th class="report-number">STT</th><th style="width:21%">Hệ thống / Nội dung</th><th style="width:30%">Điểm kiểm tra chính</th><th style="width:7%">Đạt</th><th style="width:8%">Không đạt</th><th>Ghi chú / Xử lý</th></tr></thead><tbody>${(record.checklist || []).map((row,index) => `<tr><td class="report-number">${index+1}</td><td>${cell(row.title)}</td><td>${cell(row.point)}</td><td style="text-align:center">${row.result === 'PASS' ? '✓' : ''}</td><td style="text-align:center">${row.result === 'FAIL' ? '✓' : ''}</td><td>${cell([row.result === 'NA' ? 'Không áp dụng' : !row.result ? 'Chưa kiểm tra' : '',row.note].filter(Boolean).join('\n'))}</td></tr>`).join('')}</tbody></table>${supervision ? `<p class="report-note"><strong>Kết luận ca giám sát:</strong>\n${cell(record.supervisionConclusion)}</p><p class="report-note"><strong>Nội dung yêu cầu đơn vị vận hành thuê ngoài tiếp tục xử lý:</strong>\n${cell(record.supervisionFollowup)}</p>` : ''}</section>`;
+            const checklist = template.checklistFor(record);
+            for (const group of template.groups) {
+                const rows=checklist.filter(row=>row.section===group.id);
+                html += `<section class="report-section"><h3>${esc(group.title)}</h3><p>${esc(group.purpose)}</p><table><thead><tr><th class="report-number">Số TT</th><th style="width:21%">Hệ thống/Nội dung</th><th style="width:32%">Điểm kiểm tra chính</th><th style="width:7%">Đạt</th><th style="width:8%">Không đạt</th><th>Ghi chú/Xử lý</th></tr></thead><tbody>${rows.map(row => `<tr><td class="report-number">${cell(row.number)}</td><td>${cell(row.title)}</td><td>${cell(row.point)}</td><td style="text-align:center">${row.result === 'PASS' ? 'x' : ''}</td><td style="text-align:center">${row.result === 'FAIL' ? 'x' : ''}</td><td>${cell([row.result === 'NA' ? 'Không áp dụng' : !row.result ? 'Chưa ghi nhận' : '',row.note].filter(Boolean).join('\n'))}</td></tr>`).join('')}</tbody></table></section>`;
+            }
         }
-        html += `<section class="report-section"><h3>PHẦN V. PHIẾU BÀN GIAO CA TRỰC</h3><p><strong>Thời gian bàn giao dự kiến:</strong> ${cell(fmtLocal(record.transferAt))}</p><p><strong>Ca giao:</strong> ${cell(record.fromUser)}</p><p><strong>Ca nhận:</strong> ${cell(record.toUser)}</p><table><thead><tr><th class="report-number">STT</th><th>Nội dung bàn giao</th><th>Tình trạng / Việc đã thực hiện</th><th>Yêu cầu ca sau tiếp tục</th></tr></thead><tbody>${(record.handoverRows || []).map((row,index) => `<tr><td>${index+1}</td><td>${cell(row.title)}</td><td>${cell(row.state)}</td><td>${cell(row.next)}</td></tr>`).join('') || `<tr><td>1</td><td>Nội dung biên bản mẫu cũ</td><td>${cell(record.note || record.operationalParams)}</td><td>${cell(record.pendingTasks)}</td></tr>`}</tbody></table><p class="report-note"><strong>Ghi chú bàn giao / dụng cụ:</strong>\n${cell(record.note)}${record.items?.length ? '\n' + cell(record.items.join(', ')) : ''}</p>${signatures}</section></div>`;
-        return html;
+        const handoverRows=record.schemaVersion===2?template.handoverFor(record):record.handoverRows || [];
+        html += `<section class="report-section"><h3>PHẦN V. PHIẾU BÀN GIAO CA TRỰC</h3><p><strong>Thời gian bàn giao:</strong> ${cell(fmtLocal(record.transferAt))}</p><p><strong>Ca giao:</strong> ${cell(record.fromUser)}</p><p><strong>Ca nhận:</strong> ${cell(record.toUser)}</p><table><thead><tr><th class="report-number">Số</th><th>Nội dung bàn giao</th><th>Tình trạng/Việc đã thực hiện</th><th>Yêu cầu ca sau tiếp tục</th></tr></thead><tbody>${handoverRows.map((row,index) => `<tr><td>${index+1}</td><td>${cell(row.title)}</td><td>${cell(row.state)}</td><td>${cell(row.next)}</td></tr>`).join('') || `<tr><td>1</td><td>Nội dung biên bản mẫu cũ</td><td>${cell(record.note || record.operationalParams)}</td><td>${cell(record.pendingTasks)}</td></tr>`}</tbody></table>`;
+        if (record.supervisionConclusion || record.supervisionFollowup) html += `<p class="report-note"><strong>Thông tin giám sát bổ sung:</strong>\n${cell(record.supervisionConclusion)}${record.supervisionFollowup?'\nYêu cầu tiếp tục xử lý: '+cell(record.supervisionFollowup):''}</p>`;
+        if (record.note || record.items?.length) html += `<p class="report-note"><strong>Ghi chú bàn giao / dụng cụ:</strong>\n${cell(record.note)}${record.items?.length ? '\n' + cell(record.items.join(', ')) : ''}</p>`;
+        return html + signatures + '</section></div>';
     }
     function openView(kind,id) {
         const record = find(kind,id);if (!record) return;
@@ -15796,15 +15883,15 @@ window.ShiftDiary = (() => {
             const push = values => rows.push([...base,...values,...tail]);
             push(['Tổng hợp','',record.openIncidents,record.operationalParams || record.supervisionConclusion || '',record.pendingTasks || '',[record.note,record.supervisionFollowup].filter(Boolean).join('\n'),record.staff || '']);
             for (const row of record.journalRows || []) push(['Nhật ký',fmtLocal(row.at),row.area,row.content,[row.action,row.result].filter(Boolean).join('\n'),'',row.recorder]);
-            for (const row of record.checklist || []) push(['Checklist',row.id,row.title,row.point,({PASS:'Đạt',FAIL:'Không đạt',NA:'Không áp dụng'}[row.result] || 'Chưa kiểm tra'),row.note,'']);
-            for (const row of record.handoverRows || []) push(['Bàn giao',row.id,row.title,'',row.state,row.next,'']);
+            for (const row of (record.schemaVersion===2?template.checklistFor(record):record.checklist||[])) push([row.section==='supervision'?'Checklist giám sát 1000G':'Checklist V.CTCH',row.number||row.id,row.title,row.point,({PASS:'Đạt',FAIL:'Không đạt',NA:'Không áp dụng'}[row.result] || 'Chưa kiểm tra'),row.note,'']);
+            for (const row of (record.schemaVersion===2?template.handoverFor(record):record.handoverRows||[])) push(['Bàn giao',row.id,row.title,'',row.state,row.next,'']);
         }
         const csv = '\ufeff' + rows.map(row => row.map(value => {let text = String(value ?? '');if (/^[\s]*[=+@-]/.test(text)) text = "'" + text;return '"' + text.replace(/"/g,'""') + '"';}).join(',')).join('\r\n');
         const url = URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));
         const link = document.createElement('a');link.href = url;link.download = `NhatKy_BanGiaoCa_${BUILDING}_${getTodayIsoDate()}.csv`;link.click();setTimeout(() => URL.revokeObjectURL(url),1000);
     }
 
-    return {init,render,renderQuick,quickOpen,quickAck,history,reset,newDraft,edit,save,act,addJournalRow,removeJournalRow,markDirty,changeDate,updateProgress,fillOpenIncidents,openView,printRecord,exportCsv,validate,capture,report};
+    return {init,render,renderQuick,quickOpen,quickAck,history,reset,newDraft,edit,save,act,addJournalRow,removeJournalRow,markDirty,changeDate,updateProgress,changeCheckResult,fillOpenIncidents,openView,printRecord,exportCsv,validate,capture,report};
 })();
 
 </script>
